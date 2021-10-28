@@ -1,0 +1,24 @@
+{
+  "description": "Learn about or test available features, get quick answers to your pricing questions, and find out how Slate's learning platform is the right fit for your institution. Simply fill out the form below, and a Slate advisor will contact you soon.\n",
+  "headings": {
+    "part1": "Modernize the way you",
+    "part2": "teach and learn with",
+    "description": "By combining a thorough comprehension of pedagogy with the power of technology, together we push the boundaries of education in Africa.\n"
+  },
+  "alreadyRegistered": "Already have a registered institution? <1>Sign in here</1>",
+  "submitted": {
+    "thank you": "Thank you for contacting us!",
+    "was submitted": "Your inquiry was submitted and will be responded to as soon as possible."
+  },
+  "reasons": {
+    "I want to learn more about your services": "I want to learn more about your services",
+    "I want to start using Slate's services": "I want to start using Slate's services",
+    "I need assistance": "I need assistance"
+  },
+
+  "purchase_dates": {
+    "Within 3 months": "Within 3 months",
+    "Within 12 months": "Within 12 months",
+    "More than 12 months": "More than 12 months"
+  }
+}
