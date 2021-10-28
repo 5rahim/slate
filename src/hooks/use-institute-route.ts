@@ -1,15 +1,16 @@
 import { Session } from 'next-auth'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { useSession } from 'next-auth/client'
-import { useCurrentSchoolQuery } from '../graphql/queries/schools/hooks'
-import { Utils } from '../utils'
+import { useSession } from 'next-auth/react'
+import { useCurrentSchoolQuery } from 'slate/graphql/queries/schools/hooks'
+import { Utils } from 'slate/utils'
 
 
 export const useInstituteRoute = () => {
    
    const router = useRouter()
-   const [session, loading] = useSession()
+   const { data: session, status } = useSession()
+   const loading = status === "loading"
    
    const [isLoading, setIsLoading] = useState<boolean>(loading)
    const [displayPage, setDisplayPage] = useState<boolean>(false)
@@ -21,26 +22,26 @@ export const useInstituteRoute = () => {
    useEffect(() => {
       if (typeof window !== 'undefined') {
          if (!session && !loading) {
-      
+            
             setIsLoading(true)
             router.push('/auth/signin')
-      
+            
          } else if (!Utils.Url.getIID() && session && !loading) {
-      
+            
             setIsLoading(true)
             router.push('/auth/redirect')
-      
+            
          } else if (Utils.Url.getIID() && session && !loading) {
-      
+            
             if (!queryLoading && !data) {
                setIsLoading(true)
                router.push(Utils.Url.baseLinkTo('/auth/redirect'))
             }
-      
+            
          } else {
             setIsLoading(loading)
          }
-   
+         
          if (Utils.Url.getIID() && session && !loading && !queryLoading && !!data) {
             setDisplayPage(true)
          } else {

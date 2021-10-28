@@ -4,15 +4,13 @@
  */
 
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { LoadingScreen } from '../../ui/LoadingScreen'
-import { getUserBySession } from '../../graphql/queries/users/hooks'
-import { useCurrentSchoolQuery } from '../../graphql/queries/schools/hooks'
+import { LoadingScreen } from 'slate/ui/LoadingScreen'
 import { useDispatch } from 'react-redux'
-import { SchoolActions } from '../../store/slices/schoolSlice'
-import { Utils } from '../../utils'
+import { SchoolActions } from 'slate/store/slices/schoolSlice'
+import { Utils } from 'slate/utils'
 
 
 interface WithDashboardProps {
@@ -23,9 +21,10 @@ export const withDashboard = (props?: WithDashboardProps) => (Component: NextPag
    
    const Dashboard = (props: any) => {
       
-      const [session, loading] = useSession()
+      const { data: session, status } = useSession()
+      const loading = status === "loading"
       const router = useRouter()
-   
+      
       const [displayPage, setDisplayPage] = useState(false)
       const [isLoading, setIsLoading] = useState<boolean>(true)
       
@@ -35,29 +34,29 @@ export const withDashboard = (props?: WithDashboardProps) => (Component: NextPag
       const school = user.school
       
       useEffect(() => {
-         if((session && !Utils.Url.getIID()) || (session && !school) || (session && (school.short_name !== Utils.Url.getIID()))) {
+         if ((session && !Utils.Url.getIID()) || (session && !school) || (session && (school.short_name !== Utils.Url.getIID()))) {
             setIsLoading(true)
             router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-         } else if(session && (school.short_name === Utils.Url.getIID())) {
+         } else if (session && (school.short_name === Utils.Url.getIID())) {
             dispatch(SchoolActions.set(user.school))
             setDisplayPage(true)
             setIsLoading(false)
          }
       }, [session])
-
+      
       if (typeof window !== 'undefined' && loading) {
          return <LoadingScreen />
       }
-   
+      
       if (loading) {
          return <LoadingScreen />
       }
-   
+      
       return displayPage ? (
          <Component {...props} school={user.school} iid={user.school.short_name} />
       ) : <LoadingScreen />
       
-
+      
    }
    
    // Copy getInitial props so it will run as well

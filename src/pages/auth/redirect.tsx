@@ -1,4 +1,4 @@
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import { DefaultHead } from '../../components/Layout/DefaultHead'
 import React, { useEffect } from 'react'
 import { LoadingScreen } from '../../ui/LoadingScreen'
@@ -13,15 +13,16 @@ import { Utils } from '../../utils'
 function Page() {
    
    const router = useRouter()
-   const [session, loading] = useSession()
+   const { data: session, status } = useSession()
+   const loading = status === "loading"
    
    const { loading: userLoading, user } = getUserBySession(session)
    
    useEffect(() => {
       console.log(user, user?.school)
-      if(user && !!user?.school) {
+      if (user && !!user?.school) {
          router.push(Utils.Url.schoolLinkTo(user.school.short_name, '/'))
-      } else if(user && !user?.school) {
+      } else if (user && !user?.school) {
          router.push(Utils.Url.baseLinkTo('/auth/new-account'))
       }
    }, [user])

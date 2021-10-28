@@ -1,4 +1,4 @@
-import { getProviders, signIn, useSession } from 'next-auth/client'
+import { getProviders, signIn, useSession } from 'next-auth/react'
 import { DefaultHead } from '../../components/Layout/DefaultHead'
 import AuthLayout from '../../components/Layout/AuthLayout'
 import AuthCard from '../../ui/AuthCard'
@@ -19,14 +19,15 @@ function Page({ providers }: any) {
    const [IID, setIID] = useState<any>("")
    
    const router = useRouter()
-   const [session, loading] = useSession()
+   const { data: session, status } = useSession()
+   const loading = status === "loading"
    
    useEffect(() => {
       const { host } = window.location
       let splitHost = host.split(".")
       const iid = splitHost.length === 3 ? splitHost[0] : null
-   
-      if(!!iid) {
+      
+      if (!!iid) {
          router.push(Utils.Url.baseLinkTo('/auth/signin'))
       }
    }, [])
@@ -35,34 +36,36 @@ function Page({ providers }: any) {
       router.push('/')
    }
    
-   if(loading || session) {
+   if (loading || session) {
       return <LoadingScreen />
    }
    
    return (
-   
+      
       <>
-      
-         <DefaultHead pageTitle={t('Sign in')} />
-      
-         <AuthLayout>
          
-            <AuthCard title={t('Sign in')}>
+         <DefaultHead pageTitle={t('Sign in')} />
+         
+         <AuthLayout>
             
+            <AuthCard title={t('Sign in')}>
+               
                <Box p={3}>
-   
+                  
                   {providers && Object?.values(providers)?.map((provider: any) => (
                      <div key={provider.name}>
-                        <Button leftIcon={<IoLogoGoogle/>} size="lg" colorScheme="primary" width="100%" onClick={() => signIn(provider.id,  { callbackUrl: Utils.Url.baseLinkTo('/auth/redirect') })}>Sign in with {provider.name}</Button>
+                        <Button leftIcon={
+                           <IoLogoGoogle />} size="lg" colorScheme="primary" width="100%" onClick={() => signIn(provider.id, { callbackUrl: Utils.Url.baseLinkTo('/auth/redirect') })}>Sign
+                           in with {provider.name}</Button>
                      </div>
                   ))}
-            
+               
                </Box>
-         
+            
             </AuthCard>
-      
+         
          </AuthLayout>
-   
+      
       </>
    )
 }

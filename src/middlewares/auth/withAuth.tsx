@@ -4,15 +4,15 @@
  */
 
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/client'
+import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { LoadingScreen } from '../../ui/LoadingScreen'
-import { getUserBySession } from '../../graphql/queries/users/hooks'
-import SlateUser from '../../graphql/types/User'
+import { LoadingScreen } from 'slate/ui/LoadingScreen'
+import { getUserBySession } from 'slate/graphql/queries/users/hooks'
+import SlateUser from 'slate/graphql/types/User'
 import { useDispatch } from 'react-redux'
-import { UserActions } from '../../store/slices/userSlice'
-import { Utils } from '../../utils'
+import { UserActions } from 'slate/store/slices/userSlice'
+import { Utils } from 'slate/utils'
 
 
 interface WithAuthProps {
@@ -33,7 +33,8 @@ export const withAuth = (
    const Auth = (props: any) => {
       
       const [displayPage, setDisplayPage] = useState(true)
-      const [session, loading] = useSession()
+      const { data: session, status } = useSession()
+      const loading = status === "loading"
       const router = useRouter()
       
       const dispatch = useDispatch()
@@ -47,7 +48,7 @@ export const withAuth = (
             if (!loading && !session) {
                setDisplayPage(false)
                router.push(redirectTo)
-            } else if(!loading && session) {
+            } else if (!loading && session) {
             
             }
          } else if (requireNoAuth) {
@@ -66,7 +67,7 @@ export const withAuth = (
             }
          }
          
-         if(!loading && session && user && !userLoading) {
+         if (!loading && session && user && !userLoading) {
             dispatch(UserActions.set(user))
          }
          

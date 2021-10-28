@@ -3,7 +3,7 @@ import Router from "next/router"
 import "nprogress/nprogress.css"
 import '../styles/wave.css'
 import { Provider as ReduxProvider } from 'react-redux'
-import { Provider } from 'next-auth/client'
+import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import store from '../store'
 import { ChalkProvider } from 'chalkui/dist/cjs/React'
@@ -34,7 +34,7 @@ export default ({ Component, pageProps }: AppProps) => {
    return (
       <I18nextProvider i18n={i18n}>
          
-         <Provider session={pageProps.session}>
+         <SessionProvider session={pageProps.session}>
             
             <ReduxProvider store={store}>
                
@@ -50,7 +50,7 @@ export default ({ Component, pageProps }: AppProps) => {
             
             </ReduxProvider>
          
-         </Provider>
+         </SessionProvider>
       
       </I18nextProvider>
    )
