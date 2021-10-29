@@ -10,6 +10,7 @@ import { LoadingScreen } from '../../ui/LoadingScreen'
 import { IoLogoGoogle } from 'react-icons/io'
 import { useRouter } from 'next/router'
 import { Utils } from '../../utils'
+import { useUser } from '@auth0/nextjs-auth0'
 
 
 function Page({ providers }: any) {
@@ -19,8 +20,8 @@ function Page({ providers }: any) {
    const [IID, setIID] = useState<any>("")
    
    const router = useRouter()
-   const { data: session, status } = useSession()
-   const loading = status === "loading"
+   const { user: session, error, isLoading: loading } = useUser();
+   
    
    useEffect(() => {
       const { host } = window.location

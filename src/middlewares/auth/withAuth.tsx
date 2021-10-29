@@ -13,6 +13,7 @@ import SlateUser from 'slate/graphql/types/User'
 import { useDispatch } from 'react-redux'
 import { UserActions } from 'slate/store/slices/userSlice'
 import { Utils } from 'slate/utils'
+import { useUser } from '@auth0/nextjs-auth0'
 
 
 interface WithAuthProps {
@@ -32,24 +33,27 @@ export const withAuth = (
    
    const Auth = (props: any) => {
       
-      const [displayPage, setDisplayPage] = useState(true)
-      const { data: session, status } = useSession()
-      const loading = status === "loading"
+      const { user: session, error, isLoading: loading } = useUser();
+      const [displayPage, setDisplayPage] = useState(false)
+      // const { data: session, status } = useSession()
+      // const loading = status === "loading"
       const router = useRouter()
       
       const dispatch = useDispatch()
-      
+      //
       const { loading: userLoading, user }: any = requireActiveAccount ? getUserBySession(session) : { loading: null, user: null }
-      
+      //
+      //
+   
       
       useEffect(() => {
-         
+
          if (requireAuth) {
             if (!loading && !session) {
                setDisplayPage(false)
                router.push(redirectTo)
             } else if (!loading && session) {
-            
+
             }
          } else if (requireNoAuth) {
             if (!loading && session) {
@@ -57,7 +61,7 @@ export const withAuth = (
                router.push(redirectTo)
             }
          }
-         
+
          if (requireActiveAccount) {
             if (!!user) {
                if (!user.is_active) {
@@ -66,24 +70,24 @@ export const withAuth = (
                }
             }
          }
-         
+
          if (!loading && session && user && !userLoading) {
             dispatch(UserActions.set(user))
          }
-         
+
       }, [loading, session, user, userLoading])
-      
-      
+
+
       if (typeof window !== 'undefined' && loading) {
          return <LoadingScreen />
       }
-      
+
       if (loading || userLoading) {
          return <LoadingScreen />
       }
       
       return displayPage ? (
-         <Component {...props} user={user as SlateUser} />
+         <Component {...props} user={{} as SlateUser} />
       ) : <LoadingScreen />
    }
    

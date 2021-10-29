@@ -12,6 +12,7 @@ import React from "react"
 import i18n from './i18n'
 import { I18nextProvider } from 'react-i18next'
 import { CookiesProvider } from 'react-cookie'
+import { UserProvider } from '@auth0/nextjs-auth0'
 import "@fontsource/assistant"
 import "@fontsource/assistant/200.css"
 import "@fontsource/assistant/300.css"
@@ -34,23 +35,27 @@ export default ({ Component, pageProps }: AppProps) => {
    return (
       <I18nextProvider i18n={i18n}>
          
-         <SessionProvider session={pageProps.session}>
+         {/*<SessionProvider session={pageProps.session}>*/}
             
-            <ReduxProvider store={store}>
-               
-               <ChalkProvider resetCSS theme={theme}>
-                  
-                  <CookiesProvider>
-                     
-                        <Component {...pageProps} />
-                     
-                  </CookiesProvider>
-               
-               </ChalkProvider>
-            
-            </ReduxProvider>
+            <UserProvider>
+   
+               <ReduxProvider store={store}>
+      
+                  <ChalkProvider resetCSS theme={theme}>
          
-         </SessionProvider>
+                     <CookiesProvider>
+            
+                        <Component {...pageProps} />
+         
+                     </CookiesProvider>
+      
+                  </ChalkProvider>
+   
+               </ReduxProvider>
+               
+            </UserProvider>
+         
+         {/*</SessionProvider>*/}
       
       </I18nextProvider>
    )

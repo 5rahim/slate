@@ -1,4 +1,4 @@
-import withApollo from '../graphql/withApollo'
+import { withApollo } from '../graphql/withApollo'
 import React from 'react'
 import { Compose } from '../next/compose'
 import { DefaultHead } from '../components/Layout/DefaultHead'

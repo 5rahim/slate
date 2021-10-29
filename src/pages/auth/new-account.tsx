@@ -10,7 +10,7 @@ import { LoadingScreen } from '../../ui/LoadingScreen'
 import { useRouter } from 'next/router'
 import { Compose } from '../../next/compose'
 import { withAuth } from '../../middlewares/auth/withAuth'
-import withApollo from '../../graphql/withApollo'
+import { withApollo } from '../../graphql/withApollo'
 import { useLazyProspectiveUserByStudentID } from '../../graphql/queries/prospective_users/hooks'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
@@ -18,6 +18,7 @@ import { UPDATE_NEW_USER } from '../../graphql/queries/users/mutations'
 import { getUserBySession } from '../../graphql/queries/users/hooks'
 import { GET_USER_BY_EMAIL_QUERY } from '../../graphql/queries/users/query'
 import { Utils } from '../../utils'
+import { useUser } from '@auth0/nextjs-auth0'
 
 
 function Page() {

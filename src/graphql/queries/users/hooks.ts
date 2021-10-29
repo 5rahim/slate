@@ -20,7 +20,7 @@ export const useGetUserByEmailQuery = (email: string | null | undefined): QueryR
 export const getUserBySession = (session: any): QueryResult & { user: any } => {
    
    const res = useQuery(GET_USER_BY_EMAIL_QUERY, {
-      variables: { email: session?.user?.email },
+      variables: { email: session?.email },
       fetchPolicy: 'cache-first',
    })
    

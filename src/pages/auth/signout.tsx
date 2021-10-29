@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { Compose } from '../../next/compose'
 import { withAuth } from '../../middlewares/auth/withAuth'
 import Config from '../../constants/Config'
+import { useUser } from '@auth0/nextjs-auth0'
 
 
 function Page() {

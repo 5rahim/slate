@@ -4,13 +4,13 @@ import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { useCurrentSchoolQuery } from 'slate/graphql/queries/schools/hooks'
 import { Utils } from 'slate/utils'
+import { useUser } from '@auth0/nextjs-auth0'
 
 
 export const useInstituteRoute = () => {
    
    const router = useRouter()
-   const { data: session, status } = useSession()
-   const loading = status === "loading"
+   const { user: session, error, isLoading: loading } = useUser();
    
    const [isLoading, setIsLoading] = useState<boolean>(loading)
    const [displayPage, setDisplayPage] = useState<boolean>(false)

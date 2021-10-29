@@ -32,7 +32,7 @@ typeof window !== 'undefined' && persistCache({
    storage: new LocalStorageWrapper(window.localStorage),
 })
 
-export default function createApolloClient(initialState: unknown) {
+export default function createApolloClient(initialState: any, header: any) {
    
    
    const ssrMode = typeof window === 'undefined'

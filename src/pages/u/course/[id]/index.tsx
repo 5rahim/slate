@@ -1,4 +1,4 @@
-import withApollo from 'slate/graphql/withApollo'
+import { withApollo } from 'slate/graphql/withApollo'
 import UserDashboardLayout from 'slate/components/Layout/UserDashboard/UserDashboardLayout'
 import React, { useEffect } from 'react'
 import { Compose } from 'slate/next/compose'

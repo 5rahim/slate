@@ -11,6 +11,7 @@ import { LoadingScreen } from 'slate/ui/LoadingScreen'
 import { useDispatch } from 'react-redux'
 import { SchoolActions } from 'slate/store/slices/schoolSlice'
 import { Utils } from 'slate/utils'
+import { useUser } from '@auth0/nextjs-auth0'
 
 
 interface WithDashboardProps {
@@ -20,9 +21,9 @@ interface WithDashboardProps {
 export const withDashboard = (props?: WithDashboardProps) => (Component: NextPage) => {
    
    const Dashboard = (props: any) => {
-      
-      const { data: session, status } = useSession()
-      const loading = status === "loading"
+   
+      const { user: session, error, isLoading: loading } = useUser();
+   
       const router = useRouter()
       
       const [displayPage, setDisplayPage] = useState(false)
