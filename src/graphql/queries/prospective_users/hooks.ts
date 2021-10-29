@@ -1,5 +1,5 @@
 import { QueryResult, QueryTuple, useLazyQuery, useQuery } from '@apollo/client'
-import { GET_PROSPECTIVE_USER_QUERY, GET_PROSPECTIVE_USER_QUERY_BY_EMAIL, GET_PROSPECTIVE_USER_QUERY_BY_STUDENT_ID } from './query'
+import { GET_PROSPECTIVE_USER_BY_STUDENT_ID_AND_CODE_QUERY, GET_PROSPECTIVE_USER_QUERY_BY_EMAIL, GET_PROSPECTIVE_USER_QUERY_BY_STUDENT_ID } from './query'
 import { handleLazyQueryError, handleQueryError, lazyQueryReturn, queryReturn } from '../../utils'
 
 export const useLazyProspectiveUserByStudentID = (student_id: string): QueryTuple<any, any> => {
@@ -15,10 +15,10 @@ export const useLazyProspectiveUserByStudentID = (student_id: string): QueryTupl
    
 }
 
-export const useLazyProspectiveUser = (studentID: string, code: string): QueryTuple<any, any> => {
+export const useLazyProspectiveUser = (student_id: string, code: string): QueryTuple<any, any> => {
    
-   const res = useLazyQuery(GET_PROSPECTIVE_USER_QUERY, {
-      variables: { student_id: studentID, code },
+   const res = useLazyQuery(GET_PROSPECTIVE_USER_BY_STUDENT_ID_AND_CODE_QUERY, {
+      variables: { student_id, code },
       fetchPolicy: 'no-cache'
    })
    

@@ -6,7 +6,7 @@ export const Names = {
       firstName: string | undefined,
       lastName: string | undefined,
       middleName?: string,
-      capitalizeLastName: boolean = true
+      capitalizeLastName: boolean = false
    ) => {
       
       if(!locale)

@@ -25,76 +25,77 @@ function Page() {
    
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    
-   const router = useRouter()
-   const [session, loading] = useSession()
-   const { register, handleSubmit, reset, formState: { errors } } = useForm()
-   
-   const [prospectiveUserStudentID, setProspectiveUserStudentID] = useState<any>("")
-   
-   const { loading: userLoading, user } = getUserBySession(session)
-   
-   useEffect(() => {
-      console.log(user)
-      if (user?.is_active) {
-         router.push('/')
-      }
-   }, [user])
-   
-   const [loadProspectiveUser, { loading: queryLoading, data: prospectiveUser, error, called }] = useLazyProspectiveUserByStudentID(prospectiveUserStudentID)
-   
-   useEffect(() => {
-      console.log('called', prospectiveUser)
-   }, [prospectiveUser])
-   
-   const [updateNewUser] = useMutation(UPDATE_NEW_USER, {
-      onError: () => {
-         router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-      },
-      onCompleted: () => {
-         reset()
-         // props.onClose()
-         router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-      },
-      refetchQueries: [
-         { query: GET_USER_BY_EMAIL_QUERY }, // DocumentNode object parsed with gql
-         'GetUserByEmail' // Query name
-      ],
-   })
-   
-   // Load prospective user
-   useEffect(() => {
-      loadProspectiveUser()
-   }, [prospectiveUserStudentID])
-   
-   const onSubmit = (data: any) => {
-      setProspectiveUserStudentID(data.student_id)
-   }
-   
-   useEffect(() => {
-      if (prospectiveUser && session) {
-         
-         updateNewUser({
-            variables: {
-               email: session?.user?.email,
-               first_name: prospectiveUser.first_name,
-               middle_name: prospectiveUser.middle_name ?? "",
-               last_name: prospectiveUser.last_name,
-               school_id: prospectiveUser.school_id,
-               student_id: prospectiveUser.student_id,
-               username: prospectiveUser.username,
-               role: prospectiveUser.role
-            }
-         })
-   
-         router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-         
-      }
-   }, [prospectiveUser])
-   
-   
-   if (loading || userLoading || user?.is_active) {
-      return <LoadingScreen />
-   }
+   // const router = useRouter()
+   // const { user: session, error, isLoading: loading } = useUser();
+   //
+   // const { register, handleSubmit, reset, formState: { errors } } = useForm()
+   //
+   // const [prospectiveUserStudentID, setProspectiveUserStudentID] = useState<any>("")
+   //
+   // const { loading: userLoading, user } = getUserBySession(session)
+   //
+   // useEffect(() => {
+   //    console.log(user)
+   //    if (user?.is_active) {
+   //       router.push('/')
+   //    }
+   // }, [user])
+   //
+   // const [loadProspectiveUser, { loading: queryLoading, data: prospectiveUser, error, called }] = useLazyProspectiveUserByStudentID(prospectiveUserStudentID)
+   //
+   // useEffect(() => {
+   //    console.log('called', prospectiveUser)
+   // }, [prospectiveUser])
+   //
+   // const [updateNewUser] = useMutation(UPDATE_NEW_USER, {
+   //    onError: () => {
+   //       router.push(Utils.Url.baseLinkTo('/auth/redirect'))
+   //    },
+   //    onCompleted: () => {
+   //       reset()
+   //       // props.onClose()
+   //       router.push(Utils.Url.baseLinkTo('/auth/redirect'))
+   //    },
+   //    refetchQueries: [
+   //       { query: GET_USER_BY_EMAIL_QUERY }, // DocumentNode object parsed with gql
+   //       'GetUserByEmail' // Query name
+   //    ],
+   // })
+   //
+   // // Load prospective user
+   // useEffect(() => {
+   //    loadProspectiveUser()
+   // }, [prospectiveUserStudentID])
+   //
+   // const onSubmit = (data: any) => {
+   //    setProspectiveUserStudentID(data.student_id)
+   // }
+   //
+   // useEffect(() => {
+   //    if (prospectiveUser && session) {
+   //
+   //       updateNewUser({
+   //          variables: {
+   //             email: session?.user?.email,
+   //             first_name: prospectiveUser.first_name,
+   //             middle_name: prospectiveUser.middle_name ?? "",
+   //             last_name: prospectiveUser.last_name,
+   //             school_id: prospectiveUser.school_id,
+   //             student_id: prospectiveUser.student_id,
+   //             username: prospectiveUser.username,
+   //             role: prospectiveUser.role
+   //          }
+   //       })
+   //
+   //       router.push(Utils.Url.baseLinkTo('/auth/redirect'))
+   //
+   //    }
+   // }, [prospectiveUser])
+   //
+   //
+   // if (loading || userLoading || user?.is_active) {
+   //    return <LoadingScreen />
+   // }
    
    
    return (
@@ -109,17 +110,17 @@ function Page() {
                
                <Box p={3}>
                   
-                  <form onSubmit={handleSubmit(onSubmit)}>
-                     
-                     <FormControl mb={3} id="student_id" isRequired={true}>
-                        <FormLabel>{t('form:Confirm Student ID')}</FormLabel>
-                        <Input {...register("student_id", { required: true })} placeholder={t('form:Student ID')} />
-                     </FormControl>
-                     
-                     <Button colorScheme="brand.100" width="100%" type="submit" isLoading={queryLoading}>{t('form:Register my account')}</Button>
+                  {/*<form onSubmit={handleSubmit(onSubmit)}>*/}
+                  {/*   */}
+                  {/*   <FormControl mb={3} id="student_id" isRequired={true}>*/}
+                  {/*      <FormLabel>{t('form:Confirm Student ID')}</FormLabel>*/}
+                  {/*      <Input {...register("student_id", { required: true })} placeholder={t('form:Student ID')} />*/}
+                  {/*   </FormControl>*/}
+                  {/*   */}
+                  {/*   <Button colorScheme="brand.100" width="100%" type="submit" isLoading={queryLoading}>{t('form:Register my account')}</Button>*/}
                   
-                  </form>
-               
+                  {/*</form>*/}
+                  
                </Box>
             
             </AuthCard>

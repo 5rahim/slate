@@ -27,7 +27,7 @@ const Page: NextPage = () => {
       setProspectiveUser(cookies['prospective-user-data'])
       
       if (!cookies['prospective-user-data']) {
-         router.push(`/account/sign-up`)
+         router.push(`/account/new`)
       }
       
       if (cookies['account-validation-step']) {

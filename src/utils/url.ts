@@ -12,6 +12,7 @@ export const Url = {
    },
    
    baseLinkTo: (path: string) => `${Config.baseURL}${path}`,
-   schoolLinkTo: (iid: string, path: string) => `http://${iid}.${Config.domain}/u${path}`,
+   linkToLogin: () => `${Config.baseURL}/api/auth/login`,
+   schoolLinkTo: (iid: string, path: string) => `http://${Config.domain}/${iid}/u${path}`,
    accessDeniedLink: (iid: string) => Url.schoolLinkTo(iid, '/access-denied')
 }

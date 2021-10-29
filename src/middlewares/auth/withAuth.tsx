@@ -34,60 +34,64 @@ export const withAuth = (
    const Auth = (props: any) => {
       
       const { user: session, error, isLoading: loading } = useUser();
+      
       const [displayPage, setDisplayPage] = useState(false)
-      // const { data: session, status } = useSession()
-      // const loading = status === "loading"
+
+      
       const router = useRouter()
       
       const dispatch = useDispatch()
       //
-      const { loading: userLoading, user }: any = requireActiveAccount ? getUserBySession(session) : { loading: null, user: null }
+      // const { loading: userLoading, user }: any = requireActiveAccount ? getUserBySession(session) : { loading: null, user: null }
       //
       //
    
       
       useEffect(() => {
+   
+         console.log(session, loading)
 
          if (requireAuth) {
-            if (!loading && !session) {
-               setDisplayPage(false)
-               router.push(redirectTo)
-            } else if (!loading && session) {
-
+            if (!loading && session) {
+               setDisplayPage(true)
+            } else if(!loading && !session) {
+               router.push(Utils.Url.linkToLogin())
             }
          } else if (requireNoAuth) {
-            if (!loading && session) {
-               setDisplayPage(false)
-               router.push(redirectTo)
+            if (!loading && !session) {
+               setDisplayPage(true)
+               // router.push(redirectTo)
+            } else if (!loading && session) {
+               router.push(Utils.Url.baseLinkTo('/'))
             }
          }
+         
+         // if (requireActiveAccount) {
+         //    if (!!user) {
+         //       if (!user.is_active) {
+         //          setDisplayPage(false)
+         //          router.push(Utils.Url.baseLinkTo('/auth/new-account'))
+         //       }
+         //    }
+         // }
+         //
+         // if (!loading && session && user && !userLoading) {
+         //    dispatch(UserActions.set(user))
+         // }
 
-         if (requireActiveAccount) {
-            if (!!user) {
-               if (!user.is_active) {
-                  setDisplayPage(false)
-                  router.push(Utils.Url.baseLinkTo('/auth/new-account'))
-               }
-            }
-         }
-
-         if (!loading && session && user && !userLoading) {
-            dispatch(UserActions.set(user))
-         }
-
-      }, [loading, session, user, userLoading])
+      }, [loading, session])
 
 
       if (typeof window !== 'undefined' && loading) {
          return <LoadingScreen />
       }
 
-      if (loading || userLoading) {
+      if (loading) {
          return <LoadingScreen />
       }
       
       return displayPage ? (
-         <Component {...props} user={{} as SlateUser} />
+         <Component {...props} />
       ) : <LoadingScreen />
    }
    

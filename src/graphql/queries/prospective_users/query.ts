@@ -1,23 +1,22 @@
 import { gql } from '@apollo/client'
 
-export const GET_PROSPECTIVE_USER_QUERY = gql`
+export const GET_PROSPECTIVE_USER_BY_STUDENT_ID_AND_CODE_QUERY = gql`
 query MyQuery($student_id: String = "", $code: String = "") {
-  prospective_users(limit: 1, where: {student_id: {_eq: $student_id}, _and: {code: {_eq: $code}}}) {
-    code
-    email
-    first_name
+  prospective_users(where: {_and: {student_id: {_eq: $student_id}, code: {_eq: $code}}}) {
     id
+    registration_step
+    email
+    code
+    first_name
     is_active
     last_name
     middle_name
-    phone
+    role
     school_id
     student_id
     username
-    role
   }
 }
-
 `
 
 

@@ -70,10 +70,11 @@ async function getHeaders(ctx: any) {
    const s = await getSession(ctx.req, ctx.res) ?? null
    
    console.log(s?.accessToken)
-   console.log(s)
+   console.log(s?.idToken)
+   console.log(s?.user)
    
    return {
-      authorization: `Bearer ${s ? s.accessToken: ''}`
+      authorization: `Bearer ${s ? s.idToken: ''}`
    }
 }
 
