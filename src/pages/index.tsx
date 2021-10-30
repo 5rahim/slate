@@ -1,19 +1,46 @@
 import { withApollo } from '../graphql/withApollo'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Compose } from '../next/compose'
 import { DefaultHead } from '../components/Layout/DefaultHead'
 import { useTranslation } from 'react-i18next'
+import { useUser } from '@auth0/nextjs-auth0'
+import AuthLayout from 'slate/components/Layout/AuthLayout'
+import AuthCard from 'slate/ui/AuthCard'
+import { Button } from 'chalkui/dist/cjs/React'
+import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import { Utils } from 'slate/utils'
+import { useUserSessionProfile } from 'slate/hooks/use-current-user'
 
 
 const Page = () => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
+   
+   const { profile } = useUserSessionProfile()
+   
+   useEffect(() => {
+      console.log(profile)
+   }, [profile])
 
    
    return (
       <>
          <DefaultHead pageTitle={t('Slate')} />
    
+         <AuthLayout>
+            {!!profile ? (
+               <AuthCard title={t('You are logged in')}>
+                  <Box p={5}>
+         
+                     <Button mb={3} width="full" colorScheme="brand.100" as="a" href="/api/auth/logout">{t('Logout')}</Button>
+         
+                     <Button width="full" colorScheme="brand.100" as="a" href={Utils.Url.schoolLinkTo(profile?.iid, '/')}>{t('Go to the dashboard')}</Button>
+                  </Box>
+               </AuthCard>
+            ) : (
+               <Button width="full" colorScheme="brand.100" as="a" href="/api/auth/login">{t('Login')}</Button>
+            )}
+         </AuthLayout>
          
       </>
    )

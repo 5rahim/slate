@@ -1,49 +1,35 @@
-import { useSession } from 'next-auth/react'
-import { DefaultHead } from '../../components/Layout/DefaultHead'
-import React, { useEffect } from 'react'
-import { LoadingScreen } from '../../ui/LoadingScreen'
-import { useRouter } from 'next/router'
-import { Compose } from '../../next/compose'
-import { withAuth } from '../../middlewares/auth/withAuth'
-import { withApollo } from '../../graphql/withApollo'
-import { getUserBySession } from '../../graphql/queries/users/hooks'
-import { Utils } from '../../utils'
+// const { data: session, status } = useSession()
+// const loading = status === "loading"
 
+// const { loading: userLoading, user } = getUserBySession(session)
 
-function Page() {
+// useEffect(() => {
+//    console.log(user, user?.school)
+//    if (user && !!user?.school) {
+//       router.push(Utils.Url.schoolLinkTo(user.school.short_name, '/'))
+//    } else if (user && !user?.school) {
+//       router.push(Utils.Url.baseLinkTo('/auth/new-account'))
+//    }
+// }, [user])
+
+import { NextApiRequest, NextApiResponse } from 'next'
+import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
+
+const afterCallback = (req: NextApiRequest, res: NextApiResponse, session: any, state: any) => {
    
-   const router = useRouter()
-   // const { data: session, status } = useSession()
-   // const loading = status === "loading"
+   console.log(session)
    
-   // const { loading: userLoading, user } = getUserBySession(session)
+   res.redirect('/u')
    
-   // useEffect(() => {
-   //    console.log(user, user?.school)
-   //    if (user && !!user?.school) {
-   //       router.push(Utils.Url.schoolLinkTo(user.school.short_name, '/'))
-   //    } else if (user && !user?.school) {
-   //       router.push(Utils.Url.baseLinkTo('/auth/new-account'))
-   //    }
-   // }, [user])
-   
-   if (true) {
-      return <LoadingScreen />
-   }
-   
-   
-   return (
-      
-      <>
-         
-         <DefaultHead pageTitle={"Redirect"} />
-      
-      </>
-   )
+   return session
 }
 
-
-export default Compose(
-   withApollo({ ssr: true }),
-   withAuth({ requireAuth: true }),
-)(Page)
+export default handleAuth({
+   async callback(req, res) {
+      try {
+         await handleCallback(req, res, { afterCallback })
+      } catch (error) {
+         res.status(error.status || 500).end(error.message)
+      }
+   },
+})

@@ -12,7 +12,7 @@ export const Url = {
    },
    
    baseLinkTo: (path: string) => `${Config.baseURL}${path}`,
-   linkToLogin: () => `${Config.baseURL}/api/auth/login`,
-   schoolLinkTo: (iid: string, path: string) => `http://${Config.domain}/${iid}/u${path}`,
-   accessDeniedLink: (iid: string) => Url.schoolLinkTo(iid, '/access-denied')
+   linkToLogin: (redirectTo?: string) => `${Config.baseURL}/api/auth/login${redirectTo ? '?redirectTo=' + redirectTo : ``}`,
+   schoolLinkTo: (iid: string | undefined, path: string) => `http://${Config.domain}/${iid}/u${path}`,
+   accessDeniedLink: (iid: string | undefined) => Url.schoolLinkTo(iid, '/access-denied')
 }

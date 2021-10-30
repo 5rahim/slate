@@ -15,6 +15,9 @@ query MyQuery($student_id: String = "", $code: String = "") {
     school_id
     student_id
     username
+    school {
+      short_name
+    }
   }
 }
 `

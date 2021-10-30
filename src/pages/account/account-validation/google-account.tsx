@@ -29,6 +29,8 @@ const Page: NextPage = () => {
    const [prospectiveUser, setProspectiveUser] = useState<any>(null)
    
    useEffect(() => {
+   
+      console.log(cookies['prospective-user-data'])
       
       setProspectiveUser(cookies['prospective-user-data'])
       
@@ -44,7 +46,7 @@ const Page: NextPage = () => {
       },
       onCompleted: () => {
          setIsLoading(true)
-         window.location.href = Utils.Url.linkToLogin()
+         window.location.href = Utils.Url.schoolLinkTo(prospectiveUser.school.short_name, '/')
          removeCookie('prospective-user-data')
          removeCookie('account-validation-step')
       },
