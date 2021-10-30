@@ -33,7 +33,6 @@ query MyQuery($student_id: String = "") {
     is_active
     last_name
     middle_name
-    phone
     school_id
     student_id
     username
@@ -54,7 +53,6 @@ query MyQuery($email: String = "") {
     is_active
     last_name
     middle_name
-    phone
     school_id
     student_id
     username

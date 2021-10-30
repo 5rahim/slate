@@ -7,3 +7,12 @@ mutation MyMutation($student_id: String = "", $email: String = "", $registration
   }
 }
    `
+
+
+export const ACTIVATE_PROSPECTIVE_USER = gql`
+mutation MyMutation($student_id: String = "") {
+  update_prospective_users(where: {student_id: {_eq: $student_id}}, _set: {is_active: true}) {
+    affected_rows
+  }
+}
+   `

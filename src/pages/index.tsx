@@ -18,9 +18,9 @@ const Page = () => {
    
    const { profile } = useUserSessionProfile()
    
-   useEffect(() => {
-      console.log(profile)
-   }, [profile])
+   // useEffect(() => {
+      // console.log(profile)
+   // }, [profile])
 
    
    return (

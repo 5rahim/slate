@@ -21,40 +21,38 @@ interface WithDashboardProps {
 export const withDashboard = (props?: WithDashboardProps) => (Component: NextPage) => {
    
    const Dashboard = (props: any) => {
-   
-      const { user: session, error, isLoading: loading } = useUser();
-   
+      
       const router = useRouter()
+      const { iid } = router.query
       
       const [displayPage, setDisplayPage] = useState(false)
-      const [isLoading, setIsLoading] = useState<boolean>(true)
       
       const dispatch = useDispatch()
+      
       
       const user = props.user
       const school = user.school
       
       useEffect(() => {
-         if ((session && !Utils.Url.getIID()) || (session && !school) || (session && (school.short_name !== Utils.Url.getIID()))) {
-            setIsLoading(true)
+   
+         console.log(school.short_name, iid)
+         
+         if (school.short_name !== iid) {
+            
             router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-         } else if (session && (school.short_name === Utils.Url.getIID())) {
+            
+         } else if (school.short_name === iid) {
+            
             dispatch(SchoolActions.set(user.school))
             setDisplayPage(true)
-            setIsLoading(false)
+            
          }
-      }, [session])
+      }, [])
       
-      if (typeof window !== 'undefined' && loading) {
-         return <LoadingScreen />
-      }
-      
-      if (loading) {
-         return <LoadingScreen />
-      }
       
       return displayPage ? (
          <Component {...props} school={user.school} iid={user.school.short_name} />
+         // <Component {...props}/>
       ) : <LoadingScreen />
       
       

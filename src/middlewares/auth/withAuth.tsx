@@ -4,16 +4,16 @@
  */
 
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingScreen } from 'slate/ui/LoadingScreen'
-import { getUserBySession } from 'slate/graphql/queries/users/hooks'
+import { getUserBySession, getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
 import SlateUser from 'slate/graphql/types/User'
 import { useDispatch } from 'react-redux'
 import { UserActions } from 'slate/store/slices/userSlice'
 import { Utils } from 'slate/utils'
 import { useUser } from '@auth0/nextjs-auth0'
+import { useUserSessionProfile } from 'slate/hooks/use-current-user'
 
 
 interface WithAuthProps {
@@ -25,7 +25,6 @@ interface WithAuthProps {
 
 export const withAuth = (
    {
-      requireAuth = false,
       requireNoAuth = false,
       requireActiveAccount = false,
       redirectTo = '/',
@@ -33,65 +32,56 @@ export const withAuth = (
    
    const Auth = (props: any) => {
       
-      const { user: session, error, isLoading: loading } = useUser();
-      
       const [displayPage, setDisplayPage] = useState(false)
-
+      
+      const { profile, profileIsLoading } = useUserSessionProfile()
+      
       
       const router = useRouter()
       
       const dispatch = useDispatch()
-      //
-      // const { loading: userLoading, user }: any = requireActiveAccount ? getUserBySession(session) : { loading: null, user: null }
-      //
-      //
-   
+      
+      const { loading: userLoading, user, error }: any = requireActiveAccount ? getUserBySessionProfile(profile) : { loading: null, user: null }
+      
       
       useEffect(() => {
-   
-         console.log(session, loading)
-
-         if (requireAuth) {
-            if (!loading && session) {
+         
+         if (requireNoAuth) {
+            
+            if (!profileIsLoading && !profile) {
                setDisplayPage(true)
-            } else if(!loading && !session) {
-               router.push(Utils.Url.linkToLogin())
-            }
-         } else if (requireNoAuth) {
-            if (!loading && !session) {
-               setDisplayPage(true)
-               // router.push(redirectTo)
-            } else if (!loading && session) {
+            } else if (!profileIsLoading && profile) {
                router.push(Utils.Url.baseLinkTo('/'))
             }
+            
          }
          
-         // if (requireActiveAccount) {
-         //    if (!!user) {
-         //       if (!user.is_active) {
-         //          setDisplayPage(false)
-         //          router.push(Utils.Url.baseLinkTo('/auth/new-account'))
-         //       }
-         //    }
-         // }
+         if (requireActiveAccount) {
+            
+            if (!!user && user.is_active) {
+               setDisplayPage(true)
+            } else if (!!user && !user.is_active) {
+               router.push(Utils.Url.baseLinkTo('/auth/new-account'))
+            }
+         }
          //
-         // if (!loading && session && user && !userLoading) {
-         //    dispatch(UserActions.set(user))
-         // }
-
-      }, [loading, session])
-
-
-      if (typeof window !== 'undefined' && loading) {
+         if (user && !userLoading) {
+            dispatch(UserActions.set(user))
+         }
+         
+      }, [profileIsLoading, profile, error, user])
+      
+      
+      if (typeof window !== 'undefined' && profileIsLoading) {
          return <LoadingScreen />
       }
-
-      if (loading) {
+      
+      if (profileIsLoading) {
          return <LoadingScreen />
       }
       
       return displayPage ? (
-         <Component {...props} />
+         <Component {...props} user={user} />
       ) : <LoadingScreen />
    }
    

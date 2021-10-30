@@ -1,35 +1,48 @@
-// const { data: session, status } = useSession()
-// const loading = status === "loading"
+import { DefaultHead } from '../../components/Layout/DefaultHead'
+import React, { useEffect } from 'react'
+import { LoadingScreen } from '../../ui/LoadingScreen'
+import { useRouter } from 'next/router'
+import { Compose } from '../../next/compose'
+import { withAuth } from '../../middlewares/auth/withAuth'
+import { withApollo } from '../../graphql/withApollo'
+import { Utils } from '../../utils'
+import { useUserSessionProfile } from 'slate/hooks/use-current-user'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 
-// const { loading: userLoading, user } = getUserBySession(session)
 
-// useEffect(() => {
-//    console.log(user, user?.school)
-//    if (user && !!user?.school) {
-//       router.push(Utils.Url.schoolLinkTo(user.school.short_name, '/'))
-//    } else if (user && !user?.school) {
-//       router.push(Utils.Url.baseLinkTo('/auth/new-account'))
-//    }
-// }, [user])
-
-import { NextApiRequest, NextApiResponse } from 'next'
-import { handleAuth, handleCallback } from '@auth0/nextjs-auth0'
-
-const afterCallback = (req: NextApiRequest, res: NextApiResponse, session: any, state: any) => {
+function Page() {
    
-   console.log(session)
+   const router = useRouter()
    
-   res.redirect('/u')
+   const { profile, profileIsLoading } = useUserSessionProfile()
    
-   return session
+   useEffect(() => {
+      
+      if (profile && profile?.iid) {
+         router.push(Utils.Url.schoolLinkTo(profile?.iid, '/'))
+      } else if (profile && !profile?.iid) {
+         router.push(Utils.Url.baseLinkTo('/auth/new-account'))
+      }
+      
+   }, [profile, profileIsLoading])
+   
+   if (profileIsLoading || !profile) {
+      return <LoadingScreen />
+   }
+   
+   
+   return (
+      
+      <>
+         
+         <DefaultHead pageTitle={"Redirect"} />
+      
+      </>
+   )
 }
 
-export default handleAuth({
-   async callback(req, res) {
-      try {
-         await handleCallback(req, res, { afterCallback })
-      } catch (error) {
-         res.status(error.status || 500).end(error.message)
-      }
-   },
-})
+
+export default Compose(
+   withPageAuthRequired,
+   withApollo({ ssr: true }),
+)(Page)

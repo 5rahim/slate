@@ -32,7 +32,7 @@ fragment baseUser on users {
   updated_at
   username
   work_phone
-    school {
+  school {
     id
     is_active
     name

@@ -36,9 +36,19 @@ export const queryReturn = (data_id: string, res: QueryResult<any, any>, size: "
    return { loading, error, data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, networkStatus, refetch, called, client, previousData, fetchMore, startPolling, stopPolling, updateQuery, subscribeToMore, variables }
 }
 
+export const useQueryReturn = (options: { id: string, error_message: string }, result: QueryResult<any, any>, object: boolean): any => {
+   
+   // returns [{ user, queryLoading, error }, apolloHelpers]
+   
+}
+
 export const handleQueryError = (res: QueryResult) => {
    if(process.env.NODE_ENV === "development") {
-      if(res.error) console.error("[HASURA QUERY ERROR]: ", res.error)
+      if(res.error) {
+         console.log('----------------[HANDLE QUERY ERROR]-------------------')
+         console.error("[HASURA QUERY ERROR]: ", res.error)
+         console.log('----------------[HANDLE QUERY ERROR]-------------------')
+      }
    }
 }
 

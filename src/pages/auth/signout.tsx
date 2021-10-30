@@ -56,5 +56,5 @@ function Page() {
 
 
 export default Compose(
-   withAuth({ requireAuth: true })
+   withAuth({  })
 )(Page)

@@ -25,7 +25,7 @@ const Page = () => {
    useEffect(() => {
       
       if(profile) {
-         router.push(Utils.Url.schoolLinkTo(profile.iid, '/u'))
+         router.push(Utils.Url.schoolLinkTo(profile.iid, '/'))
       }
       
    }, [profile])
@@ -35,6 +35,7 @@ const Page = () => {
 }
 
 export default Compose(
+   withApollo({ ssr: true }),
    withPageAuthRequired,
    withAuth({ requireActiveAccount: true })
 )(Page)

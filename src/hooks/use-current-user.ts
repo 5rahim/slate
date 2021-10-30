@@ -7,7 +7,7 @@ export const useCurrentUser = () => {
    return useSelector(UserSelectors.get)
 }
 
-type UserSessionProfile = UserProfile & { iid: string, role: string }
+export type UserSessionProfile = UserProfile & { iid: string, role: string }
 
 export const useUserSessionProfile = (): { profile: UserSessionProfile | undefined, profileIsLoading: boolean } => {
    
