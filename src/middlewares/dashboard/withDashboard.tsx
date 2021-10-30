@@ -4,7 +4,6 @@
  */
 
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/react'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingScreen } from 'slate/ui/LoadingScreen'
@@ -34,8 +33,6 @@ export const withDashboard = (props?: WithDashboardProps) => (Component: NextPag
       const school = user.school
       
       useEffect(() => {
-   
-         console.log(school.short_name, iid)
          
          if (school.short_name !== iid) {
             

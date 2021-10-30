@@ -6,11 +6,11 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
-import { CourseSelectors } from '../../store/slices/courseSlice'
+import { CourseSelectors } from 'slate/store/slices/courseSlice'
 import { MediaComponent } from '../Layout/MediaQueries/MediaComponent'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
-import { Utils } from '../../utils'
-import { SchoolSelectors } from '../../store/slices/schoolSlice'
+import { Utils } from 'slate/utils'
+import { SchoolSelectors } from 'slate/store/slices/schoolSlice'
 
 const CourseHeaderLink = ({ icon, children, linkTo }: any) => {
    

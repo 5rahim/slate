@@ -26,8 +26,11 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    
    useEffect(() => {
       if (Permissions.only(user, 'instructor')) {
+         
          user?.own_courses && setCourses(user.own_courses as SlateCourse[])
+         
       } else if (Permissions.only(user, 'student')) {
+         
          const enrollments = user?.enrolled_courses ?? []
          let courses: any = []
          let hiddenCourses: any = []
@@ -37,6 +40,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
          }
          user?.enrolled_courses && setCourses(courses)
          setHiddenCourses(hiddenCourses)
+         
       }
    }, [])
    
@@ -80,7 +84,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                                     </Flex>
                                     <Flex alignItems="center"><Icon as={BiCalendarAlt} mr={1} /><Text>Closing on January 7, 2025</Text></Flex>
                                  </Box>
-                                 <PermissionComponent.GraderAndHigherOnly>
+                                 <PermissionComponent.AssistantAndHigher>
                                     <Box>
                                        <Tooltip placement="bottom-end" label={"Students"} aria-label="Student avatars">
                                           <AvatarGroup size="sm" max={5}>
@@ -90,7 +94,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                                           </AvatarGroup>
                                        </Tooltip>
                                     </Box>
-                                 </PermissionComponent.GraderAndHigherOnly>
+                                 </PermissionComponent.AssistantAndHigher>
                                  <PermissionComponent.StudentOnly>
                                     <Box overflow="hidden">
                                        <Tooltip placement="bottom-end" label={"Instructor: " + Utils.Names.formatLocaleFullName(i18n.language, course.instructor)} aria-label="Instructor's name">

@@ -3,7 +3,6 @@ import Router from "next/router"
 import "nprogress/nprogress.css"
 import '../styles/wave.css'
 import { Provider as ReduxProvider } from 'react-redux'
-import { SessionProvider } from 'next-auth/react'
 import type { AppProps } from 'next/app'
 import store from '../store'
 import { ChalkProvider } from 'chalkui/dist/cjs/React'

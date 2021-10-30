@@ -7,12 +7,10 @@ import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingScreen } from 'slate/ui/LoadingScreen'
-import { getUserBySession, getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
-import SlateUser from 'slate/graphql/types/User'
+import { getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
 import { useDispatch } from 'react-redux'
 import { UserActions } from 'slate/store/slices/userSlice'
 import { Utils } from 'slate/utils'
-import { useUser } from '@auth0/nextjs-auth0'
 import { useUserSessionProfile } from 'slate/hooks/use-current-user'
 
 
@@ -41,7 +39,7 @@ export const withAuth = (
       
       const dispatch = useDispatch()
       
-      const { loading: userLoading, user, error }: any = requireActiveAccount ? getUserBySessionProfile(profile) : { loading: null, user: null }
+      const [user, userLoading] = requireActiveAccount ? getUserBySessionProfile(profile) : [null, null]
       
       
       useEffect(() => {
@@ -69,7 +67,7 @@ export const withAuth = (
             dispatch(UserActions.set(user))
          }
          
-      }, [profileIsLoading, profile, error, user])
+      }, [profileIsLoading, profile, user])
       
       
       if (typeof window !== 'undefined' && profileIsLoading) {

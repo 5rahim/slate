@@ -3,6 +3,8 @@ import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { WebSocketLink } from '@apollo/client/link/ws'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 import { LocalStorageWrapper, persistCache } from 'apollo3-cache-persist'
+import fetch from 'isomorphic-unfetch'
+
 
 let accessToken: any = null
 
@@ -68,7 +70,7 @@ export default function createApolloClient(initialState: any, headers: any) {
    } else {
       link = createWSLink()
    }
-   console.log('HEADERS', headers)
+   
    return new ApolloClient({
       ssrMode,
       link,

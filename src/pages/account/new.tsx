@@ -3,16 +3,16 @@ import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
 import { useForm } from 'react-hook-form'
-import { DefaultHead } from '../../components/Layout/DefaultHead'
-import { withApollo } from '../../graphql/withApollo'
+import { DefaultHead } from 'slate/components/Layout/DefaultHead'
+import { withApollo } from 'slate/graphql/withApollo'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import AuthLayout from '../../components/Layout/AuthLayout'
+import AuthLayout from 'slate/components/Layout/AuthLayout'
 import { Button, FormControl, FormLabel, Input, Text } from 'chalkui/dist/cjs/React'
 import { useCookies } from 'react-cookie'
-import { useLazyProspectiveUser } from '../../graphql/queries/prospective_users/hooks'
-import AuthCard from '../../ui/AuthCard'
+import { useLazyProspectiveUserByStudentIdAndCode } from 'slate/graphql/queries/prospective_users/hooks'
+import AuthCard from 'slate/ui/AuthCard'
 import { compose } from 'redux'
-import { withAuth } from '../../middlewares/auth/withAuth'
+import { withAuth } from 'slate/middlewares/auth/withAuth'
 
 const Page: NextPage = () => {
    
@@ -26,7 +26,7 @@ const Page: NextPage = () => {
    
    const router = useRouter()
    
-   const [loadProspectiveUser, { loading, data: prospectiveUser }] = useLazyProspectiveUser(prospectiveUserData?.student_id, prospectiveUserData?.code)
+   const [loadProspectiveUser, { loading, data: prospectiveUser }] = useLazyProspectiveUserByStudentIdAndCode(prospectiveUserData?.student_id, prospectiveUserData?.code)
    
    const onSubmit = (form_data: any) => {
       setProspectiveUserData({ student_id: form_data.student_id, code: form_data.code })

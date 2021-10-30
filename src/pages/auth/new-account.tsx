@@ -6,19 +6,18 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button, FormControl, FormLabel, Input } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
-import { LoadingScreen } from '../../ui/LoadingScreen'
+import { LoadingScreen } from 'slate/ui/LoadingScreen'
 import { useRouter } from 'next/router'
-import { Compose } from '../../next/compose'
-import { withAuth } from '../../middlewares/auth/withAuth'
-import { withApollo } from '../../graphql/withApollo'
-import { useLazyProspectiveUserByStudentID } from '../../graphql/queries/prospective_users/hooks'
+import { Compose } from 'slate/next/compose'
+import { withApollo } from 'slate/graphql/withApollo'
+import { useLazyProspectiveUserByStudentID } from 'slate/graphql/queries/prospective_users/hooks'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
-import { UPDATE_NEW_USER } from '../../graphql/queries/users/mutations'
-import { getUserBySession, getUserBySessionProfile } from '../../graphql/queries/users/hooks'
-import { GET_USER_BY_EMAIL_QUERY } from '../../graphql/queries/users/query'
-import { Utils } from '../../utils'
-import { useUser, withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { UPDATE_NEW_USER } from 'slate/graphql/queries/users/mutations'
+import { getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
+import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
+import { Utils } from 'slate/utils'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { useUserSessionProfile } from 'slate/hooks/use-current-user'
 import { ACTIVATE_PROSPECTIVE_USER } from 'slate/graphql/queries/prospective_users/mutations'
 
@@ -28,27 +27,34 @@ function Page() {
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    
    const router = useRouter()
-   // const { user: session, error, isLoading: loading } = useUser();
 
    const { profile, profileIsLoading } = useUserSessionProfile()
    const { register, handleSubmit, reset, formState: { errors } } = useForm()
 
    const [prospectiveUserStudentID, setProspectiveUserStudentID] = useState<any>("")
    
-   const { loading: userLoading, user } = getUserBySessionProfile(profile)
-
+   const [user, userLoading] = getUserBySessionProfile(profile)
+   
+   /**
+    * If the account is already activated, redirect the user
+    */
    useEffect(() => {
       if (user?.is_active) {
          router.push(Utils.Url.schoolLinkTo(profile?.iid, '/'))
       }
    }, [user])
    
+   /**
+    * Query prospective user after form is submitted
+    */
    const [loadProspectiveUser, { loading: queryLoading, data: prospectiveUser, error, called }] = useLazyProspectiveUserByStudentID(prospectiveUserStudentID)
-
-
+   
+   
+   /**
+    * Mutation: Update the user's info and redirect
+    */
    const [updateNewUser] = useMutation(UPDATE_NEW_USER, {
       onError: (error) => {
-         console.log(error)
          // router.push(Utils.Url.baseLinkTo('/auth/redirect'))
       },
       onCompleted: () => {
@@ -75,8 +81,6 @@ function Page() {
 
    useEffect(() => {
       if (prospectiveUser && profile) {
-   
-         console.log(prospectiveUser)
 
          updateNewUser({
             variables: {

@@ -6,12 +6,10 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
 import React from 'react'
-import { LoadingScreen } from '../../ui/LoadingScreen'
 import { useRouter } from 'next/router'
 import { Compose } from '../../next/compose'
-import { withAuth } from '../../middlewares/auth/withAuth'
-import Config from '../../constants/Config'
-import { useUser } from '@auth0/nextjs-auth0'
+import { Utils } from 'slate/utils'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 
 
 function Page() {
@@ -19,16 +17,6 @@ function Page() {
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    
    const router = useRouter()
-   const [session, loading] = useSession()
-   
-   
-   if (!session) {
-      router.push('/')
-   }
-   
-   if (loading) {
-      return <LoadingScreen />
-   }
    
    return (
       
@@ -42,7 +30,7 @@ function Page() {
                
                <Box p={3}>
                   
-                  <Button size="lg" colorScheme="primary" width="100%" onClick={() => signOut({ callbackUrl: `${Config.baseURL}/auth/signin` })}>Sign out</Button>
+                  <Button size="lg" colorScheme="primary" width="100%" as="a" href={Utils.Url.linkToLogout()}>{t('Sign out')}</Button>
                
                </Box>
             
@@ -56,5 +44,5 @@ function Page() {
 
 
 export default Compose(
-   withAuth({  })
+   withPageAuthRequired,
 )(Page)

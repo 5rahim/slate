@@ -1,7 +1,8 @@
 import { QueryResult, useQuery } from '@apollo/client'
-import { handleQueryError, queryReturn } from '../../utils'
-import { GET_COURSE_BY_ID } from './query'
+import { legacyHandleQueryError, legacyQueryReturn } from '../../utils'
+import { GET_COURSE_BY_ID } from './queries'
 
+// TODO: Replace by new query paradigm
 export const getCourseById = (id: string, user_id: number): QueryResult => {
    
    const res = useQuery(GET_COURSE_BY_ID, {
@@ -9,8 +10,8 @@ export const getCourseById = (id: string, user_id: number): QueryResult => {
       fetchPolicy: 'no-cache',
    })
    
-   handleQueryError(res)
+   legacyHandleQueryError(res)
    
-   return queryReturn('courses', res, 'single')
+   return legacyQueryReturn('courses', res, 'single')
    
 }
