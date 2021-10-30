@@ -14,7 +14,7 @@ const requestAccessToken = async () => {
       const json = await res.json()
       accessToken = json.idToken
    } else {
-      accessToken = 'public'
+      accessToken = null
    }
 }
 
@@ -26,6 +26,8 @@ const resetTokenLink = onError(({ networkError }: any) => {
 })
 
 const createHttpLink = (headers: any) => {
+   
+   
    const httpLink = new HttpLink({
       uri: `https://${process.env.NEXT_PUBLIC_API_HOST}`,
       credentials: 'include',
@@ -43,9 +45,9 @@ const createWSLink = () => {
          connectionParams: async () => {
             await requestAccessToken() // happens on the client
             return {
-               headers: {
+               headers: accessToken ? {
                   authorization: accessToken ? `Bearer ${accessToken}` : '',
-               },
+               } : {},
             }
          },
       })
@@ -66,6 +68,7 @@ export default function createApolloClient(initialState: any, headers: any) {
    } else {
       link = createWSLink()
    }
+   console.log('HEADERS', headers)
    return new ApolloClient({
       ssrMode,
       link,

@@ -73,9 +73,9 @@ async function getHeaders(ctx: any) {
    console.log(s?.idToken)
    console.log(s?.user)
    
-   return {
+   return s?.idToken ? {
       authorization: `Bearer ${s ? s.idToken: ''}`
-   }
+   } : null
 }
 
 /**

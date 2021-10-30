@@ -101,10 +101,10 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                      <CourseHeaderLink icon={<BiCalendar />} linkTo='/calendar'>Calendar</CourseHeaderLink>
                      <CourseHeaderLink icon={<BiFile />} linkTo='/grades'>Grades</CourseHeaderLink>
                   </PermissionComponent.StudentOnly>
-                  <PermissionComponent.GraderAndHigherOnly>
+                  <PermissionComponent.AssistantAndHigher>
                      <CourseHeaderLink icon={<BiFile />} linkTo='/grade-center'>Grade center</CourseHeaderLink>
                      <CourseHeaderLink icon={<BiUserCheck />} linkTo='/attendance'>Attendance</CourseHeaderLink>
-                  </PermissionComponent.GraderAndHigherOnly>
+                  </PermissionComponent.AssistantAndHigher>
                </MenuList>
             </Menu>
          </Flex>

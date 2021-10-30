@@ -37,12 +37,7 @@ export const withBodyguard = (
       
       useEffect(() => {
          
-         for (let i = 0; i < roles.length; i++) {
-            const role = roles[i]
-            if (userRole == rolesMap[role])
-               hasAccess += 1
-         }
-         if (hasAccess === 0)
+         if (roles.includes(userRole))
             router.push(Utils.Url.baseLinkTo('/access-denied')) // TODO
          else
             setDisplayPage(true)
