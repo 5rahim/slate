@@ -1,25 +1,49 @@
-import { useMutation } from '@apollo/client'
 import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
 import { GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS_QUERY, GET_OWN_COURSES_QUERY } from './queries'
 import { SlateCourse } from 'slate/graphql/types/Course'
-import { UPDATE_COURSE_BANNER_COLOR } from 'slate/graphql/queries/courses/mutations'
+import { UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR } from 'slate/graphql/queries/courses/mutations'
 
 export const useMutateCourseBannerColor = () => {
    
    return useMutationHookCreator(UPDATE_COURSE_BANNER_COLOR, {
       refetchQueries: [
-         { query: GET_COURSE_BY_ID }, // DocumentNode object parsed with gql
-         'GetCourseById', // Query name
+         { query: GET_COURSE_BY_ID },
+         'GetCourseById',
       ],
+      successAlert: {
+         type: "toast",
+         title: "Banner color updated"
+      }
    })
+}
+
+export const useMutateCourseBackgroundColor = () => {
    
-   // return useMutation(UPDATE_COURSE_BANNER_COLOR, {
-   //    refetchQueries: [
-   //       { query: GET_COURSE_BY_ID }, // DocumentNode object parsed with gql
-   //       'GetCourseById' // Query name
-   //    ],
-   // })
+   return useMutationHookCreator(UPDATE_COURSE_BACKGROUND_COLOR, {
+      refetchQueries: [
+         { query: GET_COURSE_BY_ID },
+         'GetCourseById',
+      ],
+      successAlert: {
+         type: "toast",
+         title: "Background color updated"
+      }
+   })
+}
+
+
+export const useMutateCourseAvailability = () => {
    
+   return useMutationHookCreator(UPDATE_COURSE_AVAILABILITY, {
+      refetchQueries: [
+         { query: GET_COURSE_BY_ID },
+         'GetCourseById',
+      ],
+      successAlert: {
+         type: "toast",
+         title: "Course accessiblity changed"
+      }
+   })
 }
 
 export const getCourseById = (id: string) => {

@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import type {
-   AppState,
+   GlobalState,
    AppThunk,
 }                       from '..'
 import { fetchCount }   from '../../features/counter/counterAPI'
@@ -50,7 +50,7 @@ export const counterSlice = createSlice({
 
 export const { increment, decrement, incrementByAmount } = counterSlice.actions
 
-export const selectCount = (state: AppState) => state.counter.value
+export const selectCount = (state: GlobalState) => state.counter.value
 
 export const incrementIfOdd = (amount: number): AppThunk => (
    dispatch,

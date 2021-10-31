@@ -1,5 +1,5 @@
 export interface AppState {
-   mutationIsLoading: boolean
+   mutationIsLoading: boolean,
 }
 
 export const appState: AppState | {} = {

@@ -1,0 +1,28 @@
+{
+  "Access Code": "Access Code",
+  "Management": "Management",
+  "Student Options": "Student Options",
+  "Course Options": "Course Options",
+  "Announcements": "Announcements",
+
+  "options": {
+    "status": {
+      "title": "Course is {{status}}",
+      "description": "Your course {{what}} accessible to students"
+    },
+    "code": {
+      "yes": "You have an access code available",
+      "no": "You do not have any access code"
+    },
+    "assistant": {
+      "yes": "You have teaching assistants",
+      "no": "You do not have any teaching assistant"
+    },
+    "Make course accessible": "Make course accessible",
+    "Make course non-accessible": "Make course non-accessible",
+    "Change course accessibility": "Change course accessibility",
+    "Are you sure make accessible": "Are you sure you want to make your course accessible to students?",
+    "Are you sure make non-accessible": "Are you sure you want to make your course non-accessible to students?",
+    "Change details about the course": "Change details about the course"
+  }
+}

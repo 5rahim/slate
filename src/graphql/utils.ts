@@ -4,6 +4,8 @@ import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
 import { InternalRefetchQueriesInclude } from '@apollo/client/core'
 import { useDispatch } from 'react-redux'
 import { AppActions } from 'slate/store/slices/appSlice'
+import { useToast } from 'chalkui/dist/cjs/React'
+import { useTranslation } from 'react-i18next'
 
 export const getData = (data: any) => {
    
@@ -84,15 +86,23 @@ export function useQueryHookCreator<T>(
       onCompleted?: (data: T | {}) => void,
       debug?: boolean,
       errorMessage?: string,
+      sendNotification?: any
    } & QueryHookOptions,
 ): QueryHookCreatorReturn<T> {
    
-   const { ...rest } = options
+   const { sendNotification, ...rest } = options
    
    options.debug && console.log('[QueryHook]: Query started', '\n\tTable: ', table, '\n\tVariables: ', options.variables)
    const queryResult = useQuery(query, {
       variables: options.variables,
-      onCompleted: options.onCompleted,
+      onCompleted: (data) => {
+         options.onCompleted && options.onCompleted(data)
+         
+         // TODO: Send notification
+         if(sendNotification) {
+         
+         }
+      },
       fetchPolicy: options.fetchPolicy ?? "cache-first",
       ...rest,
    })
@@ -160,9 +170,10 @@ export function getQueryHookReturn<T>(
    
 }
 
+type MutationHookCreatorFunction = (variables?: { [key: string]: any }, options?: MutationFunctionOptions) => any
 
 type MutationHookCreatorReturn = [
-   (variables: { [key: string]: any }, options?: MutationFunctionOptions) => any,
+   MutationHookCreatorFunction,
    boolean,
    string,
    any,
@@ -172,24 +183,48 @@ type MutationHookCreatorReturn = [
  * MUTATION HOOK
  */
 
+/**
+ * @example
+ * return useMutationHookCreator(UPDATE_COURSE_BANNER_COLOR, {
+      refetchQueries: [
+         { query: GET_COURSE_BY_ID },
+         'GetCourseById',
+      ],
+      successAlert: {
+         type: "toast",
+         title: "Banner color updated"
+      }
+   })
+ * @param {DocumentNode} mutation
+ * @param {{errorMessage?: string, successAlert?: {type: "notification" | "toast", title?: string, description?: string}, debug?: boolean} & MutationHookOptions} options
+ * @returns {MutationHookCreatorReturn}
+ */
 export function useMutationHookCreator(
    mutation: DocumentNode,
    options: {
       errorMessage?: string,
-      successMessage?: string,
+      successAlert?: {
+         type: "notification" | "toast",
+         title?: string,
+         description?: string,
+      },
+      sendNotification?: any // TODO: Notifications
       debug?: boolean
    } & MutationHookOptions
 ): MutationHookCreatorReturn {
    
    const {
       errorMessage = "Internal Server Error",
-      successMessage = "Success",
+      successAlert,
+      sendNotification,
       debug = false,
       variables,
       ...rest
    } = options
    
    const dispatch = useDispatch()
+   const toast = useToast()
+   const { t, i18n } = useTranslation(['alert'], { useSuspense: false })
    
    const [handleMutation, { loading, client, data }] = useMutation(mutation, {
       variables,
@@ -198,6 +233,23 @@ export function useMutationHookCreator(
       },
       onCompleted: (data) => {
          dispatch(AppActions.setMutationIsLoading(false))
+         
+         if(successAlert) {
+            if(successAlert.type === "toast") {
+               toast({
+                  title: t(`alert:${successAlert.title}`) ?? "Success",
+                  description: successAlert.description ? t(`alert:${successAlert.description}`) : null,
+                  status: "success",
+                  isClosable: true,
+                  position: "top-right"
+               })
+            }
+         }
+         
+         if(sendNotification) {
+            // TODO: Send notification (query)
+         }
+         
       },
       ...rest
    })
@@ -208,7 +260,7 @@ export function useMutationHookCreator(
    }
    
    return [
-      (variables, functionOptions?) => commitMutation(variables, functionOptions),
+      (variables?, functionOptions?) => commitMutation(variables, functionOptions),
       loading,
       errorMessage,
       data,

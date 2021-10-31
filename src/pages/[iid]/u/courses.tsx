@@ -25,8 +25,8 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    const [courses, setCourses] = useState<SlateCourse[]>([])
    const [hiddenCourses, setHiddenCourses] = useState<SlateCourse[]>([])
    
-   const [courseEnrollments] = getStudentEnrollments()
-   const [ownCourses] = getOwnCourses()
+   const [courseEnrollments, courseEnrollmentsLoading] = getStudentEnrollments()
+   const [ownCourses, ownCoursesLoading] = getOwnCourses()
    
    
    useEffect(() => {
@@ -87,7 +87,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                </PermissionComponent.StudentOnly>
                
                {/*TODO CHANGE LEVEL !!!!!!!!!!!!*/}
-               {courses?.length > 0 ? (
+               {( !(ownCoursesLoading || courseEnrollmentsLoading) && courses?.length > 0) && (
                   <CelledList isFullWidth boxShadow="none" borderRadius="none">
                      {courses?.map((course: SlateCourse | undefined) => {
                         return (
@@ -123,12 +123,12 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                         )
                      })}
                   </CelledList>
-               ) : (
+               )}
+               { (ownCoursesLoading || courseEnrollmentsLoading) && (
                   <Stack>
                      <Skeleton height="80px" borderRadius="md"/>
                   </Stack>
-               )
-               }
+               )}
             </Box>
          
          
