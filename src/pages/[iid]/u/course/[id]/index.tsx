@@ -19,15 +19,29 @@ import { CourseModuleBox } from 'slate/components/Course/CourseModuleBox'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
 import { Utils } from 'slate/utils'
 import Swatches from 'react-color/lib/components/swatches/Swatches'
+import { useMutateCourseBannerColor } from 'slate/graphql/queries/courses/hooks'
+import { useApolloClient } from '@apollo/client'
 
 
 const Page = ({ course, iid }: DashboardPage) => {
    
-   const { t} = useTranslation(['common'], { useSuspense: false })
+   const { t } = useTranslation(['common'], { useSuspense: false })
    
+   const client = useApolloClient()
    const { colorMode } = useColorMode()
    
    const router = useRouter()
+   
+   const [updateBannerColor] = useMutateCourseBannerColor()
+   
+   
+   function handleBannerColorChange(value: any) {
+      
+      updateBannerColor({ id: course?.id, banner_color: value.hex })
+      
+      
+      
+   }
    
    
    useEffect(() => {
@@ -592,12 +606,12 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           gridGap=".5rem"
                                           mb={5}
                                        >
-                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color}/>
+                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color} />
                                        </Flex>
-                                       <Swatches />
+                                       <Swatches onChangeComplete={handleBannerColorChange} />
                                     </AccordionPanel>
                                  </AccordionItem>
-      
+                                 
                                  <AccordionItem>
                                     <h2>
                                        <AccordionButton>

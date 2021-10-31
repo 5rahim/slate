@@ -1,6 +1,9 @@
-import { ApolloClient, ApolloError, DocumentNode, ErrorPolicy, FetchPolicy, QueryResult, QueryTuple, useQuery } from '@apollo/client'
+import { ApolloClient, ApolloError, DocumentNode, ErrorPolicy, FetchPolicy, MutationFunctionOptions, MutationHookOptions, QueryHookOptions, QueryResult, QueryTuple, useMutation, useQuery } from '@apollo/client'
 import { useEffect, useState } from 'react'
 import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
+import { InternalRefetchQueriesInclude } from '@apollo/client/core'
+import { useDispatch } from 'react-redux'
+import { AppActions } from 'slate/store/slices/appSlice'
 
 export const getData = (data: any) => {
    
@@ -80,15 +83,18 @@ export function useQueryHookCreator<T>(
       fetchPolicy?: FetchPolicy
       onCompleted?: (data: T | {}) => void,
       debug?: boolean,
-      errorMessage?: string
-   },
+      errorMessage?: string,
+   } & QueryHookOptions,
 ): QueryHookCreatorReturn<T> {
+   
+   const { ...rest } = options
    
    options.debug && console.log('[QueryHook]: Query started', '\n\tTable: ', table, '\n\tVariables: ', options.variables)
    const queryResult = useQuery(query, {
       variables: options.variables,
       onCompleted: options.onCompleted,
       fetchPolicy: options.fetchPolicy ?? "cache-first",
+      ...rest,
    })
    
    return getQueryHookReturn<T>({ table, queryResult, debug: options.debug, objectOrArray: objectOrArray, errorMessage: options.errorMessage })
@@ -151,6 +157,63 @@ export function getQueryHookReturn<T>(
    }, [loading, error, data])
    
    return [returnData, isLoading, isEmpty, client]
+   
+}
+
+
+type MutationHookCreatorReturn = [
+   (variables: { [key: string]: any }, options?: MutationFunctionOptions) => any,
+   boolean,
+   string,
+   any,
+   ApolloClient<any>
+]
+/**
+ * MUTATION HOOK
+ */
+
+export function useMutationHookCreator(
+   mutation: DocumentNode,
+   options: {
+      errorMessage?: string,
+      successMessage?: string,
+      debug?: boolean
+   } & MutationHookOptions
+): MutationHookCreatorReturn {
+   
+   const {
+      errorMessage = "Internal Server Error",
+      successMessage = "Success",
+      debug = false,
+      variables,
+      ...rest
+   } = options
+   
+   const dispatch = useDispatch()
+   
+   const [handleMutation, { loading, client, data }] = useMutation(mutation, {
+      variables,
+      onError: (error) => {
+        handleQueryHookErrors(error, errorMessage, debug)
+      },
+      onCompleted: (data) => {
+         dispatch(AppActions.setMutationIsLoading(false))
+      },
+      ...rest
+   })
+   
+   function commitMutation(variables: any, functionOptions: any) {
+      dispatch(AppActions.setMutationIsLoading(true))
+      handleMutation({ variables: variables, ...functionOptions })
+   }
+   
+   return [
+      (variables, functionOptions?) => commitMutation(variables, functionOptions),
+      loading,
+      errorMessage,
+      data,
+      client
+   ]
    
 }
 

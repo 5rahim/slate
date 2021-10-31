@@ -50,7 +50,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
          
          <Flex
             height={["80px", "80px", "80px", "80px"]}
-            backgroundColor={course?.banner_color}
+            backgroundColor={course?.banner_color ?? "#4f7c6e"}
             backgroundImage={'url(/assets/patterns/memphis-mini.png)'}
             backgroundBlendMode={"color-burn"}
             color="white"

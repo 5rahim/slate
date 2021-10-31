@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import type {
-   AppState,
+   GlobalState,
    AppThunk,
 } from '..'
 import {
@@ -27,7 +27,7 @@ export const userSlice = createSlice({
 export const UserActions = userSlice.actions
 
 export const UserSelectors = {
-   get: (state: AppState) => state.user,
+   get: (state: GlobalState) => state.user,
 }
 
 

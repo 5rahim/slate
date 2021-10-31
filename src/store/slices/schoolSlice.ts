@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit'
 
 import type {
-   AppState,
+   GlobalState,
    AppThunk,
 } from '..'
 import {
@@ -27,8 +27,8 @@ export const schoolSlice = createSlice({
 export const SchoolActions = schoolSlice.actions
 
 export const SchoolSelectors = {
-   getName: (state: AppState) => state.school?.name,
-   getIID: (state: AppState) => state.school?.short_name
+   getName: (state: GlobalState) => state.school?.name,
+   getIID: (state: GlobalState) => state.school?.short_name
 }
 
 
