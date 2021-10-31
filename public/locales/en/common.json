@@ -10,6 +10,17 @@
   "Dashboard": "Dashboard",
   "Your profile": "Your profile",
   "Access Denied": "Access Denied",
+  "You are logged in": "You are logged in",
+  "Go to the dashboard": "Go to the dashboard",
+
+  "Edit": "Edit",
+  "Create": "Create",
+  "View": "View",
+  "Close": "Close",
+  "Open": "Open",
+  "Add": "Add",
+  "Confirm": "Confirm",
+  "Cancel":  "Cancel",
 
   "country": {
     "Cameroon":  "Cameroon",

@@ -1,33 +1,57 @@
-import withApollo from 'slate/graphql/withApollo'
+import { withApollo } from 'slate/graphql/withApollo'
 import UserDashboardLayout from 'slate/components/Layout/UserDashboard/UserDashboardLayout'
 import React, { useEffect } from 'react'
 import { Compose } from 'slate/next/compose'
 import { withAuth } from 'slate/middlewares/auth/withAuth'
 import { withDashboard } from 'slate/middlewares/dashboard/withDashboard'
 import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import { useTranslation } from 'react-i18next'
+import { Trans, useTranslation } from 'react-i18next'
 import { DashboardPage } from 'slate/next/types'
 import { useRouter } from 'next/router'
 import { withCourse } from 'slate/middlewares/dashboard/withCourse'
 import { CourseHeader } from 'slate/components/Course/CourseHeader'
 import { PermissionComponent } from 'slate/components/Permissions'
 import { Container, DividedList, Flex, Grid, ListItem } from 'chalkui/dist/cjs/Components/Layout'
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Link, Tag, Text } from 'chalkui/dist/cjs/React'
+import {
+   Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Link,
+   Tag, Text,
+} from 'chalkui/dist/cjs/React'
 import { BiCog, BiDotsHorizontal, BiEdit, BiGroup, BiHide, BiLink, BiListUl, BiPalette, BiSliderAlt, BiTrash, BiUserPin } from 'react-icons/bi'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { CourseModuleBox } from 'slate/components/Course/CourseModuleBox'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
 import { Utils } from 'slate/utils'
 import Swatches from 'react-color/lib/components/swatches/Swatches'
+import Circle from 'react-color/lib/components/circle/Circle'
+import { useMutateCourseBackgroundColor, useMutateCourseBannerColor } from 'slate/graphql/queries/courses/hooks'
+import { useApolloClient } from '@apollo/client'
+import { CourseOptions } from 'slate/components/Course/Settings/CourseOptions'
 
 
 const Page = ({ course, iid }: DashboardPage) => {
    
-   const { t} = useTranslation(['common'], { useSuspense: false })
+   const { t } = useTranslation(['common', 'course'], { useSuspense: false })
    
+   const client = useApolloClient()
    const { colorMode } = useColorMode()
    
    const router = useRouter()
+   
+   const [updateBannerColor] = useMutateCourseBannerColor()
+   const [updateBackgroundColor] = useMutateCourseBackgroundColor()
+   
+   
+   function handleBannerColorChange(value: any) {
+      
+      updateBannerColor({ id: course?.id, banner_color: value.hex })
+      
+   }
+   
+   function handleBackgroundColorChange(value: any) {
+      
+      updateBackgroundColor({ id: course?.id, background_color: value.hex })
+      
+   }
    
    
    useEffect(() => {
@@ -43,51 +67,21 @@ const Page = ({ course, iid }: DashboardPage) => {
       <>
          <DefaultHead pageTitle={t('Dashboard')} />
          
-         <UserDashboardLayout>
+         <UserDashboardLayout bgColor={course?.background_color}>
             {/*<IndexHeader />*/}
             
             <CourseHeader index={0} />
             
             <Container maxW="container.xl" mt={5}>
                
-               <PermissionComponent.GraderAndHigherOnly>
+               <PermissionComponent.InstructorOnly>
                   <Flex
                      gridGap={18}
                      flexDirection={["column", "row"]}
                   >
                      <Flex flexDirection="column" width={["100%", "40%"]} gap={20} as={Grid} alignSelf="flex-start">
                         
-                        <CourseModuleBox headerText="Course Options" headerIcon={<BiSliderAlt />}>
-                           <DividedList spacing={2} width="full">
-                              <ListItem>
-                                 <Flex alignItems="center">
-                                    <Box as={BiHide} width="40px" fontSize="1.6rem" />
-                                    <Box fontSize="md">
-                                       <Text fontSize="lg" fontWeight="700">Course is hidden</Text>
-                                       <Text>Your course is not accessible to students | <Link>Edit</Link></Text>
-                                    </Box>
-                                 </Flex>
-                              </ListItem>
-                              <ListItem>
-                                 <Flex alignItems="center">
-                                    <Box as={BiLink} width="40px" fontSize="1.6rem" />
-                                    <Box fontSize="md">
-                                       <Text fontSize="lg" fontWeight="700">Access code</Text>
-                                       <Text>You do not have any access code | <Link>Create</Link></Text>
-                                    </Box>
-                                 </Flex>
-                              </ListItem>
-                              <ListItem>
-                                 <Flex alignItems="center">
-                                    <Box as={BiUserPin} width="40px" fontSize="1.6rem" />
-                                    <Box fontSize="md">
-                                       <Text fontSize="lg" fontWeight="700">Management</Text>
-                                       <Text>You do not have any graders or teaching assistants | <Link>Create</Link></Text>
-                                    </Box>
-                                 </Flex>
-                              </ListItem>
-                           </DividedList>
-                        </CourseModuleBox>
+                        <CourseOptions />
                         
                         <CourseModuleBox headerText="Student Options" headerIcon={<BiCog />}>
                            <DividedList spacing={2} width="full">
@@ -179,8 +173,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -234,8 +229,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -289,8 +285,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -344,8 +341,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -399,8 +397,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -454,8 +453,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -509,8 +509,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -564,8 +565,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           
                                           </Flex>
                                           <Text>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis cum delectus dolorum, eaque earum,
-                                             enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe tempore
-                                             ut, vel!</Text>
+                                                enim facilis ipsam magnam minima modi molestias nisi officia officiis pariatur perferendis saepe
+                                                tempore
+                                                ut, vel!</Text>
                                        </Box>
                                     </Flex>
                                  </ListItem>
@@ -592,12 +594,12 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           gridGap=".5rem"
                                           mb={5}
                                        >
-                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color}/>
+                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color} />
                                        </Flex>
-                                       <Swatches />
+                                       <Swatches onChangeComplete={handleBannerColorChange} />
                                     </AccordionPanel>
                                  </AccordionItem>
-      
+                                 
                                  <AccordionItem>
                                     <h2>
                                        <AccordionButton>
@@ -608,7 +610,15 @@ const Page = ({ course, iid }: DashboardPage) => {
                                        </AccordionButton>
                                     </h2>
                                     <AccordionPanel pb={4}>
-                                    
+                                       <Flex
+                                          alignItems="center"
+                                          gridGap=".5rem"
+                                          mb={5}
+                                       >
+                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.background_color} />
+                                       </Flex>
+                                       <Circle colors={['#f9f9f9', '#f5f2f0', '#bfbfbf', '#42454c', '#2a2928']}
+                                               onChangeComplete={handleBackgroundColorChange} />
                                     </AccordionPanel>
                                  </AccordionItem>
                               </Accordion>
@@ -616,7 +626,7 @@ const Page = ({ course, iid }: DashboardPage) => {
                         </Box>
                      </Flex>
                   </Flex>
-               </PermissionComponent.GraderAndHigherOnly>
+               </PermissionComponent.InstructorOnly>
             
             </Container>
          

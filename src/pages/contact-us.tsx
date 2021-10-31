@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import withApollo from 'slate/graphql/withApollo'
+import { withApollo } from 'slate/graphql/withApollo'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import SchoolRegistrationLayout from 'slate/components/Layout/SchoolRegistrationLayout'

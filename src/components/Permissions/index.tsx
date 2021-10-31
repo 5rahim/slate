@@ -7,7 +7,7 @@ export const PermissionComponent = {
       
       const user = useCurrentUser()
       
-      return user.role === 1 ? <>{children}</> : <></>
+      return user.role === 'student' ? <>{children}</> : <></>
       
    },
    
@@ -16,16 +16,16 @@ export const PermissionComponent = {
       
       const user = useCurrentUser()
       
-      return user.role === 4 ? <>{children}</> : <></>
+      return user.role === 'instructor' ? <>{children}</> : <></>
       
    },
    
    
-   GraderAndHigherOnly: ({ children }: PermissionComponentProps) => {
+   AssistantAndHigher: ({ children }: PermissionComponentProps) => {
       
       const user = useCurrentUser()
       
-      return user.role >= 2 ? <>{children}</> : <></>
+      return ['instructor', 'assistant'].includes(user.role) ? <>{children}</> : <></>
       
    },
    

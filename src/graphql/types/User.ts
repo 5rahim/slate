@@ -1,6 +1,8 @@
 import SlateSchool from './Schools'
 import { SlateCourse, EnrolledCourse, ManagingCourse } from './Course'
 
+export type SlateRoles = "admin" | "student" | "instructor" | "assistant"
+
 export default interface SlateUser {
    email: string
    first_name: string
@@ -11,7 +13,7 @@ export default interface SlateUser {
    name: string
    username: string
    school_id: number
-   role: number
+   role: SlateRoles
    postal_code: string
    other_name: string
    state: string

@@ -11,8 +11,10 @@ type NavLinkProps = LinkProps & {
 const NavLink: React.FC<NavLinkProps> = ({ children, ...props }: NavLinkProps) => {
    const router = useRouter()
    let isActive = false
+   const p1 = router.pathname.slice(router.pathname.lastIndexOf('/u'))
+   const p2 = props.href.toString().slice(props.href.toString().lastIndexOf('/u'))
    
-   if (router.pathname === props.href) {
+   if (p1 === p2 || p1 + '/' === p2) {
       isActive = true
    }
    

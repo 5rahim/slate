@@ -1,23 +1,17 @@
-import SlateUser from '../graphql/types/User'
+import SlateUser, { SlateRoles } from '../graphql/types/User'
 import { SlateCourse } from '../graphql/types/Course'
 
-export const rolesMap: any = {
-   'student': 1,
-   'grader': 2,
-   'assistant': 3,
-   'instructor': 4,
-}
+export const rolesMap: any = [
+   'student',
+   'grader',
+   'assistant',
+   'instructor',
+]
 
 export const Permissions = {
-   only: (user: SlateUser | undefined, ...roles: string[]) => {
-      let hasAccess: number = 0
+   only: (user: SlateUser | undefined, ...roles: SlateRoles[]) => {
       if(user) {
-         for (let i = 0; i < roles.length; i++) {
-            const role = roles[i]
-            if (user.role == rolesMap[role])
-               hasAccess += 1
-         }
-         return hasAccess !== 0;
+         return roles.includes(user.role);
       }
       return false
    },

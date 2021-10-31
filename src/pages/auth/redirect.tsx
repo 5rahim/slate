@@ -1,32 +1,32 @@
-import { useSession } from 'next-auth/client'
 import { DefaultHead } from '../../components/Layout/DefaultHead'
 import React, { useEffect } from 'react'
 import { LoadingScreen } from '../../ui/LoadingScreen'
 import { useRouter } from 'next/router'
 import { Compose } from '../../next/compose'
 import { withAuth } from '../../middlewares/auth/withAuth'
-import withApollo from '../../graphql/withApollo'
-import { getUserBySession } from '../../graphql/queries/users/hooks'
+import { withApollo } from '../../graphql/withApollo'
 import { Utils } from '../../utils'
+import { useUserSessionProfile } from 'slate/hooks/use-current-user'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 
 
 function Page() {
    
    const router = useRouter()
-   const [session, loading] = useSession()
    
-   const { loading: userLoading, user } = getUserBySession(session)
+   const { profile, profileIsLoading } = useUserSessionProfile()
    
    useEffect(() => {
-      console.log(user, user?.school)
-      if(user && !!user?.school) {
-         router.push(Utils.Url.schoolLinkTo(user.school.short_name, '/'))
-      } else if(user && !user?.school) {
+      
+      if (profile && profile?.iid) {
+         router.push(Utils.Url.schoolLinkTo(profile?.iid, '/'))
+      } else if (profile && !profile?.iid) {
          router.push(Utils.Url.baseLinkTo('/auth/new-account'))
       }
-   }, [user])
+      
+   }, [profile, profileIsLoading])
    
-   if (loading || userLoading || !session) {
+   if (profileIsLoading || !profile) {
       return <LoadingScreen />
    }
    
@@ -43,6 +43,6 @@ function Page() {
 
 
 export default Compose(
+   withPageAuthRequired,
    withApollo({ ssr: true }),
-   withAuth({ requireAuth: true }),
 )(Page)

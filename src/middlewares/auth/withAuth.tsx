@@ -4,15 +4,14 @@
  */
 
 import { NextPage } from 'next'
-import { useSession } from 'next-auth/client'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { LoadingScreen } from '../../ui/LoadingScreen'
-import { getUserBySession } from '../../graphql/queries/users/hooks'
-import SlateUser from '../../graphql/types/User'
+import { LoadingScreen } from 'slate/ui/LoadingScreen'
+import { getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
 import { useDispatch } from 'react-redux'
-import { UserActions } from '../../store/slices/userSlice'
-import { Utils } from '../../utils'
+import { UserActions } from 'slate/store/slices/userSlice'
+import { Utils } from 'slate/utils'
+import { useUserSessionProfile } from 'slate/hooks/use-current-user'
 
 
 interface WithAuthProps {
@@ -24,7 +23,6 @@ interface WithAuthProps {
 
 export const withAuth = (
    {
-      requireAuth = false,
       requireNoAuth = false,
       requireActiveAccount = false,
       redirectTo = '/',
@@ -32,57 +30,56 @@ export const withAuth = (
    
    const Auth = (props: any) => {
       
-      const [displayPage, setDisplayPage] = useState(true)
-      const [session, loading] = useSession()
+      const [displayPage, setDisplayPage] = useState(false)
+      
+      const { profile, profileIsLoading } = useUserSessionProfile()
+      
+      
       const router = useRouter()
       
       const dispatch = useDispatch()
       
-      const { loading: userLoading, user }: any = requireActiveAccount ? getUserBySession(session) : { loading: null, user: null }
+      const [user, userLoading] = requireActiveAccount ? getUserBySessionProfile(profile) : [null, null]
       
       
       useEffect(() => {
          
-         if (requireAuth) {
-            if (!loading && !session) {
-               setDisplayPage(false)
-               router.push(redirectTo)
-            } else if(!loading && session) {
+         if (requireNoAuth) {
             
+            if (!profileIsLoading && !profile) {
+               setDisplayPage(true)
+            } else if (!profileIsLoading && profile) {
+               router.push(Utils.Url.baseLinkTo('/'))
             }
-         } else if (requireNoAuth) {
-            if (!loading && session) {
-               setDisplayPage(false)
-               router.push(redirectTo)
-            }
+            
          }
          
          if (requireActiveAccount) {
-            if (!!user) {
-               if (!user.is_active) {
-                  setDisplayPage(false)
-                  router.push(Utils.Url.baseLinkTo('/auth/new-account'))
-               }
+            
+            if (!!user && user.is_active) {
+               setDisplayPage(true)
+            } else if (!!user && !user.is_active) {
+               router.push(Utils.Url.baseLinkTo('/auth/new-account'))
             }
          }
-         
-         if(!loading && session && user && !userLoading) {
+         //
+         if (user && !userLoading) {
             dispatch(UserActions.set(user))
          }
          
-      }, [loading, session, user, userLoading])
+      }, [profileIsLoading, profile, user])
       
       
-      if (typeof window !== 'undefined' && loading) {
+      if (typeof window !== 'undefined' && profileIsLoading) {
          return <LoadingScreen />
       }
       
-      if (loading || userLoading) {
+      if (profileIsLoading) {
          return <LoadingScreen />
       }
       
       return displayPage ? (
-         <Component {...props} user={user as SlateUser} />
+         <Component {...props} user={user} />
       ) : <LoadingScreen />
    }
    

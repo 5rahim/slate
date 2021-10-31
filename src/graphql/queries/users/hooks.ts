@@ -1,35 +1,14 @@
-import { QueryResult, QueryTuple, useLazyQuery, useQuery } from '@apollo/client'
+import { QueryHookCreator, useQueryHookCreator } from '../../utils'
+import { GET_USER_BY_EMAIL_QUERY } from './queries'
+import { UserSessionProfile } from 'slate/hooks/use-current-user'
+import SlateUser from 'slate/graphql/types/User'
 
-import { getSingleObject, handleLazyQueryError, handleQueryError, lazyQueryReturn, queryReturn } from '../../utils'
-import { GET_USER_BY_EMAIL_QUERY } from './query'
-import { Session } from 'next-auth'
 
-
-export const useGetUserByEmailQuery = (email: string | null | undefined): QueryResult => {
+export const getUserBySessionProfile: QueryHookCreator<SlateUser | null> = (profile: UserSessionProfile | undefined) => {
    
-   const res = useQuery(GET_USER_BY_EMAIL_QUERY, {
-      variables: { email },
+   return useQueryHookCreator<SlateUser | null>("users", GET_USER_BY_EMAIL_QUERY, "object", {
+      variables: { email: profile?.email },
+      debug: false
    })
-   
-   handleQueryError(res)
-   
-   return queryReturn('users', res, "single")
-   
-}
-
-export const getUserBySession = (session: any): QueryResult & { user: any } => {
-   
-   const res = useQuery(GET_USER_BY_EMAIL_QUERY, {
-      variables: { email: session?.user?.email },
-      fetchPolicy: 'cache-first',
-   })
-   
-   const { loading, error, data, networkStatus, refetch, called, client, previousData, fetchMore, startPolling, stopPolling, updateQuery, subscribeToMore, variables } = res
-   
-   handleQueryError(res)
-   
-   const user = getSingleObject(data?.users)
-   
-   return { loading, error, data, user, networkStatus, refetch, called, client, previousData, fetchMore, startPolling, stopPolling, updateQuery, subscribeToMore, variables }
    
 }

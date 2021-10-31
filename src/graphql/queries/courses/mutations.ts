@@ -1,20 +1,35 @@
 import { gql } from '@apollo/client'
 
 export const UPDATE_COURSE_BANNER_COLOR = gql`
-mutation UpdateCourseBannerColor($id: uuid = "", $banner_color: String = "", $instructor_id: Int = 10) {
-  update_courses(where: {_and: {id: {_eq: $id}, instructor_id: {_eq: $instructor_id}}}, _set: {banner_color: $banner_color}) {
+mutation UpdateCourseBannerColor($id: uuid = "", $banner_color: String = "") {
+  update_courses(where: {id: {_eq: $id}}, _set: {banner_color: $banner_color}) {
     affected_rows
     returning {
-      access_code
-      available
       banner_color
-      banner_image
-      description
-      duration
-      id
-      instructor_id
-      level
-      name
+    }
+  }
+}
+`
+
+
+export const UPDATE_COURSE_BACKGROUND_COLOR = gql`
+mutation UpdateCourseBackgroundColor($id: uuid = "", $background_color: String = "") {
+  update_courses(where: {id: {_eq: $id}}, _set: {background_color: $background_color}) {
+    affected_rows
+    returning {
+      background_color
+    }
+  }
+}
+`
+
+
+export const UPDATE_COURSE_AVAILABILITY = gql`
+mutation UpdateCourseBackgroundColor($id: uuid = "", $available: Boolean = False) {
+  update_courses(where: {id: {_eq: $id}}, _set: {available: $available}) {
+    affected_rows
+    returning {
+      background_color
     }
   }
 }

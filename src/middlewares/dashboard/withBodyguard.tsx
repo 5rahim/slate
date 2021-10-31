@@ -6,7 +6,6 @@ import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { LoadingScreen } from '../../ui/LoadingScreen'
-import { rolesMap } from '../../utils/permissions'
 import { Utils } from '../../utils'
 
 
@@ -37,12 +36,7 @@ export const withBodyguard = (
       
       useEffect(() => {
          
-         for (let i = 0; i < roles.length; i++) {
-            const role = roles[i]
-            if (userRole == rolesMap[role])
-               hasAccess += 1
-         }
-         if (hasAccess === 0)
+         if (roles.includes(userRole))
             router.push(Utils.Url.baseLinkTo('/access-denied')) // TODO
          else
             setDisplayPage(true)

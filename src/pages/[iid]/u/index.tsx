@@ -1,4 +1,4 @@
-import withApollo from 'slate/graphql/withApollo'
+import { withApollo } from 'slate/graphql/withApollo'
 import UserDashboardLayout from 'slate/components/Layout/UserDashboard/UserDashboardLayout'
 import React from 'react'
 import { Compose } from 'slate/next/compose'
@@ -10,6 +10,7 @@ import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { DashboardPage } from 'slate/next/types'
 import { PermissionComponent } from 'slate/components/Permissions'
 import { withDashboard } from 'slate/middlewares/dashboard/withDashboard'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 
 
 const Page = ({ user, school }: DashboardPage) => {
@@ -42,8 +43,9 @@ const Page = ({ user, school }: DashboardPage) => {
 }
 
 export default Compose(
+   withPageAuthRequired,
    withApollo({ ssr: true }),
-   withAuth({ requireAuth: true, requireActiveAccount: true }),
+   withAuth({ requireActiveAccount: true }),
    withDashboard()
 )(Page)
 

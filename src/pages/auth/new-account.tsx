@@ -6,18 +6,20 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button, FormControl, FormLabel, Input } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
 import React, { useEffect, useState } from 'react'
-import { LoadingScreen } from '../../ui/LoadingScreen'
+import { LoadingScreen } from 'slate/ui/LoadingScreen'
 import { useRouter } from 'next/router'
-import { Compose } from '../../next/compose'
-import { withAuth } from '../../middlewares/auth/withAuth'
-import withApollo from '../../graphql/withApollo'
-import { useLazyProspectiveUserByStudentID } from '../../graphql/queries/prospective_users/hooks'
+import { Compose } from 'slate/next/compose'
+import { withApollo } from 'slate/graphql/withApollo'
+import { useLazyProspectiveUserByStudentID } from 'slate/graphql/queries/prospective_users/hooks'
 import { useForm } from 'react-hook-form'
 import { useMutation } from '@apollo/client'
-import { UPDATE_NEW_USER } from '../../graphql/queries/users/mutations'
-import { getUserBySession } from '../../graphql/queries/users/hooks'
-import { GET_USER_BY_EMAIL_QUERY } from '../../graphql/queries/users/query'
-import { Utils } from '../../utils'
+import { UPDATE_NEW_USER } from 'slate/graphql/queries/users/mutations'
+import { getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
+import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
+import { Utils } from 'slate/utils'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { useUserSessionProfile } from 'slate/hooks/use-current-user'
+import { ACTIVATE_PROSPECTIVE_USER } from 'slate/graphql/queries/prospective_users/mutations'
 
 
 function Page() {
@@ -25,29 +27,35 @@ function Page() {
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    
    const router = useRouter()
-   const [session, loading] = useSession()
+
+   const { profile, profileIsLoading } = useUserSessionProfile()
    const { register, handleSubmit, reset, formState: { errors } } = useForm()
-   
+
    const [prospectiveUserStudentID, setProspectiveUserStudentID] = useState<any>("")
    
-   const { loading: userLoading, user } = getUserBySession(session)
+   const [user, userLoading] = getUserBySessionProfile(profile)
    
+   /**
+    * If the account is already activated, redirect the user
+    */
    useEffect(() => {
-      console.log(user)
       if (user?.is_active) {
-         router.push('/')
+         router.push(Utils.Url.schoolLinkTo(profile?.iid, '/'))
       }
    }, [user])
    
+   /**
+    * Query prospective user after form is submitted
+    */
    const [loadProspectiveUser, { loading: queryLoading, data: prospectiveUser, error, called }] = useLazyProspectiveUserByStudentID(prospectiveUserStudentID)
    
-   useEffect(() => {
-      console.log('called', prospectiveUser)
-   }, [prospectiveUser])
    
+   /**
+    * Mutation: Update the user's info and redirect
+    */
    const [updateNewUser] = useMutation(UPDATE_NEW_USER, {
-      onError: () => {
-         router.push(Utils.Url.baseLinkTo('/auth/redirect'))
+      onError: (error) => {
+         // router.push(Utils.Url.baseLinkTo('/auth/redirect'))
       },
       onCompleted: () => {
          reset()
@@ -59,39 +67,46 @@ function Page() {
          'GetUserByEmail' // Query name
       ],
    })
-   
+
+   const [activateProspectiveUser] = useMutation(ACTIVATE_PROSPECTIVE_USER)
+
    // Load prospective user
    useEffect(() => {
       loadProspectiveUser()
    }, [prospectiveUserStudentID])
-   
+
    const onSubmit = (data: any) => {
       setProspectiveUserStudentID(data.student_id)
    }
-   
+
    useEffect(() => {
-      if (prospectiveUser && session) {
-         
+      if (prospectiveUser && profile) {
+
          updateNewUser({
             variables: {
-               email: session?.user?.email,
+               email: profile.email,
                first_name: prospectiveUser.first_name,
                middle_name: prospectiveUser.middle_name ?? "",
                last_name: prospectiveUser.last_name,
                school_id: prospectiveUser.school_id,
                student_id: prospectiveUser.student_id,
-               username: prospectiveUser.username,
-               role: prospectiveUser.role
+               username: prospectiveUser.username
             }
          })
-   
-         router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-         
+
+         activateProspectiveUser({
+            variables: {
+               student_id: prospectiveUser.student_id
+            }
+         })
+
+         // router.push(Utils.Url.baseLinkTo('/auth/redirect'))
+
       }
    }, [prospectiveUser])
-   
-   
-   if (loading || userLoading || user?.is_active) {
+
+
+   if (profileIsLoading || userLoading || user?.is_active) {
       return <LoadingScreen />
    }
    
@@ -118,7 +133,7 @@ function Page() {
                      <Button colorScheme="brand.100" width="100%" type="submit" isLoading={queryLoading}>{t('form:Register my account')}</Button>
                   
                   </form>
-               
+                  
                </Box>
             
             </AuthCard>
@@ -131,6 +146,6 @@ function Page() {
 
 
 export default Compose(
+   withPageAuthRequired,
    withApollo({ ssr: true }),
-   withAuth({ requireAuth: true }),
 )(Page)

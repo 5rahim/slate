@@ -30,18 +30,18 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
       if(!id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
-      const { loading, data: course } = getCourseById(id as string, props.user.id)
+      const [course, courseIsLoading] = getCourseById(id as string)
       
       useEffect(() => {
          
-         if(!loading && !!course) {
+         if(!courseIsLoading && !!course) {
             setDisplayPage(true)
             dispatch(CourseActions.set(course as SlateCourse))
-         } else if(!loading && !course) {
+         } else if(!courseIsLoading && !course) {
             router.push(Utils.Url.accessDeniedLink(props.iid))
          }
          
-      }, [loading, course])
+      }, [courseIsLoading, course])
       
       return displayPage ? <Component {...props} course={course} /> : <LoadingScreen />
       

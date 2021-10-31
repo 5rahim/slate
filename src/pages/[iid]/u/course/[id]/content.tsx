@@ -1,5 +1,5 @@
-import withApollo from '../../../../graphql/withApollo'
-import UserDashboardLayout from '../../../../components/Layout/UserDashboard/UserDashboardLayout'
+import { withApollo } from 'slate/graphql/withApollo'
+import UserDashboardLayout from 'slate/components/Layout/UserDashboard/UserDashboardLayout'
 import React from 'react'
 import { Compose } from 'slate/next/compose'
 import { withAuth } from 'slate/middlewares/auth/withAuth'

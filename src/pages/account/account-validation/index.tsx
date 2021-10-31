@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { useTranslation } from 'react-i18next'
-import { DefaultHead } from '../../../components/Layout/DefaultHead'
-import withApollo from '../../../graphql/withApollo'
+import { DefaultHead } from 'slate/components/Layout/DefaultHead'
+import { withApollo } from 'slate/graphql/withApollo'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import AuthLayout from '../../../components/Layout/AuthLayout'
+import AuthLayout from 'slate/components/Layout/AuthLayout'
 import { Alert, AlertDescription, AlertIcon, Button, Text } from 'chalkui/dist/cjs/React'
 import { useCookies } from 'react-cookie'
-import AuthCard from '../../../ui/AuthCard'
-import { Compose } from '../../../next/compose'
-import { withAuth } from '../../../middlewares/auth/withAuth'
+import AuthCard from 'slate/ui/AuthCard'
+import { Compose } from 'slate/next/compose'
+import { withAuth } from 'slate/middlewares/auth/withAuth'
 import { NextPage } from 'next'
-import { Utils } from '../../../utils'
+import { Utils } from 'slate/utils'
 
 
 const Page: NextPage = () => {
@@ -27,7 +27,7 @@ const Page: NextPage = () => {
       setProspectiveUser(cookies['prospective-user-data'])
       
       if (!cookies['prospective-user-data']) {
-         router.push(`/account/sign-up`)
+         router.push(`/account/new`)
       }
       
       if (cookies['account-validation-step']) {
