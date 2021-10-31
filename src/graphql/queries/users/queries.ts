@@ -8,6 +8,7 @@ ${BaseUser}
 query GetUserByEmail($email: String = "") {
   users(where: {email: {_eq: $email}}, limit: 1) {
     ...baseUser
+    
   }
 }
 `

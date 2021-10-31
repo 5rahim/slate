@@ -60,24 +60,24 @@ export interface QueryHookCreatorReturnProps {
 
 /**
  * @example
- * return useQueryHookCreator<SlateUser | null>("users", GET_USER_BY_EMAIL_QUERY, {
+ * return useQueryHookCreator<SlateUser | null>("users", GET_USER_BY_EMAIL_QUERY, "object", {
       variables: { email: profile?.email },
-      objectOrArray: "object",
       debug: false
    })
  * @param {string} table
  * @param {DocumentNode} query
+ * @param objectOrArray
  * @param options
  * @returns {QueryHookCreatorReturn<T>}
  */
 export function useQueryHookCreator<T>(
    table: string,
    query: DocumentNode,
+   objectOrArray: "object" | "array",
    options: {
       variables?: { [key: string]: any },
       errorPolicy?: ErrorPolicy,
       fetchPolicy?: FetchPolicy
-      objectOrArray: "object" | "array",
       onCompleted?: (data: T | {}) => void,
       debug?: boolean,
       errorMessage?: string
@@ -91,7 +91,7 @@ export function useQueryHookCreator<T>(
       fetchPolicy: options.fetchPolicy ?? "cache-first",
    })
    
-   return getQueryHookReturn<T>({ table, queryResult, debug: options.debug, objectOrArray: options.objectOrArray, errorMessage: options.errorMessage })
+   return getQueryHookReturn<T>({ table, queryResult, debug: options.debug, objectOrArray: objectOrArray, errorMessage: options.errorMessage })
    
 }
 
@@ -119,23 +119,28 @@ export function getQueryHookReturn<T>(
       errorMessage = "Internal Server Error",
       queryResult,
       objectOrArray,
-      debug = process.env.NODE_ENV === 'development',
+      debug = false,
    }: QueryHookCreatorReturnProps): QueryHookCreatorReturn<T> {
    
    const { loading, error, data, client, ...resultProperties } = queryResult
    
    const [returnData, setReturnData] = useState<any>(null)
+   const [isLoading, setIsLoading] = useState<any>(true)
    const [isEmpty, setIsEmpty] = useState<boolean>(false)
    
    useEffect(() => {
       debug && console.log('[QueryHook]: Query concluded', '\n\tTable: ', table, '\n\tRaw data: ', data, '\n\tData: ', returnData)
+      // setIsLoading(false)
       setIsEmpty(returnData === null)
    }, [returnData])
    
    useEffect(() => {
       
-      if (!loading) {
+      if (!loading && data) {
          setReturnData(objectOrArray === 'object' ? getSingleObject(data[table]) : getData(data[table]))
+         setIsLoading(false)
+      } else if (!loading) {
+         setReturnData(null)
       }
       
       if (error) {
@@ -145,7 +150,7 @@ export function getQueryHookReturn<T>(
       
    }, [loading, error, data])
    
-   return [returnData, loading, isEmpty, client]
+   return [returnData, isLoading, isEmpty, client]
    
 }
 

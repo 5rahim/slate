@@ -50,7 +50,7 @@ const Page = ({ course, iid }: DashboardPage) => {
             
             <Container maxW="container.xl" mt={5}>
                
-               <PermissionComponent.GraderAndHigherOnly>
+               <PermissionComponent.InstructorOnly>
                   <Flex
                      gridGap={18}
                      flexDirection={["column", "row"]}
@@ -616,7 +616,7 @@ const Page = ({ course, iid }: DashboardPage) => {
                         </Box>
                      </Flex>
                   </Flex>
-               </PermissionComponent.GraderAndHigherOnly>
+               </PermissionComponent.InstructorOnly>
             
             </Container>
          

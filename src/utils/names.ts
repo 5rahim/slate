@@ -25,7 +25,7 @@ export const Names = {
       
    },
    
-   formatLocaleFullName: (locale: string | undefined, user: SlateUser, capitalizeLastName: boolean = false) => {
+   formatLocaleFullName: (locale: string | undefined, user: SlateUser | undefined, capitalizeLastName: boolean = false) => {
       if(!locale)
          return '[No locale provided]'
       
@@ -47,7 +47,7 @@ export const Names = {
       
    },
    
-   formatInitials: (user: SlateUser) => {
+   formatInitials: (user: SlateUser | undefined) => {
       
       if(!user)
          return '???'

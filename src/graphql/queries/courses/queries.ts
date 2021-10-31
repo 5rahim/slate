@@ -5,8 +5,8 @@ import OtherUser from '../../fragments/OtherUser'
 export const GET_COURSE_BY_ID = gql`
 ${OtherUser}
 
-query GetCourseById($id: uuid = "", $user_id: Int = 10) {
-  courses(limit: 1, where: {_and: {id: {_eq: $id}, _or: [{instructor_id: {_eq: $user_id}}, {_and: {enrollments: {student_id: {_eq: $user_id}}},  available: {_eq: true} }]}}) {
+query GetCourseById($id: uuid = "") {
+  courses(limit: 1, where: {id: {_eq: $id}}) {
     access_code
     available
     banner_color
@@ -27,6 +27,59 @@ query GetCourseById($id: uuid = "", $user_id: Int = 10) {
       manager_id
       manager {
         ...otherUser
+      }
+    }
+  }
+}
+`
+
+export const GET_COURSE_ENROLLMENTS_QUERY = gql`
+query GetCourseEnrollments {
+  course_enrollment {
+    course {
+      name
+      access_code
+      available
+      background_color
+      banner_color
+      banner_image
+      description
+      duration
+      id
+      instructor_id
+      level
+      instructor {
+        first_name
+        middle_name
+        last_name
+        image
+      }
+    }
+  }
+}
+`
+
+export const GET_OWN_COURSES_QUERY = gql`
+query GetOwnCourses {
+  courses {
+    access_code
+    available
+    background_color
+    banner_color
+    banner_image
+    description
+    duration
+    id
+    level
+    instructor_id
+    name
+    enrollments {
+      id
+      student {
+        first_name
+        last_name
+        middle_name
+        image
       }
     }
   }

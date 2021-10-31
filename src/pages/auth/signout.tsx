@@ -10,6 +10,8 @@ import { useRouter } from 'next/router'
 import { Compose } from '../../next/compose'
 import { Utils } from 'slate/utils'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { withCacheReset } from 'slate/middlewares/dashboard/withCacheReset'
+import { withApollo } from 'slate/graphql/withApollo'
 
 
 function Page() {
@@ -44,5 +46,7 @@ function Page() {
 
 
 export default Compose(
+   withApollo({ ssr: false }),
    withPageAuthRequired,
+   withCacheReset(),
 )(Page)

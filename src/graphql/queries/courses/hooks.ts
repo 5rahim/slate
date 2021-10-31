@@ -1,17 +1,24 @@
 import { QueryResult, useQuery } from '@apollo/client'
-import { legacyHandleQueryError, legacyQueryReturn } from '../../utils'
-import { GET_COURSE_BY_ID } from './queries'
+import { legacyHandleQueryError, legacyQueryReturn, useQueryHookCreator } from '../../utils'
+import { GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS_QUERY, GET_OWN_COURSES_QUERY } from './queries'
+import { SlateCourse } from 'slate/graphql/types/Course'
 
-// TODO: Replace by new query paradigm
-export const getCourseById = (id: string, user_id: number): QueryResult => {
+
+export const getCourseById = (id: string) => {
    
-   const res = useQuery(GET_COURSE_BY_ID, {
-      variables: { id, user_id },
-      fetchPolicy: 'no-cache',
-   })
+   return useQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", { variables: { id }, fetchPolicy: 'no-cache' })
    
-   legacyHandleQueryError(res)
+}
+
+export const getStudentEnrollments = () => {
    
-   return legacyQueryReturn('courses', res, 'single')
+   return useQueryHookCreator<any>("course_enrollment", GET_COURSE_ENROLLMENTS_QUERY, "array", { fetchPolicy: "no-cache" })
+   
+}
+
+
+export const getOwnCourses = () => {
+   
+   return useQueryHookCreator<SlateCourse[]>("courses", GET_OWN_COURSES_QUERY, "array", { fetchPolicy: "no-cache" })
    
 }
