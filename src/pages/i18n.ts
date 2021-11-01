@@ -26,6 +26,7 @@ i18n
       ns: ['common', 'contact', 'form', 'auth'],
       defaultNS: 'common',
       whitelist: ["en", "fr"],
+      preload: ['en'],
       interpolation: {
          escapeValue: false, // not needed for react as it escapes by default
       },
