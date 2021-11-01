@@ -29,7 +29,19 @@ mutation UpdateCourseBackgroundColor($id: uuid = "", $available: Boolean = False
   update_courses(where: {id: {_eq: $id}}, _set: {available: $available}) {
     affected_rows
     returning {
-      background_color
+      available
+    }
+  }
+}
+`
+
+
+export const UPDATE_COURSE_CODE = gql`
+mutation UpdateCourseCode($id: uuid = "", $code: String = "") {
+  update_courses(where: {id: {_eq: $id}}, _set: {access_code: $code}) {
+    affected_rows
+    returning {
+      access_code
     }
   }
 }

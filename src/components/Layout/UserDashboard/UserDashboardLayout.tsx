@@ -27,28 +27,28 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgC
    
    useEffect(() => {
    
-      mutationIsLoading && toast({
-         duration: 5000,
-         position: "bottom",
-         render: () => (
-            <Box
-               bgColor={colorMode === 'light' ? 'white' : 'gray.700'}
-               color={colorMode === 'light' ? 'black' : 'white'}
-               p={3}
-               borderRadius="md"
-               boxShadow="lg"
-               border="2px solid"
-               borderColor="orange.200"
-            >
-               <Flex alignItems="center" gridGap=".5rem">
-                  <Spinner size="sm"/>
-                  <Text fontWeight="bold">Loading...</Text>
-               </Flex>
-            </Box>
-         ),
-      })
+      // mutationIsLoading && toast({
+      //    duration: 10000,
+      //    position: "bottom",
+      //    render: () => (
+      //       <Box
+      //          bgColor={colorMode === 'light' ? 'white' : 'gray.700'}
+      //          color={colorMode === 'light' ? 'black' : 'white'}
+      //          p={3}
+      //          borderRadius="md"
+      //          boxShadow="lg"
+      //          border="2px solid"
+      //          borderColor="orange.200"
+      //       >
+      //          <Flex alignItems="center" gridGap=".5rem">
+      //             <Spinner size="sm"/>
+      //             <Text fontWeight="bold">Loading...</Text>
+      //          </Flex>
+      //       </Box>
+      //    ),
+      // })
       
-      !mutationIsLoading && toast.closeAll({ positions: ['bottom'] })
+      // !mutationIsLoading && toast.closeAll({ positions: ['bottom'] })
       
    }, [mutationIsLoading])
 

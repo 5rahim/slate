@@ -4,7 +4,7 @@ import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
 import { InternalRefetchQueriesInclude } from '@apollo/client/core'
 import { useDispatch } from 'react-redux'
 import { AppActions } from 'slate/store/slices/appSlice'
-import { useToast } from 'chalkui/dist/cjs/React'
+import { toast, useToast } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
 
 export const getData = (data: any) => {
@@ -37,9 +37,18 @@ export const getSingleObject = (data: any) => {
  * @param {string} message
  * @param {boolean} debug
  */
-export const handleQueryHookErrors = (error: ApolloError | undefined, message: string, debug: boolean) => {
+export const handleQueryHookErrors = (error: ApolloError | undefined, message: string, debug: boolean, toast: any) => {
    
-   debug && console.error("[QueryHook Error]: ", error)
+   console.error("[QueryHook Error]: ", error)
+   
+   toast({
+      duration: 5000,
+      title: message,
+      status: "error",
+      isClosable: true,
+      position: "top",
+      description: "If the problem persists, contact Slate's support"
+   })
    
    // TODO: ErrorSlice.setNewInternalError(message)
    
@@ -140,6 +149,8 @@ export function getQueryHookReturn<T>(
    
    const { loading, error, data, client, ...resultProperties } = queryResult
    
+   const toast = useToast()
+   
    const [returnData, setReturnData] = useState<any>(null)
    const [isLoading, setIsLoading] = useState<any>(true)
    const [isEmpty, setIsEmpty] = useState<boolean>(false)
@@ -160,7 +171,7 @@ export function getQueryHookReturn<T>(
       }
       
       if (error) {
-         handleQueryHookErrors(error, errorMessage, debug)
+         handleQueryHookErrors(error, errorMessage, debug, toast)
          setReturnData(null)
       }
       
@@ -229,7 +240,7 @@ export function useMutationHookCreator(
    const [handleMutation, { loading, client, data }] = useMutation(mutation, {
       variables,
       onError: (error) => {
-        handleQueryHookErrors(error, errorMessage, debug)
+        handleQueryHookErrors(error, errorMessage, debug, toast)
       },
       onCompleted: (data) => {
          dispatch(AppActions.setMutationIsLoading(false))
