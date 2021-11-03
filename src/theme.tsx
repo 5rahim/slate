@@ -98,6 +98,13 @@ const theme = extendedTheme({
             },
          }
       },
+      Modal: {
+        baseStyle: (props) => ({
+           dialog: {
+              bgColor: mode('#fff', 'gray.800')(props)
+           }
+        })
+      },
       List: {
          baseStyle: (props) => ({
             cell: {
@@ -109,7 +116,7 @@ const theme = extendedTheme({
                      backgroundColor: mode('#eee', 'gray.700')(props)
                   }
                }
-            }
+            },
          })
       }
    },

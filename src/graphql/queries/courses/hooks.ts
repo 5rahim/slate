@@ -2,7 +2,7 @@ import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
 import { GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS_QUERY, GET_OWN_COURSES_QUERY } from './queries'
 import { SlateCourse } from 'slate/graphql/types/Course'
 import {
-   UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR, UPDATE_COURSE_CODE,
+   UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR, UPDATE_COURSE_CODE, UPDATE_COURSE_DURATION,
 } from 'slate/graphql/queries/courses/mutations'
 
 export const useMutateCourseBannerColor = () => {
@@ -58,6 +58,21 @@ export const useMutateCourseCode = () => {
       successAlert: {
          type: "toast",
          title: "Course code updated"
+      },
+      debug: true,
+   })
+}
+
+export const useMutateCourseDuration = () => {
+   
+   return useMutationHookCreator(UPDATE_COURSE_DURATION, {
+      refetchQueries: [
+         { query: GET_COURSE_BY_ID },
+         'GetCourseById',
+      ],
+      successAlert: {
+         type: "toast",
+         title: "Course duration updated"
       },
       debug: true,
    })

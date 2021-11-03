@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux'
 import { AppActions } from 'slate/store/slices/appSlice'
 import { toast, useToast } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
+import { Utils } from 'slate/utils'
 
 export const getData = (data: any) => {
    
@@ -37,18 +38,36 @@ export const getSingleObject = (data: any) => {
  * @param {string} message
  * @param {boolean} debug
  */
-export const handleQueryHookErrors = (error: ApolloError | undefined, message: string, debug: boolean, toast: any) => {
+export const handleApolloErrors = (error: ApolloError | undefined, message: string, debug: boolean, toast: any) => {
    
-   console.error("[QueryHook Error]: ", error)
+   process.env.NODE_ENV === 'development' && console.error("[QueryHook Error]: ", error)
+   
+   const additionalDetails = process.env.NODE_ENV === 'development' ?  error?.message : "If the problem persists, contact Slate's support"
    
    toast({
-      duration: 5000,
+      duration: 8000,
       title: message,
       status: "error",
-      isClosable: true,
       position: "top",
-      description: "If the problem persists, contact Slate's support"
+      description: additionalDetails
    })
+   
+   setTimeout(() => {
+      if(error?.toString().includes("JWT")) {
+   
+         toast({
+            duration: 5000,
+            title: "Your session has expired",
+            status: "error",
+            isClosable: true,
+            position: "top",
+         })
+   
+         setTimeout(() => {
+            window.location.href = Utils.Url.linkToLogout()
+         }, 1000)
+      }
+   }, 1000)
    
    // TODO: ErrorSlice.setNewInternalError(message)
    
@@ -171,7 +190,7 @@ export function getQueryHookReturn<T>(
       }
       
       if (error) {
-         handleQueryHookErrors(error, errorMessage, debug, toast)
+         handleApolloErrors(error, errorMessage, debug, toast)
          setReturnData(null)
       }
       
@@ -207,7 +226,8 @@ type MutationHookCreatorReturn = [
       }
    })
  * @param {DocumentNode} mutation
- * @param {{errorMessage?: string, successAlert?: {type: "notification" | "toast", title?: string, description?: string}, debug?: boolean} & MutationHookOptions} options
+ * @param {{errorMessage?: string, successAlert?: {type: "notification" | "toast", title?: string, description?: string}, debug?: boolean} &
+ *    MutationHookOptions} options
  * @returns {MutationHookCreatorReturn}
  */
 export function useMutationHookCreator(
@@ -240,7 +260,7 @@ export function useMutationHookCreator(
    const [handleMutation, { loading, client, data }] = useMutation(mutation, {
       variables,
       onError: (error) => {
-        handleQueryHookErrors(error, errorMessage, debug, toast)
+        handleApolloErrors(error, errorMessage, debug, toast)
       },
       onCompleted: (data) => {
          dispatch(AppActions.setMutationIsLoading(false))

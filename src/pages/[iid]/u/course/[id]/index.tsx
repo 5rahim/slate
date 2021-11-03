@@ -14,6 +14,7 @@ import { PermissionComponent } from 'slate/components/Permissions'
 import { Container, DividedList, Flex, Grid, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Link,
+   Switch,
    Tag, Text,
 } from 'chalkui/dist/cjs/React'
 import { BiCog, BiDotsHorizontal, BiEdit, BiGroup, BiHide, BiLink, BiListUl, BiPalette, BiSliderAlt, BiTrash, BiUserPin } from 'react-icons/bi'
@@ -77,9 +78,9 @@ const Page = ({ course, iid }: DashboardPage) => {
                <PermissionComponent.InstructorOnly>
                   <Flex
                      gridGap={18}
-                     flexDirection={["column", "row"]}
+                     flexDirection={["column-reverse", "column-reverse", "row"]}
                   >
-                     <Flex flexDirection="column" width={["100%", "40%"]} gap={20} as={Grid} alignSelf="flex-start">
+                     <Flex flexDirection="column" width={["100%", "100%", "40%"]} gap={20} as={Grid} alignSelf="flex-start">
                         
                         <CourseOptions />
                         
@@ -117,12 +118,12 @@ const Page = ({ course, iid }: DashboardPage) => {
                      
                      </Flex>
                      
-                     <Flex flexDirection="column" gridGap={18} width={["100%", "60%"]}>
-                        <Box maxHeight="500px">
+                     <Flex flexDirection="column" gridGap={18} width={["100%", "100%", "60%"]}>
+                        <Box>
                            
                            <CourseModuleBox headerText="Announcements" headerIcon={<HiOutlineSpeakerphone />}>
                               
-                              <DividedList spacing={2} width="100%" overflowY={"auto"} height="calc(100% - 2.5rem)" pr={1}>
+                              <DividedList spacing={2} width="100%" overflowY={"auto"} height="500px" pr={1}>
                                  <ListItem
                                     sx={{
                                        _hover: {

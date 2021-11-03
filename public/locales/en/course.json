@@ -26,6 +26,11 @@
     "Change details about the course": "Change details about the course",
     "Create a new access code": "Create a new access code",
     "Copy the access code": "Copy the access code",
-    "Change the access code": "Change the access code"
+    "Change the access code": "Change the access code",
+    "Create an access code to allow students to join your course": "Create an access code to allow students to join your course",
+    "Course details": "Course details",
+    "Course duration": "Course duration",
+    "Course schedule": "Course schedule",
+    "Change the duration of the course": "Change the duration of the course"
   }
 }
