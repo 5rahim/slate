@@ -14,6 +14,7 @@ query GetCourseById($id: uuid = "") {
     banner_image
     description
     duration
+    schedule
     id
     instructor {
       ...otherUser
@@ -46,6 +47,7 @@ query GetCourseEnrollments {
       description
       duration
       id
+      schedule
       instructor_id
       level
       instructor {

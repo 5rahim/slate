@@ -13,6 +13,8 @@
   "You are logged in": "You are logged in",
   "Go to the dashboard": "Go to the dashboard",
 
+  "Analytics": "Analytics",
+
   "Edit": "Edit",
   "Create": "Create",
   "View": "View",
@@ -21,6 +23,7 @@
   "Add": "Add",
   "Confirm": "Confirm",
   "Cancel":  "Cancel",
+  "Delete": "Delete",
 
   "country": {
     "Cameroon":  "Cameroon",
@@ -41,6 +44,36 @@
     "Tanzania": "Tanzania",
     "Uganda":  "Uganda",
     "Zambia": "Zambia"
+  },
+
+  "date": {
+    "January": "January",
+    "February": "February",
+    "March": "March",
+    "April": "April",
+    "May": "May",
+    "June": "June",
+    "July": "July",
+    "August": "August",
+    "September": "September",
+    "October": "October",
+    "November": "November",
+    "December": "December",
+
+    "Previous month": "Previous month",
+    "Next month": "Next month",
+
+    "Mo": "Mo",
+    "Tu": "Tu",
+    "We": "We",
+    "Th": "Th",
+    "Fr": "Fr",
+    "Sa": "Sa",
+    "Su": "Su",
+
+
+    "Start date": "Start date",
+    "End date": "End date"
   },
 
   "High School": "High School",

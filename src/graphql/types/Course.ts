@@ -1,5 +1,10 @@
 import SlateUser from './User'
 
+export interface DurationDateFormat {
+   startDate: Date | null
+   endDate: Date | null
+}
+
 export interface EnrolledCourse {
    authorized: boolean
    authorized_at?: number
@@ -24,6 +29,7 @@ export interface SlateCourse {
    background_color?: string
    banner_image?: string
    description?: string
+   schedule?: string
    duration?: string
    id: string
    instructor_id: number

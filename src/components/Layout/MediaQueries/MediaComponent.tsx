@@ -6,7 +6,7 @@ export const MediaComponent = {
    HideOnMobile: ({ children }: PermissionComponentProps) => {
       
       return <Box
-         display={['none', 'block', 'block', 'block', 'block']}
+         display={['none', 'none', 'block', 'block', 'block']}
       >
          {children}
       </Box>
