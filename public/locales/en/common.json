@@ -12,9 +12,7 @@
   "Access Denied": "Access Denied",
   "You are logged in": "You are logged in",
   "Go to the dashboard": "Go to the dashboard",
-
   "Analytics": "Analytics",
-
   "Edit": "Edit",
   "Create": "Create",
   "View": "View",
@@ -22,30 +20,28 @@
   "Open": "Open",
   "Add": "Add",
   "Confirm": "Confirm",
-  "Cancel":  "Cancel",
+  "Cancel": "Cancel",
   "Delete": "Delete",
-
   "country": {
-    "Cameroon":  "Cameroon",
+    "Cameroon": "Cameroon",
     "Côte d'Ivoire": "Côte d'Ivoire",
-    "Egypt":  "Egypt",
+    "Egypt": "Egypt",
     "Ethiopia": "Ethiopia",
-    "Gabon":  "Gabon",
+    "Gabon": "Gabon",
     "Ghana": "Ghana",
-    "Kenya":  "Kenya",
+    "Kenya": "Kenya",
     "Malawi": "Malawi",
-    "Mauritius":  "Mauritius",
+    "Mauritius": "Mauritius",
     "Morocco": "Morocco",
-    "Mozambique":  "Mozambique",
+    "Mozambique": "Mozambique",
     "Nigeria": "Nigeria",
-    "Rwanda":  "Rwanda",
+    "Rwanda": "Rwanda",
     "Senegal": "Senegal",
-    "South Africa":  "South Africa",
+    "South Africa": "South Africa",
     "Tanzania": "Tanzania",
-    "Uganda":  "Uganda",
+    "Uganda": "Uganda",
     "Zambia": "Zambia"
   },
-
   "date": {
     "January": "January",
     "February": "February",
@@ -59,10 +55,8 @@
     "October": "October",
     "November": "November",
     "December": "December",
-
     "Previous month": "Previous month",
     "Next month": "Next month",
-
     "Mo": "Mo",
     "Tu": "Tu",
     "We": "We",
@@ -70,15 +64,11 @@
     "Fr": "Fr",
     "Sa": "Sa",
     "Su": "Su",
-
-
     "Start date": "Start date",
     "End date": "End date"
   },
-
   "High School": "High School",
   "College/University": "College/University",
   "Organization": "Organization",
-
   "ASAP": "ASAP"
 }

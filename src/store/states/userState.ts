@@ -1,3 +1,3 @@
-import SlateUser from '../../graphql/types/User'
+import { SlateUser } from 'slate/types/User'
 
 export const userState: SlateUser | {} = {}

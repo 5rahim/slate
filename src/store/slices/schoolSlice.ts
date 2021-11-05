@@ -1,17 +1,7 @@
-import {
-   createAsyncThunk,
-   createSlice,
-   PayloadAction,
-} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type {
-   GlobalState,
-   AppThunk,
-} from '..'
-import {
-   SchoolState,
-   schoolState,
-} from '../states/schoolState'
+import type { GlobalState } from '..'
+import { SchoolState, schoolState } from '../states/schoolState'
 
 
 export const schoolSlice = createSlice({
@@ -28,7 +18,7 @@ export const SchoolActions = schoolSlice.actions
 
 export const SchoolSelectors = {
    getName: (state: GlobalState) => state.school?.name,
-   getIID: (state: GlobalState) => state.school?.short_name
+   getIID: (state: GlobalState) => state.school?.short_name,
 }
 
 

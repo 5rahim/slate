@@ -12,5 +12,14 @@ export const MediaComponent = {
       </Box>
       
    },
+   ShowOnMobileOnly: ({ children }: PermissionComponentProps) => {
+      
+      return <Box
+         display={['block', 'block', 'none', 'none', 'none']}
+      >
+         {children}
+      </Box>
+      
+   },
    
 }

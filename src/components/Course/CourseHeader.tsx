@@ -74,8 +74,8 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                // colorScheme="primary"
                defaultColor={colorMode === 'light' ? 'gray.400' : 'gray.400'}
                hoverColor={colorMode === 'light' ? 'black' : 'gray.300'}
-               hoverBg={colorMode === 'light' ? 'gray.100': 'gray.700'}
-               selectedColor={colorMode === 'light' ? 'black': 'white'}
+               hoverBg={colorMode === 'light' ? 'gray.100' : 'gray.700'}
+               selectedColor={colorMode === 'light' ? 'black' : 'white'}
                selectedBg={colorMode === 'light' ? 'gray.200' : 'gray.600'}
                size="md"
                spacing="0"
@@ -98,12 +98,12 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                   <CourseHeaderLink icon={<BiFolder />} linkTo={'/content'}>Content</CourseHeaderLink>
                   <CourseHeaderLink icon={<BiChat />} linkTo={'/discussions'}>Discussions</CourseHeaderLink>
                   <PermissionComponent.StudentOnly>
-                     <CourseHeaderLink icon={<BiCalendar />} linkTo='/calendar'>Calendar</CourseHeaderLink>
-                     <CourseHeaderLink icon={<BiFile />} linkTo='/grades'>Grades</CourseHeaderLink>
+                     <CourseHeaderLink icon={<BiCalendar />} linkTo="/calendar">Calendar</CourseHeaderLink>
+                     <CourseHeaderLink icon={<BiFile />} linkTo="/grades">Grades</CourseHeaderLink>
                   </PermissionComponent.StudentOnly>
                   <PermissionComponent.AssistantAndHigher>
-                     <CourseHeaderLink icon={<BiFile />} linkTo='/grade-center'>Grade center</CourseHeaderLink>
-                     <CourseHeaderLink icon={<BiUserCheck />} linkTo='/attendance'>Attendance</CourseHeaderLink>
+                     <CourseHeaderLink icon={<BiFile />} linkTo="/grade-center">Grade center</CourseHeaderLink>
+                     <CourseHeaderLink icon={<BiUserCheck />} linkTo="/attendance">Attendance</CourseHeaderLink>
                   </PermissionComponent.AssistantAndHigher>
                </MenuList>
             </Menu>

@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 
 export const datepickerContextDefaultValue = {
    focusedDate: null,
@@ -9,7 +9,7 @@ export const datepickerContextDefaultValue = {
    isFirstOrLastSelectedDate: () => false,
    onDateFocus: () => {},
    onDateHover: () => {},
-   onDateSelect: () => {}
-};
+   onDateSelect: () => {},
+}
 
-export default React.createContext<any>(datepickerContextDefaultValue);
+export default React.createContext<any>(datepickerContextDefaultValue)

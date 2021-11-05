@@ -1,18 +1,8 @@
-import {
-   createAsyncThunk,
-   createSlice,
-   PayloadAction,
-} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type {
-   GlobalState,
-   AppThunk,
-}                       from '..'
-import { fetchCount }   from '../../features/counter/counterAPI'
-import {
-   CounterState,
-   counterState,
-} from '../states/counterState'
+import type { AppThunk, GlobalState } from '..'
+import { fetchCount } from '../../features/counter/counterAPI'
+import { CounterState, counterState } from '../states/counterState'
 
 export const incrementAsync = createAsyncThunk(
    'counter/fetchCount',

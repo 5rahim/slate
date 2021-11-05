@@ -10,7 +10,7 @@ let accessToken: any = null
 
 const requestAccessToken = async () => {
    if (accessToken) return
-
+   
    const res = await fetch(`http://vcap.me:3000/api/token`)
    if (res.ok) {
       const json = await res.json()
@@ -36,7 +36,7 @@ const createHttpLink = (headers: any) => {
       headers, // auth token is fetched on the server side
       fetch,
    })
-   return httpLink;
+   return httpLink
 }
 
 const createWSLink = () => {
@@ -52,7 +52,7 @@ const createWSLink = () => {
                } : {},
             }
          },
-      })
+      }),
    )
 }
 
@@ -75,10 +75,9 @@ export default function createApolloClient(initialState: any, headers: any) {
       ssrMode,
       link,
       cache: cache,
-      connectToDevTools: true
+      connectToDevTools: true,
    })
 }
-
 
 
 // import fetch from 'isomorphic-unfetch'

@@ -1,8 +1,4 @@
-import {
-   configureStore,
-   ThunkAction,
-   Action,
-} from '@reduxjs/toolkit'
+import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 
 import counterReducer from './slices/counterSlice'
 import schoolReducer from './slices/schoolSlice'

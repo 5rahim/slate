@@ -45,7 +45,7 @@ export const SideNavLink = forwardRef(({ children, icon, ...props }: any, ref) =
          py="2"
          transition="all 0.2s"
          fontWeight="700"
-         fontSize='1.1rem'
+         fontSize="1.1rem"
          outline="none"
          // _focus={{ shadow: 'outline' }}
          color={colorMode === 'light' ? 'gray.400' : 'gray.300'}
@@ -84,7 +84,7 @@ export const ComponentLink = forwardRef(({ href, ...props }: any, ref) => {
                ref={ref}
                aria-current={isActive ? 'page' : undefined}
                _hover={{
-                  color: colorMode === 'light' ? 'white' : 'whiteAlpha.900'
+                  color: colorMode === 'light' ? 'white' : 'whiteAlpha.900',
                   // transform: 'translateX(2px)',
                }}
                {...(isActive && {

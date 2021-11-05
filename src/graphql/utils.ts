@@ -1,10 +1,11 @@
-import { ApolloClient, ApolloError, DocumentNode, ErrorPolicy, FetchPolicy, MutationFunctionOptions, MutationHookOptions, QueryHookOptions, QueryResult, QueryTuple, useMutation, useQuery } from '@apollo/client'
+import {
+   ApolloClient, ApolloError, DocumentNode, ErrorPolicy, FetchPolicy, MutationFunctionOptions, MutationHookOptions, QueryHookOptions, QueryResult,
+   QueryTuple, useMutation, useQuery,
+} from '@apollo/client'
 import { useEffect, useState } from 'react'
-import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
-import { InternalRefetchQueriesInclude } from '@apollo/client/core'
 import { useDispatch } from 'react-redux'
 import { AppActions } from 'slate/store/slices/appSlice'
-import { toast, useToast } from 'chalkui/dist/cjs/React'
+import { useToast } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
 import { Utils } from 'slate/utils'
 
@@ -42,19 +43,19 @@ export const handleApolloErrors = (error: ApolloError | undefined, message: stri
    
    process.env.NODE_ENV === 'development' && console.error("[QueryHook Error]: ", error)
    
-   const additionalDetails = process.env.NODE_ENV === 'development' ?  error?.message : "If the problem persists, contact Slate's support"
+   const additionalDetails = process.env.NODE_ENV === 'development' ? error?.message : "If the problem persists, contact Slate's support"
    
    toast({
       duration: 8000,
       title: message,
       status: "error",
       position: "top",
-      description: additionalDetails
+      description: additionalDetails,
    })
    
    setTimeout(() => {
-      if(error?.toString().includes("JWT")) {
-   
+      if (error?.toString().includes("JWT")) {
+         
          toast({
             duration: 5000,
             title: "Your session has expired",
@@ -62,14 +63,12 @@ export const handleApolloErrors = (error: ApolloError | undefined, message: stri
             isClosable: true,
             position: "top",
          })
-   
+         
          setTimeout(() => {
             window.location.href = Utils.Url.linkToLogout()
          }, 1000)
       }
    }, 1000)
-   
-   // TODO: ErrorSlice.setNewInternalError(message)
    
 }
 
@@ -127,7 +126,7 @@ export function useQueryHookCreator<T>(
          options.onCompleted && options.onCompleted(data)
          
          // TODO: Send notification
-         if(sendNotification) {
+         if (sendNotification) {
          
          }
       },
@@ -209,6 +208,7 @@ type MutationHookCreatorReturn = [
    any,
    ApolloClient<any>
 ]
+
 /**
  * MUTATION HOOK
  */
@@ -241,7 +241,7 @@ export function useMutationHookCreator(
       },
       sendNotification?: any // TODO: Notifications
       debug?: boolean
-   } & MutationHookOptions
+   } & MutationHookOptions,
 ): MutationHookCreatorReturn {
    
    const {
@@ -260,29 +260,29 @@ export function useMutationHookCreator(
    const [handleMutation, { loading, client, data }] = useMutation(mutation, {
       variables,
       onError: (error) => {
-        handleApolloErrors(error, errorMessage, debug, toast)
+         handleApolloErrors(error, errorMessage, debug, toast)
       },
       onCompleted: (data) => {
          dispatch(AppActions.setMutationIsLoading(false))
          
-         if(successAlert) {
-            if(successAlert.type === "toast") {
+         if (successAlert) {
+            if (successAlert.type === "toast") {
                toast({
                   title: t(`alert:${successAlert.title}`) ?? "Success",
                   description: successAlert.description ? t(`alert:${successAlert.description}`) : null,
                   status: "success",
                   isClosable: true,
-                  position: "top-right"
+                  position: "top-right",
                })
             }
          }
          
-         if(sendNotification) {
+         if (sendNotification) {
             // TODO: Send notification (query)
          }
          
       },
-      ...rest
+      ...rest,
    })
    
    function commitMutation(variables: any, functionOptions: any) {
@@ -295,7 +295,7 @@ export function useMutationHookCreator(
       loading,
       errorMessage,
       data,
-      client
+      client,
    ]
    
 }
@@ -317,7 +317,10 @@ export const legacyLazyQueryReturn = (data_id: string, res: QueryTuple<any, any>
    const [load, { loading, error, data, ...rest }] = res
    
    // @ts-ignore
-   return [load, { loading, error, data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, ...rest }]
+   return [load, {
+      loading, error,
+      data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, ...rest,
+   }]
 }
 
 /**
@@ -330,7 +333,10 @@ export const legacyLazyQueryReturn = (data_id: string, res: QueryTuple<any, any>
 export const legacyQueryReturn = (data_id: string, res: QueryResult<any, any>, size: "single" | "multiple" = "multiple"): QueryResult => {
    const { loading, error, data, ...rest } = res
    
-   return { loading, error, data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, ...rest }
+   return {
+      loading, error,
+      data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, ...rest,
+   }
 }
 
 /**

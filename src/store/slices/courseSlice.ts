@@ -1,17 +1,8 @@
-import {
-   createAsyncThunk,
-   createSlice,
-   PayloadAction,
-} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type {
-   GlobalState,
-   AppThunk,
-} from '..'
-import {
-   courseState,
-} from '../states/courseState'
-import { SlateCourse } from '../../graphql/types/Course'
+import type { GlobalState } from '..'
+import { courseState } from '../states/courseState'
+import { SlateCourse } from 'slate/types/Course'
 
 
 export const courseSlice = createSlice({

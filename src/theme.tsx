@@ -96,14 +96,14 @@ const theme = extendedTheme({
                fontSize: '1.1rem',
                fontWeight: 600,
             },
-         }
+         },
       },
       Modal: {
-        baseStyle: (props) => ({
-           dialog: {
-              bgColor: mode('#fff', 'gray.800')(props)
-           }
-        })
+         baseStyle: (props) => ({
+            dialog: {
+               bgColor: mode('#fff', 'gray.800')(props),
+            },
+         }),
       },
       List: {
          baseStyle: (props) => ({
@@ -113,12 +113,12 @@ const theme = extendedTheme({
                bgColor: mode('#fff', 'gray.800')(props),
                '.chalk-list__link-item': {
                   _hover: {
-                     backgroundColor: mode('#eee', 'gray.700')(props)
-                  }
-               }
+                     backgroundColor: mode('#eee', 'gray.700')(props),
+                  },
+               },
             },
-         })
-      }
+         }),
+      },
    },
    // fonts,
    // breakpoints,

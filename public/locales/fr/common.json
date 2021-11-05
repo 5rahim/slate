@@ -2,31 +2,28 @@
   "Contact us": "Contactez-nous",
   "Learn more": "Learn more",
   "Go to the home page": "Go to the home page",
-
   "country": {
-    "Cameroon":  "Cameroon",
+    "Cameroon": "Cameroon",
     "Côte d'Ivoire": "Côte d'Ivoire",
-    "Egypt":  "Egypt",
+    "Egypt": "Egypt",
     "Ethiopia": "Ethiopia",
-    "Gabon":  "Gabon",
+    "Gabon": "Gabon",
     "Ghana": "Ghana",
-    "Kenya":  "Kenya",
+    "Kenya": "Kenya",
     "Malawi": "Malawi",
-    "Mauritius":  "Mauritius",
+    "Mauritius": "Mauritius",
     "Morocco": "Morocco",
-    "Mozambique":  "Mozambique",
+    "Mozambique": "Mozambique",
     "Nigeria": "Nigeria",
-    "Rwanda":  "Rwanda",
+    "Rwanda": "Rwanda",
     "Senegal": "Senegal",
-    "South Africa":  "South Africa",
+    "South Africa": "South Africa",
     "Tanzania": "Tanzania",
-    "Uganda":  "Uganda",
+    "Uganda": "Uganda",
     "Zambia": "Zambia"
   },
-
   "High School": "High School",
   "College/University": "College/University",
   "Organization": "Organization",
-
   "ASAP": "ASAP"
 }

@@ -1,7 +1,5 @@
-import { Box, Container } from 'chalkui/dist/cjs/Components/Layout'
 import React from 'react'
 import { SimpleGrid, Spinner } from 'chalkui/dist/cjs/React'
-import { Flex } from 'chalkui/dist/esm/Components/Layout'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 
 export const LoadingScreen = () => {
@@ -25,7 +23,7 @@ export const LoadingScreen = () => {
          zIndex="9999"
       >
          
-         <Spinner size="xl"/>
+         <Spinner size="xl" />
       
       </SimpleGrid>
    

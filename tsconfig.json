@@ -6,32 +6,68 @@
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "lib": ["dom", "es2017"],
-    "module": "ES2020",
+    "lib": [
+      "dom",
+      "es2017"
+    ],
+    "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
-//    "noUnusedLocals": true,
-//    "noUnusedParameters": true,
+    //    "noUnusedLocals": true,
+    //    "noUnusedParameters": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
     "target": "esnext",
     "baseUrl": "./",
-    "paths" : {
-      "slate/components/*": ["./src/components/*"],
-      "slate/graphql/*": ["./src/graphql/*"],
-      "slate/hooks/*": ["./src/hooks/*"],
-      "slate/utils/*": ["./src/utils/*"],
-      "slate/utils": ["./src/utils/index.ts"],
-      "slate/next/*": ["./src/next/*"],
-      "slate/store/*": ["./src/store/*"],
-      "slate/ui/*": ["./src/ui/*"],
-      "slate/middlewares/*": ["./src/middlewares/*"],
-      "slate/container/*": ["./src/container/*"],
-      "slate/constants/*": ["./src/constants/*"],
+    "paths": {
+      "slate/components/*": [
+        "./src/components/*"
+      ],
+      "slate/graphql/*": [
+        "./src/graphql/*"
+      ],
+      "slate/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "slate/utils/*": [
+        "./src/utils/*"
+      ],
+      "slate/utils": [
+        "./src/utils/index.ts"
+      ],
+      "slate/next/*": [
+        "./src/next/*"
+      ],
+      "slate/store/*": [
+        "./src/store/*"
+      ],
+      "slate/ui/*": [
+        "./src/ui/*"
+      ],
+      "slate/middlewares/*": [
+        "./src/middlewares/*"
+      ],
+      "slate/container/*": [
+        "./src/container/*"
+      ],
+      "slate/constants/*": [
+        "./src/constants/*"
+      ],
+      "slate/types/*": [
+        "./src/types/*"
+      ],
+      "slate/generated/*": [
+        "./src/generated/*"
+      ]
     }
   },
-  "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "**/*.ts",
+    "**/*.tsx"
+  ]
 }

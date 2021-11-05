@@ -4,7 +4,6 @@
   "Student Options": "Student Options",
   "Course Options": "Course Options",
   "Announcements": "Announcements",
-
   "options": {
     "status": {
       "title": "Course is {{status}}",

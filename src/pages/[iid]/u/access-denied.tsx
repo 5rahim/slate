@@ -10,7 +10,7 @@ import { Compose } from 'slate/next/compose'
 import { withApollo } from 'slate/graphql/withApollo'
 import { withAuth } from 'slate/middlewares/auth/withAuth'
 import { withDashboard } from 'slate/middlewares/dashboard/withDashboard'
-import { DashboardPage } from 'slate/next/types'
+import { DashboardPage } from 'slate/types/Next'
 
 function Page({ iid }: DashboardPage) {
    
@@ -25,7 +25,7 @@ function Page({ iid }: DashboardPage) {
          <DefaultHead pageTitle={t('Access Denied')} />
          
          <AuthLayout>
-   
+            
             <Box
                p={5}
                bgColor={'brand.600'}
@@ -38,15 +38,16 @@ function Page({ iid }: DashboardPage) {
             >
                {t('Access Denied')}
             </Box>
-   
+            
             <Box bgColor="brand.800">
-   
-               <Box p={3}>
-      
-                  <Button colorScheme="gray.400" width="full" size="lg" onClick={() => router.push(Utils.Url.schoolLinkTo(iid, '/'))}>{t('Go to the home page')}</Button>
-   
-               </Box>
                
+               <Box p={3}>
+                  
+                  <Button colorScheme="gray.400" width="full" size="lg"
+                          onClick={() => router.push(Utils.Url.schoolLinkTo(iid, '/'))}>{t('Go to the home page')}</Button>
+               
+               </Box>
+            
             </Box>
          
          </AuthLayout>

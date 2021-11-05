@@ -19,8 +19,8 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
    const router = useRouter()
-   const {colorMode, toggleColorMode} = useColorMode();
-   const bg = {light: 'white', dark: 'gray.800'};
+   const { colorMode, toggleColorMode } = useColorMode()
+   const bg = { light: 'white', dark: 'gray.800' }
    
    const schoolName = useSelector(SchoolSelectors.getName)
    const iid = useSelector(SchoolSelectors.getIID)
@@ -43,26 +43,26 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
          <Flex width="100%" mx="auto" px={6} pr={[1, 6]} height="100%" alignItems={"center"}>
             
             <Flex width="100%" justify="space-between">
-   
+               
                <Flex width="100%" align="center">
-   
+                  
                   <IconButton
                      display={['flex', null, 'none']}
                      aria-label="Options"
                      icon={<BiMenu />}
                      size="md"
-                     fontSize='1.4rem'
+                     fontSize="1.4rem"
                      mr={3}
                      variant="secondary"
                      onClick={openDrawer}
                   />
-   
+                  
                   <Box as="a" d="block" onClick={() => router.push(Utils.Url.schoolLinkTo(iid, '/'))}>
                      <Text fontWeight={"bolder"} fontSize="1.4rem">{schoolName}</Text>
                   </Box>
-                  
+               
                </Flex>
-            
+               
                <Flex align="center">
                   
                   <Box mr={3}>
@@ -73,12 +73,12 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                            size="lg"
                            variant="outline"
                            cursor="pointer"
-                        ><Avatar size="sm" name={Utils.Names.formatLocaleFullName('en', user)} src={user.image} /></DropdownButton>
+                        ><Avatar size="sm" name={Utils.Names.formatLocaleFullName('en', user)} src={user?.image as string} /></DropdownButton>
                         <DropdownList>
                            <DropdownItem icon={<BiUser />}>
                               {t('Your Profile')}
                            </DropdownItem>
-                           <DropdownItem as={'a'} href="/auth/signout" icon={<BiLogOut/>}>
+                           <DropdownItem as={'a'} href="/auth/signout" icon={<BiLogOut />}>
                               {t('Sign out')}
                            </DropdownItem>
                         </DropdownList>
@@ -93,7 +93,7 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                      ml="2"
                      fontSize="20px"
                      onClick={toggleColorMode}
-                     icon={colorMode === 'light' ? <BiMoon/> : <BiSun/>}
+                     icon={colorMode === 'light' ? <BiMoon /> : <BiSun />}
                   />
                </Flex>
             </Flex>

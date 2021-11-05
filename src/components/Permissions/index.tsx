@@ -25,7 +25,7 @@ export const PermissionComponent = {
       
       const user = useCurrentUser()
       
-      return ['instructor', 'assistant'].includes(user.role) ? <>{children}</> : <></>
+      return ['instructor', 'assistant'].includes(user.role as string) ? <>{children}</> : <></>
       
    },
    

@@ -84,28 +84,28 @@ export const UserDashboardSideNav = (props: SideNavProps) => {
                         {'Sign out'}
                      </SideNavLink>
                   </Stack>
-               <Box
-                  color={"#fff"}
-                  fontSize="2rem"
-                  p={3}
-               >
-                  <Icon
-                     as={collapsed ? BiCaretRight : BiCaretLeft}
-                     mr={3}
-                     onClick={() => setCollapsed(!collapsed)}
-                     sx={{
-                        cursor: 'pointer',
-                        transition: 'all .15s linear',
-                        _hover: {
-                           transform: "scale(1.4)"
-                        }
-                     }}
-                  />
-               </Box>
+                  <Box
+                     color={"#fff"}
+                     fontSize="2rem"
+                     p={3}
+                  >
+                     <Icon
+                        as={collapsed ? BiCaretRight : BiCaretLeft}
+                        mr={3}
+                        onClick={() => setCollapsed(!collapsed)}
+                        sx={{
+                           cursor: 'pointer',
+                           transition: 'all .15s linear',
+                           _hover: {
+                              transform: "scale(1.4)",
+                           },
+                        }}
+                     />
+                  </Box>
                </Flex>
             </Box>
          </Box>
-         
+      
       </Box>
    )
 }

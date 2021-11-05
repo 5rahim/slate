@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import { Box, BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { UserDashboardSideNav } from './UserDashboardSideNav'
 import { Header } from '../Header'
-import { Drawer, DrawerContent, DrawerOverlay, Spinner, useToast, Text } from 'chalkui/dist/cjs/React'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppActions, AppSelectors } from 'slate/store/slices/appSlice'
+import { Drawer, DrawerContent, DrawerOverlay, Spinner, useToast } from 'chalkui/dist/cjs/React'
+import { useSelector } from 'react-redux'
+import { AppSelectors } from 'slate/store/slices/appSlice'
 import { CourseSelectors } from 'slate/store/slices/courseSlice'
+import { useCMF } from 'slate/hooks/use-color-mode-function'
 
 interface UserDashboardLayoutOptions {
    children?: React.ReactNode
@@ -18,6 +19,7 @@ type UserDashboardLayoutProps = UserDashboardLayoutOptions & BoxProps
 
 const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgColor = '#f9f9f9', ...rest }: UserDashboardLayoutProps) => {
    const { colorMode } = useColorMode()
+   const cmf = useCMF()
    const toast = useToast()
    
    const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false)
@@ -26,7 +28,7 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgC
    const course = useSelector(CourseSelectors.get)
    
    useEffect(() => {
-   
+      
       // mutationIsLoading && toast({
       //    duration: 10000,
       //    position: "bottom",
@@ -51,7 +53,7 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgC
       // !mutationIsLoading && toast.closeAll({ positions: ['bottom'] })
       
    }, [mutationIsLoading])
-
+   
    
    return (
       <>
@@ -71,11 +73,11 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgC
                alignItems="center"
                justifyContent="center"
             >
-               <Spinner size="md"/>
+               <Spinner size="md" />
             </Box>
             
             <UserDashboardSideNav as="nav" display={['none', null, 'block']} maxWidth="15rem" width="full" />
-   
+            
             <Drawer placement={'left'} onClose={() => setDrawerIsOpen(false)} isOpen={drawerIsOpen}>
                <DrawerOverlay>
                   <DrawerContent>
@@ -90,7 +92,7 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgC
                
                <Box
                   as="section"
-                  backgroundColor={colorMode === 'light' ? course.background_color : 'gray.900'}
+                  backgroundColor={cmf(course.background_color, 'gray.900')}
                   // backgroundImage={'url(/assets/patterns/memphis-mini.png)'}
                   minHeight="calc(100vh - 4rem)"
                >
