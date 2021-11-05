@@ -1,13 +1,13 @@
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, BoxProps, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Icon, Image, Text } from 'chalkui/dist/cjs/React'
-import { ComponentLink } from '../NavLink'
+import React, { useState } from 'react'
 import { BiBook, BiCaretLeft, BiCaretRight, BiEnvelope, BiGlobe, BiHome, BiListCheck, BiLogOut } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
-import { PermissionComponent } from '../../Permissions'
-import React, { useState } from 'react'
-import { Utils } from 'slate/utils'
 import { SchoolSelectors } from 'slate/store/slices/schoolSlice'
+import { Utils } from 'slate/utils'
+import { PermissionComponent } from '../../Permissions'
+import { ComponentLink } from '../NavLink'
 
 const SideNavLink = ({ href, children, icon }: any) => (
    <ComponentLink href={href}>

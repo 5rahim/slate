@@ -1,16 +1,16 @@
-import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import AuthLayout from 'slate/components/Layout/AuthLayout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button } from 'chalkui/dist/cjs/React'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { Utils } from 'slate/utils'
-import { useRouter } from 'next/router'
-import { Compose } from 'slate/next/compose'
+import AuthLayout from 'slate/components/Layout/AuthLayout'
+import { DefaultHead } from 'slate/components/Layout/DefaultHead'
 import { withApollo } from 'slate/graphql/withApollo'
 import { withAuth } from 'slate/middlewares/auth/withAuth'
 import { withDashboard } from 'slate/middlewares/dashboard/withDashboard'
+import { Compose } from 'slate/next/compose'
 import { DashboardPage } from 'slate/types/Next'
+import { Utils } from 'slate/utils'
 
 function Page({ iid }: DashboardPage) {
    
@@ -43,8 +43,10 @@ function Page({ iid }: DashboardPage) {
                
                <Box p={3}>
                   
-                  <Button colorScheme="gray.400" width="full" size="lg"
-                          onClick={() => router.push(Utils.Url.schoolLinkTo(iid, '/'))}>{t('Go to the home page')}</Button>
+                  <Button
+                     colorScheme="gray.400" width="full" size="lg"
+                     onClick={() => router.push(Utils.Url.schoolLinkTo(iid, '/'))}
+                  >{t('Go to the home page')}</Button>
                
                </Box>
             

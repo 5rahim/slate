@@ -1,12 +1,11 @@
-import * as React from 'react'
-import styled from 'styled-components'
-
 // Import only the methods we need from date-fns in order to keep build size small
 import { addDays, addHours, addMinutes, format, isSameMinute, startOfDay } from 'date-fns'
-
-import { Subtitle, Text } from './typography'
+import * as React from 'react'
+import styled from 'styled-components'
 import colors from './colors'
 import selectionSchemes, { SelectionSchemeType, SelectionType } from './selection-schemes'
+
+import { Subtitle, Text } from './typography'
 
 const Wrapper = styled.div`
   display: flex;
@@ -37,7 +36,7 @@ const DateCell = styled.div<{
 }>`
   width: 100%;
   height: 25px;
-  background-color: ${props => (props.selected ? props.selectedColor : props.unselectedColor)};
+  background-color: ${props => ( props.selected ? props.selectedColor : props.unselectedColor )};
 
   &:hover {
     background-color: ${props => props.hoveredColor};
@@ -97,17 +96,6 @@ export const preventScroll = (e: TouchEvent) => {
 }
 
 export default class ScheduleSelector extends React.Component<PropsType, StateType> {
-   selectionSchemeHandlers: { [key: string]: (startDate: Date, endDate: Date, foo: Array<Array<Date>>) => Date[] }
-   cellToDate: Map<Element, Date> = new Map()
-   // documentMouseUpHandler: () => void = () => {}
-   // endSelection: () => void = () => {}
-   // handleTouchMoveEvent: (event: React.SyntheticTouchEvent<*>) => void
-   // handleTouchEndEvent: () => void
-   // handleMouseUpEvent: (date: Date) => void
-   // handleMouseEnterEvent: (date: Date) => void
-   // handleSelectionStartEvent: (date: Date) => void
-   gridRef: HTMLElement | null = null
-   
    static defaultProps: Partial<PropsType> = {
       selection: [],
       selectionScheme: 'square',
@@ -124,6 +112,40 @@ export default class ScheduleSelector extends React.Component<PropsType, StateTy
       unselectedColor: colors.paleBlue,
       hoveredColor: colors.lightBlue,
       onChange: () => {},
+   }
+   selectionSchemeHandlers: { [key: string]: (startDate: Date, endDate: Date, foo: Array<Array<Date>>) => Date[] }
+   // documentMouseUpHandler: () => void = () => {}
+   // endSelection: () => void = () => {}
+   // handleTouchMoveEvent: (event: React.SyntheticTouchEvent<*>) => void
+   // handleTouchEndEvent: () => void
+   // handleMouseUpEvent: (date: Date) => void
+   // handleMouseEnterEvent: (date: Date) => void
+   cellToDate: Map<Element, Date> = new Map()
+   // handleSelectionStartEvent: (date: Date) => void
+   gridRef: HTMLElement | null = null
+   
+   constructor(props: PropsType) {
+      super(props)
+      
+      this.state = {
+         selectionDraft: [...this.props.selection], // copy it over
+         selectionType: null,
+         selectionStart: null,
+         isTouchDragging: false,
+         dates: ScheduleSelector.computeDatesMatrix(props),
+      }
+      
+      this.selectionSchemeHandlers = {
+         linear: selectionSchemes.linear,
+         square: selectionSchemes.square,
+      }
+      
+      this.endSelection = this.endSelection.bind(this)
+      this.handleMouseUpEvent = this.handleMouseUpEvent.bind(this)
+      this.handleMouseEnterEvent = this.handleMouseEnterEvent.bind(this)
+      this.handleTouchMoveEvent = this.handleTouchMoveEvent.bind(this)
+      this.handleTouchEndEvent = this.handleTouchEndEvent.bind(this)
+      this.handleSelectionStartEvent = this.handleSelectionStartEvent.bind(this)
    }
    
    static getDerivedStateFromProps(props: PropsType, state: StateType): Partial<StateType> | null {
@@ -151,30 +173,6 @@ export default class ScheduleSelector extends React.Component<PropsType, StateTy
          dates.push(currentDay)
       }
       return dates
-   }
-   
-   constructor(props: PropsType) {
-      super(props)
-      
-      this.state = {
-         selectionDraft: [...this.props.selection], // copy it over
-         selectionType: null,
-         selectionStart: null,
-         isTouchDragging: false,
-         dates: ScheduleSelector.computeDatesMatrix(props),
-      }
-      
-      this.selectionSchemeHandlers = {
-         linear: selectionSchemes.linear,
-         square: selectionSchemes.square,
-      }
-      
-      this.endSelection = this.endSelection.bind(this)
-      this.handleMouseUpEvent = this.handleMouseUpEvent.bind(this)
-      this.handleMouseEnterEvent = this.handleMouseEnterEvent.bind(this)
-      this.handleTouchMoveEvent = this.handleTouchMoveEvent.bind(this)
-      this.handleTouchEndEvent = this.handleTouchEndEvent.bind(this)
-      this.handleSelectionStartEvent = this.handleSelectionStartEvent.bind(this)
    }
    
    componentDidMount() {

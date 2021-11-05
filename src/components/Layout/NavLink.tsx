@@ -1,8 +1,8 @@
-import { useRouter } from 'next/router'
-import NextLink, { LinkProps } from 'next/link'
-import React, { cloneElement, forwardRef } from 'react'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import NextLink, { LinkProps } from 'next/link'
+import { useRouter } from 'next/router'
+import React, { cloneElement, forwardRef } from 'react'
 
 type NavLinkProps = LinkProps & {
    children?: React.ReactNode
@@ -66,7 +66,7 @@ export const TopNavLink = forwardRef(({ href, ...props }: any, ref) => {
                ref={ref}
                aria-current={isActive ? 'page' : undefined}
                _hover={{ color: !isActive ? 'inherit' : null }}
-               {...(isActive && { color: 'teal.500', fontWeight: 'semibold' })}
+               {...( isActive && { color: 'teal.500', fontWeight: 'semibold' } )}
                {...props}
             />
          )}
@@ -87,13 +87,13 @@ export const ComponentLink = forwardRef(({ href, ...props }: any, ref) => {
                   color: colorMode === 'light' ? 'white' : 'whiteAlpha.900',
                   // transform: 'translateX(2px)',
                }}
-               {...(isActive && {
+               {...( isActive && {
                   // bgColor: colorMode === 'light' ? 'blackAlpha.100' : 'whiteAlpha.100',
                   bgColor: colorMode === 'light' ? '#343434' : 'whiteAlpha.100',
                   color: colorMode === 'light' ? 'white' : 'white',
                   fontWeight: '700',
                   _hover: {},
-               })}
+               } )}
                {...props}
             />
          )}

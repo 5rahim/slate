@@ -1,6 +1,6 @@
-import { SlateRoles, SlateUser } from 'slate/types/User'
 import { SlateCourse } from 'slate/types/Course'
 import { Parameter } from 'slate/types/Parameters'
+import { SlateRoles, SlateUser } from 'slate/types/User'
 
 export const rolesMap: any = [
    'student',

@@ -1,6 +1,6 @@
-import { PermissionComponentProps } from './Types'
 import React from 'react'
 import { useCurrentUser } from '../../hooks/use-current-user'
+import { PermissionComponentProps } from './Types'
 
 export const PermissionComponent = {
    StudentOnly: ({ children }: PermissionComponentProps) => {

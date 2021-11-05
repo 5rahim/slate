@@ -4,14 +4,14 @@
  */
 
 import { NextPage } from 'next'
-import { getCourseById } from '../../graphql/queries/courses/hooks'
 import { useRouter } from 'next/router'
-import { Utils } from '../../utils'
 import { useEffect, useState } from 'react'
-import { LoadingScreen } from '../../ui/LoadingScreen'
 import { useDispatch } from 'react-redux'
-import { CourseActions } from '../../store/slices/courseSlice'
+import { LoadingScreen } from 'slate/components/UI/LoadingScreen'
 import { SlateCourse } from 'slate/types/Course'
+import { getCourseById } from '../../graphql/queries/courses/hooks'
+import { CourseActions } from '../../store/slices/courseSlice'
+import { Utils } from '../../utils'
 
 
 interface WithCourseProps {

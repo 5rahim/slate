@@ -4,10 +4,10 @@
  */
 
 import { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { LoadingScreen } from 'slate/ui/LoadingScreen'
+import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
+import { LoadingScreen } from 'slate/components/UI/LoadingScreen'
 import { SchoolActions } from 'slate/store/slices/schoolSlice'
 import { Utils } from 'slate/utils'
 

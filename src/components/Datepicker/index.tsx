@@ -1,12 +1,12 @@
-import { useState } from 'react'
 import { START_DATE, useDatepicker } from '@datepicker-react/hooks'
-import DatepickerContext from './DatepickerContext'
-import { Box, ButtonGroup } from 'chalkui/dist/cjs/React'
-import { Month } from 'slate/components/Datepicker/Month'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { DurationDateFormat } from 'slate/types/Course'
+import { Box, ButtonGroup } from 'chalkui/dist/cjs/React'
+import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { Month } from 'slate/components/Datepicker/Month'
+import { DurationDateFormat } from 'slate/types/Course'
 import { Utils } from 'slate/utils'
+import DatepickerContext from './DatepickerContext'
 
 export interface DatepickerProps {
    template?: "vertical" | "horizontal",
@@ -26,7 +26,7 @@ export const Datepicker = (props: DatepickerProps) => {
       onChange,
    } = props
    
-   const defaultDates = (defaultSelectedDates && defaultSelectedDates.startDate && defaultSelectedDates.endDate) ?
+   const defaultDates = ( defaultSelectedDates && defaultSelectedDates.startDate && defaultSelectedDates.endDate ) ?
       { startDate: defaultSelectedDates.startDate, endDate: defaultSelectedDates.endDate } : { startDate: null, endDate: null }
    
    const [state, setState] = useState<any>({

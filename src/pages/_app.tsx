@@ -1,16 +1,3 @@
-import NProgress from "nprogress"
-import Router from "next/router"
-import "nprogress/nprogress.css"
-import '../styles/wave.css'
-import { Provider as ReduxProvider } from 'react-redux'
-import type { AppProps } from 'next/app'
-import store from '../store'
-import { ChalkProvider } from 'chalkui/dist/cjs/React'
-import theme from '../theme'
-import React from "react"
-import i18n from './i18n'
-import { I18nextProvider } from 'react-i18next'
-import { CookiesProvider } from 'react-cookie'
 import { UserProvider } from '@auth0/nextjs-auth0'
 import "@fontsource/assistant"
 import "@fontsource/assistant/200.css"
@@ -20,6 +7,19 @@ import "@fontsource/assistant/500.css"
 import "@fontsource/assistant/600.css"
 import "@fontsource/assistant/700.css"
 import "@fontsource/assistant/800.css"
+import { ChalkProvider } from 'chalkui/dist/cjs/React'
+import type { AppProps } from 'next/app'
+import Router from "next/router"
+import NProgress from "nprogress"
+import "nprogress/nprogress.css"
+import React from "react"
+import { CookiesProvider } from 'react-cookie'
+import { I18nextProvider } from 'react-i18next'
+import { Provider as ReduxProvider } from 'react-redux'
+import store from '../store'
+import '../styles/wave.css'
+import theme from '../theme'
+import i18n from './i18n'
 // import { AuthMiddleware } from '../components/Middlewares/AuthMiddleware'
 
 

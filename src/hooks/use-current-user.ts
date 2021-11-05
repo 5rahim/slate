@@ -1,9 +1,9 @@
-import { useSelector } from 'react-redux'
-import { UserSelectors } from '../store/slices/userSlice'
 import { UserProfile, useUser } from '@auth0/nextjs-auth0'
-import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 import { Utils } from 'slate/utils'
+import { UserSelectors } from '../store/slices/userSlice'
 
 export const useCurrentUser = () => {
    return useSelector(UserSelectors.get)
@@ -34,8 +34,8 @@ export const useUserSessionProfile = (): { profile: UserSessionProfile | undefin
          
          setProfile({
             ...data,
-            iid: (data as any)['http://slate.red/school'].iid ?? null,
-            role: (data as any)['http://slate.red/role'] ?? null,
+            iid: ( data as any )['http://slate.red/school'].iid ?? null,
+            role: ( data as any )['http://slate.red/role'] ?? null,
          })
       }
       

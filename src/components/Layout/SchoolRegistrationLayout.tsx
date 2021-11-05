@@ -1,8 +1,8 @@
-import React from 'react'
-import { Box, BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
+import { Box, BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Button, Heading, SimpleGrid } from 'chalkui/dist/cjs/React'
 import { motion } from 'framer-motion'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 interface LayoutOptions {

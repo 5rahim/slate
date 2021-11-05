@@ -1,17 +1,17 @@
-import type { NextPage } from 'next'
-import { withApollo } from 'slate/graphql/withApollo'
-import React, { useState } from 'react'
-import { useRouter } from 'next/router'
-import SchoolRegistrationLayout from 'slate/components/Layout/SchoolRegistrationLayout'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Alert, AlertDescription, AlertIcon, AlertTitle, Button, FormControl, FormLabel, Heading, Input, Select, Textarea, useToast,
 } from 'chalkui/dist/cjs/React'
-import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { useForm } from 'react-hook-form'
-import { DefaultHead } from 'slate/components/Layout/DefaultHead'
 // import { SUBMIT_CONTACT_FORM } from 'slate/graphql/queries/contact/mutations'
 import { motion } from 'framer-motion'
+import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
+import { DefaultHead } from 'slate/components/Layout/DefaultHead'
+import SchoolRegistrationLayout from 'slate/components/Layout/SchoolRegistrationLayout'
+import { withApollo } from 'slate/graphql/withApollo'
 
 
 const ContactUs: NextPage = () => {
@@ -75,7 +75,8 @@ const ContactUs: NextPage = () => {
                      backgroundImage={'url(assets/patterns/topography.png)'}
                      backgroundBlendMode={"color-burn"}
                      color="white"
-                     mb={10}>
+                     mb={10}
+                  >
                      
                      <Box width={['90%', '90%', '90%', '80%']} margin="auto">
                         

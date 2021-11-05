@@ -2,11 +2,11 @@ import {
    ApolloClient, ApolloError, DocumentNode, ErrorPolicy, FetchPolicy, MutationFunctionOptions, MutationHookOptions, QueryHookOptions, QueryResult,
    QueryTuple, useMutation, useQuery,
 } from '@apollo/client'
+import { useToast } from 'chalkui/dist/cjs/React'
 import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 import { AppActions } from 'slate/store/slices/appSlice'
-import { useToast } from 'chalkui/dist/cjs/React'
-import { useTranslation } from 'react-i18next'
 import { Utils } from 'slate/utils'
 
 export const getData = (data: any) => {
@@ -319,7 +319,7 @@ export const legacyLazyQueryReturn = (data_id: string, res: QueryTuple<any, any>
    // @ts-ignore
    return [load, {
       loading, error,
-      data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, ...rest,
+      data: ( data && data[data_id] ? ( size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id]) ) : null ) as any, ...rest,
    }]
 }
 
@@ -335,7 +335,7 @@ export const legacyQueryReturn = (data_id: string, res: QueryResult<any, any>, s
    
    return {
       loading, error,
-      data: (data && data[data_id] ? (size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id])) : null) as any, ...rest,
+      data: ( data && data[data_id] ? ( size === "single" ? getSingleObject(data[data_id]) : getData(data[data_id]) ) : null ) as any, ...rest,
    }
 }
 

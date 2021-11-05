@@ -1,5 +1,5 @@
-import { SlateUser } from 'slate/types/User'
 import { Parameter } from 'slate/types/Parameters'
+import { SlateUser } from 'slate/types/User'
 
 export const Names = {
    formatLocaleNames: (
@@ -37,7 +37,7 @@ export const Names = {
       
       
       function getlastName(): string | undefined {
-         return (capitalizeLastName ? last_name?.toUpperCase() : last_name) as string
+         return ( capitalizeLastName ? last_name?.toUpperCase() : last_name ) as string
       }
       
       switch (locale) {

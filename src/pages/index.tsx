@@ -1,14 +1,14 @@
-import { withApollo } from '../graphql/withApollo'
+import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import { Button } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { Compose } from '../next/compose'
-import { DefaultHead } from '../components/Layout/DefaultHead'
 import { useTranslation } from 'react-i18next'
 import AuthLayout from 'slate/components/Layout/AuthLayout'
-import AuthCard from 'slate/ui/AuthCard'
-import { Button } from 'chalkui/dist/cjs/React'
-import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import { Utils } from 'slate/utils'
+import AuthCard from 'slate/components/UI/AuthCard'
 import { useUserSessionProfile } from 'slate/hooks/use-current-user'
+import { Utils } from 'slate/utils'
+import { DefaultHead } from '../components/Layout/DefaultHead'
+import { withApollo } from '../graphql/withApollo'
+import { Compose } from '../next/compose'
 
 
 const Page = () => {
@@ -33,8 +33,10 @@ const Page = () => {
                      
                      <Button mb={3} width="full" colorScheme="brand.100" as="a" href="/api/auth/logout">{t('Logout')}</Button>
                      
-                     <Button width="full" colorScheme="brand.100" as="a"
-                             href={Utils.Url.schoolLinkTo(profile?.iid, '/')}>{t('Go to the dashboard')}</Button>
+                     <Button
+                        width="full" colorScheme="brand.100" as="a"
+                        href={Utils.Url.schoolLinkTo(profile?.iid, '/')}
+                     >{t('Go to the dashboard')}</Button>
                   </Box>
                </AuthCard>
             ) : (

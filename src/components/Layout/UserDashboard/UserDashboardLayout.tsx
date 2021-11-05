@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from 'react'
-import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
-import { UserDashboardSideNav } from './UserDashboardSideNav'
-import { Header } from '../Header'
+import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
 import { Drawer, DrawerContent, DrawerOverlay, Spinner, useToast } from 'chalkui/dist/cjs/React'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
+import { useCMF } from 'slate/hooks/use-color-mode-function'
 import { AppSelectors } from 'slate/store/slices/appSlice'
 import { CourseSelectors } from 'slate/store/slices/courseSlice'
-import { useCMF } from 'slate/hooks/use-color-mode-function'
+import { Header } from '../Header'
+import { UserDashboardSideNav } from './UserDashboardSideNav'
 
 interface UserDashboardLayoutOptions {
    children?: React.ReactNode
-   bgColor?: string
 }
 
 type UserDashboardLayoutProps = UserDashboardLayoutOptions & BoxProps
 
 
-const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, bgColor = '#f9f9f9', ...rest }: UserDashboardLayoutProps) => {
+const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...rest }: UserDashboardLayoutProps) => {
    const { colorMode } = useColorMode()
    const cmf = useCMF()
    const toast = useToast()

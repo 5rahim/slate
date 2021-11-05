@@ -1,16 +1,16 @@
+import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Menu, MenuItem, MenuList, Text } from 'chalkui/dist/cjs/React'
-import { BiCalendar, BiChat, BiFile, BiFolder, BiGridAlt, BiUserCheck } from 'react-icons/bi'
-import { PermissionComponent } from '../Permissions'
+import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRouter } from 'next/router'
+import { BiCalendar, BiChat, BiFile, BiFolder, BiGridAlt, BiUserCheck } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 import { CourseSelectors } from 'slate/store/slices/courseSlice'
-import { MediaComponent } from '../Layout/MediaQueries/MediaComponent'
-import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
-import { Utils } from 'slate/utils'
 import { SchoolSelectors } from 'slate/store/slices/schoolSlice'
+import { Utils } from 'slate/utils'
+import { MediaComponent } from '../Layout/MediaQueries/MediaComponent'
+import { PermissionComponent } from '../Permissions'
 
 const CourseHeaderLink = ({ icon, children, linkTo }: any) => {
    

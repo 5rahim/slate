@@ -1,7 +1,7 @@
-import { Box, Text } from 'chalkui/dist/cjs/React'
-import React from 'react'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Box, Text } from 'chalkui/dist/cjs/React'
+import React from 'react'
 
 interface CourseModuleBoxProps {
    headerIcon?: React.ReactNode
@@ -9,7 +9,7 @@ interface CourseModuleBoxProps {
    children?: React.ReactNode
 }
 
-export const CourseModuleBox = (props: CourseModuleBoxProps) => {
+export const ModuleBox = (props: CourseModuleBoxProps) => {
    
    const { headerIcon, headerText, children } = props
    

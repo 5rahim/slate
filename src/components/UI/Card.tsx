@@ -1,6 +1,6 @@
-import React from 'react'
 import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
 import { useColorModeValue } from 'chalkui/dist/cjs/React'
+import React from 'react'
 
 export const Card: React.FC<BoxProps> = (props: BoxProps) => {
    

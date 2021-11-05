@@ -11,7 +11,7 @@
     },
     "code": {
       "yes": "You have an access code available",
-      "no": "You do not have any access code"
+      "no": "Create an access code to allow students to join your course"
     },
     "assistant": {
       "yes": "You have teaching assistants",

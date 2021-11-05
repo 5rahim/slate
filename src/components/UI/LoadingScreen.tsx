@@ -1,6 +1,6 @@
-import React from 'react'
-import { SimpleGrid, Spinner } from 'chalkui/dist/cjs/React'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
+import { SimpleGrid, Spinner } from 'chalkui/dist/cjs/React'
+import React from 'react'
 
 export const LoadingScreen = () => {
    

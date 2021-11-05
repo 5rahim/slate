@@ -1,9 +1,9 @@
-import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
-import { GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS_QUERY, GET_OWN_COURSES_QUERY } from './queries'
-import { SlateCourse } from 'slate/types/Course'
 import {
    UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR, UPDATE_COURSE_CODE, UPDATE_COURSE_DURATION,
 } from 'slate/graphql/queries/courses/mutations'
+import { SlateCourse } from 'slate/types/Course'
+import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
+import { GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS_QUERY, GET_OWN_COURSES_QUERY } from './queries'
 
 export const useMutateCourseBannerColor = () => {
    

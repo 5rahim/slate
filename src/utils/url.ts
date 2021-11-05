@@ -9,7 +9,10 @@ export const Url = {
    accessDeniedLink: (iid: string | undefined) => Url.schoolLinkTo(iid, '/access-denied'),
    
    assetPath: (assetPath: string,
-               folder?: string) => `/assets${folder ? (assetPath.startsWith('/') ? `/${folder}` : `/${folder}/`) : ''}${assetPath.startsWith('/') ? assetPath : `/${assetPath}`}`,
+               folder?: string,
+   ) => `/assets${folder ? ( assetPath.startsWith('/') ? `/${folder}` : `/${folder}/` ) : ''}${assetPath.startsWith('/')
+      ? assetPath
+      : `/${assetPath}`}`,
    /**
     * @example
     * Utils.Url.assetImageUrl('topography.png', 'patterns')

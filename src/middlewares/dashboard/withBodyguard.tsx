@@ -3,9 +3,9 @@
  */
 
 import { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import { LoadingScreen } from '../../ui/LoadingScreen'
+import React, { useEffect, useState } from 'react'
+import { LoadingScreen } from 'slate/components/UI/LoadingScreen'
 import { Utils } from '../../utils'
 
 
