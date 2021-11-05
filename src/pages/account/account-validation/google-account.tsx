@@ -29,7 +29,7 @@ const Page: NextPage = () => {
    const [prospectiveUser, setProspectiveUser] = useState<any>(null)
    
    useEffect(() => {
-   
+      
       console.log(cookies['prospective-user-data'])
       
       setProspectiveUser(cookies['prospective-user-data'])
@@ -48,6 +48,7 @@ const Page: NextPage = () => {
          setIsLoading(true)
          window.location.href = Utils.Url.schoolLinkTo(prospectiveUser.school.short_name, '/')
          removeCookie('prospective-user-data')
+         // @ts-ignore
          removeCookie('account-validation-step')
       },
    })
@@ -115,11 +116,13 @@ const Page: NextPage = () => {
                         <Input {...register("email", { required: true })} type="email" placeholder={t('form:Email address')} />
                      </FormControl>
                      
-                     <Button isLoading={loading || isLoading} width="100%" colorScheme="brand.700" mb={2} type="submit">{t('auth:validation.Continue')}</Button>
+                     <Button isLoading={loading || isLoading} width="100%" colorScheme="brand.700" mb={2}
+                             type="submit">{t('auth:validation.Continue')}</Button>
                   
                   </form>
                   
-                  <Button mt={5} width="100%" colorScheme="red.500" variant="link" as="a" target="_blank" href="https://accounts.google.com/signup">{t('auth:validation.I don\'t have a Google account')}</Button>
+                  <Button mt={5} width="100%" colorScheme="red.500" variant="link" as="a" target="_blank"
+                          href="https://accounts.google.com/signup">{t('auth:validation.I don\'t have a Google account')}</Button>
                
                
                </Box>

@@ -1,4 +1,4 @@
-import { Button } from "chalkui/dist/cjs/Components/Button";
+import { Button } from "chalkui/dist/cjs/Components/Button"
 import React, { useContext, useRef } from "react"
 import DatepickerContext from 'slate/components/Datepicker/DatepickerContext'
 import { useDay } from '@datepicker-react/hooks'
@@ -6,7 +6,7 @@ import { useCMF } from 'slate/hooks/use-color-mode-function'
 
 export function Day({ dayLabel, date }: any) {
    const cmf = useCMF()
-   const dayRef = useRef(null);
+   const dayRef = useRef(null)
    const {
       focusedDate,
       isDateFocused,
@@ -16,8 +16,8 @@ export function Day({ dayLabel, date }: any) {
       isFirstOrLastSelectedDate,
       onDateSelect,
       onDateFocus,
-      onDateHover
-   } = useContext(DatepickerContext);
+      onDateHover,
+   } = useContext(DatepickerContext)
    const {
       isSelected,
       isSelectedStartOrEnd,
@@ -26,7 +26,7 @@ export function Day({ dayLabel, date }: any) {
       onClick,
       onKeyDown,
       onMouseEnter,
-      tabIndex
+      tabIndex,
    } = useDay({
       date,
       focusedDate,
@@ -38,19 +38,19 @@ export function Day({ dayLabel, date }: any) {
       onDateFocus,
       onDateSelect,
       onDateHover,
-      dayRef
-   });
+      dayRef,
+   })
    
    if (!dayLabel) {
-      return <div />;
+      return <div />
    }
    
    const getColorFn = getColor(
       isSelected,
       isSelectedStartOrEnd,
       isWithinHoverRange,
-      disabledDate
-   );
+      disabledDate,
+   )
    
    return (
       <Button
@@ -66,8 +66,8 @@ export function Day({ dayLabel, date }: any) {
             _hover: {
                // borderRadius: 'md',
                bgColor: cmf('brand.100', 'gray.800'),
-               color: cmf('gray.900', 'white')
-            }
+               color: cmf('gray.900', 'white'),
+            },
          }}
          css={{
             // padding: "8px",
@@ -77,45 +77,45 @@ export function Day({ dayLabel, date }: any) {
                normalColor: cmf("#001217", 'gray.200'),
                selectedColor: cmf("#0e4150", "#d7f5ff"),
                rangeHoverColor: cmf("#574016", "#ffefdb"),
-               disabledColor: "#808285"
+               disabledColor: "#808285",
             }),
             background: getColorFn({
                selectedFirstOrLastColor: "#0E4150",
                normalColor: cmf("#FFFFFF", "transparent"),
                selectedColor: cmf("#8db3bf", "#42545f"),
-               rangeHoverColor: cmf("#F0CEA0" ,"rgba(240,206,160,0.38)"),
-               disabledColor: "#FFFFFF"
-            })
+               rangeHoverColor: cmf("#F0CEA0", "rgba(240,206,160,0.38)"),
+               disabledColor: "#FFFFFF",
+            }),
          }}
       >
          {dayLabel}
       </Button>
-   );
+   )
 }
 
 function getColor(
    isSelected: boolean,
    isSelectedStartOrEnd: any,
    isWithinHoverRange: any,
-   isDisabled: boolean
+   isDisabled: boolean,
 ) {
    return ({
               selectedFirstOrLastColor,
               normalColor,
               selectedColor,
               rangeHoverColor,
-              disabledColor
+              disabledColor,
            }: any) => {
       if (isSelectedStartOrEnd) {
-         return selectedFirstOrLastColor;
+         return selectedFirstOrLastColor
       } else if (isSelected) {
-         return selectedColor;
+         return selectedColor
       } else if (isWithinHoverRange) {
-         return rangeHoverColor;
+         return rangeHoverColor
       } else if (isDisabled) {
-         return disabledColor;
+         return disabledColor
       } else {
-         return normalColor;
+         return normalColor
       }
-   };
+   }
 }

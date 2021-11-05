@@ -1,6 +1,5 @@
 import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 interface AuthCardOptions {
    title: string

@@ -3,12 +3,13 @@ import { withApollo } from 'slate/graphql/withApollo'
 import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import SchoolRegistrationLayout from 'slate/components/Layout/SchoolRegistrationLayout'
-import { Alert, AlertDescription, AlertIcon, AlertTitle, Button, FormControl, FormLabel, Heading, Input, Select, Textarea, useToast } from 'chalkui/dist/cjs/React'
+import {
+   Alert, AlertDescription, AlertIcon, AlertTitle, Button, FormControl, FormLabel, Heading, Input, Select, Textarea, useToast,
+} from 'chalkui/dist/cjs/React'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { useForm } from 'react-hook-form'
 import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import { SUBMIT_CONTACT_FORM } from 'slate/graphql/queries/contact/mutations'
-import { useMutation } from '@apollo/client'
+// import { SUBMIT_CONTACT_FORM } from 'slate/graphql/queries/contact/mutations'
 import { motion } from 'framer-motion'
 import { Trans, useTranslation } from 'react-i18next'
 
@@ -25,23 +26,23 @@ const ContactUs: NextPage = () => {
    const [isLoading, setIsLoading] = useState(false)
    const [formSubmitted, setFormSubmitted] = useState(false)
    
-   const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM, {
-      onCompleted: () => {
-         reset()
-         // props.onClose()
-         // router.push('/institution_registration')
-         setIsLoading(false)
-         setFormSubmitted(true)
-         
-      },
-   })
+   // const [submitContactForm] = useMutation(SUBMIT_CONTACT_FORM, {
+   //    onCompleted: () => {
+   //       reset()
+   //       // props.onClose()
+   //       // router.push('/institution_registration')
+   //       setIsLoading(false)
+   //       setFormSubmitted(true)
+   //
+   //    },
+   // })
    
    const onSubmit = (data: any) => {
       setIsLoading(true)
       
-      submitContactForm({
-         variables: { ...data },
-      })
+      // submitContactForm({
+      //    variables: { ...data },
+      // })
    }
    
    

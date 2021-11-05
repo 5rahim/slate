@@ -35,24 +35,24 @@ export default ({ Component, pageProps }: AppProps) => {
       <I18nextProvider i18n={i18n}>
          
          {/*<SessionProvider session={pageProps.session}>*/}
-            
-            <UserProvider>
-   
-               <ReduxProvider store={store}>
-      
-                  <ChalkProvider resetCSS theme={theme}>
          
-                     <CookiesProvider>
+         <UserProvider>
             
-                        <Component {...pageProps} />
-         
-                     </CookiesProvider>
-      
-                  </ChalkProvider>
-   
-               </ReduxProvider>
+            <ReduxProvider store={store}>
                
-            </UserProvider>
+               <ChalkProvider resetCSS theme={theme}>
+                  
+                  <CookiesProvider>
+                     
+                     <Component {...pageProps} />
+                  
+                  </CookiesProvider>
+               
+               </ChalkProvider>
+            
+            </ReduxProvider>
+         
+         </UserProvider>
          
          {/*</SessionProvider>*/}
       

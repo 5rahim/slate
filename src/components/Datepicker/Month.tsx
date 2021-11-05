@@ -12,8 +12,8 @@ export function Month({ year, month, firstDayOfWeek }: any) {
    const { days, weekdayLabels, monthLabel } = useMonth({
       year,
       month,
-      firstDayOfWeek
-   });
+      firstDayOfWeek,
+   })
    
    return (
       <Box
@@ -22,7 +22,7 @@ export function Month({ year, month, firstDayOfWeek }: any) {
             overflow: 'hidden',
             bgColor: cmf('gray.200', 'gray.600'),
             // border: '1px solid #ccc',
-            boxShadow: 'xs'
+            boxShadow: 'xs',
          }}
       >
          <Box sx={{ textAlign: "center", py: 4, bgColor: cmf('gray.200', 'gray.700') }}>
@@ -35,7 +35,7 @@ export function Month({ year, month, firstDayOfWeek }: any) {
                justifyContent: "center",
                pb: "10px",
                fontSize: "1rem",
-               bgColor: cmf('gray.200', 'gray.700')
+               bgColor: cmf('gray.200', 'gray.700'),
             }}
          >
             {weekdayLabels.map(dayLabel => (
@@ -48,7 +48,7 @@ export function Month({ year, month, firstDayOfWeek }: any) {
             css={{
                display: "grid",
                gridTemplateColumns: "repeat(7, 1fr)",
-               justifyContent: "center"
+               justifyContent: "center",
             }}
          >
             {days.map((day, index) => {
@@ -59,12 +59,12 @@ export function Month({ year, month, firstDayOfWeek }: any) {
                         key={day.date.toString()}
                         dayLabel={day.dayLabel}
                      />
-                  );
+                  )
                }
                
-               return <div key={index} />;
+               return <div key={index} />
             })}
          </Box>
       </Box>
-   );
+   )
 }

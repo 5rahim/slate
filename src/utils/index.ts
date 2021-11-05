@@ -7,5 +7,5 @@ export const Utils = {
    Names,
    Permissions,
    Url,
-   Dates
+   Dates,
 }

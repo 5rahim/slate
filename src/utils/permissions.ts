@@ -1,5 +1,6 @@
-import SlateUser, { SlateRoles } from '../graphql/types/User'
-import { SlateCourse } from '../graphql/types/Course'
+import { SlateRoles, SlateUser } from 'slate/types/User'
+import { SlateCourse } from 'slate/types/Course'
+import { Parameter } from 'slate/types/Parameters'
 
 export const rolesMap: any = [
    'student',
@@ -9,14 +10,15 @@ export const rolesMap: any = [
 ]
 
 export const Permissions = {
-   only: (user: SlateUser | undefined, ...roles: SlateRoles[]) => {
-      if(user) {
-         return roles.includes(user.role);
+   only: (user: Parameter<SlateUser>, ...roles: SlateRoles[]) => {
+      if (user) {
+         // @ts-ignore
+         return roles.includes(user.role)
       }
       return false
    },
-   isInstructorOfCourse: (user: SlateUser | undefined, course: SlateCourse) => {
+   isInstructorOfCourse: (user: Parameter<SlateUser>, course: Parameter<SlateCourse>) => {
       return user?.id === course?.instructor_id
-   }
-
+   },
+   
 }

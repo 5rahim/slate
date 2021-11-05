@@ -1,6 +1,6 @@
 import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
 import { GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS_QUERY, GET_OWN_COURSES_QUERY } from './queries'
-import { SlateCourse } from 'slate/graphql/types/Course'
+import { SlateCourse } from 'slate/types/Course'
 import {
    UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR, UPDATE_COURSE_CODE, UPDATE_COURSE_DURATION,
 } from 'slate/graphql/queries/courses/mutations'
@@ -14,8 +14,8 @@ export const useMutateCourseBannerColor = () => {
       ],
       successAlert: {
          type: "toast",
-         title: "Banner color updated"
-      }
+         title: "Banner color updated",
+      },
    })
 }
 
@@ -28,8 +28,8 @@ export const useMutateCourseBackgroundColor = () => {
       ],
       successAlert: {
          type: "toast",
-         title: "Background color updated"
-      }
+         title: "Background color updated",
+      },
    })
 }
 
@@ -43,7 +43,7 @@ export const useMutateCourseAvailability = () => {
       ],
       successAlert: {
          type: "toast",
-         title: "Course accessiblity changed"
+         title: "Course accessiblity changed",
       },
    })
 }
@@ -57,7 +57,7 @@ export const useMutateCourseCode = () => {
       ],
       successAlert: {
          type: "toast",
-         title: "Course code updated"
+         title: "Course code updated",
       },
       debug: true,
    })
@@ -72,7 +72,7 @@ export const useMutateCourseDuration = () => {
       ],
       successAlert: {
          type: "toast",
-         title: "Course duration updated"
+         title: "Course duration updated",
       },
       debug: true,
    })

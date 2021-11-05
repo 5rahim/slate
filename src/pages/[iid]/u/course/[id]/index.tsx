@@ -5,8 +5,8 @@ import { Compose } from 'slate/next/compose'
 import { withAuth } from 'slate/middlewares/auth/withAuth'
 import { withDashboard } from 'slate/middlewares/dashboard/withDashboard'
 import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import { Trans, useTranslation } from 'react-i18next'
-import { DashboardPage } from 'slate/next/types'
+import { useTranslation } from 'react-i18next'
+import { DashboardPage } from 'slate/types/Next'
 import { useRouter } from 'next/router'
 import { withCourse } from 'slate/middlewares/dashboard/withCourse'
 import { CourseHeader } from 'slate/components/Course/CourseHeader'
@@ -14,10 +14,9 @@ import { PermissionComponent } from 'slate/components/Permissions'
 import { Container, DividedList, Flex, Grid, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Link,
-   Switch,
    Tag, Text,
 } from 'chalkui/dist/cjs/React'
-import { BiCog, BiDotsHorizontal, BiEdit, BiGroup, BiHide, BiLink, BiListUl, BiPalette, BiSliderAlt, BiTrash, BiUserPin } from 'react-icons/bi'
+import { BiCog, BiDotsHorizontal, BiEdit, BiGroup, BiListUl, BiPalette, BiTrash } from 'react-icons/bi'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { CourseModuleBox } from 'slate/components/Course/CourseModuleBox'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
@@ -68,7 +67,7 @@ const Page = ({ course, iid }: DashboardPage) => {
       <>
          <DefaultHead pageTitle={t('Dashboard')} />
          
-         <UserDashboardLayout bgColor={course?.background_color}>
+         <UserDashboardLayout bgColor={course?.background_color as string}>
             {/*<IndexHeader />*/}
             
             <CourseHeader index={0} />
@@ -595,7 +594,7 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           gridGap=".5rem"
                                           mb={5}
                                        >
-                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color} />
+                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color as string} />
                                        </Flex>
                                        <Swatches onChangeComplete={handleBannerColorChange} />
                                     </AccordionPanel>
@@ -616,7 +615,8 @@ const Page = ({ course, iid }: DashboardPage) => {
                                           gridGap=".5rem"
                                           mb={5}
                                        >
-                                          Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.background_color} />
+                                          Current color: <Box width="30px" height="30px" borderRadius="md"
+                                                              bgColor={course?.background_color as string} />
                                        </Flex>
                                        <Circle colors={['#f9f9f9', '#f5f2f0', '#bfbfbf', '#42454c', '#2a2928']}
                                                onChangeComplete={handleBackgroundColorChange} />

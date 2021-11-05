@@ -1,17 +1,8 @@
-import {
-   createAsyncThunk,
-   createSlice,
-   PayloadAction,
-} from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-import type {
-   GlobalState,
-   AppThunk,
-} from '..'
-import {
-   userState,
-} from '../states/userState'
-import SlateUser from '../../graphql/types/User'
+import type { GlobalState } from '..'
+import { userState } from '../states/userState'
+import { SlateUser } from 'slate/types/User'
 
 
 export const userSlice = createSlice({

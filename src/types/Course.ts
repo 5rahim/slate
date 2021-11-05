@@ -1,4 +1,5 @@
-import SlateUser from './User'
+import { SlateUser } from './User'
+import { Courses } from 'slate/generated/graphql'
 
 export interface DurationDateFormat {
    startDate: Date | null
@@ -22,23 +23,25 @@ export interface ManagingCourse {
    course: SlateCourse
 }
 
-export interface SlateCourse {
-   access_code: string
-   available: boolean
-   banner_color?: string
-   background_color?: string
-   banner_image?: string
-   description?: string
-   schedule?: string
-   duration?: string
-   id: string
-   instructor_id: number
-   level?: string
-   name: string
-   instructor: SlateUser
-   enrollments?: Enrollment[]
-   management?: Management[]
-}
+// export interface SlateCourse {
+//    access_code: string
+//    available: boolean
+//    banner_color?: string
+//    background_color?: string
+//    banner_image?: string
+//    description?: string
+//    schedule?: string
+//    duration?: string
+//    id: string
+//    instructor_id: number
+//    level?: string
+//    name: string
+//    instructor: SlateUser
+//    enrollments?: Enrollment[]
+//    management?: Management[]
+// }
+
+export type SlateCourse = Courses
 
 export interface Enrollment {
    id: string

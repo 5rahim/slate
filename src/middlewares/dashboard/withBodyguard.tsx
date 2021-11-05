@@ -9,7 +9,6 @@ import { LoadingScreen } from '../../ui/LoadingScreen'
 import { Utils } from '../../utils'
 
 
-
 interface WithBodyguardProps {
    authorize: string[]
 }
@@ -31,7 +30,6 @@ export const withBodyguard = (
       
       // No roles required, so all roles allowed
       if (!roles) return setDisplayPage(true)
-      
       
       
       useEffect(() => {

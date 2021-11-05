@@ -1,12 +1,7 @@
-import App, { AppContext } from 'next/app'
-import Head from 'next/head'
-import {
-   NextPageContext,
-   NextPage,
-} from 'next'
+import { AppContext } from 'next/app'
+import { NextPageContext } from 'next'
 import createApolloClient from './apolloClient'
-import { ReactNode } from 'react'
-import { ApolloClient, NormalizedCacheObject, ApolloProvider } from '@apollo/client'
+import { ApolloClient, ApolloProvider, NormalizedCacheObject } from '@apollo/client'
 import { getSession } from '@auth0/nextjs-auth0'
 
 interface NextPageContextWithApollo extends NextPageContext {
@@ -19,7 +14,7 @@ type NextPageContextApp = NextPageContextWithApollo & AppContext;
 
 // On the client, we store the Apollo Client in the following variable.
 // This prevents the client from reinitializing between page transitions.
-let globalApolloClient: any = null;
+let globalApolloClient: any = null
 
 /**
  * Installs the Apollo Client on NextPageContext
@@ -28,7 +23,7 @@ let globalApolloClient: any = null;
  * @param {NextPageContext | NextAppContext} ctx
  */
 export const initOnContext = (ctx: any) => {
-   const inAppContext = Boolean(ctx.ctx);
+   const inAppContext = Boolean(ctx.ctx)
    
    // We consider installing `withApollo({ ssr: true })` on global App level
    // as antipattern since it disables project wide Automatic Static Optimization.
@@ -36,32 +31,32 @@ export const initOnContext = (ctx: any) => {
       if (inAppContext) {
          console.warn(
             'Warning: You have opted-out of Automatic Static Optimization due to `withApollo` in `pages/_app`.\n' +
-            'Read more: https://err.sh/next.js/opt-out-auto-static-optimization\n'
-         );
+            'Read more: https://err.sh/next.js/opt-out-auto-static-optimization\n',
+         )
       }
    }
    
    // Initialize ApolloClient if not already done
    const apolloClient =
       ctx.apolloClient ||
-      initApolloClient(ctx.apolloState || {}, inAppContext ? ctx.ctx : ctx);
+      initApolloClient(ctx.apolloState || {}, inAppContext ? ctx.ctx : ctx)
    
    // We send the Apollo Client as a prop to the component to avoid calling initApollo() twice in the server.
    // Otherwise, the component would have to call initApollo() again but this
    // time without the context. Once that happens, the following code will make sure we send
    // the prop as `null` to the browser.
-   apolloClient.toJSON = () => null;
+   apolloClient.toJSON = () => null
    
    // Add apolloClient to NextPageContext & NextAppContext.
    // This allows us to consume the apolloClient inside our
    // custom `getInitialProps({ apolloClient })`.
-   ctx.apolloClient = apolloClient;
+   ctx.apolloClient = apolloClient
    if (inAppContext) {
-      ctx.ctx.apolloClient = apolloClient;
+      ctx.ctx.apolloClient = apolloClient
    }
    
-   return ctx;
-};
+   return ctx
+}
 
 async function getHeaders(ctx: any) {
    if (typeof window !== 'undefined') return null
@@ -74,7 +69,7 @@ async function getHeaders(ctx: any) {
    console.log(s?.user)
    
    return s?.idToken ? {
-      authorization: `Bearer ${s ? s.idToken: ''}`
+      authorization: `Bearer ${s ? s.idToken : ''}`,
    } : null
 }
 
@@ -88,16 +83,16 @@ const initApolloClient = (initialState: any, headers: any) => {
    // Make sure to create a new client for every server-side request so that data
    // isn't shared between connections (which would be bad)
    if (typeof window === 'undefined') {
-      return createApolloClient(initialState, headers);
+      return createApolloClient(initialState, headers)
    }
    
    // Reuse client on the client-side
    if (!globalApolloClient) {
-      globalApolloClient = createApolloClient(initialState, headers);
+      globalApolloClient = createApolloClient(initialState, headers)
    }
    
-   return globalApolloClient;
-};
+   return globalApolloClient
+}
 
 /**
  * Creates a withApollo HOC
@@ -109,28 +104,28 @@ const initApolloClient = (initialState: any, headers: any) => {
  */
 export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
    const WithApollo = ({ apolloClient, apolloState, ...pageProps }: any) => {
-      let client;
+      let client
       if (apolloClient) {
          // Happens on: getDataFromTree & next.js ssr
-         client = apolloClient;
+         client = apolloClient
       } else {
          // Happens on: next.js csr
          // client = initApolloClient(apolloState, undefined);
-         client = initApolloClient(apolloState, {});
+         client = initApolloClient(apolloState, {})
       }
       
       return (
          <ApolloProvider client={client}>
             <PageComponent {...pageProps} />
          </ApolloProvider>
-      );
-   };
+      )
+   }
    
    // Set the correct displayName in development
    if (process.env.NODE_ENV !== 'production') {
       const displayName =
-         PageComponent.displayName || PageComponent.name || 'Component';
-      WithApollo.displayName = `withApollo(${displayName})`;
+         PageComponent.displayName || PageComponent.name || 'Component'
+      WithApollo.displayName = `withApollo(${displayName})`
    }
    if (ssr || PageComponent.getInitialProps) {
       WithApollo.getInitialProps = async (ctx: any) => {
@@ -163,9 +158,9 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
                      <AppTree
                         pageProps={{
                            ...pageProps,
-                           apolloClient
+                           apolloClient,
                         }}
-                     />
+                     />,
                   )
                } catch (error) {
                   // Prevent Apollo Client GraphQL errors from crashing SSR.
@@ -185,10 +180,10 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
          
          return {
             ...pageProps,
-            apolloState
+            apolloState,
          }
       }
    }
    
-   return WithApollo;
-};
+   return WithApollo
+}

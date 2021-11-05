@@ -8,8 +8,8 @@ import { DefaultHead } from 'slate/components/Layout/DefaultHead'
 import { useTranslation } from 'react-i18next'
 import { Avatar, AvatarGroup, Box, CelledList, Heading, Icon, ListLinkItem, Skeleton, Tag, Text, Tooltip } from 'chalkui/dist/cjs/React'
 import { Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { DashboardPage } from 'slate/next/types'
-import { SlateCourse } from 'slate/graphql/types/Course'
+import { DashboardPage } from 'slate/types/Next'
+import { SlateCourse } from 'slate/types/Course'
 import { Permissions } from 'slate/utils/permissions'
 import { BiCalendarAlt } from 'react-icons/bi'
 import { PermissionComponent } from 'slate/components/Permissions'
@@ -40,17 +40,17 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    }, [ownCourses])
    
    useEffect(() => {
-   
-      if (Permissions.only(user, 'student') && courseEnrollments) {
       
+      if (Permissions.only(user, 'student') && courseEnrollments) {
+         
          for (const enrollment of courseEnrollments) {
-            if(enrollment.course.available) {
+            if (enrollment.course.available) {
                courses.push(enrollment.course)
             } else hiddenCourses.push(enrollment.course)
          }
          setCourses(courses)
          setHiddenCourses(hiddenCourses)
-      
+         
       }
       
    }, [courseEnrollments])
@@ -87,11 +87,12 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                </PermissionComponent.StudentOnly>
                
                {/*TODO CHANGE LEVEL !!!!!!!!!!!!*/}
-               {( !(ownCoursesLoading || courseEnrollmentsLoading) && courses?.length > 0) && (
+               {(!(ownCoursesLoading || courseEnrollmentsLoading) && courses?.length > 0) && (
                   <CelledList isFullWidth boxShadow="none" borderRadius="none">
                      {courses?.map((course: SlateCourse | undefined) => {
                         return (
-                           <ListLinkItem key={course?.id} px={6} py={4} onClick={() => router.push(Utils.Url.schoolLinkTo(iid, `/course/${course?.id}`))}>
+                           <ListLinkItem key={course?.id} px={6} py={4}
+                                         onClick={() => router.push(Utils.Url.schoolLinkTo(iid, `/course/${course?.id}`))}>
                               <Flex alignItems="center" justifyContent="space-between">
                                  <Box fontSize="md">
                                     <Flex gridGap="1rem">
@@ -105,7 +106,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                                        <Tooltip placement="bottom-end" label={"Students"} aria-label="Student avatars">
                                           <AvatarGroup size="sm" max={5}>
                                              {course?.enrollments?.map((enrollment) => {
-                                                return <Avatar key={enrollment?.id} src={enrollment?.student?.image} />
+                                                return <Avatar key={enrollment?.id} src={enrollment?.student?.image as string} />
                                              })}
                                           </AvatarGroup>
                                        </Tooltip>
@@ -113,8 +114,10 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                                  </PermissionComponent.AssistantAndHigher>
                                  <PermissionComponent.StudentOnly>
                                     <Box overflow="hidden">
-                                       <Tooltip placement="bottom-end" label={"Instructor: " + Utils.Names.formatLocaleFullName(i18n.language, course?.instructor)} aria-label="Instructor's name">
-                                          <Avatar size="sm" src={course?.instructor?.image} />
+                                       <Tooltip placement="bottom-end"
+                                                label={"Instructor: " + Utils.Names.formatLocaleFullName(i18n.language, course?.instructor)}
+                                                aria-label="Instructor's name">
+                                          <Avatar size="sm" src={course?.instructor?.image as string} />
                                        </Tooltip>
                                     </Box>
                                  </PermissionComponent.StudentOnly>
@@ -124,9 +127,9 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                      })}
                   </CelledList>
                )}
-               { (ownCoursesLoading || courseEnrollmentsLoading) && (
+               {(ownCoursesLoading || courseEnrollmentsLoading) && (
                   <Stack>
-                     <Skeleton height="80px" borderRadius="md"/>
+                     <Skeleton height="80px" borderRadius="md" />
                   </Stack>
                )}
             </Box>

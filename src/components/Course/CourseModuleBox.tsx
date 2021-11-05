@@ -23,7 +23,7 @@ export const CourseModuleBox = (props: CourseModuleBoxProps) => {
          boxShadow="sm"
          height="100%"
       >
-   
+         
          <Flex alignItems="center" pb={3} gridGap=".5rem">
             <Flex fontSize="1.5rem" alignItems="center">
                {headerIcon && headerIcon}
@@ -34,7 +34,7 @@ export const CourseModuleBox = (props: CourseModuleBoxProps) => {
          </Flex>
          
          {children}
-         
+      
       </Box>
    )
    

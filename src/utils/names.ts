@@ -1,4 +1,5 @@
-import SlateUser from '../graphql/types/User'
+import { SlateUser } from 'slate/types/User'
+import { Parameter } from 'slate/types/Parameters'
 
 export const Names = {
    formatLocaleNames: (
@@ -6,10 +7,10 @@ export const Names = {
       firstName: string | undefined,
       lastName: string | undefined,
       middleName?: string,
-      capitalizeLastName: boolean = false
+      capitalizeLastName: boolean = false,
    ) => {
       
-      if(!locale)
+      if (!locale)
          return '[No locale provided]'
       
       function getlastName(): string | undefined {
@@ -25,17 +26,18 @@ export const Names = {
       
    },
    
-   formatLocaleFullName: (locale: string | undefined, user: SlateUser | undefined, capitalizeLastName: boolean = false) => {
-      if(!locale)
+   formatLocaleFullName: (locale: string | undefined, user: Parameter<SlateUser>, capitalizeLastName: boolean = false) => {
+      if (!locale)
          return '[No locale provided]'
       
-      if(!user)
+      if (!user)
          return '???'
       
       const { first_name, last_name, middle_name } = user
       
+      
       function getlastName(): string | undefined {
-         return capitalizeLastName ? last_name?.toUpperCase() : last_name
+         return (capitalizeLastName ? last_name?.toUpperCase() : last_name) as string
       }
       
       switch (locale) {
@@ -47,16 +49,16 @@ export const Names = {
       
    },
    
-   formatInitials: (user: SlateUser | undefined) => {
+   formatInitials: (user: Parameter<SlateUser>) => {
       
-      if(!user)
+      if (!user)
          return '???'
       
       const { first_name, last_name, middle_name } = user
       
-      return [first_name.charAt(0).toUpperCase(), last_name.charAt(0).toUpperCase()].join('')
+      return [first_name?.charAt(0).toUpperCase(), last_name?.charAt(0).toUpperCase()].join('')
       
-   }
+   },
 }
 
 // Zaki BONFOH, Zaki Abde BONFOH, Zaki Abde,

@@ -3,5 +3,5 @@ export interface AppState {
 }
 
 export const appState: AppState | {} = {
-   mutationIsLoading: false
+   mutationIsLoading: false,
 }

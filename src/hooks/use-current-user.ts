@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux'
 import { UserSelectors } from '../store/slices/userSlice'
-import { UserContext, UserProfile, useUser } from '@auth0/nextjs-auth0'
+import { UserProfile, useUser } from '@auth0/nextjs-auth0'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { Utils } from 'slate/utils'
@@ -21,7 +21,7 @@ export const useUserSessionProfile = (): { profile: UserSessionProfile | undefin
    
    useEffect(() => {
       
-      if(data && !data.hasOwnProperty('http://slate.red/school')) {
+      if (data && !data.hasOwnProperty('http://slate.red/school')) {
          router.push(Utils.Url.linkToLogout())
       }
       

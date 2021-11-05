@@ -8,7 +8,8 @@ export const Url = {
    schoolLinkTo: (iid: string | undefined, path: string) => `http://${Config.domain}/${iid}/u${path}`,
    accessDeniedLink: (iid: string | undefined) => Url.schoolLinkTo(iid, '/access-denied'),
    
-   assetPath: (assetPath: string, folder?: string) => `/assets${folder ? (assetPath.startsWith('/') ? `/${folder}` : `/${folder}/`) : ''}${assetPath.startsWith('/') ? assetPath : `/${assetPath}`}`,
+   assetPath: (assetPath: string,
+               folder?: string) => `/assets${folder ? (assetPath.startsWith('/') ? `/${folder}` : `/${folder}/`) : ''}${assetPath.startsWith('/') ? assetPath : `/${assetPath}`}`,
    /**
     * @example
     * Utils.Url.assetImageUrl('topography.png', 'patterns')
@@ -16,6 +17,6 @@ export const Url = {
     * @param {string} folder
     * @returns url({string})
     */
-   assetImageUrl: (assetPath: string, folder?: string) => `url(${Url.assetPath(assetPath, folder)})`
+   assetImageUrl: (assetPath: string, folder?: string) => `url(${Url.assetPath(assetPath, folder)})`,
    
 }

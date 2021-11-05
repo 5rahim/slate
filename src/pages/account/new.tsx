@@ -26,7 +26,9 @@ const Page: NextPage = () => {
    
    const router = useRouter()
    
-   const [loadProspectiveUser, { loading, data: prospectiveUser }] = useLazyProspectiveUserByStudentIdAndCode(prospectiveUserData?.student_id, prospectiveUserData?.code)
+   const [loadProspectiveUser, {
+      loading, data: prospectiveUser,
+   }] = useLazyProspectiveUserByStudentIdAndCode(prospectiveUserData?.student_id, prospectiveUserData?.code)
    
    const onSubmit = (form_data: any) => {
       setProspectiveUserData({ student_id: form_data.student_id, code: form_data.code })
@@ -79,7 +81,8 @@ const Page: NextPage = () => {
                         <Input {...register("code", { required: true })} placeholder={t('form:Code')} type={displayCode ? "text" : "password"} />
                      </FormControl>
                      
-                     <Button variant="link" mb={3} onClick={() => setDisplayCode(dp => !dp)} colorScheme="secondary">{displayCode ? "Cacher le code" : "Voir le code"}</Button>
+                     <Button variant="link" mb={3} onClick={() => setDisplayCode(dp => !dp)}
+                             colorScheme="secondary">{displayCode ? "Cacher le code" : "Voir le code"}</Button>
                      
                      <Button colorScheme="brand.100" width="100%" type="submit" isLoading={isLoading}>{t('form:Register my account')}</Button>
                   

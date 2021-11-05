@@ -27,10 +27,10 @@ function Page() {
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    
    const router = useRouter()
-
+   
    const { profile, profileIsLoading } = useUserSessionProfile()
    const { register, handleSubmit, reset, formState: { errors } } = useForm()
-
+   
    const [prospectiveUserStudentID, setProspectiveUserStudentID] = useState<any>("")
    
    const [user, userLoading] = getUserBySessionProfile(profile)
@@ -47,7 +47,9 @@ function Page() {
    /**
     * Query prospective user after form is submitted
     */
-   const [loadProspectiveUser, { loading: queryLoading, data: prospectiveUser, error, called }] = useLazyProspectiveUserByStudentID(prospectiveUserStudentID)
+   const [loadProspectiveUser, {
+      loading: queryLoading, data: prospectiveUser, error, called,
+   }] = useLazyProspectiveUserByStudentID(prospectiveUserStudentID)
    
    
    /**
@@ -64,24 +66,24 @@ function Page() {
       },
       refetchQueries: [
          { query: GET_USER_BY_EMAIL_QUERY }, // DocumentNode object parsed with gql
-         'GetUserByEmail' // Query name
+         'GetUserByEmail', // Query name
       ],
    })
-
+   
    const [activateProspectiveUser] = useMutation(ACTIVATE_PROSPECTIVE_USER)
-
+   
    // Load prospective user
    useEffect(() => {
       loadProspectiveUser()
    }, [prospectiveUserStudentID])
-
+   
    const onSubmit = (data: any) => {
       setProspectiveUserStudentID(data.student_id)
    }
-
+   
    useEffect(() => {
       if (prospectiveUser && profile) {
-
+         
          updateNewUser({
             variables: {
                email: profile.email,
@@ -90,22 +92,22 @@ function Page() {
                last_name: prospectiveUser.last_name,
                school_id: prospectiveUser.school_id,
                student_id: prospectiveUser.student_id,
-               username: prospectiveUser.username
-            }
+               username: prospectiveUser.username,
+            },
          })
-
+         
          activateProspectiveUser({
             variables: {
-               student_id: prospectiveUser.student_id
-            }
+               student_id: prospectiveUser.student_id,
+            },
          })
-
+         
          // router.push(Utils.Url.baseLinkTo('/auth/redirect'))
-
+         
       }
    }, [prospectiveUser])
-
-
+   
+   
    if (profileIsLoading || userLoading || user?.is_active) {
       return <LoadingScreen />
    }
@@ -133,7 +135,7 @@ function Page() {
                      <Button colorScheme="brand.100" width="100%" type="submit" isLoading={queryLoading}>{t('form:Register my account')}</Button>
                   
                   </form>
-                  
+               
                </Box>
             
             </AuthCard>

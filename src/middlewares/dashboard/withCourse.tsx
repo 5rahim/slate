@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import { LoadingScreen } from '../../ui/LoadingScreen'
 import { useDispatch } from 'react-redux'
 import { CourseActions } from '../../store/slices/courseSlice'
-import { SlateCourse } from '../../graphql/types/Course'
+import { SlateCourse } from 'slate/types/Course'
 
 
 interface WithCourseProps {
@@ -21,23 +21,23 @@ interface WithCourseProps {
 export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => {
    
    const Course = (props: any) => {
-   
+      
       const router = useRouter()
       const { id } = router.query
       const dispatch = useDispatch()
       const [displayPage, setDisplayPage] = useState<boolean>(false)
       
-      if(!id)
+      if (!id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
       const [course, courseIsLoading] = getCourseById(id as string)
       
       useEffect(() => {
          
-         if(!courseIsLoading && !!course) {
+         if (!courseIsLoading && !!course) {
             setDisplayPage(true)
             dispatch(CourseActions.set(course as SlateCourse))
-         } else if(!courseIsLoading && !course) {
+         } else if (!courseIsLoading && !course) {
             router.push(Utils.Url.accessDeniedLink(props.iid))
          }
          

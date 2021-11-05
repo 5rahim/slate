@@ -96,7 +96,7 @@ const Layout: React.FC<LayoutProps> = ({ children, ...rest }: LayoutProps) => {
                      </Flex>
                   
                   </motion.div>
-                  
+               
                </Box>
             
             </motion.span>

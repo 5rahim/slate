@@ -10,7 +10,6 @@ import { LoadingScreen } from 'slate/ui/LoadingScreen'
 import { useDispatch } from 'react-redux'
 import { SchoolActions } from 'slate/store/slices/schoolSlice'
 import { Utils } from 'slate/utils'
-import { useUser } from '@auth0/nextjs-auth0'
 
 
 interface WithDashboardProps {

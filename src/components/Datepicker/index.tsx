@@ -4,7 +4,7 @@ import DatepickerContext from './DatepickerContext'
 import { Box, ButtonGroup } from 'chalkui/dist/cjs/React'
 import { Month } from 'slate/components/Datepicker/Month'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { DurationDateFormat } from 'slate/graphql/types/Course'
+import { DurationDateFormat } from 'slate/types/Course'
 import { useTranslation } from 'react-i18next'
 import { Utils } from 'slate/utils'
 
@@ -102,7 +102,7 @@ export const Datepicker = (props: DatepickerProps) => {
                gridGap: template === 'horizontal' ? "1rem" : "1rem",
                maxWidth: template === "vertical" ? "350px" : "auto",
                margin: template === "vertical" ? "auto" : ".5rem auto auto",
-               justifyContent: template === "horizontal" ? "center" : ""
+               justifyContent: template === "horizontal" ? "center" : "",
             }}
          >
             {activeMonths.map(month => (

@@ -30,11 +30,11 @@ i18n
       interpolation: {
          escapeValue: false, // not needed for react as it escapes by default
       },
-      returnEmptyString: true
+      returnEmptyString: true,
    })
-;
 
 
-export default i18n;
 
-i18n.changeLanguage('en');
+export default i18n
+
+i18n.changeLanguage('en')

@@ -1,9 +1,12 @@
 import { useColorMode } from "chalkui/dist/cjs/ColorMode"
+import { Parameter } from 'slate/types/Parameters'
 
 export const useCMF = () => {
    
    const { colorMode } = useColorMode()
    
-   return (light: string, dark: string) => colorMode === 'light' ? light : dark
+   return (light: Parameter<string>, dark: Parameter<string>) => {
+      return (light && dark) ? (colorMode === 'light' ? light : dark) : undefined
+   }
    
 }
