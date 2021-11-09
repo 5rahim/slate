@@ -1,6 +1,6 @@
+import { DurationDateFormat } from '@slate/types/Course'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
-import { DurationDateFormat } from 'slate/types/Course'
 
 const getLocale = (locale: string) => locale === 'fr' ? fr : enUS
 

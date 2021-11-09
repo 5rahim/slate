@@ -1,10 +1,10 @@
+import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
+import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
 import { DividedList } from 'chalkui/dist/cjs/Components/Layout'
 import { Link, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiCog, BiGroup, BiListUl } from 'react-icons/bi'
-import { ModuleBox } from 'slate/components/UI/Course/ModuleBox'
-import { ModuleSection } from 'slate/components/UI/Course/ModuleSection'
 
 export function StudentOptions() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

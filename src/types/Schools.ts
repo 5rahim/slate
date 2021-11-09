@@ -1,4 +1,4 @@
-import { Schools } from 'slate/generated/graphql'
+import { Schools } from '@slate/generated/graphql'
 
 export type SlateSchool = Schools
 

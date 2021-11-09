@@ -1,16 +1,16 @@
+import { Datepicker } from '@slate/components/Datepicker'
+import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
+import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
+import { useMutateCourseDuration } from '@slate/graphql/queries/courses/hooks'
+import { useCurrentCourse } from '@slate/hooks/use-current-course'
+import { DurationDateFormat } from '@slate/types/Course'
+import { Utils } from '@slate/utils'
 import {
    Button, IconBox, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useBreakpointValue, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiCalendar } from 'react-icons/bi'
-import { Datepicker } from 'slate/components/Datepicker'
-import { MediaComponent } from 'slate/components/Layout/MediaQueries/MediaComponent'
-import { MenuCelledListItem } from 'slate/components/UI/MenuCelledList'
-import { useMutateCourseDuration } from 'slate/graphql/queries/courses/hooks'
-import { useCurrentCourse } from 'slate/hooks/use-current-course'
-import { DurationDateFormat } from 'slate/types/Course'
-import { Utils } from 'slate/utils'
 
 export function DurationItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

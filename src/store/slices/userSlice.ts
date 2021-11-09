@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SlateUser } from 'slate/types/User'
+import { SlateUser } from '@slate/types/User'
 
 import type { GlobalState } from '..'
 import { userState } from '../states/userState'

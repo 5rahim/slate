@@ -1,11 +1,11 @@
+import { SchoolSelectors } from '@slate/store/slices/schoolSlice'
+import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, BoxProps, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Icon, Image, Text } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
 import { BiBook, BiCaretLeft, BiCaretRight, BiEnvelope, BiGlobe, BiHome, BiListCheck, BiLogOut } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
-import { SchoolSelectors } from 'slate/store/slices/schoolSlice'
-import { Utils } from 'slate/utils'
 import { PermissionComponent } from '../../Permissions'
 import { ComponentLink } from '../NavLink'
 

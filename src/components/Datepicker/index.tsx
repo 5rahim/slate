@@ -1,11 +1,11 @@
 import { START_DATE, useDatepicker } from '@datepicker-react/hooks'
+import { Month } from '@slate/components/Datepicker/Month'
+import { DurationDateFormat } from '@slate/types/Course'
+import { Utils } from '@slate/utils'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { Box, ButtonGroup } from 'chalkui/dist/cjs/React'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { Month } from 'slate/components/Datepicker/Month'
-import { DurationDateFormat } from 'slate/types/Course'
-import { Utils } from 'slate/utils'
 import DatepickerContext from './DatepickerContext'
 
 export interface DatepickerProps {

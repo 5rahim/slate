@@ -1,3 +1,6 @@
+import { SchoolSelectors } from '@slate/store/slices/schoolSlice'
+import { UserSelectors } from '@slate/store/slices/userSlice'
+import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, Dropdown, DropdownButton, DropdownItem, DropdownList, IconButton, Text } from 'chalkui/dist/cjs/React'
@@ -6,9 +9,6 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiLogOut, BiMenu, BiMoon, BiSun, BiUser } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
-import { SchoolSelectors } from 'slate/store/slices/schoolSlice'
-import { UserSelectors } from 'slate/store/slices/userSlice'
-import { Utils } from 'slate/utils'
 
 interface HeaderProps {
    openDrawer: any

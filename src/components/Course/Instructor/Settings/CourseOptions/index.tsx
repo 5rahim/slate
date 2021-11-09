@@ -1,11 +1,11 @@
+import { AccessCodeItem } from '@slate/components/Course/Instructor/Settings/CourseOptions/AccessCodeItem'
+import { AvailabilityItem } from '@slate/components/Course/Instructor/Settings/CourseOptions/AvailabilityItem'
+import { ManagementItem } from '@slate/components/Course/Instructor/Settings/CourseOptions/ManagementItem'
+import { MoreOptionsItem } from '@slate/components/Course/Instructor/Settings/CourseOptions/MoreOptionsItem'
+import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { DividedList } from 'chalkui/dist/cjs/Components/Layout'
 import { useTranslation } from 'react-i18next'
 import { BiSliderAlt } from 'react-icons/bi'
-import { AccessCodeItem } from 'slate/components/Course/Instructor/Settings/CourseOptions/AccessCodeItem'
-import { AvailabilityItem } from 'slate/components/Course/Instructor/Settings/CourseOptions/AvailabilityItem'
-import { ManagementItem } from 'slate/components/Course/Instructor/Settings/CourseOptions/ManagementItem'
-import { MoreOptionsItem } from 'slate/components/Course/Instructor/Settings/CourseOptions/MoreOptionsItem'
-import { ModuleBox } from 'slate/components/UI/Course/ModuleBox'
 
 
 export function CourseOptions() {

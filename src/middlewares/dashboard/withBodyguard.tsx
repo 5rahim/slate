@@ -2,10 +2,10 @@
  * Check if user has the role required to view a page
  */
 
+import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { LoadingScreen } from 'slate/components/UI/LoadingScreen'
 import { Utils } from '../../utils'
 
 

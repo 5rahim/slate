@@ -1,8 +1,8 @@
 import { UserProfile, useUser } from '@auth0/nextjs-auth0'
+import { Utils } from '@slate/utils'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { Utils } from 'slate/utils'
 import { UserSelectors } from '../store/slices/userSlice'
 
 export const useCurrentUser = () => {

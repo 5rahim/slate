@@ -1,21 +1,22 @@
+import { DefaultHead } from '@slate/components/Layout/DefaultHead'
+import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDashboardLayout'
+import { PermissionComponent } from '@slate/components/Permissions'
+import { getAllCourseManagements, getOwnCourses, getAllStudentEnrollments } from '@slate/graphql/queries/courses/hooks'
+import { withApollo } from '@slate/graphql/withApollo'
+import { useUserSessionProfile } from '@slate/hooks/use-current-user'
+import { withAuth } from '@slate/middlewares/auth/withAuth'
+import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
+import { Compose } from '@slate/next/compose'
+import { SlateCourse } from '@slate/types/Course'
+import { DashboardPage } from '@slate/types/Next'
+import { Utils } from '@slate/utils'
+import { Permissions } from '@slate/utils/permissions'
 import { Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, AvatarGroup, Box, CelledList, Heading, Icon, ListLinkItem, Skeleton, Tag, Text, Tooltip } from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiCalendarAlt } from 'react-icons/bi'
-import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import UserDashboardLayout from 'slate/components/Layout/UserDashboard/UserDashboardLayout'
-import { PermissionComponent } from 'slate/components/Permissions'
-import { getOwnCourses, getStudentEnrollments } from 'slate/graphql/queries/courses/hooks'
-import { withApollo } from 'slate/graphql/withApollo'
-import { withAuth } from 'slate/middlewares/auth/withAuth'
-import { withDashboard } from 'slate/middlewares/dashboard/withDashboard'
-import { Compose } from 'slate/next/compose'
-import { SlateCourse } from 'slate/types/Course'
-import { DashboardPage } from 'slate/types/Next'
-import { Utils } from 'slate/utils'
-import { Permissions } from 'slate/utils/permissions'
 
 
 const Page = ({ user, school, iid }: DashboardPage) => {
@@ -25,13 +26,19 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    const [courses, setCourses] = useState<SlateCourse[]>([])
    const [hiddenCourses, setHiddenCourses] = useState<SlateCourse[]>([])
    
-   const [courseEnrollments, courseEnrollmentsLoading] = getStudentEnrollments()
+   const { profile } = useUserSessionProfile()
+   
+   const [courseEnrollments, courseEnrollmentsLoading] = getAllStudentEnrollments()
+   const [courseManagements, courseManagementsLoading] = getAllCourseManagements()
    const [ownCourses, ownCoursesLoading] = getOwnCourses()
    
+   // useEffect(() => {
+   //    console.log(courses)
+   // }, [courses])
    
    useEffect(() => {
       
-      if (Permissions.only(user, 'instructor') && ownCourses) {
+      if (Permissions.onlyRoles(profile?.role, 'instructor') && ownCourses) {
          
          setCourses(ownCourses as SlateCourse[])
          
@@ -41,12 +48,14 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    
    useEffect(() => {
       
-      if (Permissions.only(user, 'student') && courseEnrollments) {
+      if (Permissions.onlyRoles(profile?.role, 'student') && courseEnrollments) {
          
          for (const enrollment of courseEnrollments) {
-            if (enrollment.course.available) {
-               courses.push(enrollment.course)
-            } else hiddenCourses.push(enrollment.course)
+            if (enrollment.course) {
+               if (enrollment.course.available) {
+                  courses.push(enrollment.course)
+               } else hiddenCourses.push(enrollment.course)
+            }
          }
          setCourses(courses)
          setHiddenCourses(hiddenCourses)
@@ -54,6 +63,21 @@ const Page = ({ user, school, iid }: DashboardPage) => {
       }
       
    }, [courseEnrollments])
+   
+   useEffect(() => {
+      
+      if (Permissions.onlyRoles(profile?.role, 'assistant') && courseManagements) {
+         
+         for (const management of courseManagements) {
+            if (management.course) {
+               courses.push(management.course)
+            }
+         }
+         setCourses(courses)
+         
+      }
+      
+   }, [courseManagements])
    
    return (
       <>
@@ -87,7 +111,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                </PermissionComponent.StudentOnly>
                
                {/*TODO CHANGE LEVEL !!!!!!!!!!!!*/}
-               {( !( ownCoursesLoading || courseEnrollmentsLoading ) && courses?.length > 0 ) && (
+               {( !( ownCoursesLoading || courseEnrollmentsLoading || courseManagementsLoading ) && courses?.length > 0 ) && (
                   <CelledList isFullWidth boxShadow="none" borderRadius="none">
                      {courses?.map((course: SlateCourse | undefined) => {
                         return (

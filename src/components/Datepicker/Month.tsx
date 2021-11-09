@@ -1,8 +1,8 @@
 import { useMonth } from '@datepicker-react/hooks'
+import { Day } from '@slate/components/Datepicker/Day'
+import { useCMF } from '@slate/hooks/use-color-mode-function'
 import { Box, Text } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
-import { Day } from 'slate/components/Datepicker/Day'
-import { useCMF } from 'slate/hooks/use-color-mode-function'
 
 export function Month({ year, month, firstDayOfWeek }: any) {
    const { t } = useTranslation(['common'], { useSuspense: false })

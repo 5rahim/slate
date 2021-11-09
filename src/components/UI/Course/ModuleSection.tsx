@@ -1,10 +1,10 @@
+import { AppSelectors } from '@slate/store/slices/appSlice'
+import { Parameter } from '@slate/types/Parameters'
 import { Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, IconBox, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { BiErrorCircle } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
-import { AppSelectors } from 'slate/store/slices/appSlice'
-import { Parameter } from 'slate/types/Parameters'
 
 interface ModuleSectionProps {
    children?: React.ReactNode

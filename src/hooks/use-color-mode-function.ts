@@ -1,5 +1,5 @@
+import { Parameter } from '@slate/types/Parameters'
 import { useColorMode } from "chalkui/dist/cjs/ColorMode"
-import { Parameter } from 'slate/types/Parameters'
 
 export const useCMF = () => {
    

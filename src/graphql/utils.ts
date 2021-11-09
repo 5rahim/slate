@@ -2,12 +2,12 @@ import {
    ApolloClient, ApolloError, DocumentNode, ErrorPolicy, FetchPolicy, MutationFunctionOptions, MutationHookOptions, QueryHookOptions, QueryResult,
    QueryTuple, useMutation, useQuery,
 } from '@apollo/client'
+import { AppActions } from '@slate/store/slices/appSlice'
+import { Utils } from '@slate/utils'
 import { useToast } from 'chalkui/dist/cjs/React'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
-import { AppActions } from 'slate/store/slices/appSlice'
-import { Utils } from 'slate/utils'
 
 export const getData = (data: any) => {
    
@@ -92,7 +92,7 @@ export interface QueryHookCreatorReturnProps {
 
 /**
  * @example
- * return useQueryHookCreator<SlateUser | null>("users", GET_USER_BY_EMAIL_QUERY, "object", {
+ * return useQueryHookCreator<SlateUser | null>("users", GET_USER_BY_EMAIL, "object", {
       variables: { email: profile?.email },
       debug: false
    })
@@ -138,12 +138,14 @@ export function useQueryHookCreator<T>(
    
 }
 
-export type QueryHookCreatorReturn<T> = [T, boolean, boolean, ApolloClient<any>]
+type LoadingState = boolean
+type EmptyState = boolean
+export type QueryHookCreatorReturn<T> = [T, LoadingState, EmptyState, ApolloClient<any>]
 
 
 /**
  * @example
- * const res = useQuery(GET_USER_BY_EMAIL_QUERY, {
+ * const res = useQuery(GET_USER_BY_EMAIL, {
    variables: { email: profile?.email },
    fetchPolicy: 'cache-first',
 })
@@ -201,11 +203,14 @@ export function getQueryHookReturn<T>(
 
 type MutationHookCreatorFunction = (variables?: { [key: string]: any }, options?: MutationFunctionOptions) => any
 
+type ErrorMessage = string
+type ReturnData = any
+
 type MutationHookCreatorReturn = [
    MutationHookCreatorFunction,
-   boolean,
-   string,
-   any,
+   LoadingState,
+   ErrorMessage,
+   ReturnData,
    ApolloClient<any>
 ]
 

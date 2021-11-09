@@ -1,5 +1,5 @@
-import { Parameter } from 'slate/types/Parameters'
-import { SlateUser } from 'slate/types/User'
+import { Parameter } from '@slate/types/Parameters'
+import { SlateUser } from '@slate/types/User'
 
 export const Names = {
    formatLocaleNames: (
@@ -26,7 +26,7 @@ export const Names = {
       
    },
    
-   formatLocaleFullName: (locale: string | undefined, user: Parameter<SlateUser>, capitalizeLastName: boolean = false) => {
+   formatLocaleFullName: (locale: string | undefined, user: Parameter<SlateUser>, capitalizeLastName: boolean = false, ignoreMiddleName: boolean = false) => {
       if (!locale)
          return '[No locale provided]'
       
@@ -35,6 +35,7 @@ export const Names = {
       
       const { first_name, last_name, middle_name } = user
       
+      let mn = !ignoreMiddleName ? middle_name : null
       
       function getlastName(): string | undefined {
          return ( capitalizeLastName ? last_name?.toUpperCase() : last_name ) as string
@@ -42,9 +43,9 @@ export const Names = {
       
       switch (locale) {
          case 'fr':
-            return [getlastName(), middle_name, first_name].join(' ')
+            return [getlastName(), mn, first_name].join(' ')
          case 'en':
-            return [first_name, middle_name, getlastName()].join(' ')
+            return [first_name, mn, getlastName()].join(' ')
       }
       
    },

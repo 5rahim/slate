@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { GlobalState } from 'slate/store/index'
+import { GlobalState } from '@slate/store/index'
 import { AppState, appState } from '../states/appState'
 
 

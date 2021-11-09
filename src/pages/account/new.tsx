@@ -1,3 +1,9 @@
+import AuthLayout from '@slate/components/Layout/AuthLayout'
+import { DefaultHead } from '@slate/components/Layout/DefaultHead'
+import AuthCard from '@slate/components/UI/AuthCard'
+import { useLazyProspectiveUserByStudentIdAndCode } from '@slate/graphql/queries/prospective_users/hooks'
+import { withApollo } from '@slate/graphql/withApollo'
+import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button, FormControl, FormLabel, Input, Text } from 'chalkui/dist/cjs/React'
 import type { NextPage } from 'next'
@@ -7,12 +13,6 @@ import { useCookies } from 'react-cookie'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { compose } from 'redux'
-import AuthLayout from 'slate/components/Layout/AuthLayout'
-import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import AuthCard from 'slate/components/UI/AuthCard'
-import { useLazyProspectiveUserByStudentIdAndCode } from 'slate/graphql/queries/prospective_users/hooks'
-import { withApollo } from 'slate/graphql/withApollo'
-import { withAuth } from 'slate/middlewares/auth/withAuth'
 
 const Page: NextPage = () => {
    

@@ -1,12 +1,13 @@
+import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
+import { useMutateCourseDetails } from '@slate/graphql/queries/courses/hooks'
+import { useCurrentCourse } from '@slate/hooks/use-current-course'
 import {
    Button, FormControl, FormLabel, IconBox, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
-import { BiLock, BiLockOpen } from 'react-icons/bi'
-import { MenuCelledListItem } from 'slate/components/UI/MenuCelledList'
-import { useCurrentCourse } from 'slate/hooks/use-current-course'
+import { BiBookAlt } from 'react-icons/bi'
 
 export function DetailsItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })
@@ -17,8 +18,10 @@ export function DetailsItem() {
    
    const { register, handleSubmit, formState: { errors } } = useForm()
    
-   function onDetailsSubmit(data: any) {
+   const [updateCourseDetails, updateIsLoading] = useMutateCourseDetails()
    
+   function onDetailsSubmit(data: any) {
+      updateCourseDetails({ id: course?.id, ...data })
    }
    
    return (
@@ -30,7 +33,7 @@ export function DetailsItem() {
          <Modal size="xl" isOpen={detailsModalIsOpen} onClose={closeDetailsModal}>
             <ModalOverlay />
             <ModalContent textAlign="center">
-               <IconBox isCircular icon={course?.available ? <BiLock /> : <BiLockOpen />} colorScheme="primary" margin="0 auto" mt={3} />
+               <IconBox isCircular icon={<BiBookAlt />} colorScheme="primary" margin="0 auto" mt={3} />
                <ModalHeader textAlign="center">{t('course:options.Change details about the course')}</ModalHeader>
                <form onSubmit={handleSubmit(onDetailsSubmit)}>
                   <ModalBody textAlign="center">
@@ -56,7 +59,14 @@ export function DetailsItem() {
                   </ModalBody>
                   
                   <ModalFooter gridGap={5}>
-                     <Button colorScheme="brand.100" width="100%" type="submit">{t('Save')}</Button>
+                     <Button
+                        colorScheme="brand.100"
+                        width="100%"
+                        type="submit"
+                        isLoading={updateIsLoading}
+                     >
+                        {t('Save')}
+                     </Button>
                      <Button colorScheme="brand.800" onClick={closeDetailsModal} isFullWidth>
                         {t('Cancel')}
                      </Button>

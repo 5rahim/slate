@@ -1,4 +1,4 @@
-import { Users } from 'slate/generated/graphql'
+import { Users } from '@slate/generated/graphql'
 
 export type SlateRoles = "admin" | "student" | "instructor" | "assistant"
 

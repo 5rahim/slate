@@ -1,4 +1,4 @@
-import { Courses } from 'slate/generated/graphql'
+import { Courses } from '@slate/generated/graphql'
 import { SlateUser } from './User'
 
 export interface DurationDateFormat {

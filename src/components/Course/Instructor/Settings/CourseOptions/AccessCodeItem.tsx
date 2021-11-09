@@ -1,3 +1,7 @@
+import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
+import { useMutateCourseCode } from '@slate/graphql/queries/courses/hooks'
+import { useCurrentCourse } from '@slate/hooks/use-current-course'
+import { useCurrentUser } from '@slate/hooks/use-current-user'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Dropdown, DropdownButton, DropdownItem, DropdownList, IconButton, Link, Text, Tooltip, useClipboard, useDisclosure,
@@ -5,10 +9,6 @@ import {
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiCopy, BiLink } from 'react-icons/bi'
-import { ModuleSection } from 'slate/components/UI/Course/ModuleSection'
-import { useMutateCourseCode } from 'slate/graphql/queries/courses/hooks'
-import { useCurrentCourse } from 'slate/hooks/use-current-course'
-import { useCurrentUser } from 'slate/hooks/use-current-user'
 
 export function AccessCodeItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

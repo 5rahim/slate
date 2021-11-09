@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client'
 
 
-export const GET_USER_BY_EMAIL_QUERY = gql`
+export const GET_USER_BY_EMAIL = gql`
     fragment baseUser on users {
         id
         title

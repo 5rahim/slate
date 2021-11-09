@@ -1,3 +1,6 @@
+import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
+import { useMutateCourseBackgroundColor, useMutateCourseBannerColor } from '@slate/graphql/queries/courses/hooks'
+import { useCurrentCourse } from '@slate/hooks/use-current-course'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from 'chalkui/dist/cjs/React'
 import React from 'react'
@@ -5,9 +8,6 @@ import Circle from 'react-color/lib/components/circle/Circle'
 import Swatches from 'react-color/lib/components/swatches/Swatches'
 import { useTranslation } from 'react-i18next'
 import { BiPalette } from 'react-icons/bi'
-import { ModuleBox } from 'slate/components/UI/Course/ModuleBox'
-import { useMutateCourseBackgroundColor, useMutateCourseBannerColor } from 'slate/graphql/queries/courses/hooks'
-import { useCurrentCourse } from 'slate/hooks/use-current-course'
 
 export function Customization() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

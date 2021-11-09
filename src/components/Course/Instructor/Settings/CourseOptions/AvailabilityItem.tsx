@@ -1,3 +1,6 @@
+import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
+import { useMutateCourseAvailability } from '@slate/graphql/queries/courses/hooks'
+import { useCurrentCourse } from '@slate/hooks/use-current-course'
 import {
    Button, Dropdown, DropdownButton, DropdownItem, DropdownList, Flex, IconBox, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
    ModalOverlay, Text, useDisclosure,
@@ -5,9 +8,6 @@ import {
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiHide, BiLock, BiLockOpen, BiShow } from 'react-icons/bi'
-import { ModuleSection } from 'slate/components/UI/Course/ModuleSection'
-import { useMutateCourseAvailability } from 'slate/graphql/queries/courses/hooks'
-import { useCurrentCourse } from 'slate/hooks/use-current-course'
 
 export const AvailabilityItem = () => {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

@@ -1,6 +1,6 @@
+import { Parameter } from '@slate/types/Parameters'
 import Head from 'next/head'
 import React from 'react'
-import { Parameter } from 'slate/types/Parameters'
 
 interface DefaultHeadProps {
    pageTitle: Parameter<string>

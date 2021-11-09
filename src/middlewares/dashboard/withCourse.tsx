@@ -3,12 +3,12 @@
  * Return course data
  */
 
+import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
+import { SlateCourse } from '@slate/types/Course'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LoadingScreen } from 'slate/components/UI/LoadingScreen'
-import { SlateCourse } from 'slate/types/Course'
 import { getCourseById } from '../../graphql/queries/courses/hooks'
 import { CourseActions } from '../../store/slices/courseSlice'
 import { Utils } from '../../utils'
@@ -23,14 +23,14 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
    const Course = (props: any) => {
       
       const router = useRouter()
-      const { id } = router.query
+      const { course_id } = router.query
       const dispatch = useDispatch()
       const [displayPage, setDisplayPage] = useState<boolean>(false)
       
-      if (!id)
+      if (!course_id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
-      const [course, courseIsLoading] = getCourseById(id as string)
+      const [course, courseIsLoading] = getCourseById(course_id as string)
       
       useEffect(() => {
          

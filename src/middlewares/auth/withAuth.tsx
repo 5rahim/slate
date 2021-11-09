@@ -3,15 +3,15 @@
  * Return user data
  */
 
+import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
+import { getUserBySessionProfile } from '@slate/graphql/queries/users/hooks'
+import { useUserSessionProfile } from '@slate/hooks/use-current-user'
+import { UserActions } from '@slate/store/slices/userSlice'
+import { Utils } from '@slate/utils'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { LoadingScreen } from 'slate/components/UI/LoadingScreen'
-import { getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
-import { useUserSessionProfile } from 'slate/hooks/use-current-user'
-import { UserActions } from 'slate/store/slices/userSlice'
-import { Utils } from 'slate/utils'
 
 
 interface WithAuthProps {

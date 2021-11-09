@@ -1,10 +1,12 @@
+import { ScheduleSelector } from '@slate/components/ScheduleSelector'
+import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import {
-   Box, Button, IconBox, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, Text, useDisclosure,
+   Button, IconBox, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiCalendar } from 'react-icons/bi'
-import { MenuCelledListItem } from 'slate/components/UI/MenuCelledList'
+
 
 export function ScheduleItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })
@@ -25,32 +27,10 @@ export function ScheduleItem() {
             <ModalContent textAlign="center">
                <ModalCloseButton />
                <IconBox isCircular icon={<BiCalendar />} colorScheme="primary" margin="0 auto" mt={3} />
-               <ModalHeader textAlign="center">{t('course:options.Change the duration of the course')}</ModalHeader>
+               <ModalHeader textAlign="center">{t('course:options.Change the schedule of the course')}</ModalHeader>
                <ModalBody textAlign="center">
                   
-                  <Text>Monday</Text>
-                  <Box>
-                     <Select>
-                        <option></option>
-                        <option>07</option>
-                        <option>08</option>
-                        <option>09</option>
-                        <option>10</option>
-                        <option>11</option>
-                        <option>12</option>
-                        <option>13</option>
-                        <option>14</option>
-                        <option>15</option>
-                        <option>16</option>
-                        <option>17</option>
-                        <option>18</option>
-                        <option>19</option>
-                        <option>20</option>
-                        <option>21</option>
-                        <option>22</option>
-                        <option>23</option>
-                     </Select>
-                  </Box>
+                  <ScheduleSelector />
                   
                   {/*<ScheduleSelector*/}
                   {/*   dateFormat="iii"*/}

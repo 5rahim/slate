@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SlateCourse } from 'slate/types/Course'
+import { SlateCourse } from '@slate/types/Course'
 
 import type { GlobalState } from '..'
 import { courseState } from '../states/courseState'
