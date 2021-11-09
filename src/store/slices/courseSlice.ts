@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { SlateCourse } from '@slate/types/Course'
 
 import type { GlobalState } from '..'
 import { courseState } from '../states/courseState'
-import { SlateCourse } from 'slate/types/Course'
 
 
 export const courseSlice = createSlice({

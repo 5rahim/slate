@@ -1,8 +1,8 @@
-import { AppContext } from 'next/app'
-import { NextPageContext } from 'next'
-import createApolloClient from './apolloClient'
 import { ApolloClient, ApolloProvider, NormalizedCacheObject } from '@apollo/client'
 import { getSession } from '@auth0/nextjs-auth0'
+import { NextPageContext } from 'next'
+import { AppContext } from 'next/app'
+import createApolloClient from './apolloClient'
 
 interface NextPageContextWithApollo extends NextPageContext {
    apolloClient: ApolloClient<unknown> | null;
@@ -133,7 +133,7 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
          
          // Initialize ApolloClient, add it to the ctx object so
          // we can use it in `PageComponent.getInitialProp`.
-         const apolloClient = (ctx.apolloClient = initApolloClient(null, await getHeaders(ctx)))
+         const apolloClient = ( ctx.apolloClient = initApolloClient(null, await getHeaders(ctx)) )
          
          // Run wrapped getInitialProps methods
          let pageProps = {}
@@ -162,7 +162,8 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
                         }}
                      />,
                   )
-               } catch (error) {
+               }
+               catch (error) {
                   // Prevent Apollo Client GraphQL errors from crashing SSR.
                   // Handle them in components via the data.error prop:
                   // https://www.apollographql.com/docs/react/api/react-apollo.html#graphql-query-data-error

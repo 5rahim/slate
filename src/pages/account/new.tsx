@@ -1,18 +1,18 @@
-import type { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { useTranslation } from 'react-i18next'
-import { useForm } from 'react-hook-form'
-import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import { withApollo } from 'slate/graphql/withApollo'
+import AuthLayout from '@slate/components/Layout/AuthLayout'
+import { DefaultHead } from '@slate/components/Layout/DefaultHead'
+import AuthCard from '@slate/components/UI/AuthCard'
+import { useLazyProspectiveUserByStudentIdAndCode } from '@slate/graphql/queries/prospective_users/hooks'
+import { withApollo } from '@slate/graphql/withApollo'
+import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import AuthLayout from 'slate/components/Layout/AuthLayout'
 import { Button, FormControl, FormLabel, Input, Text } from 'chalkui/dist/cjs/React'
+import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { useLazyProspectiveUserByStudentIdAndCode } from 'slate/graphql/queries/prospective_users/hooks'
-import AuthCard from 'slate/ui/AuthCard'
+import { useForm } from 'react-hook-form'
+import { useTranslation } from 'react-i18next'
 import { compose } from 'redux'
-import { withAuth } from 'slate/middlewares/auth/withAuth'
 
 const Page: NextPage = () => {
    
@@ -81,8 +81,10 @@ const Page: NextPage = () => {
                         <Input {...register("code", { required: true })} placeholder={t('form:Code')} type={displayCode ? "text" : "password"} />
                      </FormControl>
                      
-                     <Button variant="link" mb={3} onClick={() => setDisplayCode(dp => !dp)}
-                             colorScheme="secondary">{displayCode ? "Cacher le code" : "Voir le code"}</Button>
+                     <Button
+                        variant="link" mb={3} onClick={() => setDisplayCode(dp => !dp)}
+                        colorScheme="secondary"
+                     >{displayCode ? "Cacher le code" : "Voir le code"}</Button>
                      
                      <Button colorScheme="brand.100" width="100%" type="submit" isLoading={isLoading}>{t('form:Register my account')}</Button>
                   

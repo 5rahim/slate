@@ -1,4 +1,4 @@
-import { DurationDateFormat } from 'slate/types/Course'
+import { DurationDateFormat } from '@slate/types/Course'
 import { format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 

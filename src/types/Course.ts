@@ -1,5 +1,5 @@
+import { Courses } from '@slate/generated/graphql'
 import { SlateUser } from './User'
-import { Courses } from 'slate/generated/graphql'
 
 export interface DurationDateFormat {
    startDate: Date | null

@@ -99,14 +99,14 @@ const theme = extendedTheme({
          },
       },
       Modal: {
-         baseStyle: (props) => ({
+         baseStyle: (props) => ( {
             dialog: {
                bgColor: mode('#fff', 'gray.800')(props),
             },
-         }),
+         } ),
       },
       List: {
-         baseStyle: (props) => ({
+         baseStyle: (props) => ( {
             cell: {
                boxShadow: 'none',
                borderColor: mode('#ddd', 'gray.700')(props),
@@ -117,7 +117,7 @@ const theme = extendedTheme({
                   },
                },
             },
-         }),
+         } ),
       },
    },
    // fonts,

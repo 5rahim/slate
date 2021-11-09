@@ -22,43 +22,43 @@
     "target": "esnext",
     "baseUrl": "./",
     "paths": {
-      "slate/components/*": [
+      "@slate/components/*": [
         "./src/components/*"
       ],
-      "slate/graphql/*": [
+      "@slate/graphql/*": [
         "./src/graphql/*"
       ],
-      "slate/hooks/*": [
+      "@slate/hooks/*": [
         "./src/hooks/*"
       ],
-      "slate/utils/*": [
+      "@slate/utils/*": [
         "./src/utils/*"
       ],
-      "slate/utils": [
+      "@slate/utils": [
         "./src/utils/index.ts"
       ],
-      "slate/next/*": [
+      "@slate/next/*": [
         "./src/next/*"
       ],
-      "slate/store/*": [
+      "@slate/store/*": [
         "./src/store/*"
       ],
-      "slate/ui/*": [
+      "@slate/ui/*": [
         "./src/ui/*"
       ],
-      "slate/middlewares/*": [
+      "@slate/middlewares/*": [
         "./src/middlewares/*"
       ],
-      "slate/container/*": [
+      "@slate/container/*": [
         "./src/container/*"
       ],
-      "slate/constants/*": [
+      "@slate/constants/*": [
         "./src/constants/*"
       ],
-      "slate/types/*": [
+      "@slate/types/*": [
         "./src/types/*"
       ],
-      "slate/generated/*": [
+      "@slate/generated/*": [
         "./src/generated/*"
       ]
     }

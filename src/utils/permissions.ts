@@ -1,6 +1,6 @@
-import { SlateRoles, SlateUser } from 'slate/types/User'
-import { SlateCourse } from 'slate/types/Course'
-import { Parameter } from 'slate/types/Parameters'
+import { SlateCourse } from '@slate/types/Course'
+import { Parameter } from '@slate/types/Parameters'
+import { SlateRoles, SlateUser } from '@slate/types/User'
 
 export const rolesMap: any = [
    'student',
@@ -10,6 +10,9 @@ export const rolesMap: any = [
 ]
 
 export const Permissions = {
+   onlyRoles: (role: Parameter<string>, ...roles: SlateRoles[]) => {
+      return roles.includes(role as SlateRoles)
+   },
    only: (user: Parameter<SlateUser>, ...roles: SlateRoles[]) => {
       if (user) {
          // @ts-ignore

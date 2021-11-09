@@ -1,7 +1,7 @@
 import { useMonth } from '@datepicker-react/hooks'
+import { Day } from '@slate/components/Datepicker/Day'
+import { useCMF } from '@slate/hooks/use-color-mode-function'
 import { Box, Text } from 'chalkui/dist/cjs/React'
-import { Day } from 'slate/components/Datepicker/Day'
-import { useCMF } from 'slate/hooks/use-color-mode-function'
 import { useTranslation } from 'react-i18next'
 
 export function Month({ year, month, firstDayOfWeek }: any) {

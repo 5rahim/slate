@@ -58,3 +58,17 @@ export const UPDATE_COURSE_DURATION = gql`
         }
     }
 `
+
+
+export const UPDATE_COURSE_DETAILS = gql`
+    mutation MyMutation($id: uuid!, $description: String, $name: String!) {
+        update_courses(where: {id: {_eq: $id}}, _set: {description: $description, name: $name}) {
+            affected_rows
+            returning {
+                description
+                name
+            }
+        }
+    }
+
+`

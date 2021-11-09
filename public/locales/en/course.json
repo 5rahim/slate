@@ -4,6 +4,15 @@
   "Student Options": "Student Options",
   "Course Options": "Course Options",
   "Announcements": "Announcements",
+  "Group members": "Group members",
+  "Your group": "Your group",
+  "Course Content": "Course Content",
+  "Assignments": "Assignments",
+  "Quizzes": "Quizzes",
+  "Courses": "Courses",
+  "Instructor" : "Instructor",
+  "Message instructor": "Message instructor",
+  "Message course assistant": "Message course assistant",
   "options": {
     "status": {
       "title": "Course is {{status}}",
@@ -11,7 +20,7 @@
     },
     "code": {
       "yes": "You have an access code available",
-      "no": "You do not have any access code"
+      "no": "Create an access code to allow students to join your course"
     },
     "assistant": {
       "yes": "You have teaching assistants",
@@ -30,6 +39,7 @@
     "Course details": "Course details",
     "Course duration": "Course duration",
     "Course schedule": "Course schedule",
-    "Change the duration of the course": "Change the duration of the course"
+    "Change the duration of the course": "Change the duration of the course",
+    "Change the schedule of the course": "Change the schedule of the course"
   }
 }

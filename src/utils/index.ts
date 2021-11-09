@@ -1,7 +1,7 @@
-import { Names } from './names'
-import { Url } from './url'
-import { Permissions } from './permissions'
 import { Dates } from './date'
+import { Names } from './names'
+import { Permissions } from './permissions'
+import { Url } from './url'
 
 export const Utils = {
    Names,

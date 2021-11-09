@@ -1,6 +1,6 @@
-import { PermissionComponentProps } from '../../Permissions/Types'
-import React from 'react'
 import { Box } from 'chalkui/dist/cjs/React'
+import React from 'react'
+import { PermissionComponentProps } from '../../Permissions/Types'
 
 export const MediaComponent = {
    HideOnMobile: ({ children }: PermissionComponentProps) => {

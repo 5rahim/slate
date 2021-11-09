@@ -1,8 +1,9 @@
-import React from 'react'
+import { Parameter } from '@slate/types/Parameters'
 import Head from 'next/head'
+import React from 'react'
 
 interface DefaultHeadProps {
-   pageTitle: string
+   pageTitle: Parameter<string>
 }
 
 export const DefaultHead: React.FC<DefaultHeadProps> = (props: DefaultHeadProps) => {

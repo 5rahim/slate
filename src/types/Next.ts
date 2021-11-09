@@ -1,6 +1,6 @@
-import { SlateSchool } from 'slate/types/Schools'
-import { SlateUser } from 'slate/types/User'
-import { SlateCourse } from 'slate/types/Course'
+import { SlateCourse } from '@slate/types/Course'
+import { SlateSchool } from '@slate/types/Schools'
+import { SlateUser } from '@slate/types/User'
 
 export type DashboardPage = {
    user?: SlateUser,

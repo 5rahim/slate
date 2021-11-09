@@ -1,20 +1,20 @@
-import type { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import { Trans, useTranslation } from 'react-i18next'
-import { useForm } from 'react-hook-form'
-import { DefaultHead } from 'slate/components/Layout/DefaultHead'
-import { withApollo } from 'slate/graphql/withApollo'
-import { Box, ListItem, UnorderedList } from 'chalkui/dist/cjs/Components/Layout'
-import AuthLayout from 'slate/components/Layout/AuthLayout'
-import { Alert, AlertDescription, AlertIcon, Button, FormControl, FormLabel, Input, Text } from 'chalkui/dist/cjs/React'
-import { useCookies } from 'react-cookie'
-import AuthCard from 'slate/ui/AuthCard'
-import { Compose } from 'slate/next/compose'
-import { withAuth } from 'slate/middlewares/auth/withAuth'
-import { Utils } from 'slate/utils'
 import { useMutation } from '@apollo/client'
-import { UPDATE_PROSPECTIVE_USER_EMAIL } from 'slate/graphql/queries/prospective_users/mutations'
+import AuthLayout from '@slate/components/Layout/AuthLayout'
+import { DefaultHead } from '@slate/components/Layout/DefaultHead'
+import AuthCard from '@slate/components/UI/AuthCard'
+import { UPDATE_PROSPECTIVE_USER_EMAIL } from '@slate/graphql/queries/prospective_users/mutations'
+import { withApollo } from '@slate/graphql/withApollo'
+import { withAuth } from '@slate/middlewares/auth/withAuth'
+import { Compose } from '@slate/next/compose'
+import { Utils } from '@slate/utils'
+import { Box, ListItem, UnorderedList } from 'chalkui/dist/cjs/Components/Layout'
+import { Alert, AlertDescription, AlertIcon, Button, FormControl, FormLabel, Input, Text } from 'chalkui/dist/cjs/React'
+import type { NextPage } from 'next'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
+import { useForm } from 'react-hook-form'
+import { Trans, useTranslation } from 'react-i18next'
 
 
 const Page: NextPage = () => {
@@ -116,13 +116,17 @@ const Page: NextPage = () => {
                         <Input {...register("email", { required: true })} type="email" placeholder={t('form:Email address')} />
                      </FormControl>
                      
-                     <Button isLoading={loading || isLoading} width="100%" colorScheme="brand.700" mb={2}
-                             type="submit">{t('auth:validation.Continue')}</Button>
+                     <Button
+                        isLoading={loading || isLoading} width="100%" colorScheme="brand.700" mb={2}
+                        type="submit"
+                     >{t('auth:validation.Continue')}</Button>
                   
                   </form>
                   
-                  <Button mt={5} width="100%" colorScheme="red.500" variant="link" as="a" target="_blank"
-                          href="https://accounts.google.com/signup">{t('auth:validation.I don\'t have a Google account')}</Button>
+                  <Button
+                     mt={5} width="100%" colorScheme="red.500" variant="link" as="a" target="_blank"
+                     href="https://accounts.google.com/signup"
+                  >{t('auth:validation.I don\'t have a Google account')}</Button>
                
                
                </Box>

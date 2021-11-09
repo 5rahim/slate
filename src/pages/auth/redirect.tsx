@@ -1,12 +1,12 @@
-import { DefaultHead } from '../../components/Layout/DefaultHead'
-import React, { useEffect } from 'react'
-import { LoadingScreen } from '../../ui/LoadingScreen'
-import { useRouter } from 'next/router'
-import { Compose } from '../../next/compose'
-import { withApollo } from '../../graphql/withApollo'
-import { Utils } from '../../utils'
-import { useUserSessionProfile } from 'slate/hooks/use-current-user'
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
+import { useUserSessionProfile } from '@slate/hooks/use-current-user'
+import { useRouter } from 'next/router'
+import React, { useEffect } from 'react'
+import { DefaultHead } from '../../components/Layout/DefaultHead'
+import { withApollo } from '../../graphql/withApollo'
+import { Compose } from '../../next/compose'
+import { Utils } from '../../utils'
 
 
 function Page() {

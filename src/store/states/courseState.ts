@@ -1,3 +1,3 @@
-import { SlateCourse } from 'slate/types/Course'
+import { SlateCourse } from '@slate/types/Course'
 
 export const courseState: SlateCourse | {} = {}

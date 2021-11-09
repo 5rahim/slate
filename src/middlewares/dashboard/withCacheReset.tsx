@@ -1,5 +1,5 @@
-import { NextPage } from 'next'
 import { useApolloClient } from '@apollo/client'
+import { NextPage } from 'next'
 
 
 interface WithCacheResetProps {

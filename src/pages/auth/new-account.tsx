@@ -1,25 +1,24 @@
-import { useSession } from 'next-auth/client'
-import { DefaultHead } from '../../components/Layout/DefaultHead'
-import AuthLayout from '../../components/Layout/AuthLayout'
-import AuthCard from '../../ui/AuthCard'
+import { useMutation } from '@apollo/client'
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import AuthLayout from '@slate/components/Layout/AuthLayout'
+import { DefaultHead } from '@slate/components/Layout/DefaultHead'
+import AuthCard from '@slate/components/UI/AuthCard'
+import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
+import { useLazyProspectiveUserByStudentID } from '@slate/graphql/queries/prospective_users/hooks'
+import { ACTIVATE_PROSPECTIVE_USER } from '@slate/graphql/queries/prospective_users/mutations'
+import { getUserBySessionProfile } from '@slate/graphql/queries/users/hooks'
+import { UPDATE_NEW_USER } from '@slate/graphql/queries/users/mutations'
+import { GET_USER_BY_EMAIL } from '@slate/graphql/queries/users/queries'
+import { withApollo } from '@slate/graphql/withApollo'
+import { useUserSessionProfile } from '@slate/hooks/use-current-user'
+import { Compose } from '@slate/next/compose'
+import { Utils } from '@slate/utils'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button, FormControl, FormLabel, Input } from 'chalkui/dist/cjs/React'
-import { useTranslation } from 'react-i18next'
-import React, { useEffect, useState } from 'react'
-import { LoadingScreen } from 'slate/ui/LoadingScreen'
 import { useRouter } from 'next/router'
-import { Compose } from 'slate/next/compose'
-import { withApollo } from 'slate/graphql/withApollo'
-import { useLazyProspectiveUserByStudentID } from 'slate/graphql/queries/prospective_users/hooks'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { useMutation } from '@apollo/client'
-import { UPDATE_NEW_USER } from 'slate/graphql/queries/users/mutations'
-import { getUserBySessionProfile } from 'slate/graphql/queries/users/hooks'
-import { GET_USER_BY_EMAIL_QUERY } from 'slate/graphql/queries/users/queries'
-import { Utils } from 'slate/utils'
-import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { useUserSessionProfile } from 'slate/hooks/use-current-user'
-import { ACTIVATE_PROSPECTIVE_USER } from 'slate/graphql/queries/prospective_users/mutations'
+import { useTranslation } from 'react-i18next'
 
 
 function Page() {
@@ -65,7 +64,7 @@ function Page() {
          router.push(Utils.Url.baseLinkTo('/auth/redirect'))
       },
       refetchQueries: [
-         { query: GET_USER_BY_EMAIL_QUERY }, // DocumentNode object parsed with gql
+         { query: GET_USER_BY_EMAIL }, // DocumentNode object parsed with gql
          'GetUserByEmail', // Query name
       ],
    })

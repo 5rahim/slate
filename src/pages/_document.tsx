@@ -1,5 +1,5 @@
-import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 import { ColorModeScript } from 'chalkui/dist/cjs/ColorMode'
+import NextDocument, { Head, Html, Main, NextScript } from 'next/document'
 
 export default class Document extends NextDocument {
    render() {
