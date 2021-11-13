@@ -3,6 +3,7 @@ import { Month } from '@slate/components/Datepicker/Month'
 import { DurationDateFormat } from '@slate/types/Course'
 import { Utils } from '@slate/utils'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, ButtonGroup } from 'chalkui/dist/cjs/React'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -13,6 +14,8 @@ export interface DatepickerProps {
    defaultSelectedDates?: DurationDateFormat,
    disableDatesBeforeToday?: boolean,
    onChange?: (data: DurationDateFormat) => void
+   selectOneDate?: boolean
+   showSelection?: boolean
 }
 
 export const Datepicker = (props: DatepickerProps) => {
@@ -23,6 +26,8 @@ export const Datepicker = (props: DatepickerProps) => {
       template = "horizontal",
       defaultSelectedDates = { startDate: null, endDate: null },
       disableDatesBeforeToday = false,
+      selectOneDate = false,
+      showSelection = true,
       onChange,
    } = props
    
@@ -52,7 +57,10 @@ export const Datepicker = (props: DatepickerProps) => {
       startDate: state.startDate,
       endDate: state.endDate,
       minBookingDate: disableDatesBeforeToday ? new Date() : undefined,
-      // maxBookingDate: 1,
+      numberOfMonths: selectOneDate ? 1 : 2,
+      exactMinBookingDays: selectOneDate,
+      minBookingDays: selectOneDate ? 1 : undefined,
+      // maxBookingDate: selectOneDate ? 1 : undefined,
       focusedInput: state.focusedInput,
       onDatesChange: handleDateChange,
    })
@@ -80,20 +88,26 @@ export const Datepicker = (props: DatepickerProps) => {
             onDateHover,
          }}
       >
-         <div>
-            <strong>{t('date.Start date')}: </strong>
-            {/*{state.startDate && new Intl.DateTimeFormat(i18n.language, options).format(state.startDate)}*/}
-            {state.startDate && Utils.Dates.formatDate(state.startDate, 'long', i18n.language)}
-         </div>
-         <div>
-            <strong>{t('date.End date')}: </strong>
-            {state.endDate && Utils.Dates.formatDate(state.endDate, 'long', i18n.language)}
-         </div>
+         {(showSelection && !selectOneDate) && (
+            <Box>
+               <Box>
+                  <strong>{t('date.Start date')}: </strong>
+                  {/*{state.startDate && new Intl.DateTimeFormat(i18n.language, options).format(state.startDate)}*/}
+                  {state.startDate && Utils.Dates.formatDate(state.startDate, 'long', i18n.language)}
+               </Box>
+               <Box>
+                  <strong>{t('date.End date')}: </strong>
+                  {state.endDate && Utils.Dates.formatDate(state.endDate, 'long', i18n.language)}
+               </Box>
+            </Box>
+         )}
          
-         <ButtonGroup isAttached colorScheme="primary" size="sm" my={4}>
-            <NavButton onClick={goToPreviousMonths}>{t('date.Previous month')}</NavButton>
-            <NavButton onClick={goToNextMonths}>{t('date.Next month')}</NavButton>
-         </ButtonGroup>
+         <Flex justifyContent="center">
+            <ButtonGroup isAttached colorScheme="primary" size="sm" my={4}>
+               <NavButton onClick={goToPreviousMonths}>{t('date.Previous month')}</NavButton>
+               <NavButton onClick={goToNextMonths}>{t('date.Next month')}</NavButton>
+            </ButtonGroup>
+         </Flex>
          
          <Box
             css={{

@@ -4,6 +4,8 @@ import {
    UPDATE_COURSE_DURATION,
 } from '@slate/graphql/queries/courses/mutations'
 import { SlateCourse } from '@slate/types/Course'
+import { useUserSessionProfile } from '../../../hooks/use-current-user'
+import { Permissions } from '../../../utils/permissions'
 import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
 import {
    GET_ALL_COURSE_ENROLLMENTS, GET_ALL_COURSE_MANAGEMENTS, GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS, GET_COURSE_MANAGEMENTS, GET_OWN_COURSES,
@@ -115,7 +117,8 @@ export const getAllStudentEnrollments = () => {
 
 export const getAllCourseManagements = () => {
    
-   return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
+      return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
+   
    
 }
 

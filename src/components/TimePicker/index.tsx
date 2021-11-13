@@ -67,9 +67,9 @@ export function TimePicker(props: TimePickerProps) {
                size="md"
                width="4.5rem"
                defaultValue={defaultMinutes}
-               step={5}
+               step={1}
                min={0}
-               max={55}
+               max={59}
                allowMouseWheel
             >
                <NumberInputField />

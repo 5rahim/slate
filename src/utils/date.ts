@@ -1,13 +1,14 @@
 import { DurationDateFormat } from '@slate/types/Course'
-import { format } from 'date-fns'
+import { addMinutes, format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
+import { Parameter } from '../types/Parameters'
 
 const getLocale = (locale: string) => locale === 'fr' ? fr : enUS
 
 type DateFormat = "short" | "long" | "short with hours" | "long with hours"
 
 const formats: { [key: string]: string } = {
-   short: 'dd/mm/yyyy',
+   short: 'dd/MM/yyyy',
    long: 'dd MMMM yyyy',
 }
 
@@ -39,7 +40,7 @@ export const Dates = {
     * @param {string} date
     * @returns {DurationDateFormat}
     */
-   parseDurationDateObject: (date: string | null | undefined): DurationDateFormat => {
+   parseDurationDateObject: (date: Parameter<string>): DurationDateFormat => {
       return date ? {
          startDate: new Date(JSON.parse(date).startDate),
          endDate: new Date(JSON.parse(date).endDate),
@@ -52,6 +53,13 @@ export const Dates = {
       } else {
          return ''
       }
+   },
+   
+   mergeDateAndTime(date: Parameter<Date>, time: Parameter<number>) {
+     if (date && time) {
+        return addMinutes(date, time)
+     }
+     return date
    },
    
    /**

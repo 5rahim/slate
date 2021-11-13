@@ -1,6 +1,20 @@
+import { MutationFunctionOptions } from '@apollo/client'
 import { GET_ANNOUNCEMENTS } from '@slate/graphql/queries/announcements/queries'
-import { useQueryHookCreator } from '@slate/graphql/utils'
+import { SlateMutationHook, useMutationHookCreator, useQueryHookCreator } from '@slate/graphql/utils'
 import { Parameter } from '@slate/types/Parameters'
+import { CREATE_ANNOUNCEMENT } from './mutations'
+
+export const useCreateAnnouncement: SlateMutationHook = (options) => {
+   
+   return useMutationHookCreator(CREATE_ANNOUNCEMENT, {
+      refetchQueries: [
+         { query: GET_ANNOUNCEMENTS },
+         'GetAnnouncements',
+      ],
+      ...options
+   })
+   
+}
 
 export const getAnnouncements = (course_id: Parameter<string>) => {
    return useQueryHookCreator<any[] | null>(
