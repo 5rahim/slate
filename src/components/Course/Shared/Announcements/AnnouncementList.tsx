@@ -2,18 +2,20 @@ import { PermissionComponent } from '@slate/components/Permissions'
 import { getAnnouncements } from '@slate/graphql/queries/announcements/hooks'
 import { useCMF } from '@slate/hooks/use-color-mode-function'
 import { useCurrentCourse } from '@slate/hooks/use-current-course'
+import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
+import { RichTextContent } from '@slate/components/UI/RichTextContent'
+import { Utils } from '@slate/utils'
 import { DividedList, Flex, ListItem, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import {
-   Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, ListProps, Skeleton, Tag, Text, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { Avatar, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, ListProps, Skeleton, Tag, Text } from 'chalkui/dist/cjs/React'
 import { formatDistance } from 'date-fns'
 import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiDotsHorizontal, BiEdit, BiTrash } from 'react-icons/bi'
+import { useLocale } from '../../../../hooks/use-locale'
 
 export function AnnouncementList({ ...rest }: ListProps) {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })
-   
+   const locale = useLocale()
    const cmf = useCMF()
    const course = useCurrentCourse()
    
@@ -26,12 +28,13 @@ export function AnnouncementList({ ...rest }: ListProps) {
    return (
       <>
          {( !announcementsLoading && !!announcements && announcements?.length > 0 ) && (
-            <DividedList spacing={2} width="100%" overflowY={"auto"} pr={1} {...rest}>
+            <DividedList spacing={5} border="1px solid" borderColor={cmf("gray.200", "gray.600")} width="100%" overflowY={"auto"} pr={1} {...rest}>
                
                {announcements?.map((announcement: any) => (
                   <ListItem
                      key={announcement.id}
                      width="full"
+                     p={4}
                   >
                      <Flex alignItems="center" width="full">
                         
@@ -56,7 +59,7 @@ export function AnnouncementList({ ...rest }: ListProps) {
                                              {t('Not published')}
                                           </Tag>
                                        )}
-                                       {!( announcement.published && announcement.publish_on ) &&
+                                       {!( announcement.published && !announcement.publish_on ) &&
                                        <Tag pill colorScheme="orange.500">{t('Draft')}</Tag>}
                                     </Flex>
                                     <Dropdown>
@@ -92,13 +95,20 @@ export function AnnouncementList({ ...rest }: ListProps) {
                            
                            </Flex>
                            
-                           <Text fontStyle="italic" color={cmf("gray.500", "gray.300")} mb="2">
-                              Posted {formatDistance(new Date(), new Date(announcement?.created_at))} ago
-                           </Text>
+                           <AlignedFlex>
+                              
+                              <AlignedFlex>
+                                 <Avatar size="sm" src={announcement?.author?.image as string} />
+                                 <Text>{Utils.Names.formatLocaleFullName(locale, announcement?.author)}  |</Text>
+                              </AlignedFlex>
+                              
+                              <Text fontStyle="italic" color={cmf("gray.500", "gray.300")}>
+                                 Posted {formatDistance(new Date(), new Date(announcement?.created_at))} ago
+                              </Text>
                            
-                           <Text width="full">
-                              {announcement.message}
-                           </Text>
+                           </AlignedFlex>
+                           
+                           <RichTextContent content={announcement.message} />
                         </Box>
                      </Flex>
                   </ListItem>

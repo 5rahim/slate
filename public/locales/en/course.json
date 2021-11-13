@@ -26,6 +26,7 @@
       "yes": "You have teaching assistants",
       "no": "You do not have any teaching assistant"
     },
+    "Create an announcement": "Create an announcement",
     "Make course accessible": "Make course accessible",
     "Make course non-accessible": "Make course non-accessible",
     "Change course accessibility": "Change course accessibility",
@@ -40,6 +41,7 @@
     "Course duration": "Course duration",
     "Course schedule": "Course schedule",
     "Change the duration of the course": "Change the duration of the course",
-    "Change the schedule of the course": "Change the schedule of the course"
+    "Change the schedule of the course": "Change the schedule of the course",
+    "Select a date": "Select a date"
   }
 }

@@ -120,6 +120,7 @@ export function useQueryHookCreator<T>(
    const { sendNotification, ...rest } = options
    
    options.debug && console.log('[QueryHook]: Query started', '\n\tTable: ', table, '\n\tVariables: ', options.variables)
+   
    const queryResult = useQuery(query, {
       variables: options.variables,
       onCompleted: (data) => {
@@ -201,6 +202,9 @@ export function getQueryHookReturn<T>(
    
 }
 
+
+export type SlateMutationHook = (options?: MutationFunctionOptions) => MutationHookCreatorReturn
+
 type MutationHookCreatorFunction = (variables?: { [key: string]: any }, options?: MutationFunctionOptions) => any
 
 type ErrorMessage = string
@@ -244,6 +248,7 @@ export function useMutationHookCreator(
          title?: string,
          description?: string,
       },
+      onCompleted?: (data: any | {}) => void,
       sendNotification?: any // TODO: Notifications
       debug?: boolean
    } & MutationHookOptions,
@@ -254,6 +259,7 @@ export function useMutationHookCreator(
       successAlert,
       sendNotification,
       debug = false,
+      onCompleted,
       variables,
       ...rest
    } = options
@@ -268,7 +274,11 @@ export function useMutationHookCreator(
          handleApolloErrors(error, errorMessage, debug, toast)
       },
       onCompleted: (data) => {
+         
          dispatch(AppActions.setMutationIsLoading(false))
+         
+         onCompleted && onCompleted(data)
+         
          
          if (successAlert) {
             if (successAlert.type === "toast") {
