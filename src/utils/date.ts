@@ -57,7 +57,7 @@ export const Dates = {
    
    mergeDateAndTime(date: Parameter<Date>, time: Parameter<number>) {
      if (date && time) {
-        return addMinutes(date, time)
+        return new Date(addMinutes(date, time).toUTCString())
      }
      return date
    },

@@ -45,30 +45,34 @@ export const handleApolloErrors = (error: ApolloError | undefined, message: stri
    
    const additionalDetails = process.env.NODE_ENV === 'development' ? error?.message : "If the problem persists, contact Slate's support"
    
-   toast({
-      duration: 8000,
-      title: message,
-      status: "error",
-      position: "top",
-      description: additionalDetails,
-   })
+   toast.closeAll({ positions: ['top'] })
    
-   setTimeout(() => {
-      if (error?.toString().includes("JWT")) {
-         
-         toast({
-            duration: 5000,
-            title: "Your session has expired",
-            status: "error",
-            isClosable: true,
-            position: "top",
-         })
-         
-         setTimeout(() => {
-            window.location.href = Utils.Url.linkToLogout()
-         }, 1000)
-      }
-   }, 1000)
+   if(!error?.toString().includes("JWT")) {
+      
+      toast({
+         duration: 8000,
+         title: message,
+         status: "error",
+         position: "top",
+         description: additionalDetails,
+      })
+      
+   } else {
+   
+      toast({
+         duration: 5000,
+         title: "Your session has expired",
+         status: "error",
+         isClosable: true,
+         position: "top",
+      })
+   
+      setTimeout(() => {
+         window.location.href = Utils.Url.linkToLogout()
+      }, 1000)
+      
+   }
+
    
 }
 

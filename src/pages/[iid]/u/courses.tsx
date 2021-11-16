@@ -29,7 +29,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    const { profile } = useUserSessionProfile()
    
    const [courseEnrollments, courseEnrollmentsLoading] = getAllStudentEnrollments()
-   const [courseManagements, courseManagementsLoading] = getAllCourseManagements()
+   const [courseManagements, courseManagementsLoading] = profile?.role === 'assistant' ? getAllCourseManagements() : [null, false]
    const [ownCourses, ownCoursesLoading] = getOwnCourses()
    
    // useEffect(() => {

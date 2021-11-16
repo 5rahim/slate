@@ -53,11 +53,12 @@ const theme = extendedTheme({
             focusBorderColor: 'secondary',
          },
          variants: {
-            outline: {
+            outline: (props) => ({
                field: {
-                  borderColor: '#e0d8d5',
+                  boxShadow: 'sm',
+                  borderColor: mode('#e0d8d5', '#6d6d6d')(props),
                },
-            },
+            }),
          },
       },
       Select: {
@@ -66,11 +67,12 @@ const theme = extendedTheme({
             focusBorderColor: 'secondary',
          },
          variants: {
-            outline: {
+            outline: (props) => ({
                field: {
-                  borderColor: '#e0d8d5',
+                  boxShadow: 'sm',
+                  borderColor: mode('#e0d8d5', '#6d6d6d')(props),
                },
-            },
+            }),
          },
       },
       Textarea: {
@@ -79,11 +81,12 @@ const theme = extendedTheme({
             focusBorderColor: 'secondary',
          },
          variants: {
-            outline: {
+            outline: (props) => ({
                field: {
-                  borderColor: '#e0d8d5',
+                  boxShadow: 'sm',
+                  borderColor: mode('#e0d8d5', '#6d6d6d')(props),
                },
-            },
+            }),
          },
       },
       Dropdown: {
