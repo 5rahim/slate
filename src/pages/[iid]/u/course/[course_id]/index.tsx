@@ -71,7 +71,7 @@ const Page = ({ course, iid }: DashboardPage) => {
                   
                   <AnnouncementCreation />
                   
-                  <AnnouncementList height="800px" />
+                  <AnnouncementList maxHeight="800px" />
                
                </ModuleBox>
             </Box>

@@ -141,7 +141,7 @@ export const GET_ALL_COURSE_MANAGEMENTS = gql`
 `
 
 export const GET_COURSE_MANAGEMENTS = gql`
-    query getCourseManagements($course_id: uuid!) {
+    query GetCourseManagements($course_id: uuid!) {
         course_management(where: {course_id: {_eq: $course_id}}) {
             id,
             manager {

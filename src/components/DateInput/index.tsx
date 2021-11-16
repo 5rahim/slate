@@ -3,11 +3,12 @@ import { useCourseTranslation } from '@slate/hooks/use-course-translation'
 import { useLocale } from '@slate/hooks/use-locale'
 import { DurationDateFormat } from '@slate/types/Course'
 import { Utils } from '@slate/utils'
-import { AlertDialogCloseButton, InputProps } from 'chalkui/dist/cjs'
+import { AlertDialogCloseButton, InputLeftElement, InputProps } from 'chalkui/dist/cjs'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Input, useDisclosure,
+   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Input, InputGroup, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
+import { BiCalendarAlt } from 'react-icons/bi'
 
 interface DateInputProps {
    onChange?: any
@@ -33,7 +34,21 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
    
    return (
       <>
-         <Input placeholder={t('course:Select a date')} value={inputValue} onChange={() => setInputValue(inputValue)} onClick={onOpen} {...rest} />
+   
+         <InputGroup>
+            <InputLeftElement
+               pointerEvents="none"
+               colorScheme="gray.500"
+               children={<BiCalendarAlt />}
+            />
+            <Input
+               placeholder={t('course:Select a date')}
+               value={inputValue}
+               onChange={() => setInputValue(inputValue)}
+               onClick={onOpen}
+               {...rest}
+            />
+         </InputGroup>
          
          <AlertDialog
             motionPreset="slideInBottom"

@@ -1,6 +1,8 @@
 import { useCMF } from '@slate/hooks/use-color-mode-function'
 import { HStack, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text } from 'chalkui/dist/cjs'
+import { Box, Icon } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
+import { BiCalendarAlt, BiTime } from 'react-icons/bi'
 
 
 interface TimePickerProps {
@@ -40,6 +42,10 @@ export function TimePicker(props: TimePickerProps) {
             bgColor={cmf('gray.200', 'gray.700')}
             borderRadius="md"
          >
+            
+            <Box pl="3">
+               <Icon as={BiTime} />
+            </Box>
             
             <NumberInput
                onChange={(valueAsString, valueAsNumber) => setHour(valueAsNumber)}

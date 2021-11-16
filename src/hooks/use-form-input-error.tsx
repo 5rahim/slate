@@ -18,14 +18,14 @@ export function useFormInputError() {
                   mt="1"
                   mb="2"
                   sx={{
-                     ...style
+                     ...style,
                   }}
                >
                   {t('form:' + errorMessage)}
                </Text>
             )
-            return <></>
          }
+         return <></>
       },
    }
    
