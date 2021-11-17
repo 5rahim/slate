@@ -1,11 +1,11 @@
-import { Course_Enrollment, Course_Management } from '@slate/generated/graphql'
+import { Course_Enrollment, Course_Management, Courses } from '@slate/generated/graphql'
 import {
    UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR, UPDATE_COURSE_CODE, UPDATE_COURSE_DETAILS,
    UPDATE_COURSE_DURATION,
 } from '@slate/graphql/queries/courses/mutations'
 import { SlateCourse } from '@slate/types/Course'
+import { useEffect, useState } from 'react'
 import { useUserSessionProfile } from '../../../hooks/use-current-user'
-import { Permissions } from '../../../utils/permissions'
 import { useMutationHookCreator, useQueryHookCreator } from '../../utils'
 import {
    GET_ALL_COURSE_ENROLLMENTS, GET_ALL_COURSE_MANAGEMENTS, GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS, GET_COURSE_MANAGEMENTS, GET_OWN_COURSES,
@@ -108,6 +108,56 @@ export const getCourseById = (id: string) => {
    
 }
 
+export const getCourseList = () => {
+   
+   const { profile } = useUserSessionProfile()
+   
+   const [courses, setCourses] = useState<Courses[]>([])
+   
+   const useQuery = profile?.role === 'assistant' ? getAllCourseManagements : (profile?.role === 'student' ? getAllStudentEnrollments : getOwnCourses)
+   
+   const [data, loading]: any = useQuery()
+   
+   useEffect(() => {
+   
+      switch (profile?.role) {
+         case 'assistant':
+            if (data) {
+               for (const management of data) {
+                  if (management.course) {
+                     courses.push(management.course)
+                  }
+               }
+               setCourses(courses)
+            }
+            break
+         case 'student':
+            if (data) {
+               for (const enrollment of data) {
+                  if (enrollment.course) {
+                     if (enrollment.course.available) {
+                        courses.push(enrollment.course)
+                     }
+                  }
+               }
+               setCourses(courses)
+            }
+            // setHiddenCourses(hiddenCourses)
+            break
+         default:
+            if (data) {
+               setCourses(data as SlateCourse[])
+            }
+            break
+      
+      }
+      
+   }, [data])
+   
+   return [courses, loading] as [Courses[], boolean]
+   
+}
+
 export const getAllStudentEnrollments = () => {
    
    return useQueryHookCreator<Course_Enrollment[]>("course_enrollment", GET_ALL_COURSE_ENROLLMENTS, "array", { fetchPolicy: "no-cache" })
@@ -117,7 +167,7 @@ export const getAllStudentEnrollments = () => {
 
 export const getAllCourseManagements = () => {
    
-      return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
+   return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
    
    
 }

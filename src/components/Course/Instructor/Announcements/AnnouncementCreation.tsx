@@ -66,7 +66,7 @@ export function AnnouncementCreation() {
       }
       const insert_data = {
          title: data.title,
-         published: data.publish,
+         is_scheduled: !data.publish,
          publish_on: !data.publish ? Utils.Dates.mergeDateAndTime(publishDate, publishTime) : null,
          message: editorRef.current?.getContent(),
          author_id: user.id,

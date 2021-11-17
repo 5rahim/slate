@@ -1,8 +1,3 @@
-/**
- * Check if course is available for students
- * Return course data
- */
-
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
 import { SlateCourse } from '@slate/types/Course'
 import { NextPage } from 'next'
@@ -18,6 +13,12 @@ interface WithCourseProps {
 
 }
 
+/**
+ * Secures course pages
+ * Stores course data
+ * @param {WithCourseProps} props
+ * @returns {(Component: NextPage) => (props: any) => (Promise<boolean>)}
+ */
 export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => {
    
    const Course = (props: any) => {

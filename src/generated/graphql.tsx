@@ -423,9 +423,9 @@ export type Announcements = {
   course_id: Scalars['uuid'];
   created_at: Scalars['timestamptz'];
   id: Scalars['uuid'];
+  is_scheduled: Scalars['Boolean'];
   message: Scalars['String'];
   publish_on?: Maybe<Scalars['timestamp']>;
-  published: Scalars['Boolean'];
   title: Scalars['String'];
 };
 
@@ -476,9 +476,9 @@ export type Announcements_Bool_Exp = {
   course_id?: Maybe<Uuid_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
+  is_scheduled?: Maybe<Boolean_Comparison_Exp>;
   message?: Maybe<String_Comparison_Exp>;
   publish_on?: Maybe<Timestamp_Comparison_Exp>;
-  published?: Maybe<Boolean_Comparison_Exp>;
   title?: Maybe<String_Comparison_Exp>;
 };
 
@@ -501,9 +501,9 @@ export type Announcements_Insert_Input = {
   course_id?: Maybe<Scalars['uuid']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  is_scheduled?: Maybe<Scalars['Boolean']>;
   message?: Maybe<Scalars['String']>;
   publish_on?: Maybe<Scalars['timestamp']>;
-  published?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
 };
 
@@ -555,9 +555,9 @@ export type Announcements_Order_By = {
   course_id?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
+  is_scheduled?: Maybe<Order_By>;
   message?: Maybe<Order_By>;
   publish_on?: Maybe<Order_By>;
-  published?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
 };
 
@@ -577,11 +577,11 @@ export enum Announcements_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  IsScheduled = 'is_scheduled',
+  /** column name */
   Message = 'message',
   /** column name */
   PublishOn = 'publish_on',
-  /** column name */
-  Published = 'published',
   /** column name */
   Title = 'title'
 }
@@ -592,9 +592,9 @@ export type Announcements_Set_Input = {
   course_id?: Maybe<Scalars['uuid']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   id?: Maybe<Scalars['uuid']>;
+  is_scheduled?: Maybe<Scalars['Boolean']>;
   message?: Maybe<Scalars['String']>;
   publish_on?: Maybe<Scalars['timestamp']>;
-  published?: Maybe<Scalars['Boolean']>;
   title?: Maybe<Scalars['String']>;
 };
 
@@ -633,11 +633,11 @@ export enum Announcements_Update_Column {
   /** column name */
   Id = 'id',
   /** column name */
+  IsScheduled = 'is_scheduled',
+  /** column name */
   Message = 'message',
   /** column name */
   PublishOn = 'publish_on',
-  /** column name */
-  Published = 'published',
   /** column name */
   Title = 'title'
 }
@@ -4937,19 +4937,19 @@ export type CreateAnnouncementMutationVariables = Exact<{
   course_id: Scalars['uuid'];
   message: Scalars['String'];
   publish_on?: Maybe<Scalars['timestamp']>;
-  published: Scalars['Boolean'];
+  is_scheduled: Scalars['Boolean'];
   title: Scalars['String'];
 }>;
 
 
-export type CreateAnnouncementMutation = { __typename?: 'mutation_root', insert_announcements_one?: { __typename?: 'announcements', author_id: number, course_id: any, created_at: any, id: any, message: string, publish_on?: any | null | undefined, published: boolean, title: string } | null | undefined };
+export type CreateAnnouncementMutation = { __typename?: 'mutation_root', insert_announcements_one?: { __typename?: 'announcements', author_id: number, course_id: any, created_at: any, id: any, message: string, publish_on?: any | null | undefined, is_scheduled: boolean, title: string } | null | undefined };
 
 export type GetAnnouncementsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
 }>;
 
 
-export type GetAnnouncementsQuery = { __typename?: 'query_root', announcements: Array<{ __typename?: 'announcements', id: any, published: boolean, publish_on?: any | null | undefined, title: string, message: string, created_at: any, course_id: any, author_id: number, author?: { __typename?: 'users', id: number, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, image?: string | null | undefined } | null | undefined }> };
+export type GetAnnouncementsQuery = { __typename?: 'query_root', announcements: Array<{ __typename?: 'announcements', id: any, is_scheduled: boolean, publish_on?: any | null | undefined, title: string, message: string, created_at: any, course_id: any, author_id: number, author?: { __typename?: 'users', id: number, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, image?: string | null | undefined } | null | undefined }> };
 
 export type UpdateCourseBannerColorMutationVariables = Exact<{
   id: Scalars['uuid'];
@@ -5153,9 +5153,9 @@ export const BaseUserFragmentDoc = gql`
 }
     `;
 export const CreateAnnouncementDocument = gql`
-    mutation CreateAnnouncement($author_id: Int!, $course_id: uuid!, $message: String!, $publish_on: timestamp, $published: Boolean!, $title: String!) {
+    mutation CreateAnnouncement($author_id: Int!, $course_id: uuid!, $message: String!, $publish_on: timestamp, $is_scheduled: Boolean!, $title: String!) {
   insert_announcements_one(
-    object: {author_id: $author_id, course_id: $course_id, message: $message, publish_on: $publish_on, published: $published, title: $title}
+    object: {author_id: $author_id, course_id: $course_id, message: $message, publish_on: $publish_on, is_scheduled: $is_scheduled, title: $title}
   ) {
     author_id
     course_id
@@ -5163,7 +5163,7 @@ export const CreateAnnouncementDocument = gql`
     id
     message
     publish_on
-    published
+    is_scheduled
     title
   }
 }
@@ -5178,7 +5178,7 @@ export const GetAnnouncementsDocument = gql`
     order_by: {created_at: desc}
   ) {
     id
-    published
+    is_scheduled
     publish_on
     title
     message

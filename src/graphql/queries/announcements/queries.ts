@@ -4,7 +4,7 @@ export const GET_ANNOUNCEMENTS = gql`
     query GetAnnouncements($course_id: uuid!) {
         announcements(where: {course_id: {_eq: $course_id}}, order_by: {created_at: desc}) {
             id
-            published
+            is_scheduled
             publish_on
             title
             message
