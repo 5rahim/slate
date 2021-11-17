@@ -1,7 +1,8 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDashboardLayout'
 import { PermissionComponent } from '@slate/components/Permissions'
-import { getAllCourseManagements, getOwnCourses, getAllStudentEnrollments } from '@slate/graphql/queries/courses/hooks'
+import { getAllCourseManagements, getOwnCourses, getAllStudentEnrollments, getCourseList } from '@slate/graphql/queries/courses/hooks'
 import { withApollo } from '@slate/graphql/withApollo'
 import { useUserSessionProfile } from '@slate/hooks/use-current-user'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
@@ -23,61 +24,63 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
    const router = useRouter()
-   const [courses, setCourses] = useState<SlateCourse[]>([])
+   // const [courses, setCourses] = useState<SlateCourse[]>([])
    const [hiddenCourses, setHiddenCourses] = useState<SlateCourse[]>([])
    
    const { profile } = useUserSessionProfile()
    
-   const [courseEnrollments, courseEnrollmentsLoading] = getAllStudentEnrollments()
-   const [courseManagements, courseManagementsLoading] = profile?.role === 'assistant' ? getAllCourseManagements() : [null, false]
-   const [ownCourses, ownCoursesLoading] = getOwnCourses()
+   const [courses, coursesLoading] = getCourseList()
    
+   // const [courseEnrollments, courseEnrollmentsLoading] = profile?.role === 'student' ? getAllStudentEnrollments() : [null, false]
+   // const [courseManagements, courseManagementsLoading] = profile?.role === 'assistant' ? getAllCourseManagements() : [null, false]
+   // const [ownCourses, ownCoursesLoading] = getOwnCourses()
+   //
+   // // useEffect(() => {
+   // //    console.log(courses)
+   // // }, [courses])
+   //
    // useEffect(() => {
-   //    console.log(courses)
-   // }, [courses])
-   
-   useEffect(() => {
-      
-      if (Permissions.onlyRoles(profile?.role, 'instructor') && ownCourses) {
-         
-         setCourses(ownCourses as SlateCourse[])
-         
-      }
-      
-   }, [ownCourses])
-   
-   useEffect(() => {
-      
-      if (Permissions.onlyRoles(profile?.role, 'student') && courseEnrollments) {
-         
-         for (const enrollment of courseEnrollments) {
-            if (enrollment.course) {
-               if (enrollment.course.available) {
-                  courses.push(enrollment.course)
-               } else hiddenCourses.push(enrollment.course)
-            }
-         }
-         setCourses(courses)
-         setHiddenCourses(hiddenCourses)
-         
-      }
-      
-   }, [courseEnrollments])
-   
-   useEffect(() => {
-      
-      if (Permissions.onlyRoles(profile?.role, 'assistant') && courseManagements) {
-         
-         for (const management of courseManagements) {
-            if (management.course) {
-               courses.push(management.course)
-            }
-         }
-         setCourses(courses)
-         
-      }
-      
-   }, [courseManagements])
+   //
+   //    if (Permissions.onlyRoles(profile?.role, 'instructor') && ownCourses) {
+   //
+   //       setCourses(ownCourses as SlateCourse[])
+   //
+   //    }
+   //
+   // }, [ownCourses])
+   //
+   // useEffect(() => {
+   //
+   //    if (Permissions.onlyRoles(profile?.role, 'student') && courseEnrollments) {
+   //
+   //       for (const enrollment of courseEnrollments) {
+   //          if (enrollment.course) {
+   //             if (enrollment.course.available) {
+   //                courses.push(enrollment.course)
+   //             } else hiddenCourses.push(enrollment.course)
+   //          }
+   //       }
+   //       setCourses(courses)
+   //       setHiddenCourses(hiddenCourses)
+   //
+   //    }
+   //
+   // }, [courseEnrollments])
+   //
+   // useEffect(() => {
+   //
+   //    if (Permissions.onlyRoles(profile?.role, 'assistant') && courseManagements) {
+   //
+   //       for (const management of courseManagements) {
+   //          if (management.course) {
+   //             courses.push(management.course)
+   //          }
+   //       }
+   //       setCourses(courses)
+   //
+   //    }
+   //
+   // }, [courseManagements])
    
    return (
       <>
@@ -111,7 +114,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                </PermissionComponent.StudentOnly>
                
                {/*TODO CHANGE LEVEL !!!!!!!!!!!!*/}
-               {( !( ownCoursesLoading || courseEnrollmentsLoading || courseManagementsLoading ) && courses?.length > 0 ) && (
+               {( courses?.length > 0 ) && (
                   <CelledList isFullWidth boxShadow="none" borderRadius="none">
                      {courses?.map((course: SlateCourse | undefined) => {
                         return (
@@ -155,7 +158,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
                      })}
                   </CelledList>
                )}
-               {( ownCoursesLoading || courseEnrollmentsLoading ) && (
+               {( coursesLoading ) && (
                   <Stack>
                      <Skeleton height="80px" borderRadius="md" />
                   </Stack>
@@ -169,8 +172,9 @@ const Page = ({ user, school, iid }: DashboardPage) => {
 }
 
 export default Compose(
+   withPageAuthRequired,
    withApollo({ ssr: true }),
-   withAuth({ requireAuth: true, requireActiveAccount: true }),
+   withAuth({ requireActiveAccount: true }),
    withDashboard(),
 )(Page)
 

@@ -1,7 +1,3 @@
-/**
- * Check if user is authenticated or needs to be to access page
- * Return user data
- */
 
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
 import { getUserBySessionProfile } from '@slate/graphql/queries/users/hooks'
@@ -15,17 +11,22 @@ import { useDispatch } from 'react-redux'
 
 
 interface WithAuthProps {
-   requireAuth?: boolean,
    requireNoAuth?: boolean,
    requireActiveAccount?: boolean,
-   redirectTo?: string
 }
 
+/**
+ * Secures page for unauthenticated users only using "requireNoAuth"
+ * Secures page for activated user accounts only using "requireActiveAccount"
+ * Stores user data
+ * @param {boolean | undefined} requireNoAuth
+ * @param {boolean | undefined} requireActiveAccount
+ * @returns {(Component: NextPage) => (props: any) => (JSX.Element)}
+ */
 export const withAuth = (
    {
       requireNoAuth = false,
       requireActiveAccount = false,
-      redirectTo = '/',
    }: WithAuthProps) => (Component: NextPage) => {
    
    const Auth = (props: any) => {

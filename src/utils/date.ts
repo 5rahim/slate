@@ -1,5 +1,5 @@
 import { DurationDateFormat } from '@slate/types/Course'
-import { addMinutes, format } from 'date-fns'
+import { addMinutes, differenceInMinutes, format } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 import { Parameter } from '../types/Parameters'
 
@@ -8,8 +8,10 @@ const getLocale = (locale: string) => locale === 'fr' ? fr : enUS
 type DateFormat = "short" | "long" | "short with hours" | "long with hours"
 
 const formats: { [key: string]: string } = {
-   short: 'dd/MM/yyyy',
+   short: 'dd/MM/yy',
    long: 'dd MMMM yyyy',
+   'short with hours': 'dd/MM/yy, HH:mm',
+   'long with hours': 'dd MMMM yyyy, HH:mm',
 }
 
 export const Dates = {
@@ -47,9 +49,17 @@ export const Dates = {
       } : { startDate: null, endDate: null }
    },
    
-   formatDate(date: Date, s: DateFormat, locale: string) {
+   asUTC: (date: Parameter<string>) => {
+      return new Date(date + 'Z')
+   },
+   
+   formatDate(date: Parameter<Date | string>, s: DateFormat, locale: string) {
       if (formats[s] && date) {
-         return format(date, formats[s], { locale: getLocale(locale) })
+         if(typeof date === 'string') {
+            return format(new Date(date + 'Z'), formats[s], { locale: getLocale(locale) })
+         } else {
+            return format(date, formats[s], { locale: getLocale(locale) })
+         }
       } else {
          return ''
       }
@@ -60,6 +70,15 @@ export const Dates = {
         return new Date(addMinutes(date, time).toUTCString())
      }
      return date
+   },
+   
+   
+   
+   publicationDateHasPassed(publish_on: Parameter<Date | string>) {
+      if(publish_on) {
+         return differenceInMinutes(new Date(publish_on + "Z"), new Date()) <= 0
+      }
+      return false
    },
    
    /**

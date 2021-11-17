@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -36,8 +37,9 @@ const Page = ({ user, school, course }: DashboardPage) => {
 }
 
 export default Compose(
+   withPageAuthRequired,
    withApollo({ ssr: true }),
-   withAuth({ requireAuth: true, requireActiveAccount: true }),
+   withAuth({ requireActiveAccount: true }),
    withDashboard(),
    withCourse(),
 )(Page)
