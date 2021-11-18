@@ -1,6 +1,6 @@
-import { Datepicker } from '@slate/components/Datepicker'
-import { useCourseTranslation } from '@slate/hooks/use-course-translation'
-import { useLocale } from '@slate/hooks/use-locale'
+import { DatePicker } from '@slate/components/DatePicker'
+import { useLocale } from '@slate/hooks/useLocale'
+import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { DurationDateFormat } from '@slate/types/Course'
 import { Utils } from '@slate/utils'
 import { AlertDialogCloseButton, InputLeftElement, InputProps } from 'chalkui/dist/cjs'
@@ -16,7 +16,7 @@ interface DateInputProps {
 
 export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
    
-   const t = useCourseTranslation()
+   const t = useTypeSafeTranslation()
    const locale = useLocale()
    
    const { isOpen, onOpen, onClose } = useDisclosure()
@@ -63,7 +63,7 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
                {/*<AlertDialogHeader>Discard Changes?</AlertDialogHeader>*/}
                <AlertDialogCloseButton />
                <AlertDialogBody>
-                  <Datepicker
+                  <DatePicker
                      defaultSelectedDates={selectedDate ?? undefined}
                      onChange={(data) => setSelectedDate(data)}
                      disableDatesBeforeToday

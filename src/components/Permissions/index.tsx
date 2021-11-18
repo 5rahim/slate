@@ -1,5 +1,5 @@
+import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import React from 'react'
-import { useCurrentUser, useUserSessionProfile } from '../../hooks/use-current-user'
 import { PermissionComponentProps } from './Types'
 
 export const PermissionComponent = {

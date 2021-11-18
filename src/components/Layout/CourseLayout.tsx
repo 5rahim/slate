@@ -1,28 +1,16 @@
-import { CourseHeader } from '@slate/components/Course/CourseHeader'
-import { AnnouncementCreation } from '@slate/components/Course/Instructor/Announcements/AnnouncementCreation'
-import { CourseOptions } from '@slate/components/Course/Instructor/Settings/CourseOptions'
-import { Customization } from '@slate/components/Course/Instructor/Settings/Customization'
-import { StudentOptions } from '@slate/components/Course/Instructor/Settings/StudentOptions'
-import { AnnouncementList } from '@slate/components/Course/Shared/Announcements/AnnouncementList'
-import { CourseContentModule } from '@slate/components/Course/Student/CourseContentModule'
-import { CourseDetailsModule } from '@slate/components/Course/Student/CourseDetailsModule'
-import { GroupModule } from '@slate/components/Course/Student/GroupModule'
 import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDashboardLayout'
-import { PermissionComponent } from '@slate/components/Permissions'
-import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
+import { CourseHeader } from '@slate/modules/Course/CourseHeader'
 import { Container, Flex, Grid } from 'chalkui/dist/cjs/Components/Layout'
-import { Box } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 interface CourseLayoutProps {
    pageTitle?: string
-   nav?: React.ReactNode
+   leftPanel?: React.ReactNode
    children?: React.ReactNode
 }
 
-export function CourseLayout({ pageTitle, nav, children }: CourseLayoutProps) {
+export function CourseLayout({ pageTitle, leftPanel, children }: CourseLayoutProps) {
    
    return (
       <>
@@ -41,7 +29,7 @@ export function CourseLayout({ pageTitle, nav, children }: CourseLayoutProps) {
                >
                   <Flex flexDirection="column" width={["100%", "100%", "30%"]} gap={5} as={Grid} alignSelf="flex-start">
                
-                     {nav}
+                     {leftPanel}
             
                   </Flex>
             

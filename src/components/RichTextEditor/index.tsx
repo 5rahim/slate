@@ -1,8 +1,8 @@
-import { useLocale } from '@slate/hooks/use-locale'
+import { useLocale } from '@slate/hooks/useLocale'
 import { Editor } from '@tinymce/tinymce-react'
 import { BoxProps } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Button } from 'chalkui/dist/cjs/React'
-import { MutableRefObject, useEffect, useRef, useState } from 'react'
+import { Box } from 'chalkui/dist/cjs/React'
+import { MutableRefObject } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 
 interface RichTextEditorProps {

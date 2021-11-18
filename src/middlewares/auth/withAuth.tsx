@@ -1,7 +1,6 @@
-
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
-import { getUserBySessionProfile } from '@slate/graphql/queries/users/hooks'
-import { useUserSessionProfile } from '@slate/hooks/use-current-user'
+import { getUserBySessionProfile } from '@slate/graphql/schemas/users/hooks'
+import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { UserActions } from '@slate/store/slices/userSlice'
 import { Utils } from '@slate/utils'
 import { NextPage } from 'next'

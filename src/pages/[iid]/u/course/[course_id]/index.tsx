@@ -1,19 +1,19 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { AnnouncementCreation } from '@slate/components/Course/Instructor/Announcements/AnnouncementCreation'
-import { CourseOptions } from '@slate/components/Course/Instructor/Settings/CourseOptions'
-import { Customization } from '@slate/components/Course/Instructor/Settings/Customization'
-import { StudentOptions } from '@slate/components/Course/Instructor/Settings/StudentOptions'
-import { AnnouncementList } from '@slate/components/Course/Shared/Announcements/AnnouncementList'
-import { CourseContentModule } from '@slate/components/Course/Student/CourseContentModule'
-import { CourseDetailsModule } from '@slate/components/Course/Student/CourseDetailsModule'
-import { GroupModule } from '@slate/components/Course/Student/GroupModule'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { PermissionComponent } from '@slate/components/Permissions'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
-import { withApollo } from '@slate/graphql/withApollo'
+import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
+import { AnnouncementCreation } from '@slate/modules/Course/Instructor/Announcements/AnnouncementCreation'
+import { CourseOptions } from '@slate/modules/Course/Instructor/Settings/CourseOptions'
+import { Customization } from '@slate/modules/Course/Instructor/Settings/Customization'
+import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
+import { AnnouncementList } from '@slate/modules/Course/Shared/Announcements/AnnouncementList'
+import { CourseContentMenu } from '@slate/modules/Course/Student/CourseContentMenu'
+import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
+import { GroupModule } from '@slate/modules/Course/Student/GroupModule'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
 import { Utils } from '@slate/utils'
@@ -41,13 +41,13 @@ const Page = ({ course, iid }: DashboardPage) => {
    return (
       <CourseLayout
          pageTitle={course?.name}
-         nav={
+         leftPanel={
             <>
                <PermissionComponent.StudentOnly>
                   
-                  <CourseContentModule index={0} />
+                  <CourseContentMenu index={0} />
                   
-                  <CourseDetailsModule />
+                  <CourseDetails />
                   
                   <GroupModule />
                

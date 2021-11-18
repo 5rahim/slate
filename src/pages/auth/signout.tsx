@@ -1,16 +1,16 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import AuthLayout from '@slate/components/Layout/AuthLayout'
+import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import AuthCard from '@slate/components/UI/AuthCard'
-import { withApollo } from '@slate/graphql/withApollo'
+import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { withCacheReset } from '@slate/middlewares/dashboard/withCacheReset'
+import { Compose } from '@slate/next/compose'
 import { Utils } from '@slate/utils'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button } from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import AuthLayout from '../../components/Layout/AuthLayout'
-import { DefaultHead } from '../../components/Layout/DefaultHead'
-import { Compose } from '../../next/compose'
 
 
 function Page() {
