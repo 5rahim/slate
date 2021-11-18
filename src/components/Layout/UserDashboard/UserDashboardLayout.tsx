@@ -1,4 +1,4 @@
-import { useCMF } from '@slate/hooks/use-color-mode-function'
+import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import { CourseSelectors } from '@slate/store/slices/courseSlice'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'

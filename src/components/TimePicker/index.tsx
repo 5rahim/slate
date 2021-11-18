@@ -1,8 +1,8 @@
-import { useCMF } from '@slate/hooks/use-color-mode-function'
+import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { HStack, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text } from 'chalkui/dist/cjs'
 import { Box, Icon } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
-import { BiCalendarAlt, BiTime } from 'react-icons/bi'
+import { BiTime } from 'react-icons/bi'
 
 
 interface TimePickerProps {

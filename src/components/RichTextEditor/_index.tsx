@@ -1,20 +1,13 @@
+import { Icon } from 'chalkui/dist/cjs/Components/Icon'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/React'
-import React, { useCallback, useMemo, useState } from 'react'
 import isHotkey from 'is-hotkey'
-import { MdFormatQuote } from 'react-icons/md'
+import React, { useCallback, useMemo, useState } from 'react'
 import { BiBold, BiCode, BiHeading, BiItalic, BiListOl, BiListUl, BiUnderline } from 'react-icons/bi'
-import { Editable, withReact, useSlate, Slate } from 'slate-react'
-import {
-   Editor,
-   Transforms,
-   createEditor,
-   Descendant,
-   Element as SlateElement,
-} from 'slate'
+import { MdFormatQuote } from 'react-icons/md'
+import { createEditor, Descendant, Editor, Element as SlateElement, Transforms } from 'slate'
 import { withHistory } from 'slate-history'
-import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { Icon } from 'chalkui/dist/cjs/Components/Icon'
+import { Editable, Slate, useSlate, withReact } from 'slate-react'
 
 // import { Button, Icon, Toolbar } from '../components'
 

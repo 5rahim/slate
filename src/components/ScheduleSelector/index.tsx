@@ -1,5 +1,5 @@
 import { TimePicker } from '@slate/components/TimePicker'
-import { useCMF } from '@slate/hooks/use-color-mode-function'
+import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { HStack } from 'chalkui/dist/cjs'
 import { Wrap, WrapItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Checkbox, Text } from 'chalkui/dist/cjs/React'

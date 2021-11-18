@@ -25,6 +25,9 @@
       "@slate/components/*": [
         "./src/components/*"
       ],
+      "@slate/modules/*": [
+        "./src/modules/*"
+      ],
       "@slate/graphql/*": [
         "./src/graphql/*"
       ],

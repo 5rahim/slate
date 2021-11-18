@@ -1,12 +1,12 @@
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
+import { getCourseById } from '@slate/graphql/schemas/courses/hooks'
+import { CourseActions } from '@slate/store/slices/courseSlice'
 import { SlateCourse } from '@slate/types/Course'
+import { Utils } from '@slate/utils'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { getCourseById } from '../../graphql/queries/courses/hooks'
-import { CourseActions } from '../../store/slices/courseSlice'
-import { Utils } from '../../utils'
 
 
 interface WithCourseProps {

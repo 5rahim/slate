@@ -1,11 +1,11 @@
 import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import SchoolRegistrationLayout from '@slate/components/Layout/SchoolRegistrationLayout'
-import { withApollo } from '@slate/graphql/withApollo'
+import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Alert, AlertDescription, AlertIcon, AlertTitle, Button, FormControl, FormLabel, Heading, Input, Select, Textarea, useToast,
 } from 'chalkui/dist/cjs/React'
-// import { SUBMIT_CONTACT_FORM } from '@slate/graphql/queries/contact/mutations'
+// import { SUBMIT_CONTACT_FORM } from '@slate/graphql/models/contact/mutations'
 import { motion } from 'framer-motion'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'

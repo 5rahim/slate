@@ -1,13 +1,13 @@
 import AuthLayout from '@slate/components/Layout/AuthLayout'
 import AuthCard from '@slate/components/UI/AuthCard'
-import { useUserSessionProfile } from '@slate/hooks/use-current-user'
+import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { Utils } from '@slate/utils'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Button } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { DefaultHead } from '../components/Layout/DefaultHead'
-import { withApollo } from '../graphql/withApollo'
+import { withApollo } from '../graphql/apollo/withApollo'
 import { Compose } from '../next/compose'
 
 
