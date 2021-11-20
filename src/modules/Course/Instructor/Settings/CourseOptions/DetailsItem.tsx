@@ -11,12 +11,12 @@ import { BiBookAlt } from 'react-icons/bi'
 
 export function DetailsItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })
-   
+
    const { isOpen: detailsModalIsOpen, onOpen: openDetailsModal, onClose: closeDetailsModal } = useDisclosure()
-   
+
    const course = useCurrentCourse()
    const [updateCourseDetails, updateIsLoading] = useMutateCourseDetails()
-   
+
    const { onFormSubmit, fields, formState } = useFormCreator({
       schema: ({ z, errorMessage }) => z.object({
          name: z.string().min(4, errorMessage),
@@ -32,13 +32,13 @@ export function DetailsItem() {
          updateCourseDetails({ ...data, id: course?.id })
       },
    })
-   
+
    return (
       <>
          <MenuCelledListItem onClick={openDetailsModal}>
             {t('course:options.Course details')}
          </MenuCelledListItem>
-         
+
          <Modal size="xl" isOpen={detailsModalIsOpen} onClose={closeDetailsModal}>
             <ModalOverlay />
             <ModalContent>
@@ -46,32 +46,32 @@ export function DetailsItem() {
                <ModalHeader textAlign="center">{t('course:options.Change details about the course')}</ModalHeader>
                <form onSubmit={onFormSubmit}>
                   <ModalBody>
-                     
-                     
+
+
                      <FormControl mb={3} id="name" isRequired={true}>
                         <FormLabel>{t('form:Name')}</FormLabel>
                         <Input {...fields.register('name', { placeholder: 'Name' })} />
                         {fields.errorMessage('name')}
                      </FormControl>
-                     
-                     
+
+
                      <FormControl mb={3} id="level">
                         <FormLabel>{t('form:Level')}</FormLabel>
                         <Input
                            {...fields.register("level", { placeholder: 'Level' })}
                         />
                      </FormControl>
-                     
+
                      <FormControl mb={3} id="description">
                         <FormLabel>{t('form:Description')}</FormLabel>
                         <Input
                            {...fields.register("description", { placeholder: 'Description' })}
                         />
                      </FormControl>
-                  
-                  
+
+
                   </ModalBody>
-                  
+
                   <ModalFooter gridGap={5}>
                      <Button
                         colorScheme="brand.100"

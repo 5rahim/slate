@@ -6,7 +6,7 @@ import { Parameter } from '@slate/types/Parameters'
 import { CREATE_ANNOUNCEMENT } from './mutations'
 
 export const useCreateAnnouncement: SlateMutationHook<CreateAnnouncementMutationVariables> = (options) => {
-   
+
    return useMutationHookCreator(CREATE_ANNOUNCEMENT, {
       refetchQueries: [
          { query: GET_ANNOUNCEMENTS },
@@ -14,7 +14,7 @@ export const useCreateAnnouncement: SlateMutationHook<CreateAnnouncementMutation
       ],
       ...options
    })
-   
+
 }
 
 export const getAnnouncements = (course_id: Parameter<string>) => {

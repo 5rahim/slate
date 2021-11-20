@@ -42,19 +42,19 @@ type FieldRegistrationProps = {
  */
 export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
    const { schema, defaultValues, onSubmit, onError } = props
-   
+
    const t = useTypeSafeTranslation()
    const cmf = useCMF()
-   
+
    const { schemaResolver } = useFormValidation(schema)
-   
+
    const {
       register, handleSubmit, control, watch, setError, reset, formState: { errors, isValid, isSubmitting, isSubmitted, isSubmitSuccessful, dirtyFields },
    } = useForm({
       resolver: schemaResolver,
       defaultValues: defaultValues,
    })
-   
+
    return {
       onFormSubmit: handleSubmit(onSubmit, onError),
       formState: {
@@ -68,14 +68,14 @@ export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
          errors,
          watch: watch,
          reset: reset,
-         
+
          setError: (name: string, message?: string) => {
             setError(name, { message: message ?? 'Invalid field' })
          },
-         
+
          register: (name: string, options?: FieldRegistrationProps) => {
             const { required = true, autoComplete = "off", placeholder, ...rest } = options || {}
-            
+
             return {
                ...register(name, { required }),
                placeholder: t(`form:${placeholder}`),
@@ -84,7 +84,7 @@ export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
                ...rest,
             }
          },
-         
+
          errorMessage: (name: string, style?: SystemStyleObject) => {
             const message = !!errors[name] ? errors[name].message : null
             if (message) {
@@ -106,5 +106,5 @@ export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
          },
       },
    }
-   
+
 }

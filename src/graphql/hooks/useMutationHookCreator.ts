@@ -57,7 +57,7 @@ export function useMutationHookCreator<TVariables>(
       debug?: boolean
    } & MutationHookOptions,
 ): MutationHookCreatorReturn<TVariables> {
-   
+
    const {
       errorMessage = "Internal Server Error",
       successAlert,
@@ -67,23 +67,23 @@ export function useMutationHookCreator<TVariables>(
       variables,
       ...rest
    } = options
-   
+
    const dispatch = useDispatch()
    const toast = useToast()
    const { t, i18n } = useTranslation(['alert'], { useSuspense: false })
-   
+
    const [handleMutation, { loading, client, data }] = useMutation(mutation, {
       variables,
       onError: (error) => {
          handleApolloErrors(error, errorMessage, debug, toast)
       },
       onCompleted: (data) => {
-         
+
          dispatch(AppActions.setMutationIsLoading(false))
-         
+
          onCompleted && onCompleted(data)
-         
-         
+
+
          if (successAlert) {
             if (successAlert.type === "toast") {
                toast({
@@ -95,20 +95,20 @@ export function useMutationHookCreator<TVariables>(
                })
             }
          }
-         
+
          if (sendNotification) {
             // TODO: Send notification (query)
          }
-         
+
       },
       ...rest,
    })
-   
+
    function commitMutation(variables: any, functionOptions: any) {
       dispatch(AppActions.setMutationIsLoading(true))
       handleMutation({ variables: variables, ...functionOptions })
    }
-   
+
    return [
       (variables?: TVariables, functionOptions?) => commitMutation(variables, functionOptions),
       loading,
@@ -116,5 +116,5 @@ export function useMutationHookCreator<TVariables>(
       data,
       client,
    ]
-   
+
 }

@@ -11,12 +11,12 @@ import { useEffect, useState } from 'react'
  * @returns {{setTimeField: (value: number) => void, setDateField: (value: any) => void}}
  */
 export const useDateAndTimeFields = () => {
-   
+
    const [date, setDate] = useState<Parameter<any>>(null)
    const [time, setTime] = useState<number>(0)
-   
+
    const [dt, setDT] = useState<Parameter<Date>>(null)
-   
+
    useEffect(() => {
       if(date) {
          setDT(Utils.Dates.mergeDateAndTime(date, time))
@@ -24,7 +24,7 @@ export const useDateAndTimeFields = () => {
          setDT(null)
       }
    }, [date, time])
-   
+
    return {
       setDateField: (value: any) => setDate(value),
       setTimeField: (value: number) => setTime(value),
