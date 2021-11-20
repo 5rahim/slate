@@ -1,11 +1,11 @@
 import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useMutateCourseDetails } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useFormCreator } from '@slate/hooks/useFormCreator'
 import {
    Button, FormControl, FormLabel, IconBox, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { BiBookAlt } from 'react-icons/bi'
 
@@ -15,14 +15,23 @@ export function DetailsItem() {
    const { isOpen: detailsModalIsOpen, onOpen: openDetailsModal, onClose: closeDetailsModal } = useDisclosure()
    
    const course = useCurrentCourse()
-   
-   const { register, handleSubmit, formState: { errors } } = useForm()
-   
    const [updateCourseDetails, updateIsLoading] = useMutateCourseDetails()
    
-   function onDetailsSubmit(data: any) {
-      updateCourseDetails({ id: course?.id, ...data })
-   }
+   const { onFormSubmit, fields, formState } = useFormCreator({
+      schema: ({ z, errorMessage }) => z.object({
+         name: z.string().min(4, errorMessage),
+         level: z.string().nullable(),
+         description: z.string().nullable(),
+      }),
+      defaultValues: {
+         name: course.name,
+         level: course.level,
+         description: course.description,
+      },
+      onSubmit: data => {
+         updateCourseDetails({ ...data, id: course?.id })
+      },
+   })
    
    return (
       <>
@@ -32,36 +41,31 @@ export function DetailsItem() {
          
          <Modal size="xl" isOpen={detailsModalIsOpen} onClose={closeDetailsModal}>
             <ModalOverlay />
-            <ModalContent textAlign="center">
+            <ModalContent>
                <IconBox isCircular icon={<BiBookAlt />} colorScheme="primary" margin="0 auto" mt={3} />
                <ModalHeader textAlign="center">{t('course:options.Change details about the course')}</ModalHeader>
-               <form onSubmit={handleSubmit(onDetailsSubmit)}>
-                  <ModalBody textAlign="center">
+               <form onSubmit={onFormSubmit}>
+                  <ModalBody>
                      
                      
-                     <FormControl mb={3} id="student_id" isRequired={true}>
+                     <FormControl mb={3} id="name" isRequired={true}>
                         <FormLabel>{t('form:Name')}</FormLabel>
-                        <Input {...register("name", { required: true })} defaultValue={course?.name} placeholder={t('form:Name')} />
+                        <Input {...fields.register('name', { placeholder: 'Name' })} />
+                        {fields.errorMessage('name')}
                      </FormControl>
                      
                      
-                     <FormControl mb={3} id="code">
+                     <FormControl mb={3} id="level">
                         <FormLabel>{t('form:Level')}</FormLabel>
                         <Input
-                           {...register("level")}
-                           defaultValue={course?.level}
-                           placeholder={t('form:Level')}
-                           type="text"
+                           {...fields.register("level", { placeholder: 'Level' })}
                         />
                      </FormControl>
                      
-                     <FormControl mb={3} id="code">
+                     <FormControl mb={3} id="description">
                         <FormLabel>{t('form:Description')}</FormLabel>
                         <Input
-                           {...register("description")}
-                           defaultValue={course?.description}
-                           placeholder={t('form:Description')}
-                           type="text"
+                           {...fields.register("description", { placeholder: 'Description' })}
                         />
                      </FormControl>
                   
@@ -73,6 +77,7 @@ export function DetailsItem() {
                         colorScheme="brand.100"
                         width="100%"
                         type="submit"
+                        isDisabled={!formState.touched}
                         isLoading={updateIsLoading}
                      >
                         {t('Save')}

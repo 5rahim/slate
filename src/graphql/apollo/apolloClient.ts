@@ -135,7 +135,7 @@ export default function createApolloClient(initialState: any, headers: any) {
 //          fetchPolicy: 'cache-first',
 //          errorPolicy: 'all',
 //       },
-//       // mutate: {
+//       // useMutate: {
 //       //    fetchPolicy: 'no-cache',
 //       //    errorPolicy: 'all'
 //       // }

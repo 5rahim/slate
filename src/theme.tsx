@@ -50,7 +50,7 @@ const theme = extendedTheme({
    components: {
       Input: {
          defaultProps: {
-            focusBorderColor: 'secondary',
+            focusBorderColor: '#84776a',
          },
          variants: {
             outline: (props) => ({
