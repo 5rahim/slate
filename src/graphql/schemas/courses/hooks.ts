@@ -1,5 +1,5 @@
-import { Course_Enrollment, Course_Management, Courses } from '@slate/generated/graphql'
-import { useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
+import { Course_Enrollment, Course_Management, Courses, UpdateCourseDetailsMutationVariables } from '@slate/generated/graphql'
+import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import {
    UPDATE_COURSE_AVAILABILITY, UPDATE_COURSE_BACKGROUND_COLOR, UPDATE_COURSE_BANNER_COLOR, UPDATE_COURSE_CODE, UPDATE_COURSE_DETAILS,
@@ -84,7 +84,7 @@ export const useMutateCourseDuration = () => {
 }
 
 
-export const useMutateCourseDetails = () => {
+export const useMutateCourseDetails: SlateMutationHook<UpdateCourseDetailsMutationVariables> = () => {
    
    return useMutationHookCreator(UPDATE_COURSE_DETAILS, {
       refetchQueries: [

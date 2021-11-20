@@ -23,5 +23,7 @@
   "Publish when": "When should it be published?",
 
   "title must be at least 4 characters": "The title must be at least 4 characters",
-  "message is a required field": "The message must not be empty"
+  "message is a required field": "The message must not be empty",
+  "Invalid field": "The value you entered is invalid",
+  "Required field": "This field is required, please enter a value"
 }

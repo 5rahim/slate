@@ -1,80 +1,69 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { DateInput } from '@slate/components/DateInput'
 import { PermissionComponent } from "@slate/components/Permissions"
 import { RichTextEditor } from '@slate/components/RichTextEditor'
 import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
 import { TimePicker } from '@slate/components/TimePicker'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
+import { CreateAnnouncementMutationVariables } from '@slate/generated/graphql'
 import { useCreateAnnouncement } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
-import { useFormInputError } from '@slate/hooks/useFormInputError'
+import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
+import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { Utils } from '@slate/utils'
+import { FormErrors } from '@slate/types/FormErrors'
 import { Text } from 'chalkui/dist/cjs'
 import { Box, Divider } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormControl, FormLabel, Input, Switch,
    useDisclosure,
 } from 'chalkui/dist/cjs/React'
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import * as yup from 'yup'
+import React from 'react'
 
 
 export function AnnouncementCreation() {
    
    const t = useTypeSafeTranslation()
-   
    const user = useCurrentUser()
    const course = useCurrentCourse()
-   
-   const [publishOn, setPublishOn] = useState<any>(null)
-   const [publishDate, setPublishDate] = useState<any>(null)
-   const [publishTime, setPublishTime] = useState<any>(0)
-   
-   const schema = yup.object({
-      title: yup.string().min(4).required(),
-   })
-   const { register, handleSubmit, control, watch, reset, formState: { errors } } = useForm({
-      resolver: yupResolver(schema),
-   })
+   const { isOpen, onOpen, onClose } = useDisclosure()
+
    
    const [createAnnouncement, mutationLoading] = useCreateAnnouncement({
       onCompleted: () => {
-         reset()
+         fields.reset()
+         resetDateAndTimeFields()
          onClose()
       },
    })
    
-   const { inputError } = useFormInputError()
-   
-   const { isOpen, onOpen, onClose } = useDisclosure()
-   
    const editorRef = createRichTextEditorRef()
+   const { value: publishOn, setDateField, setTimeField, resetDateAndTimeFields } = useDateAndTimeFields()
    
-   const watchPublish = watch("publish", true)
+   const { onFormSubmit, fields, formState } = useFormCreator({
+      schema: ({ z }) => z.object({
+         title: z.string().min(4, FormErrors.RequiredField),
+         publish: z.boolean()
+      }),
+      onSubmit: data => {
    
-   function handleCreateAnnouncement() {
-      console.log(editorRef.current?.getContent())
-   }
+         const insert_data: CreateAnnouncementMutationVariables = {
+            title: data.title,
+            is_scheduled: !data.publish,
+            publish_on: !data.publish ? publishOn : null,
+            message: editorRef.current?.getContent() ?? '',
+            author_id: user.id,
+            course_id: course.id
+         }
    
-   function onSubmit(data: any) {
-      console.log(data.publish, publishDate, editorRef.current?.getContent())
-      if (( data.publish === false && !publishDate ) || !editorRef.current?.getContent()) {
-         return
-      }
-      const insert_data = {
-         title: data.title,
-         is_scheduled: !data.publish,
-         publish_on: !data.publish ? Utils.Dates.mergeDateAndTime(publishDate, publishTime) : null,
-         message: editorRef.current?.getContent(),
-         author_id: user.id,
-         course_id: course.id
-      }
-      
-      createAnnouncement(insert_data)
-   }
+         if(editorRef.current?.getContent().length === 0)
+            fields.setError('message', FormErrors.RequiredField)
+         else if(!data.publish && !publishOn)
+            fields.setError('date', FormErrors.RequiredField)
+            
+         else createAnnouncement(insert_data)
+      },
+   })
    
    return (
       <PermissionComponent.AssistantAndHigher>
@@ -101,7 +90,7 @@ export function AnnouncementCreation() {
             size="xl"
          >
             <DrawerOverlay>
-               <form onSubmit={handleSubmit(onSubmit)}>
+               <form onSubmit={onFormSubmit}>
                   <DrawerContent>
                      <DrawerCloseButton color="white" />
                      <DrawerHeader bg="brand.200" color="white" fontSize="2xl">
@@ -114,23 +103,21 @@ export function AnnouncementCreation() {
                         <FormControl mb={3} id="title" isRequired={true}>
                            <FormLabel>{t('form:Title')}</FormLabel>
                            <Input
-                              {...register("title", { required: true })}
-                              placeholder={t('form:Title')}
-                              isInvalid={errors?.title}
-                              autoComplete={'off'}
+                              {...fields.register('title', { placeholder: 'Title' })}
                            />
-                           {inputError(errors?.title?.message)}
+                           {fields.errorMessage('title')}
                         </FormControl>
                         
                         
                         <RichTextEditor mb={4} editorRef={editorRef} />
+                        {fields.errorMessage('message')}
                         
                         <FormControl display="flex" alignItems="center" mb={3} id="publish">
                            <FormLabel htmlFor="publish" mb={0}>{t('form:Publish now')}</FormLabel>
-                           <Switch size="md" id="puslish" defaultChecked={true} {...register("publish")} />
+                           <Switch size="md" id="puslish" defaultChecked={true} {...fields.register("publish")} />
                         </FormControl>
                         
-                        <Box display={watchPublish === false ? 'block' : 'none'}>
+                        <Box display={fields.watch('publish', true) === false ? 'block' : 'none'}>
                            
                            <Divider mb="3" />
                            
@@ -138,12 +125,13 @@ export function AnnouncementCreation() {
                            
                            <AlignedFlex mb="2">
                               {t('form:Date')}:
-                              <DateInput onChange={setPublishDate} />
+                              <DateInput onChange={setDateField} />
                            </AlignedFlex>
+                           {fields.errorMessage('date')}
                            
                            <AlignedFlex>
                               {t('form:Time')}:
-                              <TimePicker defaultTime={1439} onChange={setPublishTime} />
+                              <TimePicker defaultTime={1439} onChange={setTimeField} />
                            </AlignedFlex>
                         </Box>
                      

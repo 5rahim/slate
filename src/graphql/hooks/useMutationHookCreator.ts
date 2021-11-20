@@ -5,17 +5,17 @@ import { useToast } from 'chalkui/dist/cjs/React'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 
-export type SlateMutationHook = (options?: MutationFunctionOptions) => MutationHookCreatorReturn
+export type SlateMutationHook<TVariables> = (options?: MutationFunctionOptions) => MutationHookCreatorReturn<TVariables>
 
-type MutationHookCreatorFunction = (variables?: { [key: string]: any }, options?: MutationFunctionOptions) => any
+type MutationHookCreatorFunction<TVariables> = (variables?: TVariables, options?: MutationFunctionOptions) => any
 
 type LoadingState = boolean
 type EmptyState = boolean
 type ErrorMessage = string
 type ReturnData = any
 
-type MutationHookCreatorReturn = [
-   MutationHookCreatorFunction,
+type MutationHookCreatorReturn<TVariables> = [
+   MutationHookCreatorFunction<TVariables>,
    LoadingState,
    ErrorMessage,
    ReturnData,
@@ -43,7 +43,7 @@ type MutationHookCreatorReturn = [
  *    MutationHookOptions} options
  * @returns {MutationHookCreatorReturn}
  */
-export function useMutationHookCreator(
+export function useMutationHookCreator<TVariables>(
    mutation: DocumentNode,
    options: {
       errorMessage?: string,
@@ -56,7 +56,7 @@ export function useMutationHookCreator(
       sendNotification?: any // TODO: Notifications
       debug?: boolean
    } & MutationHookOptions,
-): MutationHookCreatorReturn {
+): MutationHookCreatorReturn<TVariables> {
    
    const {
       errorMessage = "Internal Server Error",
@@ -110,7 +110,7 @@ export function useMutationHookCreator(
    }
    
    return [
-      (variables?, functionOptions?) => commitMutation(variables, functionOptions),
+      (variables?: TVariables, functionOptions?) => commitMutation(variables, functionOptions),
       loading,
       errorMessage,
       data,
