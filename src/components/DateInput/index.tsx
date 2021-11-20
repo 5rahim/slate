@@ -15,26 +15,26 @@ interface DateInputProps {
 }
 
 export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
-   
+
    const t = useTypeSafeTranslation()
    const locale = useLocale()
-   
+
    const { isOpen, onOpen, onClose } = useDisclosure()
-   
+
    const cancelRef: any = React.useRef()
-   
+
    const [selectedDate, setSelectedDate] = useState<DurationDateFormat | null>()
    const [inputValue, setInputValue] = useState<string | undefined>('')
-   
+
    function handleSaveDate() {
       setInputValue(selectedDate?.startDate ? Utils.Dates.formatDate(selectedDate?.startDate, 'short', locale) : '')
       onChange && onChange(selectedDate?.startDate)
       onClose()
    }
-   
+
    return (
       <>
-   
+
          <InputGroup>
             <InputLeftElement
                pointerEvents="none"
@@ -48,7 +48,7 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
                {...rest}
             />
          </InputGroup>
-         
+
          <AlertDialog
             motionPreset="slideInBottom"
             leastDestructiveRef={cancelRef}
@@ -57,7 +57,7 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
             isCentered
          >
             <AlertDialogOverlay />
-            
+
             <AlertDialogContent>
                {/*<AlertDialogHeader>Discard Changes?</AlertDialogHeader>*/}
                <AlertDialogCloseButton />
@@ -79,8 +79,8 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
                </AlertDialogFooter>
             </AlertDialogContent>
          </AlertDialog>
-      
+
       </>
    )
-   
+
 }

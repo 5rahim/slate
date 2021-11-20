@@ -22,13 +22,13 @@ import React from 'react'
 
 
 export function AnnouncementCreation() {
-   
+
    const t = useTypeSafeTranslation()
    const user = useCurrentUser()
    const course = useCurrentCourse()
    const { isOpen, onOpen, onClose } = useDisclosure()
 
-   
+
    const [createAnnouncement, mutationLoading] = useCreateAnnouncement({
       onCompleted: () => {
          fields.reset()
@@ -36,17 +36,17 @@ export function AnnouncementCreation() {
          onClose()
       },
    })
-   
+
    const editorRef = createRichTextEditorRef()
    const { value: publishOn, setDateField, setTimeField, resetDateAndTimeFields } = useDateAndTimeFields()
-   
+
    const { onFormSubmit, fields, formState } = useFormCreator({
       schema: ({ z }) => z.object({
          title: z.string().min(4, FormErrors.RequiredField),
          publish: z.boolean()
       }),
       onSubmit: data => {
-   
+
          const insert_data: CreateAnnouncementMutationVariables = {
             title: data.title,
             is_scheduled: !data.publish,
@@ -55,21 +55,21 @@ export function AnnouncementCreation() {
             author_id: user.id,
             course_id: course.id
          }
-   
+
          if(editorRef.current?.getContent().length === 0)
             fields.setError('message', FormErrors.RequiredField)
          else if(!data.publish && !publishOn)
             fields.setError('date', FormErrors.RequiredField)
-            
+
          else createAnnouncement(insert_data)
       },
    })
-   
+
    return (
       <PermissionComponent.AssistantAndHigher>
-         
+
          <Box mb="3">
-            
+
             <Button
                borderRadius="2rem"
                colorScheme="brand.100"
@@ -78,10 +78,10 @@ export function AnnouncementCreation() {
             >
                {t('Create')}
             </Button>
-         
+
          </Box>
-         
-         
+
+
          <Drawer
             isOpen={isOpen}
             placement="right"
@@ -96,10 +96,10 @@ export function AnnouncementCreation() {
                      <DrawerHeader bg="brand.200" color="white" fontSize="2xl">
                         {t('course:Create an announcement')}
                      </DrawerHeader>
-                     
-                     
+
+
                      <DrawerBody>
-                        
+
                         <FormControl mb={3} id="title" isRequired={true}>
                            <FormLabel>{t('form:Title')}</FormLabel>
                            <Input
@@ -107,49 +107,49 @@ export function AnnouncementCreation() {
                            />
                            {fields.errorMessage('title')}
                         </FormControl>
-                        
-                        
+
+
                         <RichTextEditor mb={4} editorRef={editorRef} />
                         {fields.errorMessage('message')}
-                        
+
                         <FormControl display="flex" alignItems="center" mb={3} id="publish">
                            <FormLabel htmlFor="publish" mb={0}>{t('form:Publish now')}</FormLabel>
                            <Switch size="md" id="puslish" defaultChecked={true} {...fields.register("publish")} />
                         </FormControl>
-                        
+
                         <Box display={fields.watch('publish', true) === false ? 'block' : 'none'}>
-                           
+
                            <Divider mb="3" />
-                           
+
                            <Text mb="2">{t('form:Publish when')}</Text>
-                           
+
                            <AlignedFlex mb="2">
                               {t('form:Date')}:
                               <DateInput onChange={setDateField} />
                            </AlignedFlex>
                            {fields.errorMessage('date')}
-                           
+
                            <AlignedFlex>
                               {t('form:Time')}:
                               <TimePicker defaultTime={1439} onChange={setTimeField} />
                            </AlignedFlex>
                         </Box>
-                     
+
                      </DrawerBody>
-                     
+
                      <DrawerFooter borderTopWidth="1px">
                         <Button boxShadow="sm" colorScheme="primary" variant="outline" mr={2} onClick={onClose}>
                            {t('Cancel')}
                         </Button>
                         <Button colorScheme="primary" type="submit" isLoading={mutationLoading}>{t('Save')}</Button>
                      </DrawerFooter>
-                  
-                  
+
+
                   </DrawerContent>
                </form>
             </DrawerOverlay>
          </Drawer>
-      
+
       </PermissionComponent.AssistantAndHigher>
    )
 }

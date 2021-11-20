@@ -10,9 +10,9 @@ export type UseFormValidationSchema = (({ z, errorMessage }: { z: typeof zod, er
  *    undefined), options: ResolverOptions<TFieldValues>) => Promise<ResolverResult<TFieldValues>>) | undefined}}
  */
 export const useFormValidation = (schema: UseFormValidationSchema) => {
-   
+
    return {
       schemaResolver: schema ? zodResolver(schema({ z: zod, errorMessage: 'Invalid field' })) : undefined
    }
-   
+
 }

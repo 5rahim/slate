@@ -13,7 +13,7 @@ import {
 } from './queries'
 
 export const useMutateCourseBannerColor = () => {
-   
+
    return useMutationHookCreator(UPDATE_COURSE_BANNER_COLOR, {
       refetchQueries: [
          { query: GET_COURSE_BY_ID },
@@ -27,7 +27,7 @@ export const useMutateCourseBannerColor = () => {
 }
 
 export const useMutateCourseBackgroundColor = () => {
-   
+
    return useMutationHookCreator(UPDATE_COURSE_BACKGROUND_COLOR, {
       refetchQueries: [
          { query: GET_COURSE_BY_ID },
@@ -42,7 +42,7 @@ export const useMutateCourseBackgroundColor = () => {
 
 
 export const useMutateCourseAvailability = () => {
-   
+
    return useMutationHookCreator(UPDATE_COURSE_AVAILABILITY, {
       refetchQueries: [
          { query: GET_COURSE_BY_ID },
@@ -56,7 +56,7 @@ export const useMutateCourseAvailability = () => {
 }
 
 export const useMutateCourseCode = () => {
-   
+
    return useMutationHookCreator(UPDATE_COURSE_CODE, {
       refetchQueries: [
          { query: GET_COURSE_BY_ID },
@@ -70,7 +70,7 @@ export const useMutateCourseCode = () => {
 }
 
 export const useMutateCourseDuration = () => {
-   
+
    return useMutationHookCreator(UPDATE_COURSE_DURATION, {
       refetchQueries: [
          { query: GET_COURSE_BY_ID },
@@ -85,7 +85,7 @@ export const useMutateCourseDuration = () => {
 
 
 export const useMutateCourseDetails: SlateMutationHook<UpdateCourseDetailsMutationVariables> = () => {
-   
+
    return useMutationHookCreator(UPDATE_COURSE_DETAILS, {
       refetchQueries: [
          { query: GET_COURSE_BY_ID },
@@ -99,25 +99,25 @@ export const useMutateCourseDetails: SlateMutationHook<UpdateCourseDetailsMutati
 }
 
 export const getCourseById = (id: string) => {
-   
+
    return useQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", {
       variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
    })
-   
+
 }
 
 export const getCourseList = () => {
-   
+
    const { profile } = useUserSessionProfile()
-   
+
    const [courses, setCourses] = useState<Courses[]>([])
-   
+
    const useQuery = profile?.role === 'assistant' ? getAllCourseManagements : (profile?.role === 'student' ? getAllStudentEnrollments : getOwnCourses)
-   
+
    const [data, loading]: any = useQuery()
-   
+
    useEffect(() => {
-   
+
       switch (profile?.role) {
          case 'assistant':
             if (data) {
@@ -147,31 +147,31 @@ export const getCourseList = () => {
                setCourses(data as SlateCourse[])
             }
             break
-      
+
       }
-      
+
    }, [data])
-   
+
    return [courses, loading] as [Courses[], boolean]
-   
+
 }
 
 export const getAllStudentEnrollments = () => {
-   
+
    return useQueryHookCreator<Course_Enrollment[]>("course_enrollment", GET_ALL_COURSE_ENROLLMENTS, "array", { fetchPolicy: "no-cache" })
-   
+
 }
 
 
 export const getAllCourseManagements = () => {
-   
+
    return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
-   
-   
+
+
 }
 
 export const getStudentEnrollments = (course_id: string) => {
-   
+
    return useQueryHookCreator<Course_Enrollment[]>(
       "course_enrollment",
       GET_COURSE_ENROLLMENTS,
@@ -181,12 +181,12 @@ export const getStudentEnrollments = (course_id: string) => {
          fetchPolicy: "no-cache",
       },
    )
-   
+
 }
 
 
 export const getCourseManagements = (course_id: string) => {
-   
+
    return useQueryHookCreator<Course_Management[]>(
       "course_management",
       GET_COURSE_MANAGEMENTS,
@@ -196,12 +196,12 @@ export const getCourseManagements = (course_id: string) => {
          fetchPolicy: "no-cache",
       },
    )
-   
+
 }
 
 
 export const getOwnCourses = () => {
-   
+
    return useQueryHookCreator<SlateCourse[]>("courses", GET_OWN_COURSES, "array", { fetchPolicy: "no-cache" })
-   
+
 }

@@ -10,7 +10,7 @@ let accessToken: any = null
 
 const requestAccessToken = async () => {
    if (accessToken) return
-   
+
    const res = await fetch(`http://vcap.me:3000/api/token`)
    if (res.ok) {
       const json = await res.json()
@@ -28,8 +28,8 @@ const resetTokenLink = onError(({ networkError }: any) => {
 })
 
 const createHttpLink = (headers: any) => {
-   
-   
+
+
    const httpLink = new HttpLink({
       uri: `https://${process.env.NEXT_PUBLIC_API_HOST}`,
       credentials: 'include',
@@ -70,7 +70,7 @@ export default function createApolloClient(initialState: any, headers: any) {
    } else {
       link = createWSLink()
    }
-   
+
    return new ApolloClient({
       ssrMode,
       link,
