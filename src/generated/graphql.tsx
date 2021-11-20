@@ -1,6 +1,5 @@
-import * as Apollo from '@apollo/client'
-import { gql } from '@apollo/client'
-
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -4992,14 +4991,15 @@ export type UpdateCourseDurationMutationVariables = Exact<{
 
 export type UpdateCourseDurationMutation = { __typename?: 'mutation_root', update_courses?: { __typename?: 'courses_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'courses', duration?: string | null | undefined }> } | null | undefined };
 
-export type MyMutationMutationVariables = Exact<{
+export type UpdateCourseDetailsMutationVariables = Exact<{
   id: Scalars['uuid'];
   description?: Maybe<Scalars['String']>;
   name: Scalars['String'];
+  level?: Maybe<Scalars['String']>;
 }>;
 
 
-export type MyMutationMutation = { __typename?: 'mutation_root', update_courses?: { __typename?: 'courses_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'courses', description?: string | null | undefined, name: string }> } | null | undefined };
+export type UpdateCourseDetailsMutation = { __typename?: 'mutation_root', update_courses?: { __typename?: 'courses_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'courses', description?: string | null | undefined, name: string, level?: string | null | undefined }> } | null | undefined };
 
 export type OtherUserFragment = { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined };
 
@@ -5265,23 +5265,24 @@ export const UpdateCourseDurationDocument = gql`
 export type UpdateCourseDurationMutationFn = Apollo.MutationFunction<UpdateCourseDurationMutation, UpdateCourseDurationMutationVariables>;
 export type UpdateCourseDurationMutationResult = Apollo.MutationResult<UpdateCourseDurationMutation>;
 export type UpdateCourseDurationMutationOptions = Apollo.BaseMutationOptions<UpdateCourseDurationMutation, UpdateCourseDurationMutationVariables>;
-export const MyMutationDocument = gql`
-    mutation MyMutation($id: uuid!, $description: String, $name: String!) {
+export const UpdateCourseDetailsDocument = gql`
+    mutation UpdateCourseDetails($id: uuid!, $description: String, $name: String!, $level: String) {
   update_courses(
     where: {id: {_eq: $id}}
-    _set: {description: $description, name: $name}
+    _set: {description: $description, name: $name, level: $level}
   ) {
     affected_rows
     returning {
       description
       name
+      level
     }
   }
 }
     `;
-export type MyMutationMutationFn = Apollo.MutationFunction<MyMutationMutation, MyMutationMutationVariables>;
-export type MyMutationMutationResult = Apollo.MutationResult<MyMutationMutation>;
-export type MyMutationMutationOptions = Apollo.BaseMutationOptions<MyMutationMutation, MyMutationMutationVariables>;
+export type UpdateCourseDetailsMutationFn = Apollo.MutationFunction<UpdateCourseDetailsMutation, UpdateCourseDetailsMutationVariables>;
+export type UpdateCourseDetailsMutationResult = Apollo.MutationResult<UpdateCourseDetailsMutation>;
+export type UpdateCourseDetailsMutationOptions = Apollo.BaseMutationOptions<UpdateCourseDetailsMutation, UpdateCourseDetailsMutationVariables>;
 export const GetCourseByIdDocument = gql`
     query GetCourseById($id: uuid!) {
   courses(order_by: {name: asc}, limit: 1, where: {id: {_eq: $id}}) {

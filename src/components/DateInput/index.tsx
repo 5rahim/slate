@@ -38,7 +38,6 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
          <InputGroup>
             <InputLeftElement
                pointerEvents="none"
-               colorScheme="gray.500"
                children={<BiCalendarAlt />}
             />
             <Input

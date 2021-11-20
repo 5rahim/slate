@@ -61,7 +61,7 @@ export const UPDATE_COURSE_DURATION = gql`
 
 
 export const UPDATE_COURSE_DETAILS = gql`
-    mutation MyMutation($id: uuid!, $description: String, $name: String!, $level: String) {
+    mutation UpdateCourseDetails($id: uuid!, $description: String, $name: String!, $level: String) {
         update_courses(where: {id: {_eq: $id}}, _set: {description: $description, name: $name, level: $level}) {
             affected_rows
             returning {
