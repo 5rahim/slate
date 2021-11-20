@@ -2,6 +2,7 @@ import { PermissionComponent } from '@slate/components/Permissions'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
 import { Announcements } from '@slate/generated/graphql'
+import { DataListItem } from '@slate/graphql/DataListModule'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useLocale } from '@slate/hooks/useLocale'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -12,7 +13,7 @@ import { Avatar, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon
 import React from 'react'
 import { BiDotsHorizontal, BiEdit, BiTrash } from 'react-icons/bi'
 
-export const AnnouncementListItem = (props: { data: Announcements }) => {
+export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    const locale = useLocale()
