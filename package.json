@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "type": "commonjs",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev & yarn generate",
     "build": "next build",
     "start": "next start",
     "type-check": "tsc",
     "test": "jest",
-    "generate": "graphql-codegen --config codegen.js"
+    "generate": "graphql-codegen --config codegen.js --watch"
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
@@ -111,5 +111,6 @@
     "ts-jest": "^27.0.3",
     "ts-node": "^10.0.0",
     "typescript": "4.3.4"
-  }
+  },
+  "packageManager": "yarn@3.1.0"
 }

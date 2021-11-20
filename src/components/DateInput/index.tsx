@@ -7,14 +7,15 @@ import { AlertDialogCloseButton, InputLeftElement, InputProps } from 'chalkui/di
 import {
    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Input, InputGroup, useDisclosure,
 } from 'chalkui/dist/cjs/React'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { BiCalendarAlt } from 'react-icons/bi'
 
 interface DateInputProps {
-   onChange?: any
+   onChange?: any,
+   defaultSelectedDate?: any
 }
 
-export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
+export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: DateInputProps & InputProps) {
    
    const t = useTypeSafeTranslation()
    const locale = useLocale()
@@ -23,8 +24,14 @@ export function DateInput({ onChange, ...rest }: DateInputProps & InputProps) {
    
    const cancelRef: any = React.useRef()
    
-   const [selectedDate, setSelectedDate] = useState<DurationDateFormat | null>()
+   const [selectedDate, setSelectedDate] = useState<DurationDateFormat | null>(defaultSelectedDate)
    const [inputValue, setInputValue] = useState<string | undefined>('')
+   
+   useEffect(() => {
+      if(defaultSelectedDate) {
+         setInputValue(selectedDate?.startDate ? Utils.Dates.formatDate(selectedDate?.startDate, 'short', locale) : '')
+      }
+   }, [])
    
    function handleSaveDate() {
       setInputValue(selectedDate?.startDate ? Utils.Dates.formatDate(selectedDate?.startDate, 'short', locale) : '')

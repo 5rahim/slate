@@ -10,12 +10,12 @@ import { useEffect, useState } from 'react'
  * const { value: publishOn, setDateField, setTimeField } = useDateAndTimeFields()
  * @returns {{setTimeField: (value: number) => void, setDateField: (value: any) => void}}
  */
-export const useDateAndTimeFields = () => {
+export const useDateAndTimeFields = (defaultValue?: Parameter<string>) => {
    
-   const [date, setDate] = useState<Parameter<any>>(null)
-   const [time, setTime] = useState<number>(0)
+   const [date, setDate] = useState<Parameter<any>>(Utils.Dates.getDateOnlyFromDate(defaultValue) ?? null)
+   const [time, setTime] = useState<number>(Utils.Dates.getTimeInMinutesFromDate(defaultValue) ?? 0)
    
-   const [dt, setDT] = useState<Parameter<Date>>(null)
+   const [dt, setDT] = useState<Parameter<Date>>()
    
    useEffect(() => {
       if(date) {

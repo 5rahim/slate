@@ -1,5 +1,6 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import * as Apollo from '@apollo/client'
+import { gql } from '@apollo/client'
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
@@ -4944,6 +4945,17 @@ export type CreateAnnouncementMutationVariables = Exact<{
 
 export type CreateAnnouncementMutation = { __typename?: 'mutation_root', insert_announcements_one?: { __typename?: 'announcements', author_id: number, course_id: any, created_at: any, id: any, message: string, publish_on?: any | null | undefined, is_scheduled: boolean, title: string } | null | undefined };
 
+export type UpdateAnnouncementMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  is_scheduled?: Maybe<Scalars['Boolean']>;
+  message: Scalars['String'];
+  publish_on?: Maybe<Scalars['timestamp']>;
+  title: Scalars['String'];
+}>;
+
+
+export type UpdateAnnouncementMutation = { __typename?: 'mutation_root', update_announcements?: { __typename?: 'announcements_mutation_response', affected_rows: number } | null | undefined };
+
 export type GetAnnouncementsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
 }>;
@@ -5172,6 +5184,19 @@ export const CreateAnnouncementDocument = gql`
 export type CreateAnnouncementMutationFn = Apollo.MutationFunction<CreateAnnouncementMutation, CreateAnnouncementMutationVariables>;
 export type CreateAnnouncementMutationResult = Apollo.MutationResult<CreateAnnouncementMutation>;
 export type CreateAnnouncementMutationOptions = Apollo.BaseMutationOptions<CreateAnnouncementMutation, CreateAnnouncementMutationVariables>;
+export const UpdateAnnouncementDocument = gql`
+    mutation UpdateAnnouncement($id: uuid!, $is_scheduled: Boolean, $message: String!, $publish_on: timestamp, $title: String!) {
+  update_announcements(
+    where: {id: {_eq: $id}}
+    _set: {message: $message, title: $title, publish_on: $publish_on, is_scheduled: $is_scheduled}
+  ) {
+    affected_rows
+  }
+}
+    `;
+export type UpdateAnnouncementMutationFn = Apollo.MutationFunction<UpdateAnnouncementMutation, UpdateAnnouncementMutationVariables>;
+export type UpdateAnnouncementMutationResult = Apollo.MutationResult<UpdateAnnouncementMutation>;
+export type UpdateAnnouncementMutationOptions = Apollo.BaseMutationOptions<UpdateAnnouncementMutation, UpdateAnnouncementMutationVariables>;
 export const GetAnnouncementsDocument = gql`
     query GetAnnouncements($course_id: uuid!) {
   announcements(

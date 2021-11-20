@@ -16,10 +16,9 @@ import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
 import { GroupModule } from '@slate/modules/Course/Student/GroupModule'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
-import { Utils } from '@slate/utils'
 import { Box } from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
@@ -28,14 +27,6 @@ const Page = ({ course, iid }: DashboardPage) => {
    const { t } = useTranslation(['common'], { useSuspense: false })
    
    const router = useRouter()
-   
-   useEffect(() => {
-      async function prefetch() {
-         await router.prefetch(Utils.Url.schoolLinkTo(iid, `/course/${course?.id}/content`))
-      }
-      
-      prefetch()
-   }, [])
    
    
    return (
