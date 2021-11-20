@@ -38,27 +38,52 @@ export const Dates = {
    },
    
    /**
-    *
-    * @param {string} date
+    * We add Z to convert it to a UTC date so that the Date object apply the timezone correctly
+    * We made the assumption that all the date saved to the database will be using the UTC format minus the Z
+    * @param {string} utcDate
     * @returns {DurationDateFormat}
     */
-   parseDurationDateObject: (date: Parameter<string>): DurationDateFormat => {
-      return date ? {
-         startDate: new Date(JSON.parse(date).startDate),
-         endDate: new Date(JSON.parse(date).endDate),
-      } : { startDate: null, endDate: null }
+   parseDurationDateObject: (utcDate: Parameter<string>): DurationDateFormat => {
+      const onlyOneDate = (utcDate && !utcDate.includes('startDate')) ?? false
+      if(onlyOneDate && utcDate) {
+         return {
+            startDate: new Date(utcDate + "Z"),
+            endDate: new Date(utcDate + "Z"),
+         }
+      } else if(utcDate) {
+         return {
+            startDate: new Date(JSON.parse(utcDate).startDate),
+            endDate: new Date(JSON.parse(utcDate).endDate),
+         }
+      } else {
+         return {
+            startDate: null,
+            endDate: null
+         }
+      }
    },
    
    asUTC: (date: Parameter<string>) => {
       return new Date(date + 'Z')
    },
+   asUTCString: (date: Parameter<string>) => {
+      return date + 'Z'
+   },
    
-   formatDate(date: Parameter<Date | string>, s: DateFormat, locale: string) {
-      if (formats[s] && date) {
-         if(typeof date === 'string') {
-            return format(new Date(date + 'Z'), formats[s], { locale: getLocale(locale) })
+   /**
+    * We add Z to convert it to a UTC date so that the Date object apply the timezone correctly
+    * We made the assumption that all the date saved to the database will be using the UTC format minus the Z
+    * @param {Parameter<Date | string>} utcDate
+    * @param {DateFormat} s
+    * @param {string} locale
+    * @returns {string}
+    */
+   formatDate(utcDate: Parameter<Date | string>, s: DateFormat, locale: string) {
+      if (formats[s] && utcDate) {
+         if(typeof utcDate === 'string') {
+            return format(new Date(utcDate + 'Z'), formats[s], { locale: getLocale(locale) })
          } else {
-            return format(date, formats[s], { locale: getLocale(locale) })
+            return format(utcDate, formats[s], { locale: getLocale(locale) })
          }
       } else {
          return ''
@@ -70,6 +95,21 @@ export const Dates = {
         return new Date(addMinutes(date, time).toUTCString())
      }
      return date
+   },
+   
+   getDateOnlyFromDate(utcDate: Parameter<string>) {
+     if(utcDate) {
+      return new Date(utcDate + 'Z').setHours(0,0,0)
+     }
+     return undefined
+   },
+   
+   getTimeInMinutesFromDate(utcDate: Parameter<string>) {
+      if(utcDate) {
+         const d = new Date(utcDate + 'Z')
+         return d.getHours() * 60 + d.getMinutes()
+      }
+      return undefined
    },
    
    

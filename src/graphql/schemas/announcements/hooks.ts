@@ -3,7 +3,7 @@ import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import { GET_ANNOUNCEMENTS } from '@slate/graphql/schemas/announcements/queries'
 import { Parameter } from '@slate/types/Parameters'
-import { CREATE_ANNOUNCEMENT } from './mutations'
+import { CREATE_ANNOUNCEMENT, UPDATE_ANNOUNCEMENT } from './mutations'
 
 export const useCreateAnnouncement: SlateMutationHook = (options) => {
    
@@ -12,7 +12,7 @@ export const useCreateAnnouncement: SlateMutationHook = (options) => {
          { query: GET_ANNOUNCEMENTS },
          'GetAnnouncements',
       ],
-      ...options
+      ...options,
    })
    
 }
@@ -26,4 +26,11 @@ export const getAnnouncements = (course_id: Parameter<string>) => {
          variables: { course_id: course_id },
          fetchPolicy: 'no-cache',
       })
+}
+
+export const useUpdateAnnouncement = () => {
+   return useMutationHookCreator(UPDATE_ANNOUNCEMENT, {
+      refetchQueries: [{ query: GET_ANNOUNCEMENTS }, 'GetAnnouncements'],
+      successAlert: { type: "toast", title: "Announcement updated" },
+   })
 }

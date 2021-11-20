@@ -7,10 +7,10 @@ import { Editor as TinyMCEEditor } from 'tinymce'
 
 interface RichTextEditorProps {
    editorRef?: MutableRefObject<TinyMCEEditor | null>
-   initialValue?: string
+   defaultValue?: string
 }
 
-export function RichTextEditor({ initialValue, editorRef, ...rest }: RichTextEditorProps & BoxProps) {
+export function RichTextEditor({ defaultValue, editorRef, ...rest }: RichTextEditorProps & BoxProps) {
    
    const locale = useLocale()
    
@@ -22,7 +22,7 @@ export function RichTextEditor({ initialValue, editorRef, ...rest }: RichTextEdi
             apiKey={process.env.TINYMCE_API_KEY}
             // onEditorChange={(a, editor) => setEditor(editor)}
             onInit={(evt, editor) => !!editorRef ? editorRef.current = editor : null}
-            initialValue={initialValue}
+            initialValue={defaultValue}
             init={{
                height: 500,
                menubar: false,

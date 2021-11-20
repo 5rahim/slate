@@ -14,3 +14,11 @@ export const CREATE_ANNOUNCEMENT = gql`
         }
     }
 `
+
+export const UPDATE_ANNOUNCEMENT = gql`
+    mutation UpdateAnnouncement($id: uuid!, $is_scheduled: Boolean, $message: String!, $publish_on: timestamp, $title: String!) {
+        update_announcements(where: {id: {_eq: $id}}, _set: {message: $message, title: $title, publish_on: $publish_on, is_scheduled: $is_scheduled}) {
+            affected_rows
+        }
+    }
+`

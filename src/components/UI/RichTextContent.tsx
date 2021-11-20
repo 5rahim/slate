@@ -35,11 +35,12 @@ export function RichTextContent({ content }: RichTextContentProps) {
                my: 2
             },
             '& > ul, & > ol': {
-               pl: 5,
+               pl: 8,
+               my: 3,
             },
             '& > ul > li, & > ol > li': {
                border: 'none',
-               pb: 1
+               pb: 0
             },
          }}
          
