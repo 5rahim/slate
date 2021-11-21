@@ -46,10 +46,10 @@ export function DeletionAlert({ onClose, isOpen, handleDelete, type }: DeletionA
                      </Text>
                   </AlertDialogBody>
                   <AlertDialogFooter gridGap=".5rem">
-                     <Button isLoading={mutationIsLoading} colorScheme="red.500" onClick={handleDelete}>
+                     <Button variant="secondary" isLoading={mutationIsLoading} colorScheme="red.500" onClick={handleDelete}>
                         {t('Delete')}
                      </Button>
-                     <Button isDisabled={mutationIsLoading} colorScheme="secondary" variant="outline" ref={cancelRef} onClick={onClose}>
+                     <Button isDisabled={mutationIsLoading} colorScheme="secondary" variant="secondary" ref={cancelRef} onClick={onClose}>
                         {t('Cancel')}
                      </Button>
                   </AlertDialogFooter>

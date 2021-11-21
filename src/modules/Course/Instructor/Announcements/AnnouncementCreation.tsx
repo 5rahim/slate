@@ -50,7 +50,7 @@ export function AnnouncementCreation() {
          const insert_data: CreateAnnouncementMutationVariables = {
             title: data.title,
             is_scheduled: !data.publish,
-            publish_on: !data.publish ? publishOn : null,
+            publish_on: !data.publish ? publishOn : new Date(),
             message: editorRef.current?.getContent() ?? '',
             author_id: user.id,
             course_id: course.id

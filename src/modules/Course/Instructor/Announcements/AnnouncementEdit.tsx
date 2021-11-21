@@ -73,7 +73,7 @@ export function AnnouncementEdit(
          const update_data: UpdateAnnouncementMutationVariables = {
             title: formData.title,
             is_scheduled: !formData.publish,
-            publish_on: !formData.publish ? publishOn : null,
+            publish_on: !formData.publish ? publishOn : new Date(),
             message: editorRef.current?.getContent() ?? '',
             id: data.id,
          }

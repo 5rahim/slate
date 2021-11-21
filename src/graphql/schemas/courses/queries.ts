@@ -44,6 +44,12 @@ export const GET_COURSE_BY_ID = gql`
 export const GET_ALL_COURSE_ENROLLMENTS = gql`
     query GetAllCourseEnrollments {
         course_enrollment {
+            id,
+            course_id,
+            student_id,
+            authorized,
+            created_at,
+            authorized_at,
             course {
                 name
                 access_code
@@ -71,6 +77,12 @@ export const GET_ALL_COURSE_ENROLLMENTS = gql`
 export const GET_COURSE_ENROLLMENTS = gql`
     query GetCourseEnrollments($course_id: uuid!) {
         course_enrollment(where: {course_id: {_eq: $course_id}}) {
+            id,
+            course_id,
+            student_id,
+            authorized,
+            created_at,
+            authorized_at,
             course {
                 name
                 access_code

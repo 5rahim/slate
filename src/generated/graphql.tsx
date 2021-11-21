@@ -4048,6 +4048,7 @@ export type Users = {
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   created_at: Scalars['timestamptz'];
+  date_format?: Maybe<Scalars['String']>;
   department?: Maybe<Scalars['String']>;
   education_level?: Maybe<Scalars['Int']>;
   email: Scalars['String'];
@@ -4059,6 +4060,7 @@ export type Users = {
   first_name?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['Int']>;
   home_phone?: Maybe<Scalars['String']>;
+  hour_format?: Maybe<Scalars['String']>;
   id: Scalars['Int'];
   image?: Maybe<Scalars['String']>;
   is_active: Scalars['Boolean'];
@@ -4203,6 +4205,7 @@ export type Users_Bool_Exp = {
   city?: Maybe<String_Comparison_Exp>;
   country?: Maybe<String_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
+  date_format?: Maybe<String_Comparison_Exp>;
   department?: Maybe<String_Comparison_Exp>;
   education_level?: Maybe<Int_Comparison_Exp>;
   email?: Maybe<String_Comparison_Exp>;
@@ -4211,6 +4214,7 @@ export type Users_Bool_Exp = {
   first_name?: Maybe<String_Comparison_Exp>;
   gender?: Maybe<Int_Comparison_Exp>;
   home_phone?: Maybe<String_Comparison_Exp>;
+  hour_format?: Maybe<String_Comparison_Exp>;
   id?: Maybe<Int_Comparison_Exp>;
   image?: Maybe<String_Comparison_Exp>;
   is_active?: Maybe<Boolean_Comparison_Exp>;
@@ -4268,6 +4272,7 @@ export type Users_Insert_Input = {
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  date_format?: Maybe<Scalars['String']>;
   department?: Maybe<Scalars['String']>;
   education_level?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
@@ -4276,6 +4281,7 @@ export type Users_Insert_Input = {
   first_name?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['Int']>;
   home_phone?: Maybe<Scalars['String']>;
+  hour_format?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   is_active?: Maybe<Scalars['Boolean']>;
@@ -4311,12 +4317,14 @@ export type Users_Max_Fields = {
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  date_format?: Maybe<Scalars['String']>;
   department?: Maybe<Scalars['String']>;
   education_level?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   first_name?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['Int']>;
   home_phone?: Maybe<Scalars['String']>;
+  hour_format?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   job_title?: Maybe<Scalars['String']>;
@@ -4348,12 +4356,14 @@ export type Users_Min_Fields = {
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  date_format?: Maybe<Scalars['String']>;
   department?: Maybe<Scalars['String']>;
   education_level?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
   first_name?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['Int']>;
   home_phone?: Maybe<Scalars['String']>;
+  hour_format?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   job_title?: Maybe<Scalars['String']>;
@@ -4407,6 +4417,7 @@ export type Users_Order_By = {
   city?: Maybe<Order_By>;
   country?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
+  date_format?: Maybe<Order_By>;
   department?: Maybe<Order_By>;
   education_level?: Maybe<Order_By>;
   email?: Maybe<Order_By>;
@@ -4415,6 +4426,7 @@ export type Users_Order_By = {
   first_name?: Maybe<Order_By>;
   gender?: Maybe<Order_By>;
   home_phone?: Maybe<Order_By>;
+  hour_format?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   image?: Maybe<Order_By>;
   is_active?: Maybe<Order_By>;
@@ -4459,6 +4471,8 @@ export enum Users_Select_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  DateFormat = 'date_format',
+  /** column name */
   Department = 'department',
   /** column name */
   EducationLevel = 'education_level',
@@ -4472,6 +4486,8 @@ export enum Users_Select_Column {
   Gender = 'gender',
   /** column name */
   HomePhone = 'home_phone',
+  /** column name */
+  HourFormat = 'hour_format',
   /** column name */
   Id = 'id',
   /** column name */
@@ -4526,6 +4542,7 @@ export type Users_Set_Input = {
   city?: Maybe<Scalars['String']>;
   country?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
+  date_format?: Maybe<Scalars['String']>;
   department?: Maybe<Scalars['String']>;
   education_level?: Maybe<Scalars['Int']>;
   email?: Maybe<Scalars['String']>;
@@ -4533,6 +4550,7 @@ export type Users_Set_Input = {
   first_name?: Maybe<Scalars['String']>;
   gender?: Maybe<Scalars['Int']>;
   home_phone?: Maybe<Scalars['String']>;
+  hour_format?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
   image?: Maybe<Scalars['String']>;
   is_active?: Maybe<Scalars['Boolean']>;
@@ -4609,6 +4627,8 @@ export enum Users_Update_Column {
   /** column name */
   CreatedAt = 'created_at',
   /** column name */
+  DateFormat = 'date_format',
+  /** column name */
   Department = 'department',
   /** column name */
   EducationLevel = 'education_level',
@@ -4622,6 +4642,8 @@ export enum Users_Update_Column {
   Gender = 'gender',
   /** column name */
   HomePhone = 'home_phone',
+  /** column name */
+  HourFormat = 'hour_format',
   /** column name */
   Id = 'id',
   /** column name */
@@ -5032,14 +5054,14 @@ export type GetCourseByIdQuery = { __typename?: 'query_root', courses: Array<{ _
 export type GetAllCourseEnrollmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type GetAllCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', course?: { __typename?: 'courses', name: string, access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, schedule?: string | null | undefined, instructor_id: number, level?: string | null | undefined, instructor?: { __typename?: 'users', first_name?: string | null | undefined, middle_name?: string | null | undefined, last_name?: string | null | undefined, image?: string | null | undefined } | null | undefined } | null | undefined }> };
+export type GetAllCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', id: any, course_id: any, student_id: number, authorized: boolean, created_at: any, authorized_at?: any | null | undefined, course?: { __typename?: 'courses', name: string, access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, schedule?: string | null | undefined, instructor_id: number, level?: string | null | undefined, instructor?: { __typename?: 'users', first_name?: string | null | undefined, middle_name?: string | null | undefined, last_name?: string | null | undefined, image?: string | null | undefined } | null | undefined } | null | undefined }> };
 
 export type GetCourseEnrollmentsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
 }>;
 
 
-export type GetCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', course?: { __typename?: 'courses', name: string, access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, schedule?: string | null | undefined, instructor_id: number, level?: string | null | undefined, instructor?: { __typename?: 'users', first_name?: string | null | undefined, middle_name?: string | null | undefined, last_name?: string | null | undefined, image?: string | null | undefined } | null | undefined } | null | undefined }> };
+export type GetCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', id: any, course_id: any, student_id: number, authorized: boolean, created_at: any, authorized_at?: any | null | undefined, course?: { __typename?: 'courses', name: string, access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, schedule?: string | null | undefined, instructor_id: number, level?: string | null | undefined, instructor?: { __typename?: 'users', first_name?: string | null | undefined, middle_name?: string | null | undefined, last_name?: string | null | undefined, image?: string | null | undefined } | null | undefined } | null | undefined }> };
 
 export type GetAllCourseManagementsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -5117,6 +5139,13 @@ export type GetUserByEmailQueryVariables = Exact<{
 
 
 export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: number, title?: number | null | undefined, birthdate?: any | null | undefined, city?: string | null | undefined, country?: string | null | undefined, created_at: any, department?: string | null | undefined, education_level?: number | null | undefined, email: string, email_verified?: boolean | null | undefined, first_name?: string | null | undefined, gender?: number | null | undefined, home_phone?: string | null | undefined, image?: string | null | undefined, is_active: boolean, job_title?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, mobile_phone?: string | null | undefined, name?: string | null | undefined, other_name?: string | null | undefined, postal_code?: string | null | undefined, role?: string | null | undefined, school_id?: number | null | undefined, state?: string | null | undefined, street_1?: string | null | undefined, street_2?: string | null | undefined, student_id?: string | null | undefined, suffix?: string | null | undefined, updated_at: any, username?: string | null | undefined, work_phone?: string | null | undefined, school?: { __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number } | null | undefined }> };
+
+export type GetUserSettingsQueryVariables = Exact<{
+  email: Scalars['String'];
+}>;
+
+
+export type GetUserSettingsQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', date_format?: string | null | undefined, hour_format?: string | null | undefined }> };
 
 export const OtherUserFragmentDoc = gql`
     fragment otherUser on users {
@@ -5218,7 +5247,7 @@ export const GetAnnouncementsDocument = gql`
     query GetAnnouncements($course_id: uuid!) {
   announcements(
     where: {course_id: {_eq: $course_id}}
-    order_by: {created_at: desc}
+    order_by: {publish_on: desc}
   ) {
     id
     is_scheduled
@@ -5350,6 +5379,12 @@ export type GetCourseByIdQueryResult = Apollo.QueryResult<GetCourseByIdQuery, Ge
 export const GetAllCourseEnrollmentsDocument = gql`
     query GetAllCourseEnrollments {
   course_enrollment {
+    id
+    course_id
+    student_id
+    authorized
+    created_at
+    authorized_at
     course {
       name
       access_code
@@ -5377,6 +5412,12 @@ export type GetAllCourseEnrollmentsQueryResult = Apollo.QueryResult<GetAllCourse
 export const GetCourseEnrollmentsDocument = gql`
     query GetCourseEnrollments($course_id: uuid!) {
   course_enrollment(where: {course_id: {_eq: $course_id}}) {
+    id
+    course_id
+    student_id
+    authorized
+    created_at
+    authorized_at
     course {
       name
       access_code
@@ -5632,3 +5673,12 @@ export const GetUserByEmailDocument = gql`
 }
     ${BaseUserFragmentDoc}`;
 export type GetUserByEmailQueryResult = Apollo.QueryResult<GetUserByEmailQuery, GetUserByEmailQueryVariables>;
+export const GetUserSettingsDocument = gql`
+    query GetUserSettings($email: String!) {
+  users(where: {email: {_eq: $email}}, limit: 1) {
+    date_format
+    hour_format
+  }
+}
+    `;
+export type GetUserSettingsQueryResult = Apollo.QueryResult<GetUserSettingsQuery, GetUserSettingsQueryVariables>;

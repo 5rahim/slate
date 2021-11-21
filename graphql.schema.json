@@ -27625,6 +27625,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "args": [],
@@ -27896,6 +27908,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "args": [],
             "type": {
@@ -29005,6 +29029,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "type": {
@@ -29090,6 +29126,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "String_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
@@ -29584,6 +29632,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "type": {
@@ -29669,6 +29729,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -30050,6 +30122,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "args": [],
@@ -30111,6 +30195,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "args": [],
             "type": {
@@ -30445,6 +30541,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "args": [],
@@ -30506,6 +30614,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "args": [],
             "type": {
@@ -30994,6 +31114,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "type": {
@@ -31079,6 +31211,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -31466,6 +31610,12 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": "column name",
             "isDeprecated": false,
@@ -31503,6 +31653,12 @@
           },
           {
             "name": "home_phone",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -31703,6 +31859,18 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": null,
             "type": {
@@ -31776,6 +31944,18 @@
           },
           {
             "name": "home_phone",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": null,
             "type": {
               "kind": "SCALAR",
@@ -32384,6 +32564,12 @@
             "deprecationReason": null
           },
           {
+            "name": "date_format",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "department",
             "description": "column name",
             "isDeprecated": false,
@@ -32421,6 +32607,12 @@
           },
           {
             "name": "home_phone",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "hour_format",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

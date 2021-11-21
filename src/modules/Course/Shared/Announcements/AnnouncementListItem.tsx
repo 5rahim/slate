@@ -8,7 +8,7 @@ import { useLocale } from '@slate/hooks/useLocale'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AnnouncementEdit } from '@slate/modules/Course/Instructor/Announcements/AnnouncementEdit'
 import { Utils } from '@slate/utils'
-import { Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
+import { Divider, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Tag, Text, useDisclosure } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { BiDotsHorizontal, BiEdit, BiTrash } from 'react-icons/bi'
@@ -29,7 +29,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
             width="full"
             py={2}
             px={3}
-            bgColor={cmf("#fcfcfc", "transparent")}
+            bgColor={cmf("#fcfcfc", "rgba(0,0,0,0.1)")}
             borderRadius="md"
          >
             <Flex alignItems="center" width="full">
@@ -119,7 +119,9 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                   
                   </AlignedFlex>
                   
-                  <Box mt="3" border="2px dashed" borderColor={cmf("gray.200", "gray.600")} borderRadius="md" px="3">
+                  
+                  <Box mt="3">
+                     <Divider />
                      <RichTextContent content={data.message} />
                   </Box>
                </Box>

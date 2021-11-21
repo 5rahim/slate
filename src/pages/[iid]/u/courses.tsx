@@ -23,63 +23,13 @@ const Page = ({ user, school, iid }: DashboardPage) => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
    const router = useRouter()
-   // const [courses, setCourses] = useState<SlateCourse[]>([])
+   
    const [hiddenCourses, setHiddenCourses] = useState<SlateCourse[]>([])
    
    const { profile } = useUserSessionProfile()
    
    const [courses, coursesLoading] = getCourseList()
-   
-   // const [courseEnrollments, courseEnrollmentsLoading] = profile?.role === 'student' ? getAllStudentEnrollments() : [null, false]
-   // const [courseManagements, courseManagementsLoading] = profile?.role === 'assistant' ? getAllCourseManagements() : [null, false]
-   // const [ownCourses, ownCoursesLoading] = getOwnCourses()
-   //
-   // // useEffect(() => {
-   // //    console.log(courses)
-   // // }, [courses])
-   //
-   // useEffect(() => {
-   //
-   //    if (Permissions.onlyRoles(profile?.role, 'instructor') && ownCourses) {
-   //
-   //       setCourses(ownCourses as SlateCourse[])
-   //
-   //    }
-   //
-   // }, [ownCourses])
-   //
-   // useEffect(() => {
-   //
-   //    if (Permissions.onlyRoles(profile?.role, 'student') && courseEnrollments) {
-   //
-   //       for (const enrollment of courseEnrollments) {
-   //          if (enrollment.course) {
-   //             if (enrollment.course.available) {
-   //                courses.push(enrollment.course)
-   //             } else hiddenCourses.push(enrollment.course)
-   //          }
-   //       }
-   //       setCourses(courses)
-   //       setHiddenCourses(hiddenCourses)
-   //
-   //    }
-   //
-   // }, [courseEnrollments])
-   //
-   // useEffect(() => {
-   //
-   //    if (Permissions.onlyRoles(profile?.role, 'assistant') && courseManagements) {
-   //
-   //       for (const management of courseManagements) {
-   //          if (management.course) {
-   //             courses.push(management.course)
-   //          }
-   //       }
-   //       setCourses(courses)
-   //
-   //    }
-   //
-   // }, [courseManagements])
+
    
    return (
       <>

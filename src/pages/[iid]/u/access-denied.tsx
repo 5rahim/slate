@@ -3,6 +3,7 @@ import AuthLayout from '@slate/components/Layout/AuthLayout'
 import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
+import { withCacheReset } from '@slate/middlewares/dashboard/withCacheReset'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
@@ -63,6 +64,7 @@ function Page({ iid }: DashboardPage) {
 export default Compose(
    withPageAuthRequired,
    withApollo({ ssr: true }),
+   withCacheReset(),
    withAuth({ requireActiveAccount: true }),
    withDashboard(),
 )(Page)

@@ -1,4 +1,5 @@
 import { UserProfile, useUser } from '@auth0/nextjs-auth0'
+import { SlateRoles } from '@slate/types/User'
 import { Utils } from '@slate/utils'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -9,7 +10,7 @@ export const useCurrentUser = () => {
    return useSelector(UserSelectors.get)
 }
 
-export type UserSessionProfile = UserProfile & { iid: string, role: string }
+export type UserSessionProfile = UserProfile & { iid: string, role: SlateRoles }
 
 export const useUserSessionProfile = (): { profile: UserSessionProfile | undefined, profileIsLoading: boolean } => {
    

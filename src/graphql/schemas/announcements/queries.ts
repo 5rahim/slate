@@ -2,7 +2,7 @@ import { gql } from '@apollo/client'
 
 export const GET_ANNOUNCEMENTS = gql`
     query GetAnnouncements($course_id: uuid!) {
-        announcements(where: {course_id: {_eq: $course_id}}, order_by: {created_at: desc}) {
+        announcements(where: {course_id: {_eq: $course_id}}, order_by: {publish_on: desc}) {
             id
             is_scheduled
             publish_on

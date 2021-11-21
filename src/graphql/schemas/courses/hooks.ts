@@ -112,12 +112,14 @@ export const getCourseList = () => {
    
    const [courses, setCourses] = useState<Courses[]>([])
    
-   const useQuery = profile?.role === 'assistant' ? getAllCourseManagements : (profile?.role === 'student' ? getAllStudentEnrollments : getOwnCourses)
+   const useQuery = profile?.role === 'assistant' ? getAllCourseManagements : ( profile?.role === 'student'
+      ? getAllStudentEnrollments
+      : getOwnCourses )
    
    const [data, loading]: any = useQuery()
    
    useEffect(() => {
-   
+      
       switch (profile?.role) {
          case 'assistant':
             if (data) {
@@ -133,9 +135,9 @@ export const getCourseList = () => {
             if (data) {
                for (const enrollment of data) {
                   if (enrollment.course) {
-                     if (enrollment.course.available) {
-                        courses.push(enrollment.course)
-                     }
+                     courses.push(enrollment.course)
+                     // if (enrollment.course.available) {
+                     // }
                   }
                }
                setCourses(courses)
@@ -147,7 +149,7 @@ export const getCourseList = () => {
                setCourses(data as SlateCourse[])
             }
             break
-      
+         
       }
       
    }, [data])
@@ -178,7 +180,7 @@ export const getStudentEnrollments = (course_id: string) => {
       "array",
       {
          variables: { course_id },
-         fetchPolicy: "no-cache",
+         fetchPolicy: "cache-first",
       },
    )
    
