@@ -3,7 +3,7 @@ import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import { GET_ANNOUNCEMENTS } from '@slate/graphql/schemas/announcements/queries'
 import { Parameter } from '@slate/types/Parameters'
-import { CREATE_ANNOUNCEMENT, UPDATE_ANNOUNCEMENT } from './mutations'
+import { CREATE_ANNOUNCEMENT, DELETE_ANNOUNCEMENT, UPDATE_ANNOUNCEMENT } from './mutations'
 
 export const useCreateAnnouncement: SlateMutationHook<CreateAnnouncementMutationVariables> = (options) => {
    
@@ -32,5 +32,14 @@ export const useUpdateAnnouncement = () => {
    return useMutationHookCreator(UPDATE_ANNOUNCEMENT, {
       refetchQueries: [{ query: GET_ANNOUNCEMENTS }, 'GetAnnouncements'],
       successAlert: { type: "toast", title: "Announcement updated" },
+   })
+}
+
+
+export const useDeleteAnnouncement: SlateMutationHook<any> = (options) => {
+   return useMutationHookCreator(DELETE_ANNOUNCEMENT, {
+      refetchQueries: [{ query: GET_ANNOUNCEMENTS }, 'GetAnnouncements'],
+      successAlert: { type: "toast", title: "Announcement deleted" },
+      ...options
    })
 }

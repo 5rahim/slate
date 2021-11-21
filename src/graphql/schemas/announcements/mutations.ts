@@ -22,3 +22,11 @@ export const UPDATE_ANNOUNCEMENT = gql`
         }
     }
 `
+
+export const DELETE_ANNOUNCEMENT = gql`
+    mutation DeleteAnnouncement($id: uuid!) {
+        delete_announcements_by_pk(id: $id) {
+            id
+        }
+    }
+`

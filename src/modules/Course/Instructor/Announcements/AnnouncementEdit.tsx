@@ -1,11 +1,12 @@
 import { DateInput } from '@slate/components/DateInput'
+import { DeletionAlert } from '@slate/components/DeletionAlert'
 import { PermissionComponent } from "@slate/components/Permissions"
 import { RichTextEditor } from '@slate/components/RichTextEditor'
 import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
 import { TimePicker } from '@slate/components/TimePicker'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { Announcements, UpdateAnnouncementMutationVariables } from '@slate/generated/graphql'
-import { useUpdateAnnouncement } from '@slate/graphql/schemas/announcements/hooks'
+import { useDeleteAnnouncement, useUpdateAnnouncement } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
@@ -24,8 +25,11 @@ import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 
 interface AnnouncementEditProps {
-   isOpen: boolean,
-   onClose: any,
+   isOpen: boolean
+   onClose: any
+   deleteIsOpen: boolean
+   deleteOnClose: any
+   deleteOnOpen: any
    data: Announcements
 }
 
@@ -33,6 +37,8 @@ export function AnnouncementEdit(
    {
       isOpen,
       onClose,
+      deleteIsOpen,
+      deleteOnClose,
       data,
    }: AnnouncementEditProps,
 ) {
@@ -42,6 +48,12 @@ export function AnnouncementEdit(
    const course = useCurrentCourse()
    
    const [updateAnnouncement, updateIsLoading] = useUpdateAnnouncement()
+   
+   const [deleteAnnouncement] = useDeleteAnnouncement({
+      onCompleted: () => {
+         deleteOnClose()
+      }
+   })
    
    const cancelRef: any = React.useRef()
    
@@ -178,6 +190,8 @@ export function AnnouncementEdit(
                   </Modal>
                </>
             )}
+         
+         <DeletionAlert onClose={deleteOnClose} isOpen={deleteIsOpen} handleDelete={() => deleteAnnouncement({ id: data.id })} type={'announcement'} />
       
       
       </PermissionComponent.AssistantAndHigher>

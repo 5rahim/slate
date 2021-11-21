@@ -5,7 +5,7 @@ export type DataListItem<T> = (props: { data: T }) => JSX.Element
 
 type DataListElement = (El: any, ...rest: any[]) => JSX.Element
 
-type DataModuleProps = {
+type DataListModuleProps = {
    data: any
    dataIsLoading: boolean
    dataIsEmpty: boolean
@@ -31,11 +31,11 @@ type DataModuleProps = {
       </DividedList>
    }
  />
- * @param {DataModuleProps} props
+ * @param {DataListModuleProps} props
  * @returns {JSX.Element}
  * @constructor
  */
-export function DataListModule(props: DataModuleProps) {
+export function DataListModule(props: DataListModuleProps) {
    
    const { data, dataIsEmpty, dataIsLoading, empty, fallback, displayData, ...rest } = props
    

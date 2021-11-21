@@ -20,6 +20,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const { data } = props
    
    const { isOpen, onOpen, onClose } = useDisclosure()
+   const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
    
    return (
       <>
@@ -80,7 +81,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                                  <DropdownItem icon={<BiEdit />} onClick={onOpen}>
                                     {t('Edit')}
                                  </DropdownItem>
-                                 <DropdownItem icon={<BiTrash />}>
+                                 <DropdownItem icon={<BiTrash />} onClick={deleteOnOpen}>
                                     {t('Delete')}
                                  </DropdownItem>
                               </DropdownList>
@@ -125,7 +126,14 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
             </Flex>
          </ListItem>
          
-         <AnnouncementEdit isOpen={isOpen} onClose={onClose} data={data} />
+         <AnnouncementEdit
+            isOpen={isOpen}
+            onClose={onClose}
+            deleteIsOpen={deleteIsOpen}
+            deleteOnOpen={deleteOnOpen}
+            deleteOnClose={deleteOnClose}
+            data={data}
+         />
       
       </>
    )

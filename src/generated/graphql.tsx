@@ -4956,6 +4956,13 @@ export type UpdateAnnouncementMutationVariables = Exact<{
 
 export type UpdateAnnouncementMutation = { __typename?: 'mutation_root', update_announcements?: { __typename?: 'announcements_mutation_response', affected_rows: number } | null | undefined };
 
+export type DeleteAnnouncementMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteAnnouncementMutation = { __typename?: 'mutation_root', delete_announcements_by_pk?: { __typename?: 'announcements', id: any } | null | undefined };
+
 export type GetAnnouncementsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
 }>;
@@ -5197,6 +5204,16 @@ export const UpdateAnnouncementDocument = gql`
 export type UpdateAnnouncementMutationFn = Apollo.MutationFunction<UpdateAnnouncementMutation, UpdateAnnouncementMutationVariables>;
 export type UpdateAnnouncementMutationResult = Apollo.MutationResult<UpdateAnnouncementMutation>;
 export type UpdateAnnouncementMutationOptions = Apollo.BaseMutationOptions<UpdateAnnouncementMutation, UpdateAnnouncementMutationVariables>;
+export const DeleteAnnouncementDocument = gql`
+    mutation DeleteAnnouncement($id: uuid!) {
+  delete_announcements_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteAnnouncementMutationFn = Apollo.MutationFunction<DeleteAnnouncementMutation, DeleteAnnouncementMutationVariables>;
+export type DeleteAnnouncementMutationResult = Apollo.MutationResult<DeleteAnnouncementMutation>;
+export type DeleteAnnouncementMutationOptions = Apollo.BaseMutationOptions<DeleteAnnouncementMutation, DeleteAnnouncementMutationVariables>;
 export const GetAnnouncementsDocument = gql`
     query GetAnnouncements($course_id: uuid!) {
   announcements(
