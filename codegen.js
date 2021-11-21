@@ -3,14 +3,13 @@ module.exports = {
         {
             'https://slate.hasura.app/v1/graphql': {
                 headers: {
-                    'x-hasura-admin-secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET,
-                    'content-type': 'application/json'
+                    'x-hasura-admin-secret': "n4jRT12LJfD0ls3jS7G3i4qTdSMvDwt0fUsju5In8oEpCTAS0OJHpGibxHvOGNAV"
                 },
             },
         },
     ],
-    documents: ['./src/**/*.tsx', './src/**/*.ts'],
     overwrite: true,
+    documents: ['./src/graphql/**/*.tsx', './src/graphql/**/*.ts'],
     generates: {
         './src/generated/graphql.tsx': {
             plugins: [
@@ -20,7 +19,7 @@ module.exports = {
             ],
             config: {
                 skipTypename: false,
-                withHooks: true,
+                withHooks: false,
                 withHOC: false,
                 withComponent: false,
             },
