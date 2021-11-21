@@ -15,6 +15,7 @@
   "Message course assistant": "Message course assistant",
   "Update an announcement": "Update an announcement",
   "announcementAlreadyPublished" : "This announcement has already been published. To avoid confusion, you should delete it or create a new one.",
+  "This action is irreversible": "This action is irreversible.",
   "options": {
     "status": {
       "title": "Course is {{status}}",

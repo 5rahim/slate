@@ -5,5 +5,9 @@
   "Course duration updated": "Course duration updated",
   "Course schedule updated": "Course schedule updated",
   "Course title and description updated": "Course title and description updated",
-  "Announcement updated": "Announcement updated"
+  "Announcement updated": "Announcement updated",
+  "Announcement deleted": "Announcement deleted",
+  "delete": {
+    "announcement": "Are you sure you want to delete this announcement?"
+  }
 }
