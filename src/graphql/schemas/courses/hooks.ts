@@ -116,7 +116,7 @@ export const getCourseList = () => {
       ? getAllStudentEnrollments
       : getOwnCourses )
    
-   const [data, loading]: any = useQuery()
+   const [data, loading, empty]: any = useQuery()
    
    useEffect(() => {
       
@@ -154,7 +154,7 @@ export const getCourseList = () => {
       
    }, [data])
    
-   return [courses, loading] as [Courses[], boolean]
+   return [courses, loading, empty] as [Courses[], boolean, boolean]
    
 }
 

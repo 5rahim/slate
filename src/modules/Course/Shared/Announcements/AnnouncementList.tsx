@@ -1,4 +1,3 @@
-import { Announcements } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -36,6 +35,11 @@ export function AnnouncementList({ ...rest }: ListProps) {
             >
                {list(AnnouncementListItem)}
             </DividedList>
+         }
+         empty={
+            <>
+               No announcements
+            </>
          }
       />
    )

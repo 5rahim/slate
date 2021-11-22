@@ -19,6 +19,7 @@ export const SchoolActions = schoolSlice.actions
 export const SchoolSelectors = {
    getName: (state: GlobalState) => state.school?.name,
    getIID: (state: GlobalState) => state.school?.short_name,
+   get: (state: GlobalState) => state.school
 }
 
 

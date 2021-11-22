@@ -1,6 +1,7 @@
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
 import { getCourseById, getStudentEnrollments } from '@slate/graphql/schemas/courses/hooks'
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
+import { useUserRole } from '@slate/hooks/useUserRole'
 import { CourseActions } from '@slate/store/slices/courseSlice'
 import { SlateCourse } from '@slate/types/Course'
 import { Utils } from '@slate/utils'
@@ -29,6 +30,7 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
       const dispatch = useDispatch()
       const [displayPage, setDisplayPage] = useState<boolean>(false)
       const { profile } = useUserSessionProfile()
+      const { isStudent } = useUserRole()
       
       if (!course_id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
@@ -38,15 +40,13 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
       const [enrollment, enrollmentIsLoading] = getStudentEnrollments(course_id as string)
       
       useEffect(() => {
-         
-         const isStudent = profile?.role === 'student'
-         
+         console.log(course?.available)
          /**
           * Give access when:
           * AND course exists
           * AND (Enrollment exists and is authorized when student OR is not student)
           */
-         if (!courseIsLoading && !enrollmentIsLoading && !!course && ((!!enrollment && enrollment[0].authorized && isStudent) || !isStudent)) {
+         if (!courseIsLoading && !enrollmentIsLoading && !!course && ( ( !!enrollment && enrollment[0].authorized && course.available && isStudent ) || !isStudent )) {
             setDisplayPage(true)
             dispatch(CourseActions.set(course as SlateCourse))
             /**
@@ -54,11 +54,11 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
              * AND course doesn't exist
              * OR (Is not enrolled as student OR Is enrolled but not authorized as student)
              */
-         } else if (( !courseIsLoading && !enrollmentIsLoading ) && ( !course || (!enrollment && isStudent) || ( !!enrollment && !enrollment[0].authorized && isStudent ) )) {
+         } else if (( !courseIsLoading && !enrollmentIsLoading ) && ( !course || ( !enrollment && isStudent ) || ( !!enrollment && !enrollment[0].authorized && isStudent ) || !course.available )) {
             router.push(Utils.Url.accessDeniedLink(props.iid))
          }
          
-      }, [course, enrollment])
+      }, [course, enrollment, isStudent])
       
       return displayPage ? <Component {...props} course={course} /> : <LoadingScreen />
       

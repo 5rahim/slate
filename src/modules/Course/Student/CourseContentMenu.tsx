@@ -1,10 +1,9 @@
 import { PermissionComponent } from '@slate/components/Permissions'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
-import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { Box, Menu, MenuItem, MenuList } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 import { BiDetail, BiFolder, BiFolderOpen, BiHighlight } from 'react-icons/bi'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
@@ -15,16 +14,13 @@ interface CourseContentMenuProps {
 export function CourseContentMenu({ index = 0 }: CourseContentMenuProps) {
    
    const cmf = useCMF()
-   
-   const { t, i18n } = useTranslation(['common', 'course'], { useSuspense: false })
-   
-   const course = useCurrentCourse()
+   const t = useTypeSafeTranslation()
    
    
    return (
       <PermissionComponent.StudentOnly>
          <ModuleBox headerText={t('course:Course Content')} headerIcon={<BiFolderOpen />}>
-      
+            
             <Menu
                variant="custom"
                borderRadius="md"
@@ -34,7 +30,7 @@ export function CourseContentMenu({ index = 0 }: CourseContentMenuProps) {
                hoverColor={cmf("gray.800", "gray.200")}
                hoverBg={cmf("gray.100", "gray.700")}
                selectedColor={cmf("black", "white")}
-               selectedBg={cmf("#dddddd", "gray.600")}
+               selectedBg={cmf("#f1f1f1", "gray.600")}
                size="md"
                spacing=".5rem"
                width="full"
@@ -50,7 +46,7 @@ export function CourseContentMenu({ index = 0 }: CourseContentMenuProps) {
                   {/*<MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiFile /></Box>{t('course:Grades')}</MenuItem>*/}
                </MenuList>
             </Menu>
-   
+         
          </ModuleBox>
       </PermissionComponent.StudentOnly>
    )

@@ -32,7 +32,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
             width="full"
             py={2}
             px={3}
-            bgColor={cmf("#fcfcfc", "rgba(0,0,0,0.1)")}
+            bgColor={cmf("#f9f9f9", "rgba(0,0,0,0.1)")}
             borderRadius="md"
          >
             <Flex alignItems="center" width="full">

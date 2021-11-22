@@ -1,10 +1,12 @@
+import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
+import { DataListModule } from '@slate/graphql/DataListModule'
 import { getCourseManagements } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { Utils } from '@slate/utils'
 import { Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, Box, Link, Skeleton, Text } from 'chalkui/dist/cjs/React'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiUserPin } from 'react-icons/bi'
 
@@ -14,16 +16,8 @@ export function ManagementItem() {
    
    const course = useCurrentCourse()
    
-   const [courseManagements, courseManagementsLoading] = getCourseManagements(course.id)
+   const [courseManagements, courseManagementsLoading, empty] = getCourseManagements(course.id)
    
-   
-   const [hasAssistants, setHasAssistants] = useState<boolean>(false)
-   
-   useEffect(() => {
-      if (courseManagements && courseManagements.length > 0) {
-         setHasAssistants(true)
-      }
-   }, [courseManagements])
    
    return (
       
@@ -32,17 +26,31 @@ export function ManagementItem() {
          title={t('course:Management')}
          // showAlertIcon={!course?.available}
       >
-         {!courseManagementsLoading
-            ? (
+         <DataListModule
+            data={courseManagements}
+            dataIsLoading={courseManagementsLoading}
+            dataIsEmpty={empty}
+            fallback={
+               <Stack mt="2">
+                  <AlignedFlex>
+                     <Skeleton height="30px" width="30px" borderRadius="50%" />
+                     <Flex width="100%" gridGap=".5rem">
+                        <Skeleton height="10px" width="40px" borderRadius="md" />
+                        <Skeleton height="10px" width="50%" borderRadius="md" />
+                     </Flex>
+                  </AlignedFlex>
+               </Stack>
+            }
+            displayData={() =>
                <>
                   <Flex>
-                     <Text mr="2">{t(hasAssistants ? "course:options.assistant.yes" : "course:options.assistant.no")}</Text>
-                     
-                     <Link>{t(!hasAssistants ? 'Add' : 'Manage')}</Link>
-                  
+                     <Text mr="2">{t( "course:options.assistant.yes")}</Text>
+         
+                     <Link>{t('Manage')}</Link>
+      
                   </Flex>
                   <Box mt="1">
-                     {( courseManagements && hasAssistants ) && courseManagements.map((management) => {
+                     {courseManagements.map((management) => {
                         return (
                            <Flex mb="2" alignItems="center" gridGap=".5rem" key={management.id}>
                               <Avatar src={management.manager?.image as string} size="sm" />
@@ -52,11 +60,16 @@ export function ManagementItem() {
                      })}
                   </Box>
                </>
-            ) : (
-               <Stack mt="2">
-                  <Skeleton height="10px" borderRadius="md" />
-               </Stack>
-            )}
+            }
+            empty={
+               <Flex>
+                  <Text mr="2">{t("course:options.assistant.no")}</Text>
+      
+                  <Link>{t('Add')}</Link>
+   
+               </Flex>
+            }
+         />
       </ModuleSection>
    )
    
