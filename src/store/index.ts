@@ -1,13 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import appReducer from './slices/appSlice'
 
-import counterReducer from './slices/counterSlice'
 import courseReducer from './slices/courseSlice'
 import schoolReducer from './slices/schoolSlice'
 import userReducer from './slices/userSlice'
 
 const store = configureStore({
-   reducer: { counter: counterReducer, school: schoolReducer, user: userReducer, course: courseReducer, app: appReducer },
+   reducer: { school: schoolReducer, user: userReducer, course: courseReducer, app: appReducer },
 })
 
 export type GlobalState = ReturnType<typeof store.getState>
