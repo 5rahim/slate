@@ -1,18 +1,7 @@
 import { DurationDateFormat } from '@slate/types/Course'
 import { addMinutes, differenceInMinutes, format } from 'date-fns'
-import { enUS, fr } from 'date-fns/locale'
 import { Parameter } from '../types/Parameters'
 
-const getLocale = (locale: string) => locale === 'fr' ? fr : enUS
-
-type DateFormat = "short" | "long" | "short with hours" | "long with hours"
-
-const formats: { [key: string]: string } = {
-   short: 'dd/MM/yy',
-   long: 'dd MMMM yyyy',
-   'short with hours': 'dd/MM/yy, HH:mm',
-   'long with hours': 'dd MMMM yyyy, HH:mm',
-}
 
 export const Dates = {
    /**
@@ -68,27 +57,6 @@ export const Dates = {
    },
    asUTCString: (date: Parameter<string>) => {
       return date + 'Z'
-   },
-   
-   /**
-    * We add Z to convert it to a UTC date so that the Date object apply the timezone correctly
-    * We made the assumption that all the date saved to the database will be using the UTC format minus the Z
-    * @deprecated
-    * @param {Parameter<Date | string>} utcDate
-    * @param {DateFormat} s
-    * @param {string} locale
-    * @returns {string}
-    */
-   formatDate(utcDate: Parameter<Date | string>, s: DateFormat, locale: string) {
-      if (formats[s] && utcDate) {
-         if(typeof utcDate === 'string') {
-            return format(new Date(utcDate + 'Z'), formats[s], { locale: getLocale(locale) })
-         } else {
-            return format(utcDate, formats[s], { locale: getLocale(locale) })
-         }
-      } else {
-         return ''
-      }
    },
    
    mergeDateAndTime(date: Parameter<Date>, time: Parameter<number>) {
