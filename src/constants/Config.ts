@@ -3,8 +3,3 @@ export default {
    baseURL: 'http://vcap.me:3000',
    instituteURL: 'http://{{short_name}}.vcap.me:3000',
 }
-
-export function getShortName() {
-
-
-}
