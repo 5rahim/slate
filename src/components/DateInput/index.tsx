@@ -1,8 +1,8 @@
 import { DatePicker } from '@slate/components/DatePicker'
+import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLocale } from '@slate/hooks/useLocale'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { DurationDateFormat } from '@slate/types/Course'
-import { Utils } from '@slate/utils'
 import { AlertDialogCloseButton, InputLeftElement, InputProps } from 'chalkui/dist/cjs'
 import {
    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Input, InputGroup, useDisclosure,
@@ -19,6 +19,7 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
    
    const t = useTypeSafeTranslation()
    const locale = useLocale()
+   const { formatDate } = useDateFormatter()
    
    const { isOpen, onOpen, onClose } = useDisclosure()
    
@@ -28,20 +29,20 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
    const [inputValue, setInputValue] = useState<string | undefined>('')
    
    useEffect(() => {
-      if(defaultSelectedDate) {
-         setInputValue(selectedDate?.startDate ? Utils.Dates.formatDate(selectedDate?.startDate, 'short', locale) : '')
+      if (defaultSelectedDate) {
+         setInputValue(selectedDate?.startDate ? formatDate(selectedDate?.startDate, 'short') : '')
       }
    }, [])
    
    function handleSaveDate() {
-      setInputValue(selectedDate?.startDate ? Utils.Dates.formatDate(selectedDate?.startDate, 'short', locale) : '')
+      setInputValue(selectedDate?.startDate ? formatDate(selectedDate?.startDate, 'short') : '')
       onChange && onChange(selectedDate?.startDate)
       onClose()
    }
    
    return (
       <>
-   
+         
          <InputGroup>
             <InputLeftElement
                pointerEvents="none"

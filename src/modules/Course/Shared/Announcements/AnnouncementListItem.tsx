@@ -4,6 +4,7 @@ import { RichTextContent } from '@slate/components/UI/RichTextContent'
 import { Announcements } from '@slate/generated/graphql'
 import { DataListItem } from '@slate/graphql/DataListModule'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLocale } from '@slate/hooks/useLocale'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AnnouncementEdit } from '@slate/modules/Course/Instructor/Announcements/AnnouncementEdit'
@@ -18,6 +19,8 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const t = useTypeSafeTranslation()
    const locale = useLocale()
    const { data } = props
+   
+   const {formatDate} = useDateFormatter()
    
    const { isOpen, onOpen, onClose } = useDisclosure()
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
@@ -100,11 +103,11 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                      
                      <Text fontStyle="italic" color={cmf("gray.500", "gray.300")}>
                         {
-                           !data.is_scheduled && Utils.Dates.formatDate(new Date(data.created_at), 'long with hours', locale)
+                           !data.is_scheduled && formatDate(new Date(data.created_at), 'long with hours')
                         }
                         {
                            ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) ) &&
-                           Utils.Dates.formatDate(data.publish_on, 'long with hours', locale)
+                           formatDate(data.publish_on, 'long with hours')
                         }
                      </Text>
                      
@@ -112,7 +115,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                         data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) && (
                            <Text fontStyle="italic" color={cmf("gray.500", "gray.300")}>
                               {t('Scheduled for')}&nbsp;
-                              <strong>{Utils.Dates.formatDate(data.publish_on, 'short with hours', locale)}</strong>
+                              <strong>{formatDate(data.publish_on, 'short with hours')}</strong>
                            </Text>
                         )
                      }

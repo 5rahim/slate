@@ -73,6 +73,7 @@ export const Dates = {
    /**
     * We add Z to convert it to a UTC date so that the Date object apply the timezone correctly
     * We made the assumption that all the date saved to the database will be using the UTC format minus the Z
+    * @deprecated
     * @param {Parameter<Date | string>} utcDate
     * @param {DateFormat} s
     * @param {string} locale

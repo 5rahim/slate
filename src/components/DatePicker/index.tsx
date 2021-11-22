@@ -1,7 +1,7 @@
 import { START_DATE, useDatepicker } from '@datepicker-react/hooks'
 import { Month } from '@slate/components/DatePicker/Month'
+import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { DurationDateFormat } from '@slate/types/Course'
-import { Utils } from '@slate/utils'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, ButtonGroup } from 'chalkui/dist/cjs/React'
@@ -19,8 +19,8 @@ export interface DatepickerProps {
 }
 
 export const DatePicker = (props: DatepickerProps) => {
-   const { t, i18n } = useTranslation(['common'], { useSuspense: false })
-   // const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+   const { t } = useTranslation(['common'], { useSuspense: false })
+   const { formatDate } = useDateFormatter()
    
    const {
       template = "horizontal",
@@ -88,16 +88,16 @@ export const DatePicker = (props: DatepickerProps) => {
             onDateHover,
          }}
       >
-         {(showSelection && !selectOneDate) && (
+         {( showSelection && !selectOneDate ) && (
             <Box>
                <Box>
                   <strong>{t('date.Start date')}: </strong>
                   {/*{state.startDate && new Intl.DateTimeFormat(i18n.language, options).format(state.startDate)}*/}
-                  {state.startDate && Utils.Dates.formatDate(state.startDate, 'long', i18n.language)}
+                  {state.startDate && formatDate(state.startDate, 'long')}
                </Box>
                <Box>
                   <strong>{t('date.End date')}: </strong>
-                  {state.endDate && Utils.Dates.formatDate(state.endDate, 'long', i18n.language)}
+                  {state.endDate && formatDate(state.endDate, 'long')}
                </Box>
             </Box>
          )}

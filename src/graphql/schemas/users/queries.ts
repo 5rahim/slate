@@ -51,3 +51,12 @@ export const GET_USER_BY_EMAIL = gql`
         }
     }
 `
+
+export const GET_USER_SETTINGS = gql`
+    query GetUserSettings($email: String!) {
+        users(where: {email: {_eq: $email}}, limit: 1) {
+            date_format
+            hour_format
+        }
+    }
+`
