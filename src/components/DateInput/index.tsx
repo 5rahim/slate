@@ -1,6 +1,7 @@
 import { DatePicker } from '@slate/components/DatePicker'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { useUserSettings } from '@slate/hooks/useUserSettings'
 import { DurationDateFormat } from '@slate/types/Course'
 import { AlertDialogCloseButton, InputLeftElement, InputProps } from 'chalkui/dist/cjs'
 import {
@@ -18,6 +19,7 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
    
    const t = useTypeSafeTranslation()
    const { formatDate } = useDateFormatter()
+   const { dateFormat } = useUserSettings()
    
    const { isOpen, onOpen, onClose } = useDisclosure()
    
@@ -30,7 +32,7 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
       if (defaultSelectedDate) {
          setInputValue(selectedDate?.startDate ? formatDate(selectedDate?.startDate, 'short') : '')
       }
-   }, [])
+   }, [dateFormat])
    
    function handleSaveDate() {
       setInputValue(selectedDate?.startDate ? formatDate(selectedDate?.startDate, 'short') : '')

@@ -24,7 +24,7 @@ export function TimePicker(props: TimePickerProps) {
    const defaultMinutes = defaultTime ? Math.floor(( ( defaultTime / 60 ) - defaultHour ) * 60) : 0
    
    const cmf = useCMF()
-   const { hour_format } = useUserSettings()
+   const settings = useUserSettings()
    
    const [selectedM, setSelectedM] = useState(defaultHour > 12 ? 'PM' : 'AM')
    const [hour, setHour] = useState<number>(H24toH12(defaultHour))
@@ -36,8 +36,8 @@ export function TimePicker(props: TimePickerProps) {
    }
    
    useEffect(() => {
-      setHour(hour_format === '12' ? H24toH12(defaultHour) : defaultHour)
-   }, [hour_format])
+      setHour(settings.hourFormat === '12' ? H24toH12(defaultHour) : defaultHour)
+   }, [settings.hourFormat])
    
    useEffect(() => {
       
@@ -51,7 +51,7 @@ export function TimePicker(props: TimePickerProps) {
    
    
    function H12toH24(hour: number) {
-      return hour_format === '12'
+      return settings.hourFormat === '12'
          ?
          ( selectedM === 'PM' && hour < 12 ) ? hour + 12 : ( selectedM === 'AM' && hour === 12 ) ? hour - 12 : hour
          :
@@ -85,8 +85,8 @@ export function TimePicker(props: TimePickerProps) {
                width="4.5rem"
                defaultValue={defaultHour}
                step={1}
-               min={hour_format === '24' ? 0 : 1}
-               max={hour_format === '24' ? 23 : 12}
+               min={settings.hourFormat === '24' ? 0 : 1}
+               max={settings.hourFormat === '24' ? 23 : 12}
                allowMouseWheel
             >
                <NumberInputField />
@@ -116,7 +116,7 @@ export function TimePicker(props: TimePickerProps) {
                </NumberInputStepper>
             </NumberInput>
             
-            {hour_format === '12' &&
+            {settings.hourFormat === '12' &&
             <Select boxShadow="none" border="none" defaultValue={selectedM} onChange={(e: any) => setSelectedM(e.target.value)} width="70px">
                 <option value="AM">AM</option>
                 <option value="PM">PM</option>

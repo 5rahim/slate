@@ -53,8 +53,8 @@ export const useDateFormatter = () => {
             
             const formats = date_formats[selected_format]
             
-            const date_format = settings.date_format ?? 'DMY'
-            const hour_format = settings.hour_format ?? '24'
+            const date_format = settings.dateFormat ?? 'DMY'
+            const hour_format = settings.hourFormat ?? '24'
             
             if(selected_format === 'short' || selected_format === 'long') {
                return format(d, (formats[date_format] as string).replace('at', locale === 'fr' ? '' : 'at'), { locale: getLocale(locale) })
