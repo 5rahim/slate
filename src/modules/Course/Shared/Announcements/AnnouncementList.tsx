@@ -1,3 +1,4 @@
+import { Empty } from '@slate/components/UI/Empty'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -5,6 +6,7 @@ import { AnnouncementListItem } from '@slate/modules/Course/Shared/Announcements
 import { DividedList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { ListProps, Skeleton } from 'chalkui/dist/cjs/React'
 import React from 'react'
+import { FcAdvertising } from 'react-icons/fc'
 
 export function AnnouncementList({ ...rest }: ListProps) {
    const course = useCurrentCourse()
@@ -37,9 +39,7 @@ export function AnnouncementList({ ...rest }: ListProps) {
             </DividedList>
          }
          empty={
-            <>
-               No announcements
-            </>
+            <Empty icon={FcAdvertising} text="No announcements" />
          }
       />
    )
