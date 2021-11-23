@@ -65,7 +65,6 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
             <AlertDialogOverlay />
             
             <AlertDialogContent>
-               {/*<AlertDialogHeader>Discard Changes?</AlertDialogHeader>*/}
                <AlertDialogCloseButton />
                <AlertDialogBody>
                   <DatePicker

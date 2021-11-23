@@ -1,6 +1,7 @@
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useUserSettings } from '@slate/hooks/useUserSettings'
 import { HStack, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text } from 'chalkui/dist/cjs'
-import { Box, Icon } from 'chalkui/dist/cjs/React'
+import { Box, Icon, Select } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
 import { BiTime } from 'react-icons/bi'
 
@@ -10,6 +11,11 @@ interface TimePickerProps {
    onChange?: (value: number) => void
 }
 
+/**
+ * @param {TimePickerProps} props
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function TimePicker(props: TimePickerProps) {
    
    const { defaultTime, onChange } = props
@@ -18,22 +24,47 @@ export function TimePicker(props: TimePickerProps) {
    const defaultMinutes = defaultTime ? Math.floor(( ( defaultTime / 60 ) - defaultHour ) * 60) : 0
    
    const cmf = useCMF()
+   const { hour_format } = useUserSettings()
    
-   const [hour, setHour] = useState<number>(defaultHour)
+   const [selectedM, setSelectedM] = useState(defaultHour > 12 ? 'PM' : 'AM')
+   const [hour, setHour] = useState<number>(H24toH12(defaultHour))
    const [minutes, setMinites] = useState<number>(defaultMinutes)
    const [total, setTotal] = useState<number>(0)
    
-   const format = (val: number) => val.toString().length < 2 ? `0` + val : val
+   const format = (val: number) => {
+      return val.toString().length < 2 ? `0` + val : val
+   }
+   
+   useEffect(() => {
+      setHour(hour_format === '12' ? H24toH12(defaultHour) : defaultHour)
+   }, [hour_format])
    
    useEffect(() => {
       
-      setTotal(hour * 60 + minutes)
+      setTotal(H12toH24(hour) * 60 + minutes)
       
-   }, [hour, minutes])
+   }, [hour, minutes, selectedM])
    
    useEffect(() => {
       onChange && onChange(total)
    }, [total])
+   
+   
+   function H12toH24(hour: number) {
+      return hour_format === '12'
+         ?
+         ( selectedM === 'PM' && hour < 12 ) ? hour + 12 : ( selectedM === 'AM' && hour === 12 ) ? hour - 12 : hour
+         :
+         hour
+   }
+   
+   function H24toH12(hour: number) {
+      return ( ( hour + 11 ) % 12 + 1 )
+   }
+   
+   function handleSetHour(valueAsString: string, valueAsNumber: number) {
+      setHour(valueAsNumber)
+   }
    
    return (
       <>
@@ -48,14 +79,14 @@ export function TimePicker(props: TimePickerProps) {
             </Box>
             
             <NumberInput
-               onChange={(valueAsString, valueAsNumber) => setHour(valueAsNumber)}
+               onChange={handleSetHour}
                value={format(hour)}
                size="md"
                width="4.5rem"
                defaultValue={defaultHour}
                step={1}
-               min={0}
-               max={23}
+               min={hour_format === '24' ? 0 : 1}
+               max={hour_format === '24' ? 23 : 12}
                allowMouseWheel
             >
                <NumberInputField />
@@ -84,6 +115,12 @@ export function TimePicker(props: TimePickerProps) {
                   <NumberDecrementStepper />
                </NumberInputStepper>
             </NumberInput>
+            
+            {hour_format === '12' &&
+            <Select boxShadow="none" border="none" defaultValue={selectedM} onChange={(e: any) => setSelectedM(e.target.value)} width="70px">
+                <option value="AM">AM</option>
+                <option value="PM">PM</option>
+            </Select>}
          
          </HStack>
       </>

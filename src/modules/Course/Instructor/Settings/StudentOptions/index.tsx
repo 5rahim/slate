@@ -4,7 +4,9 @@ import { DividedList } from 'chalkui/dist/cjs/Components/Layout'
 import { Link, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiCog, BiGroup, BiListUl } from 'react-icons/bi'
+import { BiCog, BiGroup } from 'react-icons/bi'
+import { CgUserList } from 'react-icons/cg'
+import { GrGroup } from 'react-icons/gr'
 
 export function StudentOptions() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })
@@ -22,14 +24,14 @@ export function StudentOptions() {
             </ModuleSection>
             
             <ModuleSection
-               icon={BiGroup}
+               icon={GrGroup}
                title={t('course:Groups')}
             >
                <Text>Manage student groups | <Link>Edit</Link></Text>
             </ModuleSection>
             
             <ModuleSection
-               icon={BiListUl}
+               icon={CgUserList}
                title={t('course:Attendance')}
             >
                <Text>Manage student attendance | <Link>Manage</Link></Text>
