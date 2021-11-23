@@ -6,12 +6,13 @@ import React from 'react'
 interface CourseModuleBoxProps {
    headerIcon?: React.ReactNode
    headerText: string,
+   headerAction?: React.ReactNode
    children?: React.ReactNode
 }
 
 export const ModuleBox = (props: CourseModuleBoxProps) => {
    
-   const { headerIcon, headerText, children } = props
+   const { headerIcon, headerText, children, headerAction } = props
    
    const { colorMode } = useColorMode()
    
@@ -24,13 +25,18 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
          height="100%"
       >
          
-         <Flex alignItems="center" pb={3} gridGap=".5rem">
-            <Flex fontSize="1.5rem" alignItems="center">
-               {headerIcon && headerIcon}
+         <Flex pb={3} justifyContent="space-between">
+            <Flex alignItems="center" gridGap=".5rem">
+               <Flex fontSize="1.5rem" alignItems="center">
+                  {headerIcon && headerIcon}
+               </Flex>
+               <Text p={0} fontWeight="700" fontSize="2xl">
+                  {headerText}
+               </Text>
             </Flex>
-            <Text p={0} fontWeight="700" fontSize="2xl">
-               {headerText}
-            </Text>
+            <Flex>
+               {headerAction}
+            </Flex>
          </Flex>
          
          {children}

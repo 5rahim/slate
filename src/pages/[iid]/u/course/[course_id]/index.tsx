@@ -58,9 +58,7 @@ const Page = ({ course, iid }: DashboardPage) => {
          <>
             <Box>
                
-               <ModuleBox headerText={t('Announcements')} headerIcon={<HiOutlineSpeakerphone />}>
-                  
-                  <AnnouncementCreation />
+               <ModuleBox headerText={t('Announcements')} headerIcon={<HiOutlineSpeakerphone />} headerAction={<AnnouncementCreation />}>
                   
                   <AnnouncementList maxHeight="800px" />
                

@@ -3,9 +3,10 @@ import { Center } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Icon, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { IconType } from 'react-icons'
+import { FcEmptyTrash } from 'react-icons/fc'
 
 interface EmptyProps {
-   icon: IconType | undefined,
+   icon?: IconType | undefined,
    text?: string
 }
 
@@ -13,12 +14,12 @@ export function Empty({ text, icon }: EmptyProps) {
    const t = useTypeSafeTranslation()
    
    return (
-      <Box opacity=".7" pointerEvents="none" userSelect="none">
+      <Box opacity=".6" pointerEvents="none" userSelect="none">
          <Center>
-            <Icon as={icon} fontSize="5rem" />
+            <Icon as={icon ? icon : FcEmptyTrash} fontSize="4rem" />
          </Center>
          <Center>
-            <Text fontSize="2xl">{t('course:' + ( text ? text : 'No data' ))}</Text>
+            <Text fontSize="xl">{t('course:' + ( text ? text : 'No data' ))}</Text>
          </Center>
       </Box>
    )

@@ -40,7 +40,6 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
       const [enrollment, enrollmentIsLoading] = getStudentEnrollments(course_id as string)
       
       useEffect(() => {
-         console.log(course?.available)
          /**
           * Give access when:
           * AND course exists
