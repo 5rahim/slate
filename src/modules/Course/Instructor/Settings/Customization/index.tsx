@@ -1,17 +1,17 @@
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useMutateCourseBackgroundColor, useMutateCourseBannerColor } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import Circle from 'react-color/lib/components/circle/Circle'
 import Swatches from 'react-color/lib/components/swatches/Swatches'
-import { useTranslation } from 'react-i18next'
 import { BiPalette } from 'react-icons/bi'
 
 export function Customization() {
-   const { t } = useTranslation(['common', 'course'], { useSuspense: false })
-   
+
+   const t = useTypeSafeTranslation()
    const course = useCurrentCourse()
    
    const [updateBannerColor] = useMutateCourseBannerColor()
@@ -32,13 +32,13 @@ export function Customization() {
    
    
    return (
-      <ModuleBox headerText="Customization" headerIcon={<BiPalette />}>
+      <ModuleBox headerText={t('Customization')} headerIcon={<BiPalette />}>
          <Accordion allowToggle>
             <AccordionItem>
                <h2>
                   <AccordionButton>
                      <Box flex="1" textAlign="left">
-                        Banner color
+                        {t('course:Banner color')}
                      </Box>
                      <AccordionIcon />
                   </AccordionButton>
@@ -49,7 +49,7 @@ export function Customization() {
                      gridGap=".5rem"
                      mb={5}
                   >
-                     Current color: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color as string} />
+                     {t('course:Current color')}: <Box width="30px" height="30px" borderRadius="md" bgColor={course?.banner_color as string} />
                   </Flex>
                   <Swatches onChangeComplete={handleBannerColorChange} />
                </AccordionPanel>
@@ -59,7 +59,7 @@ export function Customization() {
                <h2>
                   <AccordionButton>
                      <Box flex="1" textAlign="left">
-                        Background Color
+                        {t('course:Background Color')}
                      </Box>
                      <AccordionIcon />
                   </AccordionButton>
@@ -70,7 +70,7 @@ export function Customization() {
                      gridGap=".5rem"
                      mb={5}
                   >
-                     Current color: <Box
+                     {t('course:Current color')}: <Box
                      width="30px" height="30px" borderRadius="md"
                      bgColor={course?.background_color as string}
                   />

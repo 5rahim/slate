@@ -5,7 +5,7 @@ export const useCMF = () => {
    
    const { colorMode } = useColorMode()
    
-   return (light: Parameter<string>, dark: Parameter<string>) => {
+   return (light: Parameter<any>, dark: Parameter<any>) => {
       return ( light && dark ) ? ( colorMode === 'light' ? light : dark ) : undefined
    }
    

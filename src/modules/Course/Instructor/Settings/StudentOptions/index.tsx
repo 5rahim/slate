@@ -15,7 +15,11 @@ export function StudentOptions() {
    
    return (
       <ComponentVisibility.InstructorOnly>
-         <ModuleBox headerText="Student Options" headerIcon={<BiUserPin />}>
+         <ModuleBox
+            headerText="Student Options"
+            headerIcon={<BiUserPin />}
+            minimizeOnMobile={true}
+         >
             <DividedList spacing={2} width="full">
          
                <ModuleSection

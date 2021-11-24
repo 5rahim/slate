@@ -15,7 +15,6 @@ import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMen
 import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
-import { Box } from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -46,26 +45,21 @@ const Page = ({ course, iid }: DashboardPage) => {
                <CourseDetails />
                
                <CourseOptions />
-               
+            
             </>
          }
       >
          
          <>
-            <Box>
+            <ModuleBox headerText={t('Announcements')} headerIcon={<HiOutlineSpeakerphone />} headerAction={<AnnouncementCreation />}>
                
-               <ModuleBox headerText={t('Announcements')} headerIcon={<HiOutlineSpeakerphone />} headerAction={<AnnouncementCreation />}>
-                  
-                  <AnnouncementList maxHeight="800px" />
-               
-               </ModuleBox>
-            </Box>
+               <AnnouncementList maxHeight="800px" />
+            
+            </ModuleBox>
             
             <ComponentVisibility.InstructorOnly>
                
-               <Box>
-                  <Customization />
-               </Box>
+               <Customization />
             
             </ComponentVisibility.InstructorOnly>
          </>

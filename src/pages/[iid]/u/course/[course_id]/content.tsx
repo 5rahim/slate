@@ -35,9 +35,7 @@ const Page = ({ user, school, course }: DashboardPage) => {
          
          <>
             <Box>
-               
                <ModuleBox headerText={t('Content')} headerIcon={<BiFolderOpen />}>
-               
                
                </ModuleBox>
             </Box>

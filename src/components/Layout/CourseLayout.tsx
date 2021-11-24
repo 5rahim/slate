@@ -26,7 +26,7 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, children }: Cou
          
                <Flex
                   gridGap={18}
-                  flexDirection={["column-reverse", "column-reverse", "row"]}
+                  flexDirection={["column", "column", "row"]}
                >
                   <Flex flexDirection="column" width={["100%", "100%", "30%"]} gap={5} as={Grid} alignSelf="flex-start">
                

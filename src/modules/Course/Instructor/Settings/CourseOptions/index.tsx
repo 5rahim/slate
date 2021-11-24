@@ -14,7 +14,11 @@ export function CourseOptions() {
    
    return (
       <ComponentVisibility.InstructorOnly>
-         <ModuleBox headerText={t('course:Course Options')} headerIcon={<BiSliderAlt />}>
+         <ModuleBox
+            headerText={t('course:Course Options')}
+            headerIcon={<BiSliderAlt />}
+            minimizeOnMobile
+         >
             <DividedList spacing={2} width="full">
                
                <AvailabilityItem />

@@ -31,18 +31,22 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
    
    return (
       <ComponentVisibility.All>
-         <ModuleBox headerText={t('course:Course Menu')} headerIcon={<BiListUl />}>
+         <ModuleBox
+            minimizeOnMobile={true}
+            headerText={t('course:Course Menu')}
+            headerIcon={<BiListUl />}
+            bgColor={cmf(['antiquewhite', '#fff'], ['gray.700', 'gray.700'])}
+         >
             
             <Menu
                variant="custom"
                borderRadius="md"
                orientation="vertical"
-               // colorScheme="primary"
                defaultColor={cmf("gray.400", "gray.300")}
                hoverColor={cmf("gray.800", "gray.200")}
                hoverBg={cmf("gray.100", "gray.700")}
                selectedColor={cmf("black", "white")}
-               selectedBg={cmf("#f1f1f1", "gray.600")}
+               selectedBg={cmf("rgba(255,255,255,0.5)", "gray.600")}
                size="md"
                spacing=".5rem"
                width="full"
