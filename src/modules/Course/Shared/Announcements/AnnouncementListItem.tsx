@@ -1,4 +1,4 @@
-import { PermissionComponent } from '@slate/components/Permissions'
+import { HideItemInStudentView, PermissionComponent } from '@slate/components/Permissions'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
 import { Announcements } from '@slate/generated/graphql'
@@ -26,7 +26,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
    
    return (
-      <>
+      <HideItemInStudentView conditionIsNotMet={( data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
          <ListItem
             width="full"
@@ -140,7 +140,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
             data={data}
          />
       
-      </>
+      </HideItemInStudentView>
    )
    
 }

@@ -10,6 +10,12 @@ export const appSlice = createSlice({
       setMutationIsLoading: (state, action: PayloadAction<any>) => {
          state.mutationIsLoading = action.payload
       },
+      setStudentView: (state, action: PayloadAction<any>) => {
+         state.studentView = action.payload
+      },
+      toggleStudentView: (state) => {
+         state.studentView = !state.studentView
+      },
    },
 })
 
@@ -17,6 +23,7 @@ export const AppActions = appSlice.actions
 
 export const AppSelectors = {
    mutationIsLoading: (state: GlobalState) => state.app.mutationIsLoading,
+   studentView: (state: GlobalState) => state.app.studentView,
 }
 
 

@@ -1,16 +1,22 @@
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { PermissionComponent } from '@slate/components/Permissions'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
 import { CourseSelectors } from '@slate/store/slices/courseSlice'
 import { SchoolSelectors } from '@slate/store/slices/schoolSlice'
 import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
+import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Menu, MenuItem, MenuList, Text } from 'chalkui/dist/cjs/React'
+import {
+   Box, IconBox, Menu, MenuItem, MenuList, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure,
+} from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { BiCalendar, BiChat, BiFile, BiFolder, BiGridAlt, BiUserCheck } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
+import { BiCalendar, BiCctv, BiChat, BiFile, BiFolder, BiGridAlt, BiUserCheck } from 'react-icons/bi'
+import { FcReadingEbook } from 'react-icons/fc'
+import { useDispatch, useSelector } from 'react-redux'
 
 const CourseHeaderLink = ({ icon, children, linkTo }: any) => {
    
@@ -38,14 +44,20 @@ interface CourseHeaderProps {
 export const CourseHeader = ({ index }: CourseHeaderProps) => {
    const cmf = useCMF()
    const { colorMode } = useColorMode()
-   
+   const t = useTypeSafeTranslation()
    const router = useRouter()
-   const { id } = router.query
-   
+   const dispatch = useDispatch()
    const course = useSelector(CourseSelectors.get)
+   const studentView = useSelector(AppSelectors.studentView)
+   const { isOpen: svIsOpen, onOpen: svOnOpen, onClose: svOnClose } = useDisclosure()
+   
+   function toggleStudentView() {
+      svOnClose()
+      dispatch(AppActions.toggleStudentView())
+   }
    
    return (
-      <>
+      <Box>
          
          <Flex
             height={["80px", "80px", "80px", "80px"]}
@@ -60,6 +72,20 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
             <Box>
                <Text fontSize="2rem" fontWeight="600">{course?.name}</Text>
             </Box>
+            
+            <PermissionComponent.InstructorOnly>
+               <Button
+                  onClick={() => !studentView ? svOnOpen() : toggleStudentView()}
+                  size="sm"
+                  position="absolute"
+                  right="1rem"
+                  colorScheme="brand.100"
+                  leftIcon={<BiCctv />}
+               >
+                  {t(!studentView ? 'course:Student View' : 'course:Turn off Student View')}
+               </Button>
+            </PermissionComponent.InstructorOnly>
+         
          </Flex>
          
          <Flex
@@ -107,8 +133,26 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                </MenuList>
             </Menu>
          </Flex>
+         
+         <Modal isOpen={svIsOpen} onClose={svOnClose}>
+            <ModalOverlay />
+            <ModalContent textAlign="center">
+               <IconBox isCircular icon={<FcReadingEbook />} size="lg" colorScheme="primary" margin="0 auto" mt={3} />
+               <ModalHeader textAlign="center">{t('course:Student View')}</ModalHeader>
+               <ModalBody textAlign="center">
+                  {t('course:Student View description')}
+               </ModalBody>
+               
+               <ModalFooter gridGap=".5rem">
+                  <Button onClick={svOnClose} colorScheme="primary" variant="outline">{t('Cancel')}</Button>
+                  <Button colorScheme="primary" onClick={toggleStudentView} isFullWidth>
+                     {t('course:Turn on Student View')}
+                  </Button>
+               </ModalFooter>
+            </ModalContent>
+         </Modal>
       
-      </>
+      </Box>
    )
    
 }

@@ -1,3 +1,4 @@
+import { StudentViewPortal } from '@slate/components/StudentViewPortal'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppSelectors } from '@slate/store/slices/appSlice'
@@ -36,25 +37,25 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
          // @ts-ignore
          toast.closeAll(['bottom'])
          toast({
-               duration: 9999999,
-               position: "bottom",
-               render: () => (
-                  <Box
-                     bgColor={colorMode === 'light' ? 'red.500' : 'gray.700'}
-                     color={colorMode === 'light' ? '#fff' : 'white'}
-                     p={3}
-                     borderRadius="md"
-                     boxShadow="lg"
-                     border="2px solid"
-                     borderColor="red.600"
-                  >
-                     <Flex alignItems="center" gridGap=".5rem">
-                        <Spinner size="sm"/>
-                        <Text fontWeight="bold">{t('No internet connection')}</Text>
-                     </Flex>
-                  </Box>
-               ),
-            })
+            duration: 9999999,
+            position: "bottom",
+            render: () => (
+               <Box
+                  bgColor={colorMode === 'light' ? 'red.500' : 'gray.700'}
+                  color={colorMode === 'light' ? '#fff' : 'white'}
+                  p={3}
+                  borderRadius="md"
+                  boxShadow="lg"
+                  border="2px solid"
+                  borderColor="red.600"
+               >
+                  <Flex alignItems="center" gridGap=".5rem">
+                     <Spinner size="sm" />
+                     <Text fontWeight="bold">{t('No internet connection')}</Text>
+                  </Flex>
+               </Box>
+            ),
+         })
       })
       window.addEventListener('online', () => {
          // @ts-ignore
@@ -83,6 +84,8 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
             >
                <Spinner size="md" />
             </Box>
+            
+            <StudentViewPortal />
             
             <UserDashboardSideNav as="nav" display={['none', null, 'block']} maxWidth="15rem" width="full" />
             

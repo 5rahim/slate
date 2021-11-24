@@ -30,7 +30,7 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
       const dispatch = useDispatch()
       const [displayPage, setDisplayPage] = useState<boolean>(false)
       const { profile } = useUserSessionProfile()
-      const { isStudent } = useUserRole()
+      const { isReallyStudent } = useUserRole()
       
       if (!course_id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
@@ -45,7 +45,7 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
           * AND course exists
           * AND (Enrollment exists and is authorized when student OR is not student)
           */
-         if (!courseIsLoading && !enrollmentIsLoading && !!course && ( ( !!enrollment && enrollment[0].authorized && course.available && isStudent ) || !isStudent )) {
+         if (!courseIsLoading && !enrollmentIsLoading && !!course && ( ( !!enrollment && enrollment[0].authorized && course.available && isReallyStudent ) || !isReallyStudent )) {
             setDisplayPage(true)
             dispatch(CourseActions.set(course as SlateCourse))
             /**
@@ -53,11 +53,11 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
              * AND course doesn't exist
              * OR (Is not enrolled as student OR Is enrolled but not authorized as student)
              */
-         } else if (( !courseIsLoading && !enrollmentIsLoading ) && ( !course || ( !enrollment && isStudent ) || ( !!enrollment && !enrollment[0].authorized && isStudent ) || !course.available )) {
+         } else if (( !courseIsLoading && !enrollmentIsLoading ) && ( !course || ( !enrollment && isReallyStudent ) || ( !!enrollment && !enrollment[0].authorized && isReallyStudent ) || !course.available )) {
             router.push(Utils.Url.accessDeniedLink(props.iid))
          }
          
-      }, [course, enrollment, isStudent])
+      }, [course, enrollment, isReallyStudent])
       
       return displayPage ? <Component {...props} course={course} /> : <LoadingScreen />
       
