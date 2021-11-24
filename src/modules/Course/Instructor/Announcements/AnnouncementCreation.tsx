@@ -1,5 +1,5 @@
+import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { DateInput } from '@slate/components/DateInput'
-import { PermissionComponent } from "@slate/components/Permissions"
 import { RichTextEditor } from '@slate/components/RichTextEditor'
 import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
 import { TimePicker } from '@slate/components/TimePicker'
@@ -66,7 +66,7 @@ export function AnnouncementCreation() {
    })
    
    return (
-      <PermissionComponent.AssistantAndHigher>
+      <ComponentVisibility.AssistantAndHigher>
          
          <Box mb="3">
             
@@ -150,6 +150,6 @@ export function AnnouncementCreation() {
             </DrawerOverlay>
          </Drawer>
       
-      </PermissionComponent.AssistantAndHigher>
+      </ComponentVisibility.AssistantAndHigher>
    )
 }

@@ -1,4 +1,4 @@
-import { PermissionComponent } from '@slate/components/Permissions'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -18,7 +18,7 @@ export function CourseContentMenu({ index = 0 }: CourseContentMenuProps) {
    
    
    return (
-      <PermissionComponent.StudentOnly>
+      <ComponentVisibility.StudentOnly>
          <ModuleBox headerText={t('course:Course Content')} headerIcon={<BiFolderOpen />}>
             
             <Menu
@@ -48,7 +48,7 @@ export function CourseContentMenu({ index = 0 }: CourseContentMenuProps) {
             </Menu>
          
          </ModuleBox>
-      </PermissionComponent.StudentOnly>
+      </ComponentVisibility.StudentOnly>
    )
    
 }

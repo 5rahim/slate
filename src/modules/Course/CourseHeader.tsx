@@ -1,5 +1,5 @@
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
-import { PermissionComponent } from '@slate/components/Permissions'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
@@ -73,7 +73,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                <Text fontSize="2rem" fontWeight="600">{course?.name}</Text>
             </Box>
             
-            <PermissionComponent.InstructorOnly>
+            <ComponentVisibility.InstructorOnly>
                <Button
                   onClick={() => !studentView ? svOnOpen() : toggleStudentView()}
                   size="sm"
@@ -84,7 +84,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                >
                   {t(!studentView ? 'course:Student View' : 'course:Turn off Student View')}
                </Button>
-            </PermissionComponent.InstructorOnly>
+            </ComponentVisibility.InstructorOnly>
          
          </Flex>
          
@@ -122,14 +122,14 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
                   <CourseHeaderLink icon={<BiGridAlt />} linkTo={'/'}>Course</CourseHeaderLink>
                   <CourseHeaderLink icon={<BiFolder />} linkTo={'/content'}>Content</CourseHeaderLink>
                   <CourseHeaderLink icon={<BiChat />} linkTo={'/discussions'}>Discussions</CourseHeaderLink>
-                  <PermissionComponent.StudentOnly>
+                  <ComponentVisibility.StudentOnly>
                      <CourseHeaderLink icon={<BiCalendar />} linkTo="/calendar">Calendar</CourseHeaderLink>
                      <CourseHeaderLink icon={<BiFile />} linkTo="/grades">Grades</CourseHeaderLink>
-                  </PermissionComponent.StudentOnly>
-                  <PermissionComponent.AssistantAndHigher>
+                  </ComponentVisibility.StudentOnly>
+                  <ComponentVisibility.AssistantAndHigher>
                      <CourseHeaderLink icon={<BiFile />} linkTo="/grade-center">Grade center</CourseHeaderLink>
                      <CourseHeaderLink icon={<BiUserCheck />} linkTo="/attendance">Attendance</CourseHeaderLink>
-                  </PermissionComponent.AssistantAndHigher>
+                  </ComponentVisibility.AssistantAndHigher>
                </MenuList>
             </Menu>
          </Flex>

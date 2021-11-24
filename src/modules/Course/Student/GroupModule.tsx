@@ -1,4 +1,4 @@
-import { PermissionComponent } from '@slate/components/Permissions'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -15,7 +15,7 @@ export function GroupModule() {
    
    
    return (
-      <PermissionComponent.StudentOnly>
+      <ComponentVisibility.StudentOnly>
          <ModuleBox headerText={t('course:Your group')} headerIcon={<BiGroup />}>
       
             <Box mb="2">
@@ -35,7 +35,7 @@ export function GroupModule() {
             </Box>
    
          </ModuleBox>
-      </PermissionComponent.StudentOnly>
+      </ComponentVisibility.StudentOnly>
    )
    
 }

@@ -1,6 +1,6 @@
+import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { DateInput } from '@slate/components/DateInput'
 import { DeletionAlert } from '@slate/components/DeletionAlert'
-import { PermissionComponent } from "@slate/components/Permissions"
 import { RichTextEditor } from '@slate/components/RichTextEditor'
 import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
 import { TimePicker } from '@slate/components/TimePicker'
@@ -91,7 +91,7 @@ export function AnnouncementEdit(
    })
    
    return (
-      <PermissionComponent.AssistantAndHigher>
+      <ComponentVisibility.AssistantAndHigher>
          
          
          {!data.is_scheduled || Utils.Dates.publicationDateHasPassed(data.publish_on) ?
@@ -194,6 +194,6 @@ export function AnnouncementEdit(
          <DeletionAlert onClose={deleteOnClose} isOpen={deleteIsOpen} handleDelete={() => deleteAnnouncement({ id: data.id })} type={'announcement'} />
       
       
-      </PermissionComponent.AssistantAndHigher>
+      </ComponentVisibility.AssistantAndHigher>
    )
 }

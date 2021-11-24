@@ -6,7 +6,7 @@ import { Icon, Image, Text } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
 import { BiBook, BiCaretLeft, BiCaretRight, BiEnvelope, BiGlobe, BiHome, BiListCheck, BiLogOut } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
-import { PermissionComponent } from '../../Permissions'
+import { ComponentVisibility } from '../../ComponentVisibility'
 import { ComponentLink } from '../NavLink'
 
 const SideNavLink = ({ href, children, icon }: any) => (
@@ -65,7 +65,7 @@ export const UserDashboardSideNav = (props: SideNavProps) => {
                         {'Courses'}
                      </SideNavLink>
                      
-                     <PermissionComponent.StudentOnly>
+                     <ComponentVisibility.StudentOnly>
                         <>
                            <SideNavLink href={Utils.Url.schoolLinkTo(iid, "/activity")} icon={BiGlobe}>
                               {'Activity'}
@@ -74,7 +74,7 @@ export const UserDashboardSideNav = (props: SideNavProps) => {
                               {'Grades'}
                            </SideNavLink>
                         </>
-                     </PermissionComponent.StudentOnly>
+                     </ComponentVisibility.StudentOnly>
                      
                      <SideNavLink href={Utils.Url.schoolLinkTo(iid, "/messages")} icon={BiEnvelope}>
                         {'Messages'}

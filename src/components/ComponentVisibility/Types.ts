@@ -1,5 +1,5 @@
 import React from 'react'
 
-export interface PermissionComponentProps {
+export interface ComponentVisibilityProps {
    children?: React.ReactNode
 }

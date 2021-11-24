@@ -1,4 +1,4 @@
-import { HideItemInStudentView, PermissionComponent } from '@slate/components/Permissions'
+import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
 import { Announcements } from '@slate/generated/graphql'
@@ -46,7 +46,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                      </Flex>
                      
                      
-                     <PermissionComponent.AssistantAndHigher>
+                     <ComponentVisibility.AssistantAndHigher>
                         <Flex alignItems="center" gridGap="1rem">
                            <Flex gridGap=".5rem">
                               {( data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) ) && (
@@ -90,7 +90,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                               </DropdownList>
                            </Dropdown>
                         </Flex>
-                     </PermissionComponent.AssistantAndHigher>
+                     </ComponentVisibility.AssistantAndHigher>
                   
                   </Flex>
                   

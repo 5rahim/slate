@@ -1,6 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
-import { PermissionComponent } from '@slate/components/Permissions'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
@@ -34,7 +34,7 @@ const Page = ({ course, iid }: DashboardPage) => {
          pageTitle={course?.name}
          leftPanel={
             <>
-               <PermissionComponent.StudentOnly>
+               <ComponentVisibility.StudentOnly>
                   
                   <CourseContentMenu index={0} />
                   
@@ -42,15 +42,15 @@ const Page = ({ course, iid }: DashboardPage) => {
                   
                   <GroupModule />
                
-               </PermissionComponent.StudentOnly>
+               </ComponentVisibility.StudentOnly>
                
-               <PermissionComponent.InstructorOnly>
+               <ComponentVisibility.InstructorOnly>
                   
                   <CourseOptions />
                   
                   <StudentOptions />
                
-               </PermissionComponent.InstructorOnly>
+               </ComponentVisibility.InstructorOnly>
             </>
          }
       >
@@ -65,13 +65,13 @@ const Page = ({ course, iid }: DashboardPage) => {
                </ModuleBox>
             </Box>
             
-            <PermissionComponent.InstructorOnly>
+            <ComponentVisibility.InstructorOnly>
                
                <Box>
                   <Customization />
                </Box>
             
-            </PermissionComponent.InstructorOnly>
+            </ComponentVisibility.InstructorOnly>
          </>
       
       </CourseLayout>

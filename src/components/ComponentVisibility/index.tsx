@@ -2,10 +2,10 @@ import { useUserRole } from '@slate/hooks/useUserRole'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { PermissionComponentProps } from './Types'
+import { ComponentVisibilityProps } from './Types'
 
-export const PermissionComponent = {
-   StudentOnly: ({ children }: PermissionComponentProps) => {
+export const ComponentVisibility = {
+   StudentOnly: ({ children }: ComponentVisibilityProps) => {
       
       const { isStudent } = useUserRole()
       
@@ -14,7 +14,7 @@ export const PermissionComponent = {
    },
    
    
-   InstructorOnly: ({ children }: PermissionComponentProps) => {
+   InstructorOnly: ({ children }: ComponentVisibilityProps) => {
       
       const { isInstructor } = useUserRole()
       
@@ -23,11 +23,20 @@ export const PermissionComponent = {
    },
    
    
-   AssistantAndHigher: ({ children }: PermissionComponentProps) => {
+   AssistantAndHigher: ({ children }: ComponentVisibilityProps) => {
       
       const { isAssistantOrInstructor } = useUserRole()
       
       return isAssistantOrInstructor ? <>{children}</> : <></>
+      
+   },
+   
+   
+   StudentAndAssistant: ({ children }: ComponentVisibilityProps) => {
+      
+      const { isStudentOrAssistant } = useUserRole()
+      
+      return isStudentOrAssistant ? <>{children}</> : <></>
       
    },
    

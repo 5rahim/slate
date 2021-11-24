@@ -1,9 +1,9 @@
 import { Box } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { PermissionComponentProps } from '../../Permissions/Types'
+import { ComponentVisibilityProps } from '../../ComponentVisibility/Types'
 
 export const MediaComponent = {
-   HideOnMobile: ({ children }: PermissionComponentProps) => {
+   HideOnMobile: ({ children }: ComponentVisibilityProps) => {
       
       return <Box
          display={['none', 'none', 'block', 'block', 'block']}
@@ -12,7 +12,7 @@ export const MediaComponent = {
       </Box>
       
    },
-   ShowOnMobileOnly: ({ children }: PermissionComponentProps) => {
+   ShowOnMobileOnly: ({ children }: ComponentVisibilityProps) => {
       
       return <Box
          display={['block', 'block', 'none', 'none', 'none']}

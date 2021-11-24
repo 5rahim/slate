@@ -1,4 +1,4 @@
-import { PermissionComponent } from '@slate/components/Permissions'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Courses } from '@slate/generated/graphql'
 import { DataListItem } from '@slate/graphql/DataListModule'
 import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
@@ -84,7 +84,7 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
             
             </Box>
             
-            <PermissionComponent.AssistantAndHigher>
+            <ComponentVisibility.AssistantAndHigher>
                <Box>
                   <Tooltip placement="bottom-end" label={"Students"} aria-label="Student avatars">
                      <AvatarGroup size="sm" max={5}>
@@ -94,9 +94,9 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
                      </AvatarGroup>
                   </Tooltip>
                </Box>
-            </PermissionComponent.AssistantAndHigher>
+            </ComponentVisibility.AssistantAndHigher>
             
-            <PermissionComponent.StudentOnly>
+            <ComponentVisibility.StudentOnly>
                <Box overflow="hidden">
                   <Tooltip
                      placement="bottom-end"
@@ -106,7 +106,7 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
                      <Avatar size="sm" src={course?.instructor?.image as string} />
                   </Tooltip>
                </Box>
-            </PermissionComponent.StudentOnly>
+            </ComponentVisibility.StudentOnly>
          
          </Flex>
       </ListLinkItem>

@@ -1,4 +1,4 @@
-import { PermissionComponent } from '@slate/components/Permissions'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -16,7 +16,7 @@ export function CourseDetails() {
    
    
    return (
-      <PermissionComponent.StudentOnly>
+      <ComponentVisibility.StudentOnly>
          <ModuleBox headerText={t('course:Course Details')} headerIcon={<BiBookContent />}>
       
             <Box mb="2">
@@ -40,7 +40,7 @@ export function CourseDetails() {
             </Box>
    
          </ModuleBox>
-      </PermissionComponent.StudentOnly>
+      </ComponentVisibility.StudentOnly>
    )
    
 }

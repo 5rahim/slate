@@ -1,7 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDashboardLayout'
-import { PermissionComponent } from '@slate/components/Permissions'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
@@ -32,9 +32,9 @@ const Page = ({ user, school }: DashboardPage) => {
             </Box>
             
             <Box>
-               <PermissionComponent.StudentOnly>
+               <ComponentVisibility.StudentOnly>
                   Join a course
-               </PermissionComponent.StudentOnly>
+               </ComponentVisibility.StudentOnly>
             </Box>
          
          </UserDashboardLayout>
