@@ -25,7 +25,7 @@ export const useUserRole = () => {
       isInstructor: studentView ? false : profile?.role === 'instructor',
       isAssistant: studentView ? false : profile?.role === 'assistant',
       isAssistantOrInstructor: studentView ? false : profile?.role === 'instructor' || profile?.role === 'assistant',
-      isStudentOrAssistant: studentView ? false : profile?.role === 'student' || profile?.role === 'assistant'
+      isStudentOrAssistant: studentView ? true : profile?.role === 'student' || profile?.role === 'assistant'
    }
    
 }

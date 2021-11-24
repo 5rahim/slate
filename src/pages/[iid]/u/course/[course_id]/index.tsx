@@ -11,9 +11,8 @@ import { CourseOptions } from '@slate/modules/Course/Instructor/Settings/CourseO
 import { Customization } from '@slate/modules/Course/Instructor/Settings/Customization'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
 import { AnnouncementList } from '@slate/modules/Course/Shared/Announcements/AnnouncementList'
-import { CourseContentMenu } from '@slate/modules/Course/Student/CourseContentMenu'
+import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
-import { GroupModule } from '@slate/modules/Course/Student/GroupModule'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
 import { Box } from 'chalkui/dist/cjs/React'
@@ -34,23 +33,20 @@ const Page = ({ course, iid }: DashboardPage) => {
          pageTitle={course?.name}
          leftPanel={
             <>
-               <ComponentVisibility.StudentOnly>
-                  
-                  <CourseContentMenu index={0} />
-                  
-                  <CourseDetails />
-                  
-                  <GroupModule />
                
-               </ComponentVisibility.StudentOnly>
+               <CourseContextMenu index={0} />
                
-               <ComponentVisibility.InstructorOnly>
-                  
-                  <CourseOptions />
-                  
-                  <StudentOptions />
+               <StudentOptions />
+            
+            </>
+         }
+         rightPanel={
+            <>
                
-               </ComponentVisibility.InstructorOnly>
+               <CourseDetails />
+               
+               <CourseOptions />
+               
             </>
          }
       >

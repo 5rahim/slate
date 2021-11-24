@@ -16,7 +16,7 @@ export function CourseDetails() {
    
    
    return (
-      <ComponentVisibility.StudentOnly>
+      <ComponentVisibility.StudentAndAssistant>
          <ModuleBox headerText={t('course:Course Details')} headerIcon={<BiBookContent />}>
       
             <Box mb="2">
@@ -32,15 +32,18 @@ export function CourseDetails() {
                   <MenuCelledListItem>
                      {t('course:Message instructor')}
                   </MenuCelledListItem>
-                  <MenuCelledListItem>
-                     {t('course:Message course assistant')}
-                  </MenuCelledListItem>
+                  
+                  <ComponentVisibility.StudentOnly>
+                     <MenuCelledListItem>
+                        {t('course:Message course assistant')}
+                     </MenuCelledListItem>
+                  </ComponentVisibility.StudentOnly>
          
                </MenuCelledList>
             </Box>
    
          </ModuleBox>
-      </ComponentVisibility.StudentOnly>
+      </ComponentVisibility.StudentAndAssistant>
    )
    
 }

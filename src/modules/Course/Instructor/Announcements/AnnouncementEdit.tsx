@@ -94,7 +94,7 @@ export function AnnouncementEdit(
       <ComponentVisibility.AssistantAndHigher>
          
          
-         {!data.is_scheduled || Utils.Dates.publicationDateHasPassed(data.publish_on) ?
+         {!data.is_scheduled || (data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on)) ?
             (
                <>
                   <AlertDialog

@@ -7,10 +7,11 @@ import React from 'react'
 interface CourseLayoutProps {
    pageTitle?: string
    leftPanel?: React.ReactNode
+   rightPanel?: React.ReactNode
    children?: React.ReactNode
 }
 
-export function CourseLayout({ pageTitle, leftPanel, children }: CourseLayoutProps) {
+export function CourseLayout({ pageTitle, leftPanel, rightPanel, children }: CourseLayoutProps) {
    
    return (
       <>
@@ -21,7 +22,7 @@ export function CourseLayout({ pageTitle, leftPanel, children }: CourseLayoutPro
       
             <CourseHeader index={0} />
       
-            <Container maxW="container.2xl" mt={5}>
+            <Container maxW="100%" mt={5} pb="5rem">
          
                <Flex
                   gridGap={18}
@@ -32,12 +33,19 @@ export function CourseLayout({ pageTitle, leftPanel, children }: CourseLayoutPro
                      {leftPanel}
             
                   </Flex>
-            
-                  <Flex flexDirection="column" gridGap={18} width={["100%", "100%", "70%"]}>
-                     
-                     {children}
                   
+                  <Flex flexDirection="column" gridGap={18} width={["100%", "100%", "70%"]}>
+   
+                     {children}
+   
                   </Flex>
+                  {rightPanel && (
+                     <Flex flexDirection="column" width={["100%", "100%", "30%"]} gap={5} as={Grid} alignSelf="flex-start">
+      
+                        {rightPanel}
+   
+                     </Flex>
+                  )}
                </Flex>
       
             </Container>

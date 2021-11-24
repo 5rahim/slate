@@ -8,7 +8,7 @@ import { Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, Box, Link, Skeleton, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiUserPin } from 'react-icons/bi'
+import { BiKey } from 'react-icons/bi'
 
 export function ManagementItem() {
    
@@ -22,7 +22,7 @@ export function ManagementItem() {
    return (
       
       <ModuleSection
-         icon={BiUserPin}
+         icon={BiKey}
          title={t('course:Management')}
          // showAlertIcon={!course?.available}
       >

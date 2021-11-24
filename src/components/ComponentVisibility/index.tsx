@@ -5,6 +5,9 @@ import { useSelector } from 'react-redux'
 import { ComponentVisibilityProps } from './Types'
 
 export const ComponentVisibility = {
+   All: ({ children }: ComponentVisibilityProps) => {
+      return <>{children}</>
+   },
    StudentOnly: ({ children }: ComponentVisibilityProps) => {
       
       const { isStudent } = useUserRole()

@@ -26,17 +26,23 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
       >
          
          <Flex pb={3} justifyContent="space-between">
+            
             <Flex alignItems="center" gridGap=".5rem">
+               
                <Flex fontSize="1.5rem" alignItems="center">
                   {headerIcon && headerIcon}
                </Flex>
+               
                <Text p={0} fontWeight="700" fontSize="2xl">
                   {headerText}
                </Text>
+               
             </Flex>
+            
             <Flex>
                {headerAction}
             </Flex>
+            
          </Flex>
          
          {children}

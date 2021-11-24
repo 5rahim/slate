@@ -60,7 +60,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
       <Box>
          
          <Flex
-            height={["80px", "80px", "80px", "80px"]}
+            height={["80px", "80px", "80px", "100px"]}
             backgroundColor={course?.banner_color ?? "#4f7c6e"}
             backgroundImage={'url(/assets/patterns/memphis-mini.png)'}
             backgroundBlendMode={"color-burn"}
@@ -88,51 +88,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
          
          </Flex>
          
-         <Flex
-            justifyContent="center"
-            borderBottom={colorMode === 'light' ? "2px #f3f3f3 solid" : "2px #4d4d4d solid"}
-            bgColor={colorMode === 'light' ? 'white' : 'gray.800'}
-         >
-            <Menu
-               variant="custom"
-               borderRadius="none"
-               // colorScheme="primary"
-               defaultColor={cmf('gray.400', 'gray.400')}
-               hoverColor={cmf('black', 'gray.300')}
-               hoverBg={cmf('gray.100', 'gray.700')}
-               selectedColor={cmf('black', 'white')}
-               selectedBg={cmf('gray.200', 'gray.600')}
-               size="md"
-               spacing="0"
-               index={index}
-            >
-               <MenuList
-                  width="auto"
-                  height="60px"
-                  sx={{
-                     '& > .chalk-menus__tab[aria-selected=true]': {
-                        fontWeight: '700',
-                        boxShadow: colorMode === 'light' ? 'inset 0 -9px 0px -7px #525252' : 'none',
-                     },
-                     '& > .chalk-menus__tab': {
-                        fontSize: ['2rem', '1rem', '1rem', '1rem', '1rem'],
-                     },
-                  }}
-               >
-                  <CourseHeaderLink icon={<BiGridAlt />} linkTo={'/'}>Course</CourseHeaderLink>
-                  <CourseHeaderLink icon={<BiFolder />} linkTo={'/content'}>Content</CourseHeaderLink>
-                  <CourseHeaderLink icon={<BiChat />} linkTo={'/discussions'}>Discussions</CourseHeaderLink>
-                  <ComponentVisibility.StudentOnly>
-                     <CourseHeaderLink icon={<BiCalendar />} linkTo="/calendar">Calendar</CourseHeaderLink>
-                     <CourseHeaderLink icon={<BiFile />} linkTo="/grades">Grades</CourseHeaderLink>
-                  </ComponentVisibility.StudentOnly>
-                  <ComponentVisibility.AssistantAndHigher>
-                     <CourseHeaderLink icon={<BiFile />} linkTo="/grade-center">Grade center</CourseHeaderLink>
-                     <CourseHeaderLink icon={<BiUserCheck />} linkTo="/attendance">Attendance</CourseHeaderLink>
-                  </ComponentVisibility.AssistantAndHigher>
-               </MenuList>
-            </Menu>
-         </Flex>
+         {/*<CourseHeaderMenu/>*/}
          
          <Modal isOpen={svIsOpen} onClose={svOnClose}>
             <ModalOverlay />
@@ -155,4 +111,55 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
       </Box>
    )
    
+}
+
+function CourseHeaderMenu({index = 0}: any) {
+   const cmf = useCMF()
+   return (
+      <Flex
+         justifyContent="center"
+         borderBottom={cmf("2px #f3f3f3 solid", "2px #4d4d4d solid")}
+         bgColor={cmf('white', 'gray.800')}
+      >
+         <Menu
+            variant="custom"
+            borderRadius="none"
+            // colorScheme="primary"
+            defaultColor={cmf('gray.400', 'gray.400')}
+            hoverColor={cmf('black', 'gray.300')}
+            hoverBg={cmf('gray.100', 'gray.700')}
+            selectedColor={cmf('black', 'white')}
+            selectedBg={cmf('gray.200', 'gray.600')}
+            size="md"
+            spacing="0"
+            index={index}
+         >
+            <MenuList
+               width="auto"
+               height="60px"
+               sx={{
+                  '& > .chalk-menus__tab[aria-selected=true]': {
+                     fontWeight: '700',
+                     boxShadow: cmf('inset 0 -9px 0px -7px #525252', 'none'),
+                  },
+                  '& > .chalk-menus__tab': {
+                     fontSize: ['2rem', '1rem', '1rem', '1rem', '1rem'],
+                  },
+               }}
+            >
+               <CourseHeaderLink icon={<BiGridAlt />} linkTo={'/'}>Course</CourseHeaderLink>
+               <CourseHeaderLink icon={<BiFolder />} linkTo={'/content'}>Content</CourseHeaderLink>
+               <CourseHeaderLink icon={<BiChat />} linkTo={'/discussions'}>Discussions</CourseHeaderLink>
+               <ComponentVisibility.StudentOnly>
+                  <CourseHeaderLink icon={<BiCalendar />} linkTo="/calendar">Calendar</CourseHeaderLink>
+                  <CourseHeaderLink icon={<BiFile />} linkTo="/grades">Grades</CourseHeaderLink>
+               </ComponentVisibility.StudentOnly>
+               <ComponentVisibility.AssistantAndHigher>
+                  <CourseHeaderLink icon={<BiFile />} linkTo="/grade-center">Grade center</CourseHeaderLink>
+                  <CourseHeaderLink icon={<BiUserCheck />} linkTo="/attendance">Attendance</CourseHeaderLink>
+               </ComponentVisibility.AssistantAndHigher>
+            </MenuList>
+         </Menu>
+      </Flex>
+   )
 }

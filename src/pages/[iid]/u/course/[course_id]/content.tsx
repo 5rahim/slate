@@ -1,38 +1,49 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { DefaultHead } from '@slate/components/Layout/DefaultHead'
-import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDashboardLayout'
+import { CourseLayout } from '@slate/components/Layout/CourseLayout'
+import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
+import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
-import { CourseHeader } from '@slate/modules/Course/CourseHeader'
+import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
+import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
-import { useRouter } from 'next/router'
+import { Box } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
+import { BiFolderOpen } from 'react-icons/bi'
 
 
 const Page = ({ user, school, course }: DashboardPage) => {
    
-   const { t, i18n } = useTranslation(['common'], { useSuspense: false })
-   
-   const router = useRouter()
-   const { id } = router.query
+   const t = useTypeSafeTranslation()
    
    return (
-      <>
-         <DefaultHead pageTitle={t('Course Content | Geology 121')} />
-         
-         <UserDashboardLayout>
-            {/*<IndexHeader />*/}
+      <CourseLayout
+         pageTitle={course?.name}
+         leftPanel={
+            <>
+               
+               <CourseContextMenu index={1} />
+               
+               <StudentOptions />
             
-            <CourseHeader index={1} />
-            
-            Content
+            </>
+         }
+      >
          
-         </UserDashboardLayout>
-      </>
+         <>
+            <Box>
+               
+               <ModuleBox headerText={t('Content')} headerIcon={<BiFolderOpen />}>
+               
+               
+               </ModuleBox>
+            </Box>
+         </>
+      
+      </CourseLayout>
    )
 }
 
