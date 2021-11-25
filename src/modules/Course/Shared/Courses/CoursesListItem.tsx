@@ -1,14 +1,16 @@
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Courses } from '@slate/generated/graphql'
 import { DataListItem } from '@slate/graphql/DataListModule'
+import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLocale } from '@slate/hooks/useLocale'
+import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useUserRole } from '@slate/hooks/useUserRole'
 import { Utils } from '@slate/utils'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Avatar, AvatarGroup, Box, Icon, ListLinkItem, Tag, Text, Tooltip } from 'chalkui/dist/cjs/React'
+import { Avatar, AvatarGroup, Box, Icon, Tag, Text, Tooltip } from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { BiCalendarAlt } from 'react-icons/bi'
@@ -21,6 +23,8 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
    const t = useTypeSafeTranslation()
    const { isStudent, isInstructor } = useUserRole()
    const { formatDate } = useDateFormatter()
+   const cmf = useCMF()
+   const { isDesktop } = useMediaSizes()
    
    let CourseTag
    let CourseInfo
@@ -31,7 +35,7 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
       CourseTag = <Tag pill colorScheme="red.500">{t('Not available')}</Tag>
    }
    
-   if(!course.available && course.duration) {
+   if (!course.available && course.duration) {
       CourseInfo = <>
          <Icon as={BiCalendarAlt} mr={1} />
          <Text>{t('Opening on')}</Text>&nbsp;
@@ -47,16 +51,25 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
    }
    
    return (
-      <ListLinkItem
+      <Box
+         bgColor={cmf('#fff', 'gray.800')}
+         mb={4}
          key={course?.id}
          px={6}
          py={4}
+         boxShadow="sm"
+         borderRadius="md"
          onClick={() => ( course.available || isInstructor ) && router.push(Utils.Url.schoolLinkTo(iid, `/course/${course?.id}`))}
          sx={{
-            cursor: (!course.available && isStudent) ? 'normal': 'pointer',
+            cursor: ( !course.available && isStudent ) ? 'normal' : 'pointer',
             _hover: ( !course.available && isStudent ) ? {
-               bgColor: 'transparent !important',
-            } : {}
+               // bgColor: 'transparent !important',
+            } : {
+               borderRadius: '2xl',
+               boxShadow: isDesktop ? 'lg' : 'sm',
+               transition: 'all .15s linear',
+               
+            },
          }}
       >
          <Flex
@@ -109,7 +122,7 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
             </ComponentVisibility.StudentOnly>
          
          </Flex>
-      </ListLinkItem>
+      </Box>
    )
    
 }

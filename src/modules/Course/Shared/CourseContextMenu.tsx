@@ -36,6 +36,7 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
             headerText={t('course:Course Menu')}
             headerIcon={<BiListUl />}
             bgColor={cmf(['antiquewhite', '#fff'], ['gray.700', 'gray.700'])}
+            display={['none', 'none', 'none', 'block']}
          >
             
             <Menu

@@ -2,7 +2,7 @@ import { DataListModule } from '@slate/graphql/DataListModule'
 import { getCourseList } from '@slate/graphql/schemas/courses/hooks'
 import { CoursesListItem } from '@slate/modules/Course/Shared/Courses/CoursesListItem'
 import { Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { CelledList, Flex, Skeleton } from 'chalkui/dist/cjs/React'
+import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
 import React from 'react'
 
 export function CoursesList() {
@@ -35,9 +35,9 @@ export function CoursesList() {
             </Stack>
          }
          displayData={({ list }) =>
-            <CelledList isFullWidth boxShadow="sm">
+            <Box isFullWidth>
                {list(CoursesListItem)}
-            </CelledList>
+            </Box>
          }
       />
    

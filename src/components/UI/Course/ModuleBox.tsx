@@ -1,7 +1,9 @@
+import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Text, useDisclosure, useMediaQuery } from 'chalkui/dist/cjs/React'
+import { Box, Icon, Text, useDisclosure, useMediaQuery } from 'chalkui/dist/cjs/React'
 import React, { useEffect } from 'react'
+import { BiCaretDown } from 'react-icons/all'
 
 type CourseModuleBoxProps = {
    headerIcon?: React.ReactNode
@@ -14,18 +16,18 @@ type CourseModuleBoxProps = {
 
 export const ModuleBox = (props: CourseModuleBoxProps) => {
    
-   const { headerIcon, headerText, children, headerAction, minimizeOnMobile = false, contentPadding = [3,3,3,5], ...rest } = props
+   const { headerIcon, headerText, children, headerAction, minimizeOnMobile = false, contentPadding = [3, 3, 3, 5], ...rest } = props
    
    const { colorMode } = useColorMode()
    
    const { isOpen, onToggle, onOpen } = useDisclosure()
    
-   const [isMobile] = useMediaQuery('(max-width: 754px)')
-   const [isDesktop] = useMediaQuery('(min-width: 1280px)')
+   const [isSmallerScreen] = useMediaQuery('(max-width: 995px)')
+   const { isDesktop } = useMediaSizes()
    
    useEffect(() => {
-      console.log(isMobile, !minimizeOnMobile, isOpen)
-   }, [isMobile, minimizeOnMobile, isOpen])
+      console.log(isSmallerScreen, !minimizeOnMobile, isOpen)
+   }, [isSmallerScreen, minimizeOnMobile, isOpen])
    
    return (
       <Box
@@ -37,15 +39,15 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
          sx={{
             transition: 'all .15s linear',
             _hover: {
-               boxShadow: isDesktop ? 'xl' : 'sm'
-            }
+               boxShadow: isDesktop ? 'xl' : 'sm',
+            },
          }}
          {...rest}
       >
          
          <Flex
             justifyContent="space-between"
-            p={[4,4,4,5]}
+            p={[4, 4, 4, 5]}
             onClick={() => {
                onToggle()
             }}
@@ -65,17 +67,20 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
             
             <Flex>
                {headerAction}
+               
+               {minimizeOnMobile && isSmallerScreen && <Icon as={BiCaretDown} fontSize="xl" />}
             </Flex>
          
          </Flex>
          
-         <Box px={contentPadding} pb={contentPadding} pt="0" display={( (isMobile && ( !minimizeOnMobile || isOpen )) || !isMobile ) ? 'block' : 'none'}>
+         <Box
+            px={contentPadding}
+            pb={contentPadding}
+            pt="0"
+            display={( ( isSmallerScreen && ( !minimizeOnMobile || isOpen ) ) || !isSmallerScreen ) ? 'block' : 'none'}
+         >
             {children}
          </Box>
-         
-         {/*{( isMobile && ( !minimizeOnMobile || isOpen ) ) ? <Box pt={3}>{children}</Box> : <></>}*/}
-         
-         {/*{!isMobile && <Box pt={3}>{children}</Box>}*/}
       
       </Box>
    )
