@@ -125,7 +125,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                   
                   <Box mt="3">
                      <Divider />
-                     <RichTextContent content={data.message} />
+                     <RichTextContent truncate={400} content={data.message} />
                   </Box>
                </Box>
             </Flex>
