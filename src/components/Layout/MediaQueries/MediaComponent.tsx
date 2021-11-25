@@ -21,5 +21,14 @@ export const MediaComponent = {
       </Box>
       
    },
+   ShowOnTabletAndSmaller: ({ children }: ComponentVisibilityProps) => {
+      
+      return <Box
+         display={['block', 'block', 'block', 'none', 'none']}
+      >
+         {children}
+      </Box>
+      
+   },
    
 }

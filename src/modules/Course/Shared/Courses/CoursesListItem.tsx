@@ -58,7 +58,7 @@ export const CoursesListItem: DataListItem<Courses> = (props) => {
          px={6}
          py={4}
          boxShadow="sm"
-         borderRadius="md"
+         borderRadius="2xl"
          onClick={() => ( course.available || isInstructor ) && router.push(Utils.Url.schoolLinkTo(iid, `/course/${course?.id}`))}
          sx={{
             cursor: ( !course.available && isStudent ) ? 'normal' : 'pointer',

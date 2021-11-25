@@ -39,14 +39,14 @@ const Page = ({ user, school, course }: DashboardPage) => {
          <>
             <Box>
                
-               <MediaComponent.ShowOnMobileOnly>
+               <MediaComponent.ShowOnTabletAndSmaller>
                   <Box mb="5">
                      <ButtonGroup width="100%" colorScheme="brand.100">
                         <Button borderRadius="xl" width="100%">Quizzes</Button>
                         <Button borderRadius="xl" width="100%">Assignments</Button>
                      </ButtonGroup>
                   </Box>
-               </MediaComponent.ShowOnMobileOnly>
+               </MediaComponent.ShowOnTabletAndSmaller>
                
                <ModuleBox headerText={t('Content')} headerIcon={<BiFolderOpen />}>
                

@@ -56,7 +56,7 @@ const theme = extendedTheme({
             outline: (props) => ({
                field: {
                   boxShadow: 'sm',
-                  borderColor: mode('#e0d8d5', '#6d6d6d')(props),
+                  borderColor: mode('#e0d8d5', '#464646')(props),
                },
             }),
          },
@@ -70,7 +70,7 @@ const theme = extendedTheme({
             outline: (props) => ({
                field: {
                   boxShadow: 'sm',
-                  borderColor: mode('#e0d8d5', '#6d6d6d')(props),
+                  borderColor: mode('#e0d8d5', '#464646')(props),
                },
             }),
          },
@@ -84,7 +84,7 @@ const theme = extendedTheme({
             outline: (props) => ({
                field: {
                   boxShadow: 'sm',
-                  borderColor: mode('#e0d8d5', '#6d6d6d')(props),
+                  borderColor: mode('#e0d8d5', '#464646')(props),
                },
             }),
          },
@@ -104,7 +104,7 @@ const theme = extendedTheme({
       Modal: {
          baseStyle: (props) => ( {
             dialog: {
-               bgColor: mode('#fff', 'gray.800')(props),
+               bgColor: mode('#fff', 'gray.700')(props),
             },
          } ),
       },

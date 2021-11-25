@@ -1,9 +1,9 @@
 import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Icon, Text, useDisclosure, useMediaQuery } from 'chalkui/dist/cjs/React'
-import React, { useEffect } from 'react'
-import { BiCaretDown } from 'react-icons/all'
+import { Box, Icon, Text, useDisclosure } from 'chalkui/dist/cjs/React'
+import React from 'react'
+import { BiCaretDown } from 'react-icons/bi'
 
 type CourseModuleBoxProps = {
    headerIcon?: React.ReactNode
@@ -22,12 +22,7 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
    
    const { isOpen, onToggle, onOpen } = useDisclosure()
    
-   const [isSmallerScreen] = useMediaQuery('(max-width: 995px)')
-   const { isDesktop } = useMediaSizes()
-   
-   useEffect(() => {
-      console.log(isSmallerScreen, !minimizeOnMobile, isOpen)
-   }, [isSmallerScreen, minimizeOnMobile, isOpen])
+   const { isDesktop, isTabletAndSmaller } = useMediaSizes()
    
    return (
       <Box
@@ -68,7 +63,7 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
             <Flex>
                {headerAction}
                
-               {minimizeOnMobile && isSmallerScreen && <Icon as={BiCaretDown} fontSize="xl" />}
+               {minimizeOnMobile && isTabletAndSmaller && <Icon as={BiCaretDown} fontSize="xl" />}
             </Flex>
          
          </Flex>
@@ -77,7 +72,7 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
             px={contentPadding}
             pb={contentPadding}
             pt="0"
-            display={( ( isSmallerScreen && ( !minimizeOnMobile || isOpen ) ) || !isSmallerScreen ) ? 'block' : 'none'}
+            display={( ( isTabletAndSmaller && ( !minimizeOnMobile || isOpen ) ) || !isTabletAndSmaller ) ? 'block' : 'none'}
          >
             {children}
          </Box>

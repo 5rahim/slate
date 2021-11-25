@@ -35,7 +35,7 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
             minimizeOnMobile={true}
             headerText={t('course:Course Menu')}
             headerIcon={<BiListUl />}
-            bgColor={cmf(['antiquewhite', '#fff'], ['gray.700', 'gray.700'])}
+            bgColor={cmf(['#fff', '#fff'], ['#1d1d1d', '#1d1d1d'])}
             display={['none', 'none', 'none', 'block']}
          >
             
@@ -55,7 +55,7 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
             >
                <MenuList>
                   <Link href={getHref('/')}>
-                     <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Home')}</MenuItem>
+                     <MenuItem><Box ml={-1} mr={3} transform="rotate(-25deg)" fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Home')}</MenuItem>
                   </Link>
                   <Link href={getHref('/content')}>
                      <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiFolder /></Box>{t('course:Content')}</MenuItem>

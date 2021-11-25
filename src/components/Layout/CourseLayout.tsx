@@ -1,8 +1,8 @@
 import { DefaultHead } from '@slate/components/Layout/DefaultHead'
 import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDashboardLayout'
+import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { CourseHeader } from '@slate/modules/Course/CourseHeader'
 import { Container, Flex, Grid } from 'chalkui/dist/cjs/Components/Layout'
-import { useMediaQuery } from 'chalkui/dist/cjs/React'
 import React from 'react'
 
 interface CourseLayoutProps {
@@ -15,8 +15,7 @@ interface CourseLayoutProps {
 
 export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex, children }: CourseLayoutProps) {
    
-   const [isTabletAndSmaller] = useMediaQuery('(max-width: 754px)')
-   const [isDesktop] = useMediaQuery('(min-width: 1280px)')
+   const {isDesktop, isTabletAndSmaller} = useMediaSizes()
    
    return (
       <>
@@ -27,7 +26,7 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
             
             <CourseHeader index={headerMenuIndex} />
             
-            <Container maxW={['100%', '100%', '100%', '100%', '100rem']} mt={[5, 5, 10]} px={5} pb="5rem">
+            <Container maxW={['100%', '100%', '100%', '100%', '100rem']} mt={[5, 5, 5, 5, 10]} px={7} pb="5rem">
                
                <Flex
                   gridGap={18}
