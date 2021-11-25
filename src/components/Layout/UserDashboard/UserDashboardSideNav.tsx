@@ -11,11 +11,11 @@ import { ComponentLink } from '../NavLink'
 
 const SideNavLink = ({ href, children, icon }: any) => (
    <ComponentLink href={href}>
-      <Flex align="center" p={1}>
-         <Box fontSize="1.4rem" fontWeight="800">
-            <Box as={icon} mr={3} w="24px" />
-         </Box>
-         <Text>{children}</Text>
+      <Flex justifyContent="center" flexDirection="column">
+         <Flex justifyContent="center" fontSize="1.4rem" fontWeight="800">
+            <Box as={icon} w="24px" />
+         </Flex>
+         <Text fontSize="1rem">{children}</Text>
       </Flex>
    </ComponentLink>
 )
@@ -45,7 +45,7 @@ export const UserDashboardSideNav = (props: SideNavProps) => {
          <Flex
             height={"60px"}
             // justifyContent="center"
-            pl={8}
+            justifyContent="center"
             alignItems="center"
             color="white"
             // flexDirection="column"

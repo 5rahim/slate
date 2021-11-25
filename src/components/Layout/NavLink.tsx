@@ -1,5 +1,6 @@
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import { Flex } from 'chalkui/dist/cjs/React'
 import NextLink, { LinkProps } from 'next/link'
 import { useRouter } from 'next/router'
 import React, { cloneElement, forwardRef } from 'react'
@@ -41,8 +42,10 @@ export const SideNavLink = forwardRef(({ children, icon, ...props }: any, ref) =
          display="flex"
          cursor="pointer"
          align="center"
-         px="6"
-         py="2"
+         justifyContent="center"
+         textAlign="center"
+         px="2"
+         py="3"
          transition="all 0.2s"
          fontWeight="700"
          fontSize="1.1rem"
@@ -53,7 +56,7 @@ export const SideNavLink = forwardRef(({ children, icon, ...props }: any, ref) =
          {...props}
       >
          {icon && <Box style={{ fontSize: '1.6rem' }}>{cloneElement(icon, { mr: 4, fontSize: '1.6rem' })}</Box>}
-         <Box>{children}</Box>
+         <Flex justifyContent="center">{children}</Flex>
       </Box>
    )
 })

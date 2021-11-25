@@ -1,18 +1,17 @@
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
 import { CourseSelectors } from '@slate/store/slices/courseSlice'
-import { SchoolSelectors } from '@slate/store/slices/schoolSlice'
-import { Utils } from '@slate/utils'
-import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
    Box, IconBox, Menu, MenuItem, MenuList, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure,
 } from 'chalkui/dist/cjs/React'
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import React from 'react'
 import { BiCalendar, BiCctv, BiChat, BiFile, BiFolder, BiGridAlt, BiUserCheck } from 'react-icons/bi'
 import { FcReadingEbook } from 'react-icons/fc'
@@ -20,20 +19,27 @@ import { useDispatch, useSelector } from 'react-redux'
 
 const CourseHeaderLink = ({ icon, children, linkTo }: any) => {
    
-   const router = useRouter()
-   const course = useSelector(CourseSelectors.get)
+   const { id } = useCurrentCourse()
+   const { iid } = useCurrentSchool()
    
-   const iid = useSelector(SchoolSelectors.getIID)
+   function getHref(to: string) {
+      return {
+         pathname: '/[iid]/u/course/[course_id]' + to,
+         query: { course_id: id, iid },
+      }
+   }
    
    return (
-      <MenuItem onClick={() => router.push(Utils.Url.schoolLinkTo(iid, `/course/${course.id}${linkTo}`))}>
-         <Box fontSize={['1.8rem', '1.6rem', '1.6rem', '1.6rem', '1.6rem']}>
-            {icon}
-         </Box>
-         <MediaComponent.HideOnMobile>
-            <Text ml={3}>{children}</Text>
-         </MediaComponent.HideOnMobile>
-      </MenuItem>
+      <Link href={getHref(linkTo)}>
+         <MenuItem>
+            <Box fontSize={['1.8rem', '1.6rem', '1.6rem', '1.6rem', '1.6rem']}>
+               {icon}
+            </Box>
+            <MediaComponent.HideOnMobile>
+               <Text ml={3}>{children}</Text>
+            </MediaComponent.HideOnMobile>
+         </MenuItem>
+      </Link>
    )
 }
 
@@ -42,10 +48,7 @@ interface CourseHeaderProps {
 }
 
 export const CourseHeader = ({ index }: CourseHeaderProps) => {
-   const cmf = useCMF()
-   const { colorMode } = useColorMode()
    const t = useTypeSafeTranslation()
-   const router = useRouter()
    const dispatch = useDispatch()
    const course = useSelector(CourseSelectors.get)
    const studentView = useSelector(AppSelectors.studentView)
@@ -88,7 +91,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
          
          </Flex>
          
-         {/*<CourseHeaderMenu/>*/}
+         <CourseHeaderMenu index={index}/>
          
          <Modal isOpen={svIsOpen} onClose={svOnClose}>
             <ModalOverlay />

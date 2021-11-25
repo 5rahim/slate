@@ -87,7 +87,7 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
             
             <StudentViewPortal />
             
-            <UserDashboardSideNav as="nav" display={['none', null, 'block']} maxWidth="15rem" width="full" />
+            <UserDashboardSideNav as="nav" display={['none', null, 'block']} maxWidth="6rem" width="full" />
             
             <Drawer placement={'left'} onClose={() => setDrawerIsOpen(false)} isOpen={drawerIsOpen}>
                <DrawerOverlay>
@@ -97,7 +97,7 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
                </DrawerOverlay>
             </Drawer>
             
-            <Box as="main" pl={[0, null, '15rem']}>
+            <Box as="main" pl={[0, null, '6rem']}>
                
                <Header openDrawer={() => setDrawerIsOpen(true)} />
                

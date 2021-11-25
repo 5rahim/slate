@@ -21,6 +21,7 @@ const Page = ({ user, school, course }: DashboardPage) => {
    
    return (
       <CourseLayout
+         headerMenuIndex={1}
          pageTitle={course?.name}
          leftPanel={
             <>

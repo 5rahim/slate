@@ -45,7 +45,7 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
                defaultColor={cmf("gray.400", "gray.300")}
                hoverColor={cmf("gray.800", "gray.200")}
                hoverBg={cmf("gray.100", "gray.700")}
-               selectedColor={cmf("black", "white")}
+               selectedColor={cmf("#138b76", "white")}
                selectedBg={cmf("rgba(0,0,0,0.05)", "gray.600")}
                size="md"
                spacing=".5rem"
@@ -54,7 +54,7 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
             >
                <MenuList>
                   <Link href={getHref('/')}>
-                     <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('course:Announcements')}</MenuItem>
+                     <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Home')}</MenuItem>
                   </Link>
                   <Link href={getHref('/content')}>
                      <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiFolder /></Box>{t('course:Content')}</MenuItem>
