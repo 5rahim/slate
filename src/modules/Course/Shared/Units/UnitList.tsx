@@ -1,19 +1,35 @@
+import { DndContext } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { Empty } from '@slate/components/UI/Empty'
 import { DataListModule } from '@slate/graphql/DataListModule'
-import { getCourseList } from '@slate/graphql/schemas/courses/hooks'
-import { CoursesListItem } from '@slate/modules/Course/Shared/Courses/CoursesListItem'
+import { getUnits } from '@slate/graphql/schemas/units/hooks'
+import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
 import { Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
 import React from 'react'
+import { FcFolder } from 'react-icons/fc'
 
-export function CoursesList() {
-   
-   const [courses, coursesLoading, empty] = getCourseList()
+export function UnitList() {
+   const { id } = useCurrentCourse()
+   const [units, loading, empty] = getUnits(id)
    
    return (
       <DataListModule
-         data={courses}
-         dataIsLoading={coursesLoading}
+         data={units}
+         dataIsLoading={loading}
          dataIsEmpty={empty}
+         displayData={({ list }) =>
+            <Box>
+               <DndContext>
+                  <SortableContext strategy={verticalListSortingStrategy} items={units ? units?.map((unit) => unit.id) : []}>
+                     {units?.map((unit) => (
+                        <UnitItem key={unit.id} id={unit.id} data={unit} />
+                     ))}
+                  </SortableContext>
+               </DndContext>
+            </Box>
+         }
          fallback={
             <Stack gridGap="1rem">
                <Stack>
@@ -34,10 +50,8 @@ export function CoursesList() {
                </Stack>
             </Stack>
          }
-         displayData={({ list }) =>
-            <Box>
-               {list(CoursesListItem)}
-            </Box>
+         empty={
+            <Empty icon={FcFolder} text="No course content" />
          }
       />
    

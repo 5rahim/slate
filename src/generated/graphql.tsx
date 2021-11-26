@@ -2030,6 +2030,10 @@ export type Mutation_Root = {
   delete_sessions?: Maybe<Sessions_Mutation_Response>;
   /** delete single row from the table: "sessions" */
   delete_sessions_by_pk?: Maybe<Sessions>;
+  /** delete data from the table: "units" */
+  delete_units?: Maybe<Units_Mutation_Response>;
+  /** delete single row from the table: "units" */
+  delete_units_by_pk?: Maybe<Units>;
   /** delete data from the table: "users" */
   delete_users?: Maybe<Users_Mutation_Response>;
   /** delete single row from the table: "users" */
@@ -2074,6 +2078,10 @@ export type Mutation_Root = {
   insert_sessions?: Maybe<Sessions_Mutation_Response>;
   /** insert a single row into the table: "sessions" */
   insert_sessions_one?: Maybe<Sessions>;
+  /** insert data into the table: "units" */
+  insert_units?: Maybe<Units_Mutation_Response>;
+  /** insert a single row into the table: "units" */
+  insert_units_one?: Maybe<Units>;
   /** insert data into the table: "users" */
   insert_users?: Maybe<Users_Mutation_Response>;
   /** insert a single row into the table: "users" */
@@ -2118,6 +2126,10 @@ export type Mutation_Root = {
   update_sessions?: Maybe<Sessions_Mutation_Response>;
   /** update single row of the table: "sessions" */
   update_sessions_by_pk?: Maybe<Sessions>;
+  /** update data of the table: "units" */
+  update_units?: Maybe<Units_Mutation_Response>;
+  /** update single row of the table: "units" */
+  update_units_by_pk?: Maybe<Units>;
   /** update data of the table: "users" */
   update_users?: Maybe<Users_Mutation_Response>;
   /** update single row of the table: "users" */
@@ -2234,6 +2246,18 @@ export type Mutation_RootDelete_SessionsArgs = {
 /** mutation root */
 export type Mutation_RootDelete_Sessions_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_UnitsArgs = {
+  where: Units_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Units_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -2384,6 +2408,20 @@ export type Mutation_RootInsert_SessionsArgs = {
 export type Mutation_RootInsert_Sessions_OneArgs = {
   object: Sessions_Insert_Input;
   on_conflict?: Maybe<Sessions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_UnitsArgs = {
+  objects: Array<Units_Insert_Input>;
+  on_conflict?: Maybe<Units_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Units_OneArgs = {
+  object: Units_Insert_Input;
+  on_conflict?: Maybe<Units_On_Conflict>;
 };
 
 
@@ -2556,6 +2594,22 @@ export type Mutation_RootUpdate_Sessions_By_PkArgs = {
   _inc?: Maybe<Sessions_Inc_Input>;
   _set?: Maybe<Sessions_Set_Input>;
   pk_columns: Sessions_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_UnitsArgs = {
+  _inc?: Maybe<Units_Inc_Input>;
+  _set?: Maybe<Units_Set_Input>;
+  where: Units_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Units_By_PkArgs = {
+  _inc?: Maybe<Units_Inc_Input>;
+  _set?: Maybe<Units_Set_Input>;
+  pk_columns: Units_Pk_Columns_Input;
 };
 
 
@@ -2984,6 +3038,12 @@ export type Query_Root = {
   sessions_aggregate: Sessions_Aggregate;
   /** fetch data from the table: "sessions" using primary key columns */
   sessions_by_pk?: Maybe<Sessions>;
+  /** fetch data from the table: "units" */
+  units: Array<Units>;
+  /** fetch aggregated fields from the table: "units" */
+  units_aggregate: Units_Aggregate;
+  /** fetch data from the table: "units" using primary key columns */
+  units_by_pk?: Maybe<Units>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -3203,6 +3263,29 @@ export type Query_RootSessions_AggregateArgs = {
 
 export type Query_RootSessions_By_PkArgs = {
   id: Scalars['Int'];
+};
+
+
+export type Query_RootUnitsArgs = {
+  distinct_on?: Maybe<Array<Units_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Units_Order_By>>;
+  where?: Maybe<Units_Bool_Exp>;
+};
+
+
+export type Query_RootUnits_AggregateArgs = {
+  distinct_on?: Maybe<Array<Units_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Units_Order_By>>;
+  where?: Maybe<Units_Bool_Exp>;
+};
+
+
+export type Query_RootUnits_By_PkArgs = {
+  id: Scalars['uuid'];
 };
 
 
@@ -3748,6 +3831,12 @@ export type Subscription_Root = {
   sessions_aggregate: Sessions_Aggregate;
   /** fetch data from the table: "sessions" using primary key columns */
   sessions_by_pk?: Maybe<Sessions>;
+  /** fetch data from the table: "units" */
+  units: Array<Units>;
+  /** fetch aggregated fields from the table: "units" */
+  units_aggregate: Units_Aggregate;
+  /** fetch data from the table: "units" using primary key columns */
+  units_by_pk?: Maybe<Units>;
   /** fetch data from the table: "users" */
   users: Array<Users>;
   /** fetch aggregated fields from the table: "users" */
@@ -3970,6 +4059,29 @@ export type Subscription_RootSessions_By_PkArgs = {
 };
 
 
+export type Subscription_RootUnitsArgs = {
+  distinct_on?: Maybe<Array<Units_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Units_Order_By>>;
+  where?: Maybe<Units_Bool_Exp>;
+};
+
+
+export type Subscription_RootUnits_AggregateArgs = {
+  distinct_on?: Maybe<Array<Units_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Units_Order_By>>;
+  where?: Maybe<Units_Bool_Exp>;
+};
+
+
+export type Subscription_RootUnits_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
 export type Subscription_RootUsersArgs = {
   distinct_on?: Maybe<Array<Users_Select_Column>>;
   limit?: Maybe<Scalars['Int']>;
@@ -4039,6 +4151,267 @@ export type Timestamptz_Comparison_Exp = {
   _lte?: Maybe<Scalars['timestamptz']>;
   _neq?: Maybe<Scalars['timestamptz']>;
   _nin?: Maybe<Array<Scalars['timestamptz']>>;
+};
+
+/** columns and relationships of "units" */
+export type Units = {
+  __typename?: 'units';
+  archived: Scalars['Boolean'];
+  available: Scalars['Boolean'];
+  /** An object relationship */
+  course?: Maybe<Courses>;
+  course_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  is_scheduled: Scalars['Boolean'];
+  name?: Maybe<Scalars['String']>;
+  number: Scalars['String'];
+  order: Scalars['Int'];
+  publish_on?: Maybe<Scalars['timestamp']>;
+  type: Scalars['String'];
+};
+
+/** aggregated selection of "units" */
+export type Units_Aggregate = {
+  __typename?: 'units_aggregate';
+  aggregate?: Maybe<Units_Aggregate_Fields>;
+  nodes: Array<Units>;
+};
+
+/** aggregate fields of "units" */
+export type Units_Aggregate_Fields = {
+  __typename?: 'units_aggregate_fields';
+  avg?: Maybe<Units_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Units_Max_Fields>;
+  min?: Maybe<Units_Min_Fields>;
+  stddev?: Maybe<Units_Stddev_Fields>;
+  stddev_pop?: Maybe<Units_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Units_Stddev_Samp_Fields>;
+  sum?: Maybe<Units_Sum_Fields>;
+  var_pop?: Maybe<Units_Var_Pop_Fields>;
+  var_samp?: Maybe<Units_Var_Samp_Fields>;
+  variance?: Maybe<Units_Variance_Fields>;
+};
+
+
+/** aggregate fields of "units" */
+export type Units_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Units_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Units_Avg_Fields = {
+  __typename?: 'units_avg_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "units". All fields are combined with a logical 'AND'. */
+export type Units_Bool_Exp = {
+  _and?: Maybe<Array<Units_Bool_Exp>>;
+  _not?: Maybe<Units_Bool_Exp>;
+  _or?: Maybe<Array<Units_Bool_Exp>>;
+  archived?: Maybe<Boolean_Comparison_Exp>;
+  available?: Maybe<Boolean_Comparison_Exp>;
+  course?: Maybe<Courses_Bool_Exp>;
+  course_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  is_scheduled?: Maybe<Boolean_Comparison_Exp>;
+  name?: Maybe<String_Comparison_Exp>;
+  number?: Maybe<String_Comparison_Exp>;
+  order?: Maybe<Int_Comparison_Exp>;
+  publish_on?: Maybe<Timestamp_Comparison_Exp>;
+  type?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "units" */
+export enum Units_Constraint {
+  /** unique or primary key constraint */
+  UnitPkey = 'unit_pkey'
+}
+
+/** input type for incrementing numeric columns in table "units" */
+export type Units_Inc_Input = {
+  order?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "units" */
+export type Units_Insert_Input = {
+  archived?: Maybe<Scalars['Boolean']>;
+  available?: Maybe<Scalars['Boolean']>;
+  course?: Maybe<Courses_Obj_Rel_Insert_Input>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  is_scheduled?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Units_Max_Fields = {
+  __typename?: 'units_max_fields';
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Units_Min_Fields = {
+  __typename?: 'units_min_fields';
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "units" */
+export type Units_Mutation_Response = {
+  __typename?: 'units_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Units>;
+};
+
+/** on conflict condition type for table "units" */
+export type Units_On_Conflict = {
+  constraint: Units_Constraint;
+  update_columns?: Array<Units_Update_Column>;
+  where?: Maybe<Units_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "units". */
+export type Units_Order_By = {
+  archived?: Maybe<Order_By>;
+  available?: Maybe<Order_By>;
+  course?: Maybe<Courses_Order_By>;
+  course_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  is_scheduled?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+  number?: Maybe<Order_By>;
+  order?: Maybe<Order_By>;
+  publish_on?: Maybe<Order_By>;
+  type?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: units */
+export type Units_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "units" */
+export enum Units_Select_Column {
+  /** column name */
+  Archived = 'archived',
+  /** column name */
+  Available = 'available',
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsScheduled = 'is_scheduled',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Number = 'number',
+  /** column name */
+  Order = 'order',
+  /** column name */
+  PublishOn = 'publish_on',
+  /** column name */
+  Type = 'type'
+}
+
+/** input type for updating data in table "units" */
+export type Units_Set_Input = {
+  archived?: Maybe<Scalars['Boolean']>;
+  available?: Maybe<Scalars['Boolean']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  is_scheduled?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  number?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Units_Stddev_Fields = {
+  __typename?: 'units_stddev_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Units_Stddev_Pop_Fields = {
+  __typename?: 'units_stddev_pop_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Units_Stddev_Samp_Fields = {
+  __typename?: 'units_stddev_samp_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Units_Sum_Fields = {
+  __typename?: 'units_sum_fields';
+  order?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "units" */
+export enum Units_Update_Column {
+  /** column name */
+  Archived = 'archived',
+  /** column name */
+  Available = 'available',
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  IsScheduled = 'is_scheduled',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Number = 'number',
+  /** column name */
+  Order = 'order',
+  /** column name */
+  PublishOn = 'publish_on',
+  /** column name */
+  Type = 'type'
+}
+
+/** aggregate var_pop on columns */
+export type Units_Var_Pop_Fields = {
+  __typename?: 'units_var_pop_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Units_Var_Samp_Fields = {
+  __typename?: 'units_var_samp_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Units_Variance_Fields = {
+  __typename?: 'units_variance_fields';
+  order?: Maybe<Scalars['Float']>;
 };
 
 /** columns and relationships of "users" */
@@ -5118,6 +5491,56 @@ export type GetSchoolByShortNameQueryVariables = Exact<{
 
 export type GetSchoolByShortNameQuery = { __typename?: 'query_root', schools: Array<{ __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number }> };
 
+export type CreateUnitMutationVariables = Exact<{
+  available: Scalars['Boolean'];
+  course_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  is_scheduled: Scalars['Boolean'];
+  name?: Maybe<Scalars['String']>;
+  number: Scalars['String'];
+  order: Scalars['Int'];
+  publish_on?: Maybe<Scalars['timestamp']>;
+  type: Scalars['String'];
+}>;
+
+
+export type CreateUnitMutation = { __typename?: 'mutation_root', insert_units?: { __typename?: 'units_mutation_response', affected_rows: number } | null | undefined };
+
+export type ArchiveUnitMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  archived: Scalars['Boolean'];
+}>;
+
+
+export type ArchiveUnitMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
+
+export type UpdateUnitMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  type: Scalars['String'];
+  publish_on?: Maybe<Scalars['timestamp']>;
+  number: Scalars['String'];
+  name?: Maybe<Scalars['String']>;
+  is_scheduled: Scalars['Boolean'];
+}>;
+
+
+export type UpdateUnitMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
+
+export type ChangeUnitOrderMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  order: Scalars['Int'];
+}>;
+
+
+export type ChangeUnitOrderMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
+
+export type GetUnitsQueryVariables = Exact<{
+  course_id?: Maybe<Scalars['uuid']>;
+}>;
+
+
+export type GetUnitsQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, available: boolean, course_id: any, id: any, is_scheduled: boolean, name?: string | null | undefined, number: string, order: number, publish_on?: any | null | undefined, type: string }> };
+
 export type UpdateNewUserMutationVariables = Exact<{
   email: Scalars['String'];
   first_name: Scalars['String'];
@@ -5639,6 +6062,68 @@ export const GetSchoolByShortNameDocument = gql`
 }
     `;
 export type GetSchoolByShortNameQueryResult = Apollo.QueryResult<GetSchoolByShortNameQuery, GetSchoolByShortNameQueryVariables>;
+export const CreateUnitDocument = gql`
+    mutation CreateUnit($available: Boolean!, $course_id: uuid!, $id: uuid!, $is_scheduled: Boolean!, $name: String, $number: String!, $order: Int!, $publish_on: timestamp, $type: String!) {
+  insert_units(
+    objects: {archived: false, available: $available, course_id: $course_id, id: $id, is_scheduled: $is_scheduled, name: $name, number: $number, order: $order, publish_on: $publish_on, type: $type}
+  ) {
+    affected_rows
+  }
+}
+    `;
+export type CreateUnitMutationFn = Apollo.MutationFunction<CreateUnitMutation, CreateUnitMutationVariables>;
+export type CreateUnitMutationResult = Apollo.MutationResult<CreateUnitMutation>;
+export type CreateUnitMutationOptions = Apollo.BaseMutationOptions<CreateUnitMutation, CreateUnitMutationVariables>;
+export const ArchiveUnitDocument = gql`
+    mutation ArchiveUnit($id: uuid!, $archived: Boolean!) {
+  update_units_by_pk(pk_columns: {id: $id}, _set: {archived: $archived}) {
+    id
+  }
+}
+    `;
+export type ArchiveUnitMutationFn = Apollo.MutationFunction<ArchiveUnitMutation, ArchiveUnitMutationVariables>;
+export type ArchiveUnitMutationResult = Apollo.MutationResult<ArchiveUnitMutation>;
+export type ArchiveUnitMutationOptions = Apollo.BaseMutationOptions<ArchiveUnitMutation, ArchiveUnitMutationVariables>;
+export const UpdateUnitDocument = gql`
+    mutation UpdateUnit($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $name: String, $is_scheduled: Boolean!) {
+  update_units_by_pk(
+    pk_columns: {id: $id}
+    _set: {name: $name, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled}
+  ) {
+    id
+  }
+}
+    `;
+export type UpdateUnitMutationFn = Apollo.MutationFunction<UpdateUnitMutation, UpdateUnitMutationVariables>;
+export type UpdateUnitMutationResult = Apollo.MutationResult<UpdateUnitMutation>;
+export type UpdateUnitMutationOptions = Apollo.BaseMutationOptions<UpdateUnitMutation, UpdateUnitMutationVariables>;
+export const ChangeUnitOrderDocument = gql`
+    mutation ChangeUnitOrder($id: uuid!, $order: Int!) {
+  update_units_by_pk(pk_columns: {id: $id}, _set: {order: $order}) {
+    id
+  }
+}
+    `;
+export type ChangeUnitOrderMutationFn = Apollo.MutationFunction<ChangeUnitOrderMutation, ChangeUnitOrderMutationVariables>;
+export type ChangeUnitOrderMutationResult = Apollo.MutationResult<ChangeUnitOrderMutation>;
+export type ChangeUnitOrderMutationOptions = Apollo.BaseMutationOptions<ChangeUnitOrderMutation, ChangeUnitOrderMutationVariables>;
+export const GetUnitsDocument = gql`
+    query GetUnits($course_id: uuid = "") {
+  units(order_by: {order: asc}, where: {course_id: {_eq: $course_id}}) {
+    archived
+    available
+    course_id
+    id
+    is_scheduled
+    name
+    number
+    order
+    publish_on
+    type
+  }
+}
+    `;
+export type GetUnitsQueryResult = Apollo.QueryResult<GetUnitsQuery, GetUnitsQueryVariables>;
 export const UpdateNewUserDocument = gql`
     mutation UpdateNewUser($email: String!, $first_name: String!, $last_name: String!, $middle_name: String, $school_id: Int!, $username: String!, $student_id: String!) {
   update_users(

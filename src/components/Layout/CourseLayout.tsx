@@ -26,7 +26,7 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
             
             <CourseHeader index={headerMenuIndex} />
             
-            <Container maxW={['100%', '100%', '100%', '100%', '100rem']} mt={[5, 5, 5, 5, 10]} px={7} pb="5rem">
+            <Container maxW={['100%', '100%', '100%', '100%', '100rem']} mt={5} px={7} pb="5rem">
                
                <Flex
                   gridGap={18}
@@ -37,8 +37,6 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
                      minWidth={["100%", "100%", "100%", '20rem', '20rem']}
                      gridGap={5}
                      placeItems={["none", "none", "none", "flex-start", "none"]}
-                     // as={Grid}
-                     // alignSelf="flex-start"
                   >
                      
                      {leftPanel}

@@ -32,6 +32,7 @@
   "Student View description": "Student View helps you view content and interact with your course as a student.",
   "No announcements" : "No announcements",
   "No data": "No data",
+  "No course content": "No course content",
   "options": {
     "status": {
       "title": "Course is {{status}}",
