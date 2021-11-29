@@ -1,7 +1,9 @@
-import { ArchiveUnitMutationVariables, CreateUnitMutationVariables, UnarchiveUnitMutationVariables, Units } from '@slate/generated/graphql'
+import {
+   ArchiveUnitMutationVariables, CreateUnitMutationVariables, UnarchiveUnitMutationVariables, Units, UpdateUnitDetailsMutationVariables,
+} from '@slate/generated/graphql'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
-import { ARCHIVE_UNIT, CREATE_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_ORDER } from '@slate/graphql/schemas/units/mutations'
+import { ARCHIVE_UNIT, CREATE_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_DETAILS, UPDATE_UNIT_ORDER } from '@slate/graphql/schemas/units/mutations'
 import { GET_ARCHIVED_UNITS, GET_UNITS } from '@slate/graphql/schemas/units/queries'
 
 export const getUnits = (course_id: string) => {
@@ -31,6 +33,18 @@ export const useCreateUnit: SlateMutationHook<CreateUnitMutationVariables> = (op
    })
    
 }
+export const useMutateUnitDetails: SlateMutationHook<UpdateUnitDetailsMutationVariables> = (options) => {
+   
+   return useMutationHookCreator(UPDATE_UNIT_DETAILS, {
+      refetchQueries: [
+         { query: GET_UNITS },
+         'GetUnits',
+      ],
+      successAlert: { type: "toast", title: "Unit has been updated" },
+      ...options,
+   })
+   
+}
 
 export const useMutateUnitOrder = () => {
    
@@ -52,7 +66,7 @@ export const useMutateArchiveUnit: SlateMutationHook<ArchiveUnitMutationVariable
             'GetUnits',
             'GetArchivedUnits',
          ],
-         successAlert: { type: "toast", title: "Archive has been updated" },
+         successAlert: { type: "toast", title: "Unit has been archived" },
          ...options,
       },
    )
@@ -71,7 +85,7 @@ export const useMutateUnarchiveUnit: SlateMutationHook<UnarchiveUnitMutationVari
             'GetUnits',
             'GetArchivedUnits',
          ],
-         successAlert: { type: "toast", title: "Archive has been unarchived" },
+         successAlert: { type: "toast", title: "Unit has been unarchived" },
          ...options,
       },
    )

@@ -3,9 +3,11 @@ import { CSS } from "@dnd-kit/utilities"
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Units } from '@slate/generated/graphql'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { UnitAddArchive } from '@slate/modules/Course/Instructor/Units/UnitAddArchive'
+import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
 import { Utils } from '@slate/utils'
 import { Text } from 'chalkui/dist/cjs'
 import { Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Flex, Icon, useDisclosure } from 'chalkui/dist/cjs/React'
@@ -25,6 +27,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    const { isOpen, onOpen, onClose } = useDisclosure()
    const { isOpen: archiveIsOpen, onOpen: archiveOnOpen, onClose: archiveOnClose } = useDisclosure()
    const { linkToUnit } = useLinkHref()
+   const {formatDate} = useDateFormatter()
    const cancelRef: any = useRef()
    const {
       attributes,
@@ -44,6 +47,12 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
       <>
          
          <UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />
+         
+         <UnitEdit
+            isOpen={isOpen}
+            onClose={onClose}
+            data={data}
+         />
          
          <Flex
             ref={setNodeRef}
@@ -67,6 +76,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                   width="1.4rem"
                   justify="center"
                   align="center"
+                  cursor="ns-resize"
                   {...attributes}
                   {...listeners}
                >
@@ -86,7 +96,12 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                
                <ComponentVisibility.AssistantAndHigher>
                   <Flex alignItems="center">
-                     {( data.is_scheduled && !data.available ) && <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />}
+                     {( data.is_scheduled && !data.available ) && (
+                        <>
+                           <Text color={cmf("gray.500", "gray.300")} mr="2">{t('Accessible on')} {formatDate(data.publish_on, 'short with hours')}</Text>
+                           <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />
+                        </>
+                     )}
                      
                      <Box mr="2">
                         {
@@ -97,34 +112,36 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                         }
                      </Box>
                      
-                     <Dropdown>
-                        <DropdownButton
-                           as={Box}
-                           aria-label="Options"
-                           size="lg"
-                           variant="outline"
-                           cursor="pointer"
-                           color={cmf('gray.300', 'gray.300')}
-                           _hover={{
-                              color: cmf('black', 'white'),
-                           }}
-                        >
-                           <Box
-                              fontSize="1.6rem"
+                     <ComponentVisibility.InstructorOnly>
+                        <Dropdown>
+                           <DropdownButton
+                              as={Box}
+                              aria-label="Options"
+                              size="lg"
+                              variant="outline"
+                              cursor="pointer"
+                              color={cmf('gray.300', 'gray.300')}
+                              _hover={{
+                                 color: cmf('black', 'white'),
+                              }}
                            >
-                              <Icon as={BiDotsVerticalRounded} />
-                           </Box>
-                        
-                        </DropdownButton>
-                        <DropdownList>
-                           <DropdownItem icon={<BiEdit />} onClick={onOpen}>
-                              {t('Edit')}
-                           </DropdownItem>
-                           <DropdownItem icon={<BiArchiveIn />} onClick={archiveOnOpen}>
-                              {t('Archive')}
-                           </DropdownItem>
-                        </DropdownList>
-                     </Dropdown>
+                              <Box
+                                 fontSize="1.6rem"
+                              >
+                                 <Icon as={BiDotsVerticalRounded} />
+                              </Box>
+      
+                           </DropdownButton>
+                           <DropdownList>
+                              <DropdownItem icon={<BiEdit />} onClick={onOpen}>
+                                 {t('Edit')}
+                              </DropdownItem>
+                              <DropdownItem icon={<BiArchiveIn />} onClick={archiveOnOpen}>
+                                 {t('Archive')}
+                              </DropdownItem>
+                           </DropdownList>
+                        </Dropdown>
+                     </ComponentVisibility.InstructorOnly>
                   
                   </Flex>
                </ComponentVisibility.AssistantAndHigher>

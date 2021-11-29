@@ -33,8 +33,8 @@ export const UNARCHIVE_UNIT = gql`
 `
 
 export const UPDATE_UNIT_DETAILS = gql`
-    mutation UpdateUnitDetauks($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $title: String, $is_scheduled: Boolean!) {
-        update_units_by_pk(pk_columns: {id: $id}, _set: {title: $title, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled}) {
+    mutation UpdateUnitDetails($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $title: String, $is_scheduled: Boolean!, $available: Boolean!) {
+        update_units_by_pk(pk_columns: {id: $id}, _set: {title: $title, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled, available: $available}) {
             id
         }
     }

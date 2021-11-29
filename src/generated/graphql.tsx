@@ -5528,17 +5528,18 @@ export type UnarchiveUnitMutationVariables = Exact<{
 
 export type UnarchiveUnitMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
 
-export type UpdateUnitDetauksMutationVariables = Exact<{
+export type UpdateUnitDetailsMutationVariables = Exact<{
   id: Scalars['uuid'];
   type: Scalars['String'];
   publish_on?: Maybe<Scalars['timestamp']>;
   number: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   is_scheduled: Scalars['Boolean'];
+  available: Scalars['Boolean'];
 }>;
 
 
-export type UpdateUnitDetauksMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
+export type UpdateUnitDetailsMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
 
 export type ChangeUnitOrderMutationVariables = Exact<{
   id: Scalars['uuid'];
@@ -6138,19 +6139,19 @@ export const UnarchiveUnitDocument = gql`
 export type UnarchiveUnitMutationFn = Apollo.MutationFunction<UnarchiveUnitMutation, UnarchiveUnitMutationVariables>;
 export type UnarchiveUnitMutationResult = Apollo.MutationResult<UnarchiveUnitMutation>;
 export type UnarchiveUnitMutationOptions = Apollo.BaseMutationOptions<UnarchiveUnitMutation, UnarchiveUnitMutationVariables>;
-export const UpdateUnitDetauksDocument = gql`
-    mutation UpdateUnitDetauks($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $title: String, $is_scheduled: Boolean!) {
+export const UpdateUnitDetailsDocument = gql`
+    mutation UpdateUnitDetails($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $title: String, $is_scheduled: Boolean!, $available: Boolean!) {
   update_units_by_pk(
     pk_columns: {id: $id}
-    _set: {title: $title, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled}
+    _set: {title: $title, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled, available: $available}
   ) {
     id
   }
 }
     `;
-export type UpdateUnitDetauksMutationFn = Apollo.MutationFunction<UpdateUnitDetauksMutation, UpdateUnitDetauksMutationVariables>;
-export type UpdateUnitDetauksMutationResult = Apollo.MutationResult<UpdateUnitDetauksMutation>;
-export type UpdateUnitDetauksMutationOptions = Apollo.BaseMutationOptions<UpdateUnitDetauksMutation, UpdateUnitDetauksMutationVariables>;
+export type UpdateUnitDetailsMutationFn = Apollo.MutationFunction<UpdateUnitDetailsMutation, UpdateUnitDetailsMutationVariables>;
+export type UpdateUnitDetailsMutationResult = Apollo.MutationResult<UpdateUnitDetailsMutation>;
+export type UpdateUnitDetailsMutationOptions = Apollo.BaseMutationOptions<UpdateUnitDetailsMutation, UpdateUnitDetailsMutationVariables>;
 export const ChangeUnitOrderDocument = gql`
     mutation ChangeUnitOrder($id: uuid!, $order: Int!) {
   update_units_by_pk(pk_columns: {id: $id}, _set: {order: $order}) {

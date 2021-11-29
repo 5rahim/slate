@@ -1,3 +1,4 @@
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Empty } from '@slate/components/UI/Empty'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getArchivedUnits, getUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
@@ -8,7 +9,7 @@ import { AppSelectors } from '@slate/store/slices/appSlice'
 import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
 import { Box, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, CelledList, Flex, IconBox, useDisclosure,
+   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogOverlay, Button, CelledList, Flex, IconBox, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React, { useRef } from 'react'
@@ -43,7 +44,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    }
    
    return (
-      <>
+      <ComponentVisibility.InstructorOnly>
          
          <Button
             onClick={onOpen}
@@ -68,10 +69,10 @@ export const UnitArchive = (props: UnitArchiveProps) => {
             <AlertDialogContent width="100%">
                <AlertDialogCloseButton />
                <Flex width="100%">
-                  <IconBox colorScheme="primary" isCircular icon={<BiArchive />} mt={4} ml={4} position="absolute" />
+                  <IconBox fontSize="2xl" colorScheme="primary" isCircular icon={<BiArchive />} mt={4} ml={4} position="absolute" />
                   <Box pl="3.5rem" width="100%">
                      <AlertDialogHeader>{t('course:Archive')}</AlertDialogHeader>
-                     <AlertDialogBody>
+                     <AlertDialogBody pb="6">
                         
                         <DataListModule
                            data={units}
@@ -112,12 +113,11 @@ export const UnitArchive = (props: UnitArchiveProps) => {
                         />
                      
                      </AlertDialogBody>
-                     <AlertDialogFooter gridGap=".5rem" width="100%"></AlertDialogFooter>
                   </Box>
                </Flex>
             </AlertDialogContent>
          </AlertDialog>
-      </>
+      </ComponentVisibility.InstructorOnly>
    )
    
 }
