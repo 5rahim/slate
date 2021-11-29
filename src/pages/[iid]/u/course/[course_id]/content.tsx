@@ -8,6 +8,7 @@ import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
+import { UnitArchive } from '@slate/modules/Course/Instructor/Units/UnitArchive'
 import { UnitCreation } from '@slate/modules/Course/Instructor/Units/UnitCreation'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { UnitList } from '@slate/modules/Course/Shared/Units/UnitList'
@@ -46,13 +47,18 @@ const Page = ({ user, school, course }: DashboardPage) => {
                <MediaComponent.ShowOnTabletAndSmaller>
                   <Box mb="5">
                      <ButtonGroup width="100%" colorScheme="brand.100">
-                        <Button borderRadius="xl" width="100%">Quizzes</Button>
-                        <Button borderRadius="xl" width="100%">Assignments</Button>
+                        <Button borderRadius="xl" width="100%">{t('Quizzes')}</Button>
+                        <Button borderRadius="xl" width="100%">{t('Assignments')}</Button>
                      </ButtonGroup>
                   </Box>
                </MediaComponent.ShowOnTabletAndSmaller>
                
-               <ModuleBox headerText={t('Content')} headerIcon={<BiFolderOpen />} headerAction={<UnitCreation />}>
+               <ModuleBox headerText={t('Content')} headerIcon={<BiFolderOpen />} headerAction={
+                  <Flex gridGap=".5rem">
+                     <UnitArchive />
+                     <UnitCreation />
+                  </Flex>
+               }>
                   
                   <Flex
                      height="50px"

@@ -32,36 +32,40 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
    const mutationIsLoading = useSelector(AppSelectors.mutationIsLoading)
    const course = useSelector(CourseSelectors.get)
    
-   useEffect(() => {
-      window.addEventListener('offline', () => {
-         // @ts-ignore
-         toast.closeAll(['bottom'])
-         toast({
-            duration: 9999999,
-            position: "bottom",
-            render: () => (
-               <Box
-                  bgColor={colorMode === 'light' ? 'red.500' : 'gray.700'}
-                  color={colorMode === 'light' ? '#fff' : 'white'}
-                  p={3}
-                  borderRadius="md"
-                  boxShadow="lg"
-                  border="2px solid"
-                  borderColor="red.600"
-               >
-                  <Flex alignItems="center" gridGap=".5rem">
-                     <Spinner size="sm" />
-                     <Text fontWeight="bold">{t('No internet connection')}</Text>
-                  </Flex>
-               </Box>
-            ),
+   try {
+      useEffect(() => {
+         window.addEventListener('offline', () => {
+            // @ts-ignore
+            toast.closeAll(['bottom'])
+            toast({
+               duration: 9999999,
+               position: "bottom",
+               render: () => (
+                  <Box
+                     bgColor={colorMode === 'light' ? 'red.500' : 'gray.700'}
+                     color={colorMode === 'light' ? '#fff' : 'white'}
+                     p={3}
+                     borderRadius="md"
+                     boxShadow="lg"
+                     border="2px solid"
+                     borderColor="red.600"
+                  >
+                     <Flex alignItems="center" gridGap=".5rem">
+                        <Spinner size="sm" />
+                        <Text fontWeight="bold">{t('No internet connection')}</Text>
+                     </Flex>
+                  </Box>
+               ),
+            })
          })
-      })
-      window.addEventListener('online', () => {
-         // @ts-ignore
-         toast.closeAll(['bottom'])
-      })
-   }, [window])
+         window.addEventListener('online', () => {
+            // @ts-ignore
+            toast.closeAll(['bottom'])
+         })
+      }, [window])
+   } catch (e) {
+      console.log(e)
+   }
    
    
    return (

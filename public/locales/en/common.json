@@ -26,9 +26,9 @@
   "Cancel": "Cancel",
   "Delete": "Delete",
   "Draft": "Draft",
-  "Archive": "Archive",
   "Week": "Week",
   "Unit": "Unit",
+  "Preview": "Preview",
   "Not published": "Not published",
   "Scheduled for": "Scheduled for",
   "Posted on": "Posted on",
@@ -37,6 +37,7 @@
   "Opening on": "Opening on",
   "Show more": "Show more",
   "Show less": "Show less",
+  "Archive": "Archive",
   "to": "to",
   "No internet connection": "No internet connection",
   "country": {

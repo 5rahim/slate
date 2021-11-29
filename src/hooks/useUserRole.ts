@@ -1,6 +1,5 @@
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { AppSelectors } from '@slate/store/slices/appSlice'
-import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 /**
@@ -13,11 +12,7 @@ export const useUserRole = () => {
    const { profile } = useUserSessionProfile()
    
    const studentView = useSelector(AppSelectors.studentView)
-   
-   useEffect(() => {
-      console.log(studentView)
-   }, [studentView])
-   
+
    return {
       isReallyInstructor: profile?.role === 'instructor',
       isReallyStudent: profile?.role === 'student',

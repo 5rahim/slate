@@ -1,18 +1,47 @@
-import { DndContext } from '@dnd-kit/core'
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { DndContext, DragEndEvent } from '@dnd-kit/core'
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { Empty } from '@slate/components/UI/Empty'
+import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
-import { getUnits } from '@slate/graphql/schemas/units/hooks'
+import { getUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
+import { AppSelectors } from '@slate/store/slices/appSlice'
 import { Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { FcFolder } from 'react-icons/fc'
+import { useSelector } from 'react-redux'
 
 export function UnitList() {
    const { id } = useCurrentCourse()
    const [units, loading, empty] = getUnits(id)
+   
+   const [listedUnits, setListedUnits] = useState<Units[] | null>()
+   
+   const [updateUnitOrder] = useMutateUnitOrder()
+   
+   const mutationIsLoading = useSelector(AppSelectors.mutationIsLoading)
+   
+   useEffect(() => {
+       setListedUnits(units)
+   }, [units])
+
+   
+   function handleSorting({ active, over }: DragEndEvent) {
+      if(active.id !== over?.id) {
+         setListedUnits((items) => {
+            const oldIndex = items?.findIndex(item => item.id === active.id) ?? 0
+            const newIndex = items?.findIndex(item => item.id === over?.id) ?? 0
+            const newArray = arrayMove((items as Units[]), oldIndex as number, newIndex as number)
+            newArray.forEach((val, i) => {
+               newArray[i].order = i
+            })
+            updateUnitOrder({ objects: newArray?.map(({ __typename, ...rest }) => rest) })
+            return newArray
+         })
+      }
+   }
    
    return (
       <DataListModule
@@ -21,9 +50,11 @@ export function UnitList() {
          dataIsEmpty={empty}
          displayData={({ list }) =>
             <Box>
-               <DndContext>
-                  <SortableContext strategy={verticalListSortingStrategy} items={units ? units?.map((unit) => unit.id) : []}>
-                     {units?.map((unit) => (
+               <DndContext
+                  onDragEnd={handleSorting}
+               >
+                  <SortableContext strategy={verticalListSortingStrategy} items={listedUnits ? listedUnits?.map((unit) => unit.id) : []}>
+                     {listedUnits?.map((unit) => (
                         <UnitItem key={unit.id} id={unit.id} data={unit} />
                      ))}
                   </SortableContext>

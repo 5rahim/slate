@@ -3,7 +3,7 @@ import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Icon, Text, useDisclosure } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiCaretDown } from 'react-icons/bi'
+import { BiCaretDown, BiCaretUp } from 'react-icons/bi'
 
 type CourseModuleBoxProps = {
    headerIcon?: React.ReactNode
@@ -60,10 +60,12 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
             
             </Flex>
             
-            <Flex>
+            <Flex align="center">
                {headerAction}
                
-               {minimizeOnMobile && isTabletAndSmaller && <Icon as={BiCaretDown} fontSize="xl" />}
+               {minimizeOnMobile && isTabletAndSmaller && (
+                  isOpen ? <Icon as={BiCaretDown} fontSize="xl" /> : <Icon as={BiCaretUp} fontSize="xl" />
+               )}
             </Flex>
          
          </Flex>

@@ -98,6 +98,9 @@ const theme = extendedTheme({
             item: {
                fontSize: '1.1rem',
                fontWeight: 600,
+               '& > .chalk-dropdown__icon-wrapper': {
+                  fontSize: '1.4rem'
+               }
             },
          },
       },
