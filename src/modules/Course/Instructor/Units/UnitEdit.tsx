@@ -41,9 +41,6 @@ export const UnitEdit = (
    
    const [updateUnit, mutationLoading] = useMutateUnitDetails({
       onCompleted: () => {
-         fields.reset()
-         resetDateAndTimeFields()
-         onClose()
       },
    })
    
