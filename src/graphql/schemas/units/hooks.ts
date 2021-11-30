@@ -9,7 +9,8 @@ import { GET_ARCHIVED_UNITS, GET_UNITS } from '@slate/graphql/schemas/units/quer
 export const getUnits = (course_id: string) => {
    return useQueryHookCreator<Units[] | null>("units", GET_UNITS, "array", {
       variables: { course_id },
-      fetchPolicy: 'no-cache',
+      fetchPolicy: 'cache-first',
+      nextFetchPolicy: 'cache-and-network',
       debug: false,
    })
 }
@@ -17,7 +18,8 @@ export const getUnits = (course_id: string) => {
 export const getArchivedUnits = (course_id: string) => {
    return useQueryHookCreator<Units[] | null>("units", GET_ARCHIVED_UNITS, "array", {
       variables: { course_id },
-      fetchPolicy: 'no-cache',
+      fetchPolicy: 'cache-first',
+      nextFetchPolicy: 'cache-and-network',
       debug: false,
    })
 }
@@ -27,7 +29,9 @@ export const useCreateUnit: SlateMutationHook<CreateUnitMutationVariables> = (op
    return useMutationHookCreator(CREATE_UNIT, {
       refetchQueries: [
          { query: GET_UNITS },
+         { query: GET_ARCHIVED_UNITS },
          'GetUnits',
+         'GetArchivedUnits',
       ],
       ...options,
    })
@@ -38,7 +42,9 @@ export const useMutateUnitDetails: SlateMutationHook<UpdateUnitDetailsMutationVa
    return useMutationHookCreator(UPDATE_UNIT_DETAILS, {
       refetchQueries: [
          { query: GET_UNITS },
+         { query: GET_ARCHIVED_UNITS },
          'GetUnits',
+         'GetArchivedUnits',
       ],
       successAlert: { type: "toast", title: "Unit has been updated" },
       ...options,
@@ -50,7 +56,14 @@ export const useMutateUnitOrder = () => {
    
    return useMutationHookCreator(
       UPDATE_UNIT_ORDER,
-      {},
+      {
+         refetchQueries: [
+            { query: GET_UNITS },
+            { query: GET_ARCHIVED_UNITS },
+            'GetUnits',
+            'GetArchivedUnits',
+         ],
+      },
    )
 }
 

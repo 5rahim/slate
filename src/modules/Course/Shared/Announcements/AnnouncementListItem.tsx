@@ -26,7 +26,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
    
    return (
-      <HideItemInStudentView conditionIsNotMet={( data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
+      <HideItemInStudentView showIf={!( data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
          <ListItem
             width="full"

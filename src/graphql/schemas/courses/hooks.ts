@@ -160,14 +160,14 @@ export const getCourseList = () => {
 
 export const getAllStudentEnrollments = () => {
    
-   return useQueryHookCreator<Course_Enrollment[]>("course_enrollment", GET_ALL_COURSE_ENROLLMENTS, "array", { fetchPolicy: "no-cache" })
+   return useQueryHookCreator<Course_Enrollment[]>("course_enrollment", GET_ALL_COURSE_ENROLLMENTS, "array", { fetchPolicy: "cache-first" })
    
 }
 
 
 export const getAllCourseManagements = () => {
    
-   return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
+   return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "cache-first" })
    
    
 }
@@ -181,6 +181,7 @@ export const getStudentEnrollments = (course_id: string) => {
       {
          variables: { course_id },
          fetchPolicy: "cache-first",
+         nextFetchPolicy: 'cache-and-network'
       },
    )
    
@@ -195,7 +196,8 @@ export const getCourseManagements = (course_id: string) => {
       "array",
       {
          variables: { course_id },
-         fetchPolicy: "no-cache",
+         fetchPolicy: "cache-first",
+         nextFetchPolicy: 'cache-and-network'
       },
    )
    
@@ -204,6 +206,6 @@ export const getCourseManagements = (course_id: string) => {
 
 export const getOwnCourses = () => {
    
-   return useQueryHookCreator<SlateCourse[]>("courses", GET_OWN_COURSES, "array", { fetchPolicy: "no-cache" })
+   return useQueryHookCreator<SlateCourse[]>("courses", GET_OWN_COURSES, "array", { fetchPolicy: "cache-first", nextFetchPolicy: 'cache-and-network' })
    
 }

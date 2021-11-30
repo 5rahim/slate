@@ -1,6 +1,6 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from "@dnd-kit/utilities"
-import { ComponentVisibility } from '@slate/components/ComponentVisibility'
+import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { Units } from '@slate/generated/graphql'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
@@ -44,7 +44,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    }
    
    return (
-      <>
+      <HideItemInStudentView showIf={(data.available) || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on))}>
          
          <UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />
          
@@ -130,7 +130,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                               >
                                  <Icon as={BiDotsVerticalRounded} />
                               </Box>
-      
+                           
                            </DropdownButton>
                            <DropdownList>
                               <DropdownItem icon={<BiEdit />} onClick={onOpen}>
@@ -149,6 +149,6 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
             </Flex>
          </Flex>
       
-      </>
+      </HideItemInStudentView>
    )
 }

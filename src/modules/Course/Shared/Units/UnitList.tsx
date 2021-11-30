@@ -31,11 +31,17 @@ export function UnitList() {
    function handleSorting({ active, over }: DragEndEvent) {
       if(active.id !== over?.id) {
          setListedUnits((items) => {
+            console.log({ items })
             const oldIndex = items?.findIndex(item => item.id === active.id) ?? 0
             const newIndex = items?.findIndex(item => item.id === over?.id) ?? 0
-            const newArray = arrayMove((items as Units[]), oldIndex as number, newIndex as number)
+            let n = arrayMove((items as Units[]), oldIndex as number, newIndex as number)
+            let newArray: any[] = []
+            n.forEach(val => newArray.push(Object.assign({}, val)));
             newArray.forEach((val, i) => {
-               newArray[i].order = i
+               try {
+                  newArray[i].order = i
+               } catch (e) {
+               }
             })
             updateUnitOrder({ objects: newArray?.map(({ __typename, ...rest }) => rest) })
             return newArray

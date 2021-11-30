@@ -24,7 +24,7 @@ export const getAnnouncements = (course_id: Parameter<string>) => {
       "array",
       {
          variables: { course_id: course_id },
-         fetchPolicy: 'no-cache',
+         fetchPolicy: 'cache-first',
       })
 }
 

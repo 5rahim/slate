@@ -53,11 +53,11 @@ export const ComponentVisibility = {
  * @returns {JSX.Element}
  * @constructor
  */
-export const HideItemInStudentView = ({ conditionIsNotMet, children }: { conditionIsNotMet: boolean, children: React.ReactNode }) => {
+export const HideItemInStudentView = ({ showIf, children }: { showIf: boolean, children: React.ReactNode }) => {
    const { isStudent } = useUserRole()
    const studentView = useSelector(AppSelectors.studentView)
    if (studentView) {
-      return ( isStudent && !conditionIsNotMet ) ? <>{children}</> : <></>
+      return ( isStudent && showIf ) ? <>{children}</> : <></>
    } else {
       return <>{children}</>
    }
