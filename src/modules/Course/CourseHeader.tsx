@@ -5,7 +5,6 @@ import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
-import { CourseSelectors } from '@slate/store/slices/courseSlice'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
@@ -50,7 +49,7 @@ interface CourseHeaderProps {
 export const CourseHeader = ({ index }: CourseHeaderProps) => {
    const t = useTypeSafeTranslation()
    const dispatch = useDispatch()
-   const course = useSelector(CourseSelectors.get)
+   const course = useCurrentCourse()
    const studentView = useSelector(AppSelectors.studentView)
    const { isOpen: svIsOpen, onOpen: svOnOpen, onClose: svOnClose } = useDisclosure()
    

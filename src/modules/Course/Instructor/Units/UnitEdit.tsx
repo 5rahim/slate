@@ -5,7 +5,6 @@ import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { Units, UpdateUnitDetailsMutationVariables } from '@slate/generated/graphql'
 import { useMutateUnitDetails } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
-import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -33,7 +32,6 @@ export const UnitEdit = (
       data,
    }: UnitEditProps) => {
    
-   const course = useCurrentCourse()
    const t = useTypeSafeTranslation()
    const cmf = useCMF()
    

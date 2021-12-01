@@ -9,7 +9,7 @@ import { GET_ARCHIVED_UNITS, GET_UNITS } from '@slate/graphql/schemas/units/quer
 export const getUnits = (course_id: string) => {
    return useQueryHookCreator<Units[] | null>("units", GET_UNITS, "array", {
       variables: { course_id },
-      fetchPolicy: 'cache-first',
+      fetchPolicy: 'no-cache',
       nextFetchPolicy: 'cache-and-network',
       debug: false,
    })
@@ -18,7 +18,7 @@ export const getUnits = (course_id: string) => {
 export const getArchivedUnits = (course_id: string) => {
    return useQueryHookCreator<Units[] | null>("units", GET_ARCHIVED_UNITS, "array", {
       variables: { course_id },
-      fetchPolicy: 'cache-first',
+      fetchPolicy: 'no-cache',
       nextFetchPolicy: 'cache-and-network',
       debug: false,
    })

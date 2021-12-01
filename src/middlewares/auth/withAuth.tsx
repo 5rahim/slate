@@ -1,12 +1,12 @@
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
 import { getUserBySessionProfile } from '@slate/graphql/schemas/users/hooks'
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
-import { UserActions } from '@slate/store/slices/userSlice'
+import { UserActions, UserSelectors } from '@slate/store/slices/userSlice'
 import { Utils } from '@slate/utils'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 interface WithAuthProps {
@@ -39,8 +39,21 @@ export const withAuth = (
       
       const dispatch = useDispatch()
       
+      const storedUser = useSelector(UserSelectors.get)
       const [user, userLoading] = requireActiveAccount ? getUserBySessionProfile(profile) : [null, null]
-      
+   
+      /**
+       * Stored user acts like a cached object to accelerate loading
+       */
+      useEffect(() => {
+         if (requireActiveAccount) {
+            
+            if (storedUser && storedUser.is_active) {
+               setDisplayPage(true)
+            }
+         }
+         
+      }, [storedUser])
       
       useEffect(() => {
          
@@ -67,7 +80,7 @@ export const withAuth = (
             dispatch(UserActions.set(user))
          }
          
-      }, [profileIsLoading, profile, user])
+      }, [profileIsLoading, profile, user, storedUser])
       
       
       if (typeof window !== 'undefined' && profileIsLoading) {
@@ -79,7 +92,7 @@ export const withAuth = (
       }
       
       return displayPage ? (
-         <Component {...props} user={user} />
+         <Component {...props} user={storedUser ?? user} />
       ) : <LoadingScreen />
    }
    

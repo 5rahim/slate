@@ -1,8 +1,9 @@
+import { Text } from 'chalkui/dist/cjs'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { SimpleGrid, Spinner } from 'chalkui/dist/cjs/React'
 import React from 'react'
 
-export const LoadingScreen = () => {
+export const LoadingScreen = ({text}: any) => {
    
    const { colorMode } = useColorMode()
    
@@ -24,6 +25,7 @@ export const LoadingScreen = () => {
       >
          
          <Spinner size="xl" />
+         {text && <Text>{text}</Text>}
       
       </SimpleGrid>
    

@@ -1,8 +1,8 @@
 import { StudentViewPortal } from '@slate/components/StudentViewPortal'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppSelectors } from '@slate/store/slices/appSlice'
-import { CourseSelectors } from '@slate/store/slices/courseSlice'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
 import { Drawer, DrawerContent, DrawerOverlay, Flex, Spinner, Text, useToast } from 'chalkui/dist/cjs/React'
@@ -30,7 +30,7 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
    const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false)
    
    const mutationIsLoading = useSelector(AppSelectors.mutationIsLoading)
-   const course = useSelector(CourseSelectors.get)
+   const course = useCurrentCourse()
    
    try {
       useEffect(() => {

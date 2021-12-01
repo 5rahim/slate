@@ -7,8 +7,6 @@ import { TimePicker } from '@slate/components/TimePicker'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { Announcements, UpdateAnnouncementMutationVariables } from '@slate/generated/graphql'
 import { useDeleteAnnouncement, useUpdateAnnouncement } from '@slate/graphql/schemas/announcements/hooks'
-import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -44,8 +42,6 @@ export function AnnouncementEdit(
 ) {
    
    const t = useTypeSafeTranslation()
-   const user = useCurrentUser()
-   const course = useCurrentCourse()
    
    const [updateAnnouncement, updateIsLoading] = useUpdateAnnouncement()
    
@@ -107,7 +103,6 @@ export function AnnouncementEdit(
                      <AlertDialogOverlay />
                      
                      <AlertDialogContent>
-                        {/*<AlertDialogHeader>Discard Changes?</AlertDialogHeader>*/}
                         <AlertDialogCloseButton />
                         <AlertDialogHeader>Oops!</AlertDialogHeader>
                         <AlertDialogBody>

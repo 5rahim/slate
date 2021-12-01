@@ -58,7 +58,7 @@ export function DataListModule(props: DataListModuleProps) {
             fallback
          )}
          
-         {( !dataIsLoading && dataIsEmpty ) && (
+         {( !dataIsLoading && (dataIsEmpty) ) && (
             empty
          )}
       </Box>

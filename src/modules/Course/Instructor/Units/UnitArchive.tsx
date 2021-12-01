@@ -2,6 +2,7 @@ import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Empty } from '@slate/components/UI/Empty'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getArchivedUnits, getUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
+import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -28,6 +29,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    const cancelRef: any = useRef()
    const course = useCurrentCourse()
    const { linkToUnit } = useLinkHref()
+   const cmf = useCMF()
    
    const [units, unitsLoading, empty] = getArchivedUnits(course.id)
    const [unarchivedUnits] = getUnits(course.id)
@@ -81,9 +83,9 @@ export const UnitArchive = (props: UnitArchiveProps) => {
                            fallback={<></>}
                            empty={<Empty icon={BiArchive} text="No archived units" />}
                            displayData={({ list }) => (
-                              <CelledList width="100%">
+                              <CelledList width="100%" overflow="hidden">
                                  {units?.map((unit) => (
-                                    <ListItem key={unit.id} px={4} py={2}>
+                                    <ListItem bgColor={cmf("white", "gray.500")} key={unit.id} px={4} py={2}>
                                        <Flex alignItems="center" justifyContent="space-between">
                                           <Box>
                                              <Link href={linkToUnit(unit.id)}>
