@@ -17,7 +17,7 @@ export const getUserBySessionProfile = (profile: UserSessionProfile | undefined)
 
 export const getUserSettings = (profile: UserSessionProfile | undefined) => {
 
-   return useQueryHookCreator<SlateUser | null>("users", GET_USER_SETTINGS, "object", {
+   return useQueryHookCreator<Pick<SlateUser, 'hour_format' | 'date_format'> | null>("users", GET_USER_SETTINGS, "object", {
       variables: { email: profile?.email },
       debug: false,
       fetchPolicy: 'cache-first',

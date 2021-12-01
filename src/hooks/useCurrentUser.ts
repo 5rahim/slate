@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux'
 import { UserSelectors } from '../store/slices/userSlice'
 
 export const useCurrentUser = () => {
-   return useSelector(UserSelectors.get)
+   return useSelector(UserSelectors.getUser)
 }
 
 export type UserSessionProfile = UserProfile & { iid: string, role: SlateRoles }

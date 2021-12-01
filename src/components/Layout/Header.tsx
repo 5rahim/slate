@@ -1,5 +1,5 @@
+import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { SchoolSelectors } from '@slate/store/slices/schoolSlice'
-import { UserSelectors } from '@slate/store/slices/userSlice'
 import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
    
    const schoolName = useSelector(SchoolSelectors.getName)
    const iid = useSelector(SchoolSelectors.getIID)
-   const user = useSelector(UserSelectors.get)
+   const user = useCurrentUser()
    
    return (
       <Box

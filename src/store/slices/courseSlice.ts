@@ -1,12 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SlateCourse } from '@slate/types/Course'
+import { Courses } from '@slate/generated/graphql'
 
 import type { GlobalState } from '..'
 
+interface CourseState {
+   course: Courses | null,
+   isEnrolled: boolean
+}
+const courseState = {
+   course: null,
+   isEnrolled: false
+}
 
 export const courseSlice = createSlice({
    name: 'course',
-   initialState: { course: null, isEnrolled: false } as { course: SlateCourse | null, isEnrolled: boolean },
+   initialState: courseState ,
    reducers: {
       set: (state, action: PayloadAction<any>) => {
          state.course = action.payload

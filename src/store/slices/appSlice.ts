@@ -1,6 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { GlobalState } from '@slate/store/index'
-import { AppState, appState } from '../states/appState'
+
+
+export interface AppState {
+   mutationIsLoading: boolean,
+   studentView: boolean
+}
+
+export const appState: AppState | {} = {
+   mutationIsLoading: false,
+   studentView: false
+}
 
 
 export const appSlice = createSlice({
