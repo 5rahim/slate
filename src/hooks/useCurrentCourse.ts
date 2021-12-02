@@ -6,3 +6,4 @@ export const useCurrentCourse = () => {
    // TODO: Might throw errors when course is undefined
    return useSelector(CourseSelectors.getCourse) as Courses
 }
+

@@ -3,7 +3,9 @@ import { useSelector } from 'react-redux'
 
 export const useCurrentSchool = () => {
    const iid: string = useSelector(SchoolSelectors.getIID)
+   const school = useSelector(SchoolSelectors.getSchool)
    return {
-      iid
+      iid,
+      ...school
    }
 }

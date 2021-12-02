@@ -5,6 +5,7 @@ import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import { Stack } from 'chalkui/dist/cjs/Components/Layout'
@@ -16,7 +17,7 @@ import { useSelector } from 'react-redux'
 export function UnitList() {
    const { id } = useCurrentCourse()
    const [units, loading, empty] = getUnits(id)
-   
+   const cache = useGlobalCache()
    const [listedUnits, setListedUnits] = useState<Units[] | null>()
    
    const [updateUnitOrder] = useMutateUnitOrder()
@@ -24,23 +25,24 @@ export function UnitList() {
    const mutationIsLoading = useSelector(AppSelectors.mutationIsLoading)
    
    useEffect(() => {
-       setListedUnits(units)
-   }, [units])
-
+      setListedUnits(cache.readUnits(units))
+      cache.writeUnits(units)
+   }, [units, cache])
+   
    
    function handleSorting({ active, over }: DragEndEvent) {
-      if(active.id !== over?.id) {
+      if (active.id !== over?.id) {
          setListedUnits((items) => {
-            console.log({ items })
             const oldIndex = items?.findIndex(item => item.id === active.id) ?? 0
             const newIndex = items?.findIndex(item => item.id === over?.id) ?? 0
-            let n = arrayMove((items as Units[]), oldIndex as number, newIndex as number)
+            let n = arrayMove(( items as Units[] ), oldIndex as number, newIndex as number)
             let newArray: any[] = []
-            n.forEach(val => newArray.push(Object.assign({}, val)));
+            n.forEach(val => newArray.push(Object.assign({}, val)))
             newArray.forEach((val, i) => {
                try {
                   newArray[i].order = i
-               } catch (e) {
+               }
+               catch (e) {
                }
             })
             updateUnitOrder({ objects: newArray?.map(({ __typename, ...rest }) => rest) })
@@ -51,9 +53,9 @@ export function UnitList() {
    
    return (
       <DataListModule
-         data={units}
-         dataIsLoading={loading}
-         dataIsEmpty={empty}
+         data={listedUnits}
+         dataIsLoading={cache.isDataLoading(units, loading)}
+         dataIsEmpty={cache.isDataEmpty(units, empty)}
          displayData={({ list }) =>
             <Box>
                <DndContext

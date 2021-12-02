@@ -58,9 +58,9 @@ export function DataListModule(props: DataListModuleProps) {
             fallback
          )}
          
-         {( !dataIsLoading && (dataIsEmpty) ) && (
-            empty
-         )}
+         {/*{( !dataIsLoading && (dataIsEmpty) ) && (*/}
+         {/*   empty*/}
+         {/*)}*/}
       </Box>
    )
    

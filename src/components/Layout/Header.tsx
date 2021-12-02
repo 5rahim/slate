@@ -1,5 +1,5 @@
+import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
-import { SchoolSelectors } from '@slate/store/slices/schoolSlice'
 import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
@@ -8,7 +8,6 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { BiLogOut, BiMenu, BiMoon, BiSun, BiUser } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
 
 interface HeaderProps {
    openDrawer: any
@@ -22,8 +21,7 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
    const { colorMode, toggleColorMode } = useColorMode()
    const bg = { light: 'white', dark: 'gray.800' }
    
-   const schoolName = useSelector(SchoolSelectors.getName)
-   const iid = useSelector(SchoolSelectors.getIID)
+   const { name: schoolName, iid } = useCurrentSchool()
    const user = useCurrentUser()
    
    return (
