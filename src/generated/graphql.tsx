@@ -6171,7 +6171,7 @@ export type ChangeUnitOrderMutationResult = Apollo.MutationResult<ChangeUnitOrde
 export type ChangeUnitOrderMutationOptions = Apollo.BaseMutationOptions<ChangeUnitOrderMutation, ChangeUnitOrderMutationVariables>;
 export const GetUnitByIdDocument = gql`
     query GetUnitById($id: uuid!) {
-  units(limit: 1, where: {id: {_eq: $id}}) {
+  units(limit: 1, where: {id: {_eq: $id}}, order_by: {publish_on: desc}) {
     archived
     available
     course_id

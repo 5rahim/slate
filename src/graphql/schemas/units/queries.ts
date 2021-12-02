@@ -1,8 +1,13 @@
 import { gql } from '@apollo/client'
 
+
+/**
+ * I have to add "order_by: {publish_on: desc}" because of a bug where Hasura returns publish_on in non-UTC format
+ */
+
 export const GET_UNIT_BY_ID = gql`
     query GetUnitById($id: uuid!) {
-        units(limit: 1, where: {id: {_eq: $id}}) {
+        units(limit: 1, where: {id: {_eq: $id}}, order_by: {publish_on: desc}) {
             archived
             available
             course_id

@@ -10,23 +10,23 @@ import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { withUnit } from '@slate/middlewares/dashboard/withUnit'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
-import { UnitCreation } from '@slate/modules/Course/Instructor/Units/UnitCreation'
+import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
-import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/React'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, useDisclosure } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React from 'react'
-import { BiFolderOpen } from 'react-icons/bi'
-
+import { BiEdit, BiFolderOpen } from 'react-icons/bi'
 
 const Page = ({ user, school, course }: DashboardPage) => {
-   
+   const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const t = useTypeSafeTranslation()
-   const {getCourseHref} = useLinkHref()
+   const { getCourseHref } = useLinkHref()
    const unit = useCurrentUnit()
    const unitName = useCurrentUnitName()
-   
+
    return (
       <CourseLayout
          headerMenuIndex={1}
@@ -43,21 +43,42 @@ const Page = ({ user, school, course }: DashboardPage) => {
       >
          
          <>
+   
+            <UnitEdit
+               isOpen={editIsOpen}
+               onClose={editOnClose}
+               data={unit}
+            />
+            
             <Box>
                
-               <ModuleBox headerText={unitName} headerIcon={<BiFolderOpen />} headerAction={<UnitCreation />}>
-   
+               <ModuleBox
+                  headerText={unitName} headerIcon={<BiFolderOpen />} headerAction={
+                  <Flex gridGap=".5rem">
+                     <Button
+                        onClick={editOnOpen}
+                        variant="outline"
+                        borderRadius="3xl"
+                        colorScheme="primary"
+                        leftIcon={<BiEdit />}
+                     >
+                        {t('Edit')}
+                     </Button>
+                  </Flex>
+               }
+               >
+                  
                   <Breadcrumb>
                      <BreadcrumbItem>
                         <Link href={getCourseHref('/content')}>
                            <BreadcrumbLink>{t('course:Course Content')}</BreadcrumbLink>
                         </Link>
                      </BreadcrumbItem>
-      
+                     
                      <BreadcrumbItem isCurrentPage>
                         <BreadcrumbLink>{unitName}</BreadcrumbLink>
                      </BreadcrumbItem>
-      
+                  
                   </Breadcrumb>
                
                </ModuleBox>
@@ -74,6 +95,6 @@ export default Compose(
    withAuth({ requireActiveAccount: true }),
    withDashboard(),
    withCourse(),
-   withUnit()
+   withUnit(),
 )(Page)
 

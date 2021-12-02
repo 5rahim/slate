@@ -17,7 +17,7 @@ import {
    ModalOverlay, Select,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiCalendarAlt, BiCheckCircle, BiDotsVertical, BiDotsVerticalRounded, BiFolderPlus, BiHide } from 'react-icons/bi'
+import { BiCalendarAlt, BiCheckCircle, BiDotsVertical, BiDotsVerticalRounded, BiFolder, BiHide } from 'react-icons/bi'
 
 interface UnitEditProps {
    isOpen: boolean
@@ -41,7 +41,7 @@ export const UnitEdit = (
       onCompleted: () => {
       },
    })
-   
+
    const { onFormSubmit, fields, formState } = useFormCreator({
       defaultValues: {
          title: data.title,
@@ -80,16 +80,16 @@ export const UnitEdit = (
       <ComponentVisibility.InstructorOnly>
          <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
-         
+            
             <form onSubmit={onFormSubmit}>
                <ModalContent>
                   <ModalCloseButton />
-                  <IconBox isCircular icon={<BiFolderPlus />} colorScheme="primary" margin="0 auto" mt={3} />
-                  <ModalHeader textAlign="center">{t('course:options.Add a unit')}</ModalHeader>
+                  <IconBox isCircular icon={<BiFolder />} colorScheme="primary" margin="0 auto" mt={3} />
+                  <ModalHeader textAlign="center">{t('course:options.Edit the unit')}</ModalHeader>
                   <ModalBody>
-                  
+                     
                      <Text fontSize="xl" mb="2">{t('Preview')}:</Text>
-                  
+                     
                      {/*Preview*/}
                      <Flex
                         borderRadius="lg"
@@ -99,7 +99,7 @@ export const UnitEdit = (
                         mb="2"
                         overflow="hidden"
                      >
-                     
+                        
                         <ComponentVisibility.InstructorOnly>
                            <Flex
                               bgColor={cmf('#dfdfdf', 'gray.400')}
@@ -112,9 +112,9 @@ export const UnitEdit = (
                               <Icon as={BiDotsVertical} fontSize="1.6rem" />
                            </Flex>
                         </ComponentVisibility.InstructorOnly>
-                     
-                        <Flex px="4" width="100%" justifyContent="space-between" alignItems="center">
                         
+                        <Flex px="4" width="100%" justifyContent="space-between" alignItems="center">
+                           
                            <Flex cursor="pointer" _hover={{ color: 'brand.400' }}>
                               <Text
                                  fontWeight="bold"
@@ -123,13 +123,13 @@ export const UnitEdit = (
                                  &nbsp;{!!fields.watch('number') && fields.watch('number')}</Text>
                               {fields.watch('title') && <Text fontWeight="bold" fontSize="lg">: {fields.watch('title')}</Text>}
                            </Flex>
-                        
+                           
                            <ComponentVisibility.AssistantAndHigher>
                               <Flex alignItems="center">
-                              
+                                 
                                  {( fields.watch('publish_later') && !fields.watch('available') ) &&
                                  <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />}
-                              
+                                 
                                  <Box mr="2">
                                     {
                                        fields.watch('available') || ( fields.watch('is_scheduled') && Utils.Dates.publicationDateHasPassed(fields.watch('publish_on')) )
@@ -138,21 +138,21 @@ export const UnitEdit = (
                                           <Icon as={BiHide} fontSize="2xl" />
                                     }
                                  </Box>
-                              
+                                 
                                  <Box
                                     fontSize="1.6rem"
                                  >
                                     <Icon as={BiDotsVerticalRounded} />
                                  </Box>
-                           
+                              
                               </Flex>
                            </ComponentVisibility.AssistantAndHigher>
-                     
+                        
                         </Flex>
                      </Flex>
                      {/*Preview end*/}
-                  
-                  
+                     
+                     
                      <Flex gridGap="2">
                         {/*Type*/}
                         <FormControl mb={3} isRequired>
@@ -164,24 +164,24 @@ export const UnitEdit = (
                            </Select>
                            {fields.errorMessage('type')}
                         </FormControl>
-                     
+                        
                         {/*Number*/}
                         <FormControl mb={3} id="number" isRequired>
                            <FormLabel>{t('form:Number')}</FormLabel>
                            <Input {...fields.register('number', { placeholder: 'Number' })} />
                            {fields.errorMessage('number')}
                         </FormControl>
-                  
+                     
                      </Flex>
-                  
+                     
                      {/*Title*/}
                      <FormControl mb={3} id="title">
                         <FormLabel>{t('form:Title')}</FormLabel>
                         <Input {...fields.register('title', { placeholder: 'ex: Jan 2-8', required: false })} />
                         {fields.errorMessage('title')}
                      </FormControl>
-                  
-                  
+                     
+                     
                      {/*Available*/}
                      <FormControl display="flex" alignItems="center" mb={3} id="available">
                         <Checkbox
@@ -189,8 +189,8 @@ export const UnitEdit = (
                            id="available"
                            {...fields.register("available")}>{t('form:Available to students')}</Checkbox>
                      </FormControl>
-                  
-                  
+                     
+                     
                      <Box display={fields.watch('available') === false ? 'block' : 'none'}>
                         {/*Publish later*/}
                         <FormControl display="flex" alignItems="center" mb={3} id="publish_later">
@@ -200,29 +200,29 @@ export const UnitEdit = (
                               id="puslish_later"
                               {...fields.register("publish_later")}>{t('form:Publish at a later date')}</Checkbox>
                         </FormControl>
-                     
+                        
                         <Box display={fields.watch('publish_later') === true ? 'block' : 'none'}>
-                        
+                           
                            <Divider mb="3" />
-                        
+                           
                            <Text mb="2">{t('form:Publish when')}</Text>
-                        
+                           
                            <AlignedFlex mb="2">
                               {t('form:Date')}:
                               <DateInput defaultSelectedDate={Utils.Dates.parseDurationDateObject(data.publish_on)} onChange={setDateField} />
                            </AlignedFlex>
                            {fields.errorMessage('date')}
-                        
+                           
                            <AlignedFlex>
                               {t('form:Time')}:
                               <TimePicker defaultTime={Utils.Dates.getTimeInMinutesFromDate(data.publish_on) ?? 1439} onChange={setTimeField} />
                            </AlignedFlex>
                         </Box>
-                  
+                     
                      </Box>
-               
+                  
                   </ModalBody>
-               
+                  
                   <ModalFooter gridGap={5}>
                      <Button
                         colorScheme="brand.100"
@@ -232,7 +232,7 @@ export const UnitEdit = (
                      >
                         {t('Save')}
                      </Button>
-                  
+                     
                      <Button colorScheme="brand.800" onClick={onClose} isFullWidth isDisabled={mutationLoading}>
                         {t('Cancel')}
                      </Button>
@@ -240,8 +240,8 @@ export const UnitEdit = (
                </ModalContent>
             </form>
          </Modal>
-   
-   
+      
+      
       </ComponentVisibility.InstructorOnly>
    )
    
