@@ -5549,6 +5549,13 @@ export type ChangeUnitOrderMutationVariables = Exact<{
 
 export type ChangeUnitOrderMutation = { __typename?: 'mutation_root', update_units_by_pk?: { __typename?: 'units', id: any } | null | undefined };
 
+export type GetUnitByIdQueryVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type GetUnitByIdQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, available: boolean, course_id: any, id: any, is_scheduled: boolean, number: string, order: number, publish_on?: any | null | undefined, title?: string | null | undefined, type: string }> };
+
 export type GetUnitsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
 }>;
@@ -6162,6 +6169,23 @@ export const ChangeUnitOrderDocument = gql`
 export type ChangeUnitOrderMutationFn = Apollo.MutationFunction<ChangeUnitOrderMutation, ChangeUnitOrderMutationVariables>;
 export type ChangeUnitOrderMutationResult = Apollo.MutationResult<ChangeUnitOrderMutation>;
 export type ChangeUnitOrderMutationOptions = Apollo.BaseMutationOptions<ChangeUnitOrderMutation, ChangeUnitOrderMutationVariables>;
+export const GetUnitByIdDocument = gql`
+    query GetUnitById($id: uuid!) {
+  units(limit: 1, where: {id: {_eq: $id}}) {
+    archived
+    available
+    course_id
+    id
+    is_scheduled
+    number
+    order
+    publish_on
+    title
+    type
+  }
+}
+    `;
+export type GetUnitByIdQueryResult = Apollo.QueryResult<GetUnitByIdQuery, GetUnitByIdQueryVariables>;
 export const GetUnitsDocument = gql`
     query GetUnits($course_id: uuid!) {
   units(

@@ -19,7 +19,12 @@ function hasObject(cachedObject: any, fetchedObject: any) {
 }
 
 
-
+/**
+ * @important This does not eliminate "unnecessary" requests. It is purely for UX purposes
+ * It is a fake cache system to simulate Apollo's "cache-and-network" for the fetch policy
+ * Use Redux to store fetched data so that we can display the "old" data before making a new request to the database
+ * This allows us to bypass the loading state
+ */
 export const useGlobalCache = () => {
    const dispatch = useDispatch()
    const units: Units[] | null = useSelector(CacheSelectors.readUnits)
@@ -31,6 +36,9 @@ export const useGlobalCache = () => {
    
    useEffect(() => {
       dispatch(CacheActions.writeCourseId(course_id ? course_id as string : null))
+      /**
+       * Empty the cache when we switch courses
+       */
       if(cachedCourseId !== course_id) {
          dispatch(CacheActions.empty())
       }
@@ -52,7 +60,6 @@ export const useGlobalCache = () => {
    }
    
    return {
-      
       /** Units **/
       writeUnits: (fetched: Units[] | null, loading: boolean): void => {
          if (!loading) {

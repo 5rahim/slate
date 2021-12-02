@@ -1,5 +1,23 @@
 import { gql } from '@apollo/client'
 
+export const GET_UNIT_BY_ID = gql`
+    query GetUnitById($id: uuid!) {
+        units(limit: 1, where: {id: {_eq: $id}}) {
+            archived
+            available
+            course_id
+            id
+            is_scheduled
+            number
+            order
+            publish_on
+            title
+            type
+        }
+    }
+
+`
+
 export const GET_UNITS = gql`
     query GetUnits($course_id: uuid!) {
         units(order_by: {order: asc}, where: {_and: {course_id: {_eq: $course_id}, archived: {_eq: false}}}) {

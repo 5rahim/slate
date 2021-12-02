@@ -4,7 +4,15 @@ import {
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import { ARCHIVE_UNIT, CREATE_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_DETAILS, UPDATE_UNIT_ORDER } from '@slate/graphql/schemas/units/mutations'
-import { GET_ARCHIVED_UNITS, GET_UNITS } from '@slate/graphql/schemas/units/queries'
+import { GET_ARCHIVED_UNITS, GET_UNIT_BY_ID, GET_UNITS } from '@slate/graphql/schemas/units/queries'
+
+export const getUnitById = (id: string) => {
+   
+   return useQueryHookCreator<Units>('units', GET_UNIT_BY_ID, "object", {
+      variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
+   })
+   
+}
 
 export const getUnits = (course_id: string) => {
    return useQueryHookCreator<Units[] | null>("units", GET_UNITS, "array", {
