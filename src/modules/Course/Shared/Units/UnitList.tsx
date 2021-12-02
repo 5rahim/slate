@@ -26,8 +26,8 @@ export function UnitList() {
    
    useEffect(() => {
       setListedUnits(cache.readUnits(units))
-      cache.writeUnits(units)
-   }, [units, cache])
+      cache.writeUnits(units, loading)
+   }, [units, cache, loading])
    
    
    function handleSorting({ active, over }: DragEndEvent) {
@@ -55,7 +55,7 @@ export function UnitList() {
       <DataListModule
          data={listedUnits}
          dataIsLoading={cache.isDataLoading(units, loading)}
-         dataIsEmpty={cache.isDataEmpty(units, empty)}
+         dataIsEmpty={cache.isDataEmpty(empty, loading)}
          displayData={({ list }) =>
             <Box>
                <DndContext

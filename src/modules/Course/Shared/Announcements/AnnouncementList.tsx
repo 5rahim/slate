@@ -17,14 +17,14 @@ export function AnnouncementList({ ...rest }: ListProps) {
    const cache = useGlobalCache()
    
    useEffect(() => {
-      cache.writeAnnouncements(announcements)
-   }, [cache, announcements])
+      cache.writeAnnouncements(announcements, loading)
+   }, [cache, announcements, loading])
    
    return (
       <DataListModule
          data={cache.readAnnouncements(announcements)}
          dataIsLoading={cache.isDataLoading(announcements, loading)}
-         dataIsEmpty={cache.isDataEmpty(announcements, empty)}
+         dataIsEmpty={cache.isDataEmpty(empty, loading)}
          fallback={
             <Stack>
                <Skeleton width="100px" height="10px" borderRadius="md" />
