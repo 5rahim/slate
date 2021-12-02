@@ -1,7 +1,7 @@
 import { Announcements, Units } from '@slate/generated/graphql'
 import { CacheActions, CacheSelectors } from '@slate/store/slices/cacheSlice'
 import { useRouter } from 'next/router'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 function isEmpty(obj: any) {
@@ -36,12 +36,19 @@ export const useGlobalCache = () => {
       }
    }, [course_id, cachedCourseId])
    
-   function readObject(cachedObject: any, fetchedObject: any) {
+   const readObject = useCallback((cachedObject: any, fetchedObject: any) => {
       if(cachedCourseId !== course_id) {
          return fetchedObject
       } else {
          return isEmpty(cachedObject) ? fetchedObject : cachedObject
       }
+   }, [cachedCourseId, course_id])
+   
+   function isDataEmpty(empty: boolean, loading: boolean) {
+      if (!loading) {
+         return empty
+      }
+      return false
    }
    
    return {
@@ -55,6 +62,9 @@ export const useGlobalCache = () => {
       readUnits: (fetched: Units[] | null): Units[] | null => {
          return readObject(units, fetched)
       },
+      noUnits: (empty: boolean, loading: boolean) => {
+        return isEmpty(units) && isDataEmpty(empty, loading)
+      },
       /** Announcements **/
       writeAnnouncements: (fetched: Announcements[] | null, loading: boolean): void => {
          if (!loading) {
@@ -63,6 +73,9 @@ export const useGlobalCache = () => {
       },
       readAnnouncements: (fetched: Announcements[] | null): Announcements[] | null => {
          return readObject(announcements, fetched)
+      },
+      noAnnouncements: (empty: boolean, loading: boolean) => {
+         return isEmpty(announcements) && isDataEmpty(empty, loading)
       },
       
       

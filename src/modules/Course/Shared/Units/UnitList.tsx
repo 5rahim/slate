@@ -55,7 +55,7 @@ export function UnitList() {
       <DataListModule
          data={listedUnits}
          dataIsLoading={cache.isDataLoading(units, loading)}
-         dataIsEmpty={cache.isDataEmpty(empty, loading)}
+         dataIsEmpty={cache.noUnits(empty, loading)}
          displayData={({ list }) =>
             <Box>
                <DndContext

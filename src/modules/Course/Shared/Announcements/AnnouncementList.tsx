@@ -24,7 +24,7 @@ export function AnnouncementList({ ...rest }: ListProps) {
       <DataListModule
          data={cache.readAnnouncements(announcements)}
          dataIsLoading={cache.isDataLoading(announcements, loading)}
-         dataIsEmpty={cache.isDataEmpty(empty, loading)}
+         dataIsEmpty={cache.noAnnouncements(empty, loading)}
          fallback={
             <Stack>
                <Skeleton width="100px" height="10px" borderRadius="md" />
