@@ -1,4 +1,4 @@
-import { Units } from '@slate/generated/graphql'
+import { Announcements, Units } from '@slate/generated/graphql'
 import { CacheActions, CacheSelectors } from '@slate/store/slices/cacheSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
@@ -23,7 +23,10 @@ function readObject(cachedObject: any, fetchedObject: any) {
 export const useGlobalCache = () => {
    const dispatch = useDispatch()
    const units: Units[] | null = useSelector(CacheSelectors.readUnits)
+   const announcements: Announcements[] | null = useSelector(CacheSelectors.readAnnouncements)
    return {
+   
+      /** Units **/
       writeUnits: (fetched: Units[] | null): void => {
          if(!isEmpty(fetched)) {
             dispatch(CacheActions.writeUnits(fetched))
@@ -32,6 +35,17 @@ export const useGlobalCache = () => {
       readUnits: (fetched: Units[] | null): Units[] | null => {
          return readObject(units, fetched)
       },
+      /** Announcements **/
+      writeAnnouncements: (fetched: Announcements[] | null): void => {
+         if(!isEmpty(fetched)) {
+            dispatch(CacheActions.writeAnnouncements(fetched))
+         }
+      },
+      readAnnouncements: (fetched: Announcements[] | null): Announcements[] | null => {
+         return readObject(announcements, fetched)
+      },
+      
+      
       isDataLoading: (fetched: any, loading: boolean) => {
          if(isEmpty(units) && isEmpty(fetched)) {
             return loading

@@ -21,14 +21,16 @@ export const useUserSettings = (): UserSettings => {
    
    useEffect(() => {
    
-      dispatch(UserActions.setSettings(data ?? null))
+      if(!loading) {
+         dispatch(UserActions.setSettings(data ?? null))
+      }
       
       setSettings({
          hourFormat: storedData?.hour_format ?? (data?.hour_format ?? '24'),
          dateFormat: storedData?.date_format ?? (data?.date_format ?? 'DMY'),
          settingsAreLoading: loading,
       })
-   }, [data, storedData])
+   }, [data, storedData, loading])
    
    return settings
    

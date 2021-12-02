@@ -2,7 +2,7 @@ import { useLocale } from '@slate/hooks/useLocale'
 import { useUserSettings } from '@slate/hooks/useUserSettings'
 import { Parameter } from '@slate/types/Parameters'
 import { Utils } from '@slate/utils'
-import { format } from 'date-fns'
+import { format, isValid } from 'date-fns'
 import { enUS, fr } from 'date-fns/locale'
 
 const getLocale = (locale: string) => locale === 'fr' ? fr : enUS
@@ -48,19 +48,20 @@ export const useDateFormatter = () => {
    return {
       formatDate: (utcDate: Parameter<Date | string>, selected_format: DateFormat) => {
          if(utcDate) {
-            
             const d = typeof utcDate === 'string' ? Utils.Dates.asUTC(utcDate) : utcDate
             
-            const formats = date_formats[selected_format]
-            
-            const date_format = settings.dateFormat ?? 'DMY'
-            const hour_format = settings.hourFormat ?? '24'
-            
-            if(selected_format === 'short' || selected_format === 'long') {
-               return format(d, (formats[date_format] as string).replace('at', locale === 'fr' ? '' : 'at'), { locale: getLocale(locale) })
-            }
-            if(selected_format === 'short with hours' || selected_format === 'long with hours') {
-               return format(d, (formats[hour_format][date_format] as string).replace('at', locale === 'fr' ? 'à' : 'at'), { locale: getLocale(locale) })
+            if(isValid(d)) {
+               const formats = date_formats[selected_format]
+   
+               const date_format = settings.dateFormat ?? 'DMY'
+               const hour_format = settings.hourFormat ?? '24'
+   
+               if(selected_format === 'short' || selected_format === 'long') {
+                  return format(d, (formats[date_format] as string).replace('at', locale === 'fr' ? '' : 'at'), { locale: getLocale(locale) })
+               }
+               if(selected_format === 'short with hours' || selected_format === 'long with hours') {
+                  return format(d, (formats[hour_format][date_format] as string).replace('at', locale === 'fr' ? 'à' : 'at'), { locale: getLocale(locale) })
+               }
             }
             
          } else {
