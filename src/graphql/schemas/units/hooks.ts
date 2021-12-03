@@ -5,6 +5,7 @@ import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import { ARCHIVE_UNIT, CREATE_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_DETAILS, UPDATE_UNIT_ORDER } from '@slate/graphql/schemas/units/mutations'
 import { GET_ARCHIVED_UNITS, GET_UNIT_BY_ID, GET_UNITS } from '@slate/graphql/schemas/units/queries'
+import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 
 export const getUnitById = (id: string) => {
    
@@ -47,10 +48,13 @@ export const useCreateUnit: SlateMutationHook<CreateUnitMutationVariables> = (op
 }
 export const useMutateUnitDetails: SlateMutationHook<UpdateUnitDetailsMutationVariables> = (options) => {
    
+   const unit = useCurrentUnit()
+   
    return useMutationHookCreator(UPDATE_UNIT_DETAILS, {
       refetchQueries: [
          { query: GET_UNITS },
          { query: GET_ARCHIVED_UNITS },
+         { query: GET_UNIT_BY_ID, variables: { id: unit?.id } },
          'GetUnits',
          'GetArchivedUnits',
       ],

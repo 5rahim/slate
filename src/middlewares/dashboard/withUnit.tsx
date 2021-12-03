@@ -26,7 +26,7 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
       const router = useRouter()
       const { unit_id } = router.query
       const dispatch = useDispatch()
-      const { isReallyStudent } = useUserRole()
+      const { isReallyStudent, isAssistantOrInstructor } = useUserRole()
       
       if (!unit_id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
@@ -47,12 +47,12 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
       
       useEffect(() => {
          
-         if (!unitIsLoading && !!unit && ( ( unit.available ) || ( unit.is_scheduled && Utils.Dates.publicationDateHasPassed(unit.publish_on) ) || !isReallyStudent )) {
+         if (!unitIsLoading && !!unit && ( ( unit.available ) || ( unit.is_scheduled && Utils.Dates.publicationDateHasPassed(unit.publish_on) ) || !isReallyStudent ) && (isAssistantOrInstructor || !unit.archived)) {
             setDisplayPage(true)
             dispatch(UnitActions.setUnit(unit))
             dispatch(UnitActions.setIsAllowed(true))
             
-         } else if (!unitIsLoading && isReallyStudent && ( !unit || !unit.available || (unit.is_scheduled && !Utils.Dates.publicationDateHasPassed(unit.publish_on)) )) {
+         } else if (!unitIsLoading && isReallyStudent && ( !unit || !unit.available || unit.archived || (unit.is_scheduled && !Utils.Dates.publicationDateHasPassed(unit.publish_on)) )) {
             router.push(Utils.Url.accessDeniedLink(props.iid))
          }
          

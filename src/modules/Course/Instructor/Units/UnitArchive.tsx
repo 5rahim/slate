@@ -1,9 +1,10 @@
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Empty } from '@slate/components/UI/Empty'
 import { DataListModule } from '@slate/graphql/DataListModule'
-import { getArchivedUnits, getUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
+import { getArchivedUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppSelectors } from '@slate/store/slices/appSlice'
@@ -30,9 +31,9 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    const course = useCurrentCourse()
    const { linkToUnit } = useLinkHref()
    const cmf = useCMF()
+   const cache = useGlobalCache()
    
    const [units, unitsLoading, empty] = getArchivedUnits(course.id)
-   const [unarchivedUnits] = getUnits(course.id)
    
    const [unarchiveUnit, mutationLoading] = useMutateUnarchiveUnit({
       onCompleted: data => {
@@ -42,7 +43,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    
    function handleUnarchive(unit_id: string) {
-      unarchiveUnit({ id: unit_id, order: (unarchivedUnits?.length) ?? 0 })
+      unarchiveUnit({ id: unit_id, order: (cache.readUnits(null)?.length) ?? 0 })
    }
    
    return (
