@@ -72,7 +72,7 @@ export type LazyQueryHookCreatorReturn<TData> = [
    LoadingState,
    EmptyState,
       ApolloClient<any> | undefined
-] | [null, null, null, null]
+] | [null, null, false, false, undefined]
 
 
 export function getLazyQueryHookReturn<TData>(

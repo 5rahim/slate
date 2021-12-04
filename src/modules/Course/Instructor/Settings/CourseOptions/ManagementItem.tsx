@@ -50,7 +50,7 @@ export function ManagementItem() {
       
                   </Flex>
                   <Box mt="1">
-                     {courseManagements.map((management) => {
+                     {courseManagements?.map((management) => {
                         return (
                            <Flex mb="2" alignItems="center" gridGap=".5rem" key={management.id}>
                               <Avatar src={management.manager?.image as string} size="sm" />

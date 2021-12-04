@@ -1,4 +1,5 @@
 import { Course_Enrollment, Course_Management, Courses, UpdateCourseDetailsMutationVariables } from '@slate/generated/graphql'
+import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import {
@@ -98,9 +99,18 @@ export const useMutateCourseDetails: SlateMutationHook<UpdateCourseDetailsMutati
    })
 }
 
+/** @deprecated **/
 export const getCourseById = (id: string) => {
    
    return useQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", {
+      variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
+   })
+   
+}
+
+export const getLazyCourseById = (id: string) => {
+   
+   return useLazyQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", {
       variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
    })
    
@@ -172,9 +182,25 @@ export const getAllCourseManagements = () => {
    
 }
 
+/** @deprecated **/
 export const getStudentEnrollments = (course_id: string) => {
    
    return useQueryHookCreator<Course_Enrollment[]>(
+      "course_enrollment",
+      GET_COURSE_ENROLLMENTS,
+      "array",
+      {
+         variables: { course_id },
+         fetchPolicy: "cache-first",
+         nextFetchPolicy: 'cache-and-network'
+      },
+   )
+   
+}
+
+export const getLazyStudentEnrollments = (course_id: string) => {
+   
+   return useLazyQueryHookCreator<Course_Enrollment[]>(
       "course_enrollment",
       GET_COURSE_ENROLLMENTS,
       "array",

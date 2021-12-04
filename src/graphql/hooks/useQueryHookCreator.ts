@@ -69,7 +69,7 @@ export function useQueryHookCreator<T>(
 
 type LoadingState = boolean
 type EmptyState = boolean
-export type QueryHookCreatorReturn<T> = [T, LoadingState, EmptyState, ApolloClient<any>] | [null, null, null, null]
+export type QueryHookCreatorReturn<T> = [T, LoadingState, EmptyState, ApolloClient<any>] | [null, false, false, null]
 
 
 /**

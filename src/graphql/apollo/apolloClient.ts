@@ -1,7 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { WebSocketLink } from '@apollo/client/link/ws'
-import { LocalStorageWrapper, persistCache } from 'apollo3-cache-persist'
 import fetch from 'isomorphic-unfetch'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 
@@ -57,10 +56,10 @@ const createWSLink = () => {
 }
 
 const cache: any = new InMemoryCache()
-typeof window !== 'undefined' && persistCache({
-   cache,
-   storage: new LocalStorageWrapper(window.localStorage),
-})
+// typeof window !== 'undefined' && persistCache({
+//    cache,
+//    storage: new LocalStorageWrapper(window.localStorage),
+// })
 
 export default function createApolloClient(initialState: any, headers: any) {
    const ssrMode = typeof window === 'undefined'
@@ -74,7 +73,7 @@ export default function createApolloClient(initialState: any, headers: any) {
    return new ApolloClient({
       ssrMode,
       link,
-      cache: cache,
+      cache,
       connectToDevTools: true,
    })
 }

@@ -1,5 +1,5 @@
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
-import { getCourseById, getStudentEnrollments } from '@slate/graphql/schemas/courses/hooks'
+import { getLazyCourseById, getLazyStudentEnrollments } from '@slate/graphql/schemas/courses/hooks'
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { useUserRole } from '@slate/hooks/useUserRole'
 import { CourseActions, CourseSelectors } from '@slate/store/slices/courseSlice'
@@ -35,16 +35,23 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
       const storedCourse = useSelector(CourseSelectors.getAll)
-      const [course, courseIsLoading] = getCourseById(course_id as string)
+      const [fetchCourse, course, courseIsLoading] = getLazyCourseById(course_id as string)
       
-      const [enrollment, enrollmentIsLoading] = getStudentEnrollments(course_id as string)
+      const [fetchEnrollment, enrollment, enrollmentIsLoading] = getLazyStudentEnrollments(course_id as string)
       
       const [displayPage, setDisplayPage] = useState<boolean>(storedCourse.isEnrolled)
    
       /**
-       * Stored course acts like a cached object to accelerate loading
+       * If the course isn't stored in Redux,
+       * Send request for course data and enrollment.
+       * Otherwise, use stored course data to display page.
        */
       useEffect(() => {
+         if(!storedCourse.course) {
+            fetchCourse && fetchCourse()
+            fetchEnrollment && fetchEnrollment()
+         }
+         
          if(storedCourse && storedCourse.course && storedCourse.isEnrolled) {
             setDisplayPage(true)
          }

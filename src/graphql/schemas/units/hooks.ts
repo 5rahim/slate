@@ -1,6 +1,7 @@
 import {
    ArchiveUnitMutationVariables, CreateUnitMutationVariables, UnarchiveUnitMutationVariables, Units, UpdateUnitDetailsMutationVariables,
 } from '@slate/generated/graphql'
+import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
 import { ARCHIVE_UNIT, CREATE_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_DETAILS, UPDATE_UNIT_ORDER } from '@slate/graphql/schemas/units/mutations'
@@ -10,13 +11,23 @@ import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 export const getUnitById = (id: string) => {
    
    return useQueryHookCreator<Units>('units', GET_UNIT_BY_ID, "object", {
-      variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
+      variables: { id }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
    })
    
 }
 
 export const getUnits = (course_id: string) => {
    return useQueryHookCreator<Units[] | null>("units", GET_UNITS, "array", {
+      variables: { course_id },
+      fetchPolicy: 'no-cache',
+      nextFetchPolicy: 'cache-and-network',
+      debug: false,
+   })
+}
+
+
+export const getLazyUnits = (course_id: string) => {
+   return useLazyQueryHookCreator<Units[] | null>("units", GET_UNITS, "array", {
       variables: { course_id },
       fetchPolicy: 'no-cache',
       nextFetchPolicy: 'cache-and-network',

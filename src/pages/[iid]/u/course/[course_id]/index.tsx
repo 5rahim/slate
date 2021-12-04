@@ -15,7 +15,6 @@ import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMen
 import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 import { HiOutlineSpeakerphone } from 'react-icons/hi'
@@ -23,8 +22,6 @@ import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 const Page = ({ course, iid }: DashboardPage) => {
    const { t } = useTranslation(['common'], { useSuspense: false })
-   
-   const router = useRouter()
    
    
    return (

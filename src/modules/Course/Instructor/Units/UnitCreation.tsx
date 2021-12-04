@@ -3,12 +3,13 @@ import { DateInput } from '@slate/components/DateInput'
 import { TimePicker } from '@slate/components/TimePicker'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { CreateUnitMutationVariables } from '@slate/generated/graphql'
-import { getUnits, useCreateUnit } from '@slate/graphql/schemas/units/hooks'
+import { useCreateUnit } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
+import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Utils } from '@slate/utils'
@@ -18,13 +19,9 @@ import {
    Button, Checkbox, Flex, FormControl, FormLabel, Icon, IconBox, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader,
    ModalOverlay, Select, useDisclosure,
 } from 'chalkui/dist/cjs/React'
-import React, { ReactNode } from 'react'
+import React from 'react'
 import { BiCalendarAlt, BiCheckCircle, BiDotsVertical, BiDotsVerticalRounded, BiFolderPlus, BiHide } from 'react-icons/bi'
 
-
-function Stack(props: { direction: string, children: ReactNode }) {
-   return null
-}
 
 export function UnitCreation() {
    const cmf = useCMF()
@@ -32,8 +29,7 @@ export function UnitCreation() {
    const user = useCurrentUser()
    const course = useCurrentCourse()
    const { isOpen, onOpen, onClose } = useDisclosure()
-   
-   const [units] = getUnits(course.id)
+   const cache = useGlobalCache()
    const [createUnit, mutationLoading] = useCreateUnit({
       onCompleted: () => {
          fields.reset()
@@ -61,7 +57,7 @@ export function UnitCreation() {
             publish_on: ( !data.available && data.publish_later ) ? publishOn : new Date(),
             course_id: course.id,
             type: data.type,
-            order: units?.length ?? 0,
+            order: cache.readUnits(null)?.length ?? 0,
             number: data.number,
          }
          

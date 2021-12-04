@@ -7,7 +7,6 @@ import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { AppSelectors } from '@slate/store/slices/appSlice'
 import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
 import { Box, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import {
@@ -16,7 +15,6 @@ import {
 import Link from 'next/link'
 import React, { useRef } from 'react'
 import { BiArchive, BiArchiveOut } from 'react-icons/bi'
-import { useSelector } from 'react-redux'
 
 interface UnitArchiveProps {
 
@@ -25,7 +23,6 @@ interface UnitArchiveProps {
 export const UnitArchive = (props: UnitArchiveProps) => {
    
    const t = useTypeSafeTranslation()
-   const mutationIsLoading = useSelector(AppSelectors.mutationIsLoading)
    const { isOpen, onOpen, onClose } = useDisclosure()
    const cancelRef: any = useRef()
    const course = useCurrentCourse()
@@ -43,7 +40,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    
    function handleUnarchive(unit_id: string) {
-      unarchiveUnit({ id: unit_id, order: (cache.readUnits(null)?.length) ?? 0 })
+      unarchiveUnit({ id: unit_id, order: ( cache.readUnits(null)?.length ) ?? 0 })
    }
    
    return (

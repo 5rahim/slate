@@ -3,26 +3,26 @@ import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-ki
 import { Empty } from '@slate/components/UI/Empty'
 import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
-import { getUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/hooks'
+import { getLazyUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
-import { AppSelectors } from '@slate/store/slices/appSlice'
 import { Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
 import { FcFolder } from 'react-icons/fc'
-import { useSelector } from 'react-redux'
 
 export function UnitList() {
    const { id } = useCurrentCourse()
-   const [units, loading, empty] = getUnits(id)
+   const [fetchUnits, units, loading, empty] = getLazyUnits(id)
    const cache = useGlobalCache()
    const [listedUnits, setListedUnits] = useState<Units[] | null>()
    
    const [updateUnitOrder] = useMutateUnitOrder()
    
-   const mutationIsLoading = useSelector(AppSelectors.mutationIsLoading)
+   useEffect(() => {
+      fetchUnits && fetchUnits()
+   }, [])
    
    useEffect(() => {
       setListedUnits(cache.readUnits(units))
