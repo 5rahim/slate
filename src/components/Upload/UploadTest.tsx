@@ -3,14 +3,16 @@ export function UploadTest() {
       const file = e.target.files[0]
       const filename = encodeURIComponent(file.name)
       const res = await fetch(`/api/gcs-file-upload?file=${filename}`)
-      const { url, fields } = await res.json()
+      const { raw: { url, fields } } = await res.json()
       const formData = new FormData()
       
-      console.log(url, fields)
+      console.log({ file })
       
       Object.entries({ ...fields, file }).forEach(([key, value]) => {
          formData.append(key, value as string)
       })
+   
+      console.log({formData})
       
       if (url) {
          
@@ -19,14 +21,15 @@ export function UploadTest() {
                method: 'POST',
                body: formData,
             })
-   
-   
+            
+            
             if (upload.ok) {
                console.log('Uploaded successfully!')
             } else {
                console.error('Upload failed.')
             }
-         } catch (e) {
+         }
+         catch (e) {
          
          }
          console.log(url + fields.key)
