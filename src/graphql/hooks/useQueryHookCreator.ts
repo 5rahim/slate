@@ -47,11 +47,13 @@ export function useQueryHookCreator<T>(
    
    options.debug && console.log('[QueryHook]: Query started', '\n\tTable: ', table, '\n\tVariables: ', options.variables)
    
+   // console.log('[QueryHook]: Query started', '\n\tTable: ', table, '\n\tVariables: ', options.variables)
+   
    const queryResult = useQuery(query, {
       variables: options.variables,
       onCompleted: (data) => {
          options.onCompleted && options.onCompleted(data)
-         
+         console.log('[QueryHook]: Completed', '\n\tTable: ', table,)
          // TODO: Send notification
          if (sendNotification) {
          
@@ -67,7 +69,7 @@ export function useQueryHookCreator<T>(
 
 type LoadingState = boolean
 type EmptyState = boolean
-export type QueryHookCreatorReturn<T> = [T, LoadingState, EmptyState, ApolloClient<any>]
+export type QueryHookCreatorReturn<T> = [T, LoadingState, EmptyState, ApolloClient<any>] | [null, null, null, null]
 
 
 /**

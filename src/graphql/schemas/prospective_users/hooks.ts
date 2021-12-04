@@ -2,6 +2,12 @@ import { QueryTuple, useLazyQuery } from '@apollo/client'
 import { legacyHangleQueryError, legacyLazyQueryReturn } from '../../utils'
 import { GET_PROSPECTIVE_USER_BY_STUDENT_ID, GET_PROSPECTIVE_USER_BY_STUDENT_ID_AND_CODE } from './queries'
 
+
+/**
+ * @deprecated
+ * @param {string} student_id
+ * @returns {QueryTuple<any, any>}
+ */
 export const useLazyProspectiveUserByStudentID = (student_id: string): QueryTuple<any, any> => {
    
    const res = useLazyQuery(GET_PROSPECTIVE_USER_BY_STUDENT_ID, {
@@ -15,6 +21,12 @@ export const useLazyProspectiveUserByStudentID = (student_id: string): QueryTupl
    
 }
 
+/**
+ * @deprecated
+ * @param {string} student_id
+ * @param {string} code
+ * @returns {QueryTuple<any, any>}
+ */
 export const useLazyProspectiveUserByStudentIdAndCode = (student_id: string, code: string): QueryTuple<any, any> => {
    
    const res = useLazyQuery(GET_PROSPECTIVE_USER_BY_STUDENT_ID_AND_CODE, {

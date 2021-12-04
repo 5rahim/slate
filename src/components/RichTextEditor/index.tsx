@@ -71,10 +71,10 @@ export function RichTextEditor({ defaultValue, editorRef, ...rest }: RichTextEdi
                   'searchreplace visualblocks code fullscreen',
                   'insertdatetime media table paste code help wordcount',
                ],
-               toolbar: 'undo redo | fontsizeselect formatselect | ' +
+               toolbar: ['undo redo | fontsizeselect formatselect | ' +
                   'bold italic backcolor | alignleft aligncenter ' +
-                  'alignright alignjustify | image | bullist numlist outdent indent | ' +
-                  'removeformat | help',
+                  'alignright alignjustify', 'image | bullist numlist outdent indent | ' +
+                  'removeformat | help'],
                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                fontsize_formats: '8px 10px 12px 14px 16px 18px 24px 36px 48px',
                // images_upload_url: '/api/gcs-file-upload?file=' + uuid(),

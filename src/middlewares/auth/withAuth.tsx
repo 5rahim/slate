@@ -1,5 +1,5 @@
 import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
-import { getUserBySessionProfile } from '@slate/graphql/schemas/users/hooks'
+import { getLazyUserBySessionProfile } from '@slate/graphql/schemas/users/hooks'
 import { useCurrentUser, useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { UserActions } from '@slate/store/slices/userSlice'
 import { Utils } from '@slate/utils'
@@ -40,8 +40,16 @@ export const withAuth = (
       const dispatch = useDispatch()
       
       const storedUser = useCurrentUser()
-      const [user, userLoading] = requireActiveAccount ? getUserBySessionProfile(profile) : [null, null]
    
+      const [fetchUser, user, userLoading] = getLazyUserBySessionProfile(profile)
+   
+      
+      useEffect(() => {
+         if(!storedUser && requireActiveAccount) {
+            fetchUser && fetchUser()
+         }
+      }, [storedUser])
+      
       /**
        * Stored user acts like a cached object to accelerate loading
        */

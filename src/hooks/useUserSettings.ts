@@ -1,4 +1,4 @@
-import { getUserSettings } from '@slate/graphql/schemas/users/hooks'
+import { getLazyUserSettings } from '@slate/graphql/schemas/users/hooks'
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { UserActions, UserSelectors } from '@slate/store/slices/userSlice'
 import { useEffect, useState } from 'react'
@@ -14,21 +14,27 @@ export const useUserSettings = (): UserSettings => {
    const dispatch = useDispatch()
    const { profile } = useUserSessionProfile()
    
-   const [data, loading] = getUserSettings(profile)
+   const [fetchSettings, data, loading] = getLazyUserSettings(profile)
    const storedData = useSelector(UserSelectors.getSettings)
    
    const [settings, setSettings] = useState<UserSettings>({ hourFormat: '24', dateFormat: 'DMY', settingsAreLoading: true })
    
    useEffect(() => {
+      if(!storedData) {
+         fetchSettings && fetchSettings()
+      }
+   }, [storedData])
    
-      if(!loading) {
-         dispatch(UserActions.setSettings(data ?? null))
+   useEffect(() => {
+   
+      if(!loading && data) {
+         dispatch(UserActions.setSettings(data))
       }
       
       setSettings({
          hourFormat: storedData?.hour_format ?? (data?.hour_format ?? '24'),
          dateFormat: storedData?.date_format ?? (data?.date_format ?? 'DMY'),
-         settingsAreLoading: loading,
+         settingsAreLoading: loading ?? false,
       })
    }, [data, storedData, loading])
    
