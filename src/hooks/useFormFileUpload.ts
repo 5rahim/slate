@@ -89,7 +89,7 @@ export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
                      if (upload.ok) {
                         setIsUploaded(true)
                         setIsUploading(false)
-                        success = false
+                        success = true
                      } else {
                         console.error('Upload failed.')
                      }
