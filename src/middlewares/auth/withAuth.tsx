@@ -101,7 +101,7 @@ export const withAuth = (
       
       return displayPage ? (
          <Component {...props} user={storedUser ?? user} />
-      ) : <LoadingScreen />
+      ) : <LoadingScreen text="withAuth" />
    }
    
    // Copy getInitial props so it will run as well

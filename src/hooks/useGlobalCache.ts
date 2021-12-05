@@ -5,6 +5,8 @@ import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
 function isEmpty(obj: any) {
+   if(!obj)
+      return true
    if (typeof obj === 'object') {
       return !obj ? true : Object.keys(obj).length === 0
    } else if (Array.isArray(obj)) {
@@ -66,7 +68,7 @@ export const useGlobalCache = () => {
             dispatch(CacheActions.writeUnits(fetched))
          }
       },
-      readUnits: (fetched: Units[] | null): Units[] | null => {
+      readUnits: (fetched?: Units[] | null): Units[] | null => {
          return readObject(units, fetched)
       },
       noUnits: (empty: boolean, loading: boolean) => {
@@ -78,7 +80,7 @@ export const useGlobalCache = () => {
             dispatch(CacheActions.writeAnnouncements(fetched))
          }
       },
-      readAnnouncements: (fetched: Announcements[] | null): Announcements[] | null => {
+      readAnnouncements: (fetched?: Announcements[] | null): Announcements[] | null => {
          return readObject(announcements, fetched)
       },
       noAnnouncements: (empty: boolean, loading: boolean) => {

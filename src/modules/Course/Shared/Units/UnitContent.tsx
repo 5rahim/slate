@@ -1,11 +1,14 @@
+import { Dropzone } from '@slate/components/Dropzone'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
-import { UploadTest } from '@slate/components/Upload/UploadTest'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
+import { useFormCreator } from '@slate/hooks/useFormCreator'
+import { useFormFileUpload } from '@slate/hooks/useFormFileUpload'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { FormErrors } from '@slate/types/FormErrors'
 import { Badge, Text } from 'chalkui/dist/cjs'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, IconBox } from 'chalkui/dist/cjs/React'
+import { Box, Button, IconBox } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { BiEditAlt, BiEraser } from 'react-icons/bi'
 
@@ -14,6 +17,28 @@ export const UnitContent = () => {
    const unit = useCurrentUnit()
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
+   
+   const {populateFiles, hasFiles, uploadFiles, isUploading} = useFormFileUpload("multiple")
+   
+   const { onFormSubmit, fields, formState } = useFormCreator({
+      schema: ({ z }) => z.object({
+         files: z.any(),
+      }),
+      onSubmit: async data => {
+   
+         fields.clearErrors()
+         
+         if(!hasFiles) {
+            fields.setError('files', FormErrors.RequiredFile)
+         } else {
+            const uploadRes = await uploadFiles()
+            if(!uploadRes) {
+               console.log('Error')
+            }
+         }
+         
+      },
+   })
    
    return (
       <>
@@ -28,11 +53,12 @@ export const UnitContent = () => {
                <Flex
                   p={[3,3,4,4,4]}
                   width="100%"
-                  bgColor={cmf("gray.100", 'gray.700')}
+                  border="2px solid"
+                  borderColor={cmf("gray.200", 'gray.700')}
                   borderRadius="xl"
                   transition="all .15s linear"
                   flexDirection="column"
-                  boxShadow="sm"
+                  // boxShadow="sm"
                   _hover={{
                      boxShadow: 'md'
                   }}
@@ -81,9 +107,13 @@ export const UnitContent = () => {
                   </Box>
                </Flex>
             </Flex>
-            
-            
-            <UploadTest />
+   
+   
+            <form onSubmit={onFormSubmit}>
+               <Dropzone disabled={isUploading} onChange={populateFiles} inputProps={{ ...fields.register('files') }} />
+               {fields.errorMessage('files')}
+               <Button isLoading={isUploading} type="submit">Save</Button>
+            </form>
             
          </Box>
       

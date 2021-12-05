@@ -34,5 +34,6 @@
   "title must be at least 4 characters": "The title must be at least 4 characters",
   "message is a required field": "The message must not be empty",
   "Invalid field": "The value you entered is invalid",
-  "Required field": "This field is required, please enter a value"
+  "Required field": "This field is required, please enter a value",
+  "Required file": "This field is required, upload a file"
 }

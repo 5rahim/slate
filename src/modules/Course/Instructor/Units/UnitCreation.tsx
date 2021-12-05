@@ -57,7 +57,7 @@ export function UnitCreation() {
             publish_on: ( !data.available && data.publish_later ) ? publishOn : new Date(),
             course_id: course.id,
             type: data.type,
-            order: cache.readUnits(null)?.length ?? 0,
+            order: cache.readUnits()?.length ?? 0,
             number: data.number,
          }
          

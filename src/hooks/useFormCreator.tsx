@@ -49,7 +49,7 @@ export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
    const { schemaResolver } = useFormValidation(schema)
    
    const {
-      register, handleSubmit, control, watch, setError, reset, formState: { errors, isValid, isSubmitting, isSubmitted, isSubmitSuccessful, dirtyFields },
+      register, handleSubmit, control, watch, setError, reset, clearErrors, formState: { errors, isValid, isSubmitting, isSubmitted, isSubmitSuccessful, dirtyFields },
    } = useForm({
       resolver: schemaResolver,
       defaultValues: defaultValues,
@@ -66,6 +66,7 @@ export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
       },
       fields: {
          errors,
+         clearErrors,
          watch: watch,
          reset: reset,
          
