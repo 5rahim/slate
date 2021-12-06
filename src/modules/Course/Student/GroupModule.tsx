@@ -1,3 +1,4 @@
+import { BiGroup } from '@react-icons/all-files/bi/BiGroup'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
@@ -6,7 +7,6 @@ import { Text } from 'chalkui/dist/cjs'
 import { Box } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiGroup } from 'react-icons/bi'
 
 export function GroupModule() {
    const { t, i18n } = useTranslation(['common', 'course'], { useSuspense: false })

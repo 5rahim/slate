@@ -1,3 +1,5 @@
+import { BiCopy } from '@react-icons/all-files/bi/BiCopy'
+import { BiLink } from '@react-icons/all-files/bi/BiLink'
 import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
 import { useMutateCourseCode } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -8,7 +10,6 @@ import {
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiCopy, BiLink } from 'react-icons/bi'
 
 export function AccessCodeItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

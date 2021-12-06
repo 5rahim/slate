@@ -1,4 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
+import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
+import { BiPlus } from '@react-icons/all-files/bi/BiPlus'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -22,7 +25,6 @@ import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Alert, AlertDescription, AlertIcon, Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, useDisclosure } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React from 'react'
-import { BiEdit, BiFolderOpen, BiPlus } from 'react-icons/bi'
 
 const Page = ({ course }: DashboardPage) => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()

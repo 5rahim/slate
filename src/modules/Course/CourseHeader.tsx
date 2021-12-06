@@ -1,3 +1,11 @@
+import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
+import { BiCctv } from '@react-icons/all-files/bi/BiCctv'
+import { BiChat } from '@react-icons/all-files/bi/BiChat'
+import { BiFile } from '@react-icons/all-files/bi/BiFile'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
+import { BiGridAlt } from '@react-icons/all-files/bi/BiGridAlt'
+import { BiUserCheck } from '@react-icons/all-files/bi/BiUserCheck'
+import { FcReadingEbook } from '@react-icons/all-files/fc/FcReadingEbook'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
@@ -12,8 +20,6 @@ import {
 } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React from 'react'
-import { BiCalendar, BiCctv, BiChat, BiFile, BiFolder, BiGridAlt, BiUserCheck } from 'react-icons/bi'
-import { FcReadingEbook } from 'react-icons/fc'
 import { useDispatch, useSelector } from 'react-redux'
 
 const CourseHeaderLink = ({ icon, children, linkTo }: any) => {

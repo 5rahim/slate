@@ -1,3 +1,4 @@
+import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { ScheduleSelector } from '@slate/components/ScheduleSelector'
 import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import {
@@ -5,7 +6,6 @@ import {
 } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiCalendar } from 'react-icons/bi'
 
 
 export function ScheduleItem() {

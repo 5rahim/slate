@@ -1,3 +1,4 @@
+import { BiArchiveIn } from '@react-icons/all-files/bi/BiArchiveIn'
 import { Units } from '@slate/generated/graphql'
 import { useMutateArchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -8,7 +9,6 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Flex, IconBox,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiArchiveIn } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 interface UnitAddArchiveProps {

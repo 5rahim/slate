@@ -1,3 +1,4 @@
+import { FcAdvertising } from '@react-icons/all-files/fc/FcAdvertising'
 import { Empty } from '@slate/components/UI/Empty'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
@@ -7,7 +8,6 @@ import { AnnouncementListItem } from '@slate/modules/Course/Shared/Announcements
 import { DividedList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { ListProps, Skeleton } from 'chalkui/dist/cjs/React'
 import React, { useEffect } from 'react'
-import { FcAdvertising } from 'react-icons/fc'
 
 export function AnnouncementList({ ...rest }: ListProps) {
    const course = useCurrentCourse()

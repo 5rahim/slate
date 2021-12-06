@@ -1,4 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
+import { FcViewDetails } from '@react-icons/all-files/fc/FcViewDetails'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -15,11 +17,9 @@ import { UnitList } from '@slate/modules/Course/Shared/Units/UnitList'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
 import { Box, ButtonGroup, Icon, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiFolderOpen } from 'react-icons/bi'
-import { FcViewDetails } from 'react-icons/fc'
 
 
 const Page = ({ user, school, course }: DashboardPage) => {

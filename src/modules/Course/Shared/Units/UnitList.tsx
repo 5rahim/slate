@@ -1,5 +1,6 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { FcFolder } from '@react-icons/all-files/fc/FcFolder'
 import { Empty } from '@slate/components/UI/Empty'
 import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
@@ -10,7 +11,6 @@ import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
 import { Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
-import { FcFolder } from 'react-icons/fc'
 
 export function UnitList() {
    const { id } = useCurrentCourse()

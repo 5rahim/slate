@@ -1,3 +1,4 @@
+import { BiKey } from '@react-icons/all-files/bi/BiKey'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
 import { DataListModule } from '@slate/graphql/DataListModule'
@@ -8,7 +9,6 @@ import { Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, Box, Link, Skeleton, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiKey } from 'react-icons/bi'
 
 export function ManagementItem() {
    

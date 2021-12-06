@@ -7,7 +7,7 @@ import "@fontsource/assistant/500.css"
 import "@fontsource/assistant/600.css"
 import "@fontsource/assistant/700.css"
 import "@fontsource/assistant/800.css"
-import { ChalkProvider } from 'chalkui/dist/cjs/React'
+import { ChalkProvider } from 'chalkui/dist/cjs/React/ChalkProvider'
 import type { AppProps } from 'next/app'
 import Router from "next/router"
 import NProgress from "nprogress"

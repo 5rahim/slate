@@ -1,3 +1,8 @@
+import { BiLogOut } from '@react-icons/all-files/bi/BiLogOut'
+import { BiMenu } from '@react-icons/all-files/bi/BiMenu'
+import { BiMoon } from '@react-icons/all-files/bi/BiMoon'
+import { BiSun } from '@react-icons/all-files/bi/BiSun'
+import { BiUser } from '@react-icons/all-files/bi/BiUser'
 import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { Utils } from '@slate/utils'
@@ -7,7 +12,6 @@ import { Avatar, Dropdown, DropdownButton, DropdownItem, DropdownList, IconButto
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiLogOut, BiMenu, BiMoon, BiSun, BiUser } from 'react-icons/bi'
 
 interface HeaderProps {
    openDrawer: any

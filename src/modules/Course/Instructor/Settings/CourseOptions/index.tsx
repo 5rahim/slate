@@ -1,3 +1,4 @@
+import { BiSliderAlt } from '@react-icons/all-files/bi/BiSliderAlt'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -6,8 +7,6 @@ import { AvailabilityItem } from '@slate/modules/Course/Instructor/Settings/Cour
 import { ManagementItem } from '@slate/modules/Course/Instructor/Settings/CourseOptions/ManagementItem'
 import { MoreOptionsItem } from '@slate/modules/Course/Instructor/Settings/CourseOptions/MoreOptionsItem'
 import { DividedList } from 'chalkui/dist/cjs/Components/Layout'
-import { BiSliderAlt } from 'react-icons/bi'
-
 
 export function CourseOptions() {
    const t = useTypeSafeTranslation()

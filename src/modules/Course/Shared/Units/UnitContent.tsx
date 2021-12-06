@@ -1,3 +1,5 @@
+import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
+import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
 import { Dropzone } from '@slate/components/Dropzone'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
@@ -10,7 +12,6 @@ import { Badge, Text } from 'chalkui/dist/cjs'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Button, IconBox } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiEditAlt, BiEraser } from 'react-icons/bi'
 
 export const UnitContent = () => {
    

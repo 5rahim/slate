@@ -1,3 +1,12 @@
+import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
+import { BiChat } from '@react-icons/all-files/bi/BiChat'
+import { BiDetail } from '@react-icons/all-files/bi/BiDetail'
+import { BiFile } from '@react-icons/all-files/bi/BiFile'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
+import { BiGroup } from '@react-icons/all-files/bi/BiGroup'
+import { BiHighlight } from '@react-icons/all-files/bi/BiHighlight'
+import { BiListUl } from '@react-icons/all-files/bi/BiListUl'
+import { HiOutlineSpeakerphone } from '@react-icons/all-files/hi/HiOutlineSpeakerphone'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
@@ -7,8 +16,6 @@ import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { Box, Menu, MenuItem, MenuList } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React from 'react'
-import { BiCalendar, BiChat, BiDetail, BiFile, BiFolder, BiGroup, BiHighlight, BiListUl } from 'react-icons/bi'
-import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 interface CourseContextMenuProps {
    index?: number

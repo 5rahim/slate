@@ -1,10 +1,9 @@
+import { BiTime } from '@react-icons/all-files/bi/BiTime'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useUserSettings } from '@slate/hooks/useUserSettings'
 import { HStack, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text } from 'chalkui/dist/cjs'
 import { Box, Icon, Select } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
-import { BiTime } from 'react-icons/bi'
-
 
 interface TimePickerProps {
    defaultTime?: number

@@ -1,4 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { HiOutlineSpeakerphone } from '@react-icons/all-files/hi/HiOutlineSpeakerphone'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -17,7 +18,6 @@ import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 
 const Page = ({ course, iid }: DashboardPage) => {

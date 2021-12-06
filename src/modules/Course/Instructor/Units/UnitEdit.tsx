@@ -1,3 +1,9 @@
+import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
+import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
+import { BiDotsVertical } from '@react-icons/all-files/bi/BiDotsVertical'
+import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
+import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { DateInput } from '@slate/components/DateInput'
 import { TimePicker } from '@slate/components/TimePicker'
@@ -17,7 +23,6 @@ import {
    ModalOverlay, Select,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiCalendarAlt, BiCheckCircle, BiDotsVertical, BiDotsVerticalRounded, BiFolder, BiHide } from 'react-icons/bi'
 
 interface UnitEditProps {
    isOpen: boolean

@@ -1,3 +1,4 @@
+import { HiOutlineSpeakerphone } from '@react-icons/all-files/hi/HiOutlineSpeakerphone'
 import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { DateInput } from '@slate/components/DateInput'
 import { DeletionAlert } from '@slate/components/DeletionAlert'
@@ -19,7 +20,6 @@ import {
    ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Switch,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { HiOutlineSpeakerphone } from 'react-icons/hi'
 
 
 interface AnnouncementEditProps {

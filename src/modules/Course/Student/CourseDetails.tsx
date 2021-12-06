@@ -1,3 +1,4 @@
+import { BiBookContent } from '@react-icons/all-files/bi/BiBookContent'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
@@ -7,7 +8,6 @@ import { Text } from 'chalkui/dist/cjs'
 import { Avatar, Box, Flex } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiBookContent } from 'react-icons/bi'
 
 export function CourseDetails() {
    const { t, i18n } = useTranslation(['common', 'course'], { useSuspense: false })

@@ -1,10 +1,15 @@
+import { FcAudioFile } from '@react-icons/all-files/fc/FcAudioFile'
+import { FcDocument } from '@react-icons/all-files/fc/FcDocument'
+import { FcFile } from '@react-icons/all-files/fc/FcFile'
+import { FcImageFile } from '@react-icons/all-files/fc/FcImageFile'
+import { FcPackage } from '@react-icons/all-files/fc/FcPackage'
+import { FcVideoFile } from '@react-icons/all-files/fc/FcVideoFile'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Icon, Text, Tooltip } from 'chalkui/dist/cjs/React'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DropzoneOptions, useDropzone } from 'react-dropzone'
-import { FcAudioFile, FcDocument, FcFile, FcImageFile, FcPackage, FcVideoFile } from 'react-icons/fc'
 
 function humanSize(size: number, precision = 2): string {
    const i = Math.floor(Math.log(size) / Math.log(1024))

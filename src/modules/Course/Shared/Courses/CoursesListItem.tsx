@@ -1,3 +1,4 @@
+import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Courses } from '@slate/generated/graphql'
 import { DataListItem } from '@slate/graphql/DataListModule'
@@ -13,7 +14,6 @@ import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, AvatarGroup, Box, Icon, Tag, Text, Tooltip } from 'chalkui/dist/cjs/React'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { BiCalendarAlt } from 'react-icons/bi'
 
 export const CoursesListItem: DataListItem<Courses> = (props) => {
    const router = useRouter()

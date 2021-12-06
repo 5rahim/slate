@@ -1,12 +1,11 @@
+import { FcEmptyTrash } from '@react-icons/all-files/fc/FcEmptyTrash'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { Center } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Icon, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { IconType } from 'react-icons'
-import { FcEmptyTrash } from 'react-icons/fc'
 
 interface EmptyProps {
-   icon?: IconType | undefined,
+   icon?: any | undefined,
    text?: string
 }
 

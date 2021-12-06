@@ -1,3 +1,7 @@
+import { BiHide } from '@react-icons/all-files/bi/BiHide'
+import { BiLock } from '@react-icons/all-files/bi/BiLock'
+import { BiLockOpen } from '@react-icons/all-files/bi/BiLockOpen'
+import { BiShow } from '@react-icons/all-files/bi/BiShow'
 import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
 import { useMutateCourseAvailability } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -7,7 +11,6 @@ import {
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiHide, BiLock, BiLockOpen, BiShow } from 'react-icons/bi'
 
 export const AvailabilityItem = () => {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

@@ -1,3 +1,4 @@
+import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
 import { DatePicker } from '@slate/components/DatePicker'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -8,7 +9,6 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Input, InputGroup, useDisclosure,
 } from 'chalkui/dist/cjs/React'
 import React, { useEffect, useState } from 'react'
-import { BiCalendarAlt } from 'react-icons/bi'
 
 interface DateInputProps {
    onChange?: any,

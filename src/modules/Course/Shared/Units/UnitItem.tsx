@@ -1,5 +1,12 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from "@dnd-kit/utilities"
+import { BiArchiveIn } from '@react-icons/all-files/bi/BiArchiveIn'
+import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
+import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
+import { BiDotsVertical } from '@react-icons/all-files/bi/BiDotsVertical'
+import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
+import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
+import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { Units } from '@slate/generated/graphql'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
@@ -13,8 +20,6 @@ import { Text } from 'chalkui/dist/cjs'
 import { Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Flex, Icon, useDisclosure } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React, { useRef } from 'react'
-import { BiArchiveIn, BiCalendarAlt, BiCheckCircle, BiDotsVertical, BiDotsVerticalRounded, BiEdit, BiHide } from 'react-icons/bi'
-
 
 interface UnitItemProps {
    data: Units
@@ -27,7 +32,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    const { isOpen, onOpen, onClose } = useDisclosure()
    const { isOpen: archiveIsOpen, onOpen: archiveOnOpen, onClose: archiveOnClose } = useDisclosure()
    const { linkToUnit } = useLinkHref()
-   const {formatDate} = useDateFormatter()
+   const { formatDate } = useDateFormatter()
    const cancelRef: any = useRef()
    const {
       attributes,
@@ -44,7 +49,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    }
    
    return (
-      <HideItemInStudentView showIf={(data.available) || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on))}>
+      <HideItemInStudentView showIf={( data.available ) || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
          <UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />
          
@@ -98,7 +103,10 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                   <Flex alignItems="center">
                      {( data.is_scheduled && !data.available ) && (
                         <>
-                           <Text color={cmf("gray.500", "gray.300")} mr="2">{t('Accessible on')} {formatDate(data.publish_on, 'short with hours')}</Text>
+                           <Text
+                              color={cmf("gray.500", "gray.300")}
+                              mr="2"
+                           >{t('Accessible on')} {formatDate(data.publish_on, 'short with hours')}</Text>
                            <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />
                         </>
                      )}

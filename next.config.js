@@ -1,3 +1,5 @@
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
 // const withTM = require('next-transpile-modules')(['react-icons']); // pass the modules you would like to see transpiled
 //
 // module.exports = withTM();
@@ -9,4 +11,16 @@ module.exports = {
         locales: ['en', 'fr'],
         defaultLocale: 'en',
     },
+    // webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
+    //     if (true) {
+    //         config.plugins.push(
+    //             new BundleAnalyzerPlugin({
+    //                 analyzerMode: 'server',
+    //                 analyzerPort: isServer ? 8888 : 8889,
+    //                 openAnalyzer: true,
+    //             })
+    //         )
+    //     }
+    //     return config
+    // },
 }

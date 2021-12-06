@@ -1,3 +1,4 @@
+import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
@@ -6,7 +7,6 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Flex, IconBox,
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiTrash } from 'react-icons/bi'
 import { useSelector } from 'react-redux'
 
 interface DeletionAlertProps {

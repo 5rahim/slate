@@ -1,3 +1,4 @@
+import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { DatePicker } from '@slate/components/DatePicker'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
@@ -10,7 +11,6 @@ import {
 } from 'chalkui/dist/cjs/React'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiCalendar } from 'react-icons/bi'
 
 export function DurationItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

@@ -1,3 +1,6 @@
+import { BiDotsHorizontal } from '@react-icons/all-files/bi/BiDotsHorizontal'
+import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
+import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
@@ -12,7 +15,6 @@ import { Utils } from '@slate/utils'
 import { Divider, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Avatar, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Tag, Text, useDisclosure } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiDotsHorizontal, BiEdit, BiTrash } from 'react-icons/bi'
 
 export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const cmf = useCMF()

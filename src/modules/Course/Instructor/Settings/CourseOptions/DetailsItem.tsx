@@ -1,3 +1,4 @@
+import { BiBookAlt } from '@react-icons/all-files/bi/BiBookAlt'
 import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useMutateCourseDetails } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -7,7 +8,6 @@ import {
 } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiBookAlt } from 'react-icons/bi'
 
 export function DetailsItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

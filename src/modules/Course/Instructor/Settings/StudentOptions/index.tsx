@@ -1,3 +1,7 @@
+import { BiGroup } from '@react-icons/all-files/bi/BiGroup'
+import { BiUserPin } from '@react-icons/all-files/bi/BiUserPin'
+import { CgUserList } from '@react-icons/all-files/cg/CgUserList'
+import { GrGroup } from '@react-icons/all-files/gr/GrGroup'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
@@ -5,9 +9,6 @@ import { DividedList } from 'chalkui/dist/cjs/Components/Layout'
 import { Link, Text } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { BiGroup, BiUserPin } from 'react-icons/bi'
-import { CgUserList } from 'react-icons/cg'
-import { GrGroup } from 'react-icons/gr'
 
 export function StudentOptions() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

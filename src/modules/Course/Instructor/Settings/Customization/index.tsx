@@ -1,3 +1,4 @@
+import { BiPalette } from '@react-icons/all-files/bi/BiPalette'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useMutateCourseBackgroundColor, useMutateCourseBannerColor } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -7,7 +8,6 @@ import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPane
 import React from 'react'
 import Circle from 'react-color/lib/components/circle/Circle'
 import Swatches from 'react-color/lib/components/swatches/Swatches'
-import { BiPalette } from 'react-icons/bi'
 
 export function Customization() {
 

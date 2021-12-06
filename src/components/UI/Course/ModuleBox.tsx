@@ -1,9 +1,10 @@
+import { BiCaretDown } from '@react-icons/all-files/bi/BiCaretDown'
+import { BiCaretUp } from '@react-icons/all-files/bi/BiCaretUp'
 import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Icon, Text, useDisclosure } from 'chalkui/dist/cjs/React'
 import React from 'react'
-import { BiCaretDown, BiCaretUp } from 'react-icons/bi'
 
 type CourseModuleBoxProps = {
    headerIcon?: React.ReactNode
