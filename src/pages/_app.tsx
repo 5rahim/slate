@@ -12,7 +12,6 @@ import type { AppProps } from 'next/app'
 import Router from "next/router"
 import NProgress from "nprogress"
 import "nprogress/nprogress.css"
-import React from "react"
 import { CookiesProvider } from 'react-cookie'
 import { I18nextProvider } from 'react-i18next'
 import { Provider as ReduxProvider } from 'react-redux'

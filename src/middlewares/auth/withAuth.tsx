@@ -89,15 +89,7 @@ export const withAuth = (
          }
          
       }, [profileIsLoading, profile, user, storedUser])
-      
-      
-      if (typeof window !== 'undefined' && profileIsLoading) {
-         return <LoadingScreen />
-      }
-      
-      if (profileIsLoading) {
-         return <LoadingScreen />
-      }
+
       
       return displayPage ? (
          <Component {...props} user={storedUser ?? user} />

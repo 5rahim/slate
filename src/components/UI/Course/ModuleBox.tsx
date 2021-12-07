@@ -2,8 +2,11 @@ import { BiCaretDown } from '@react-icons/all-files/bi/BiCaretDown'
 import { BiCaretUp } from '@react-icons/all-files/bi/BiCaretUp'
 import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
+import { Icon } from 'chalkui/dist/cjs/Components/Icon'
 import { BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Icon, Text, useDisclosure } from 'chalkui/dist/cjs/React'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
 type CourseModuleBoxProps = {

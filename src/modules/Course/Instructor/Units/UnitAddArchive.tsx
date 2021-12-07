@@ -4,10 +4,12 @@ import { useMutateArchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
-import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import { Button } from 'chalkui/dist/cjs/Components/Button'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Flex, IconBox,
-} from 'chalkui/dist/cjs/React'
+   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
 import React from 'react'
 import { useSelector } from 'react-redux'
 

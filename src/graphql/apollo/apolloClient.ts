@@ -57,6 +57,8 @@ const createWSLink = () => {
 }
 
 const cache: any = new InMemoryCache()
+
+//await
 typeof window !== 'undefined' && persistCache({
    cache,
    storage: new LocalStorageWrapper(window.localStorage),

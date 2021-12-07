@@ -1,5 +1,7 @@
 import { DurationDateFormat } from '@slate/types/Course'
-import { addMinutes, differenceInMinutes, format } from 'date-fns'
+import addMinutes from 'date-fns/addMinutes'
+import differenceInMinutes from 'date-fns/differenceInMinutes'
+import format from 'date-fns/format'
 import { Parameter } from '../types/Parameters'
 
 

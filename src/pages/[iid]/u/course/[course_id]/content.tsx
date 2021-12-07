@@ -17,8 +17,11 @@ import { UnitList } from '@slate/modules/Course/Shared/Units/UnitList'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
+import { ButtonGroup } from 'chalkui/dist/cjs/Components/Button/ButtonGroup'
+import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
-import { Box, ButtonGroup, Icon, Text } from 'chalkui/dist/cjs/React'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 

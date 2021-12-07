@@ -1,5 +1,4 @@
-import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout'
-import React from 'react'
+import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout/Box'
 
 export type DataListItem<T> = (props: { data: T }) => JSX.Element
 

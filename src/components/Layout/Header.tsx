@@ -7,8 +7,11 @@ import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
+import { Avatar } from 'chalkui/dist/cjs/Components/Avatar/Avatar'
+import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
+import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Avatar, Dropdown, DropdownButton, DropdownItem, DropdownList, IconButton, Text } from 'chalkui/dist/cjs/React'
+import { Text } from 'chalkui/dist/cjs/Components/Typography'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
@@ -75,7 +78,9 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                            size="lg"
                            variant="outline"
                            cursor="pointer"
-                        ><Avatar size="sm" name={Utils.Names.formatLocaleFullName('en', user)} src={user?.image as string} /></DropdownButton>
+                        >
+                           <Avatar size="sm" name={Utils.Names.formatLocaleFullName('en', user)} src={user?.image as string} />
+                        </DropdownButton>
                         <DropdownList>
                            <DropdownItem icon={<BiUser />}>
                               {t('Your Profile')}

@@ -16,12 +16,16 @@ import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Utils } from '@slate/utils'
-import { Text } from 'chalkui/dist/cjs'
-import { Box, Divider } from 'chalkui/dist/cjs/Components/Layout'
-import {
-   Button, Checkbox, Flex, FormControl, FormLabel, Icon, IconBox, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader,
-   ModalOverlay, Select,
-} from 'chalkui/dist/cjs/React'
+import { Button } from 'chalkui/dist/cjs/Components/Button'
+import { Checkbox } from 'chalkui/dist/cjs/Components/Checkbox'
+import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
+import { Icon } from 'chalkui/dist/cjs/Components/Icon'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
+import { Input } from 'chalkui/dist/cjs/Components/Input'
+import { Box, Divider, Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
+import { Select } from 'chalkui/dist/cjs/Components/Select/Select'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 interface UnitEditProps {

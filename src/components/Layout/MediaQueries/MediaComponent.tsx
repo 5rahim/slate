@@ -1,5 +1,4 @@
-import { Box } from 'chalkui/dist/cjs/React'
-import React from 'react'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { ComponentVisibilityProps } from '../../ComponentVisibility/Types'
 
 export const MediaComponent = {

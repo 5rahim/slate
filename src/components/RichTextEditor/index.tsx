@@ -1,7 +1,6 @@
 import { useLocale } from '@slate/hooks/useLocale'
 import { Editor } from '@tinymce/tinymce-react'
-import { BoxProps } from 'chalkui/dist/cjs/Components/Layout'
-import { Box } from 'chalkui/dist/cjs/React'
+import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { MutableRefObject } from 'react'
 import { Editor as TinyMCEEditor } from 'tinymce'
 

@@ -4,10 +4,14 @@ import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useUserSettings } from '@slate/hooks/useUserSettings'
 import { DurationDateFormat } from '@slate/types/Course'
-import { AlertDialogCloseButton, InputLeftElement, InputProps } from 'chalkui/dist/cjs'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { Input, InputProps } from 'chalkui/dist/cjs/Components/Input/Input'
+import { InputLeftElement } from 'chalkui/dist/cjs/Components/Input/InputElement'
+import { InputGroup } from 'chalkui/dist/cjs/Components/Input/InputGroup'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Input, InputGroup, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+   AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React, { useEffect, useState } from 'react'
 
 interface DateInputProps {

@@ -1480,7 +1480,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graphql-codegen/plugin-helpers@npm:^2.1.0, @graphql-codegen/plugin-helpers@npm:^2.3.0":
+"@graphql-codegen/plugin-helpers@npm:^2.0.0, @graphql-codegen/plugin-helpers@npm:^2.1.0, @graphql-codegen/plugin-helpers@npm:^2.3.0":
   version: 2.3.1
   resolution: "@graphql-codegen/plugin-helpers@npm:2.3.1"
   dependencies:
@@ -1558,6 +1558,26 @@ __metadata:
   peerDependencies:
     graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
   checksum: 1a7ff66a5cd9d7a6d3fe2934d0e40ad31c48e68ba0b8e2da08249d0a9c2527ecdc59707e4f776216d9722527a50f17b2688ebd168de318e041a3aac07c42e011
+  languageName: node
+  linkType: hard
+
+"@graphql-codegen/visitor-plugin-common@npm:^2.0.0":
+  version: 2.5.1
+  resolution: "@graphql-codegen/visitor-plugin-common@npm:2.5.1"
+  dependencies:
+    "@graphql-codegen/plugin-helpers": ^2.3.0
+    "@graphql-tools/optimize": ^1.0.1
+    "@graphql-tools/relay-operation-optimizer": ^6.3.7
+    "@graphql-tools/utils": ^8.3.0
+    auto-bind: ~4.0.0
+    change-case-all: 1.0.14
+    dependency-graph: ^0.11.0
+    graphql-tag: ^2.11.0
+    parse-filepath: ^1.0.2
+    tslib: ~2.3.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 1491c1ef2db5b084aaeeec34e826a69ed3db5f88b29d901e11d8b833db3b92aed5c781179d44c304d93a327a598a7ff30a899a01cb08658c68de1863b2a31071
   languageName: node
   linkType: hard
 
@@ -4262,9 +4282,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalkui@npm:^1.1.7":
-  version: 1.1.7
-  resolution: "chalkui@npm:1.1.7"
+"chalkui@npm:1.2.1":
+  version: 1.2.1
+  resolution: "chalkui@npm:1.2.1"
   dependencies:
     "@emotion/css": ^11.1.3
     "@emotion/react": ^11.1.5
@@ -4286,7 +4306,6 @@ __metadata:
     react: ^17.0.1
     react-dom: ^17.0.1
     react-focus-lock: ^2.5.0
-    react-icons: ^4.2.0
     react-lorem-component: ^0.13.0
     react-remove-scroll: ^2.4.1
     react-spinners: ^0.10.6
@@ -4295,7 +4314,7 @@ __metadata:
     tinycolor2: ^1.4.2
     typescript: ^4.2.2
     uuid: ^8.3.2
-  checksum: c9cfd0a39ee80e64946fac8750c0249605072bdec40c7351efa781985f34c6853798a4cedbfe646cc554d3e8f35f66afef5311cd39b522ed46b80512782260a7
+  checksum: caa5096a6e99154be63d240370d043f0b46ff7172305711e0f84f0e704ab8037fbd6da6b442ce4c7bca36464278144869c3f6b60bf939124d81a7bbbc81b595a
   languageName: node
   linkType: hard
 
@@ -6216,6 +6235,19 @@ __metadata:
   version: 4.2.8
   resolution: "graceful-fs@npm:4.2.8"
   checksum: 5d224c8969ad0581d551dfabdb06882706b31af2561bd5e2034b4097e67cc27d05232849b8643866585fd0a41c7af152950f8776f4dd5579e9853733f31461c6
+  languageName: node
+  linkType: hard
+
+"graphql-codegen-apollo-next-ssr@npm:^1.7.1":
+  version: 1.7.1
+  resolution: "graphql-codegen-apollo-next-ssr@npm:1.7.1"
+  dependencies:
+    "@graphql-codegen/plugin-helpers": ^2.0.0
+    "@graphql-codegen/visitor-plugin-common": ^2.0.0
+    auto-bind: ~4.0.0
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0
+  checksum: ab0fe7d8ed87df20fc4ef325fdf4480d6fff7b7db5f9d7a1c1d3ec727ec01af8eb2acb6cc1bc8086e0c47c8f83d204b6a34d97bf837de0036eb6e5a5419672c7
   languageName: node
   linkType: hard
 
@@ -9893,15 +9925,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-icons@npm:^4.2.0":
-  version: 4.3.1
-  resolution: "react-icons@npm:4.3.1"
-  peerDependencies:
-    react: "*"
-  checksum: 2cc608acdd3e906aa3aaee290b8398220639677c949382d86e554020e5dab6a9f1ed7484418aa5272cb5c5c018e1fc9a323d433d901697a76530029f9ecb1263
-  languageName: node
-  linkType: hard
-
 "react-is@npm:17.0.2, react-is@npm:^17.0.1, react-is@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-is@npm:17.0.2"
@@ -10766,12 +10789,13 @@ __metadata:
     "@types/uuid": ^8.3.3
     apollo3-cache-persist: ^0.13.0
     aria-hidden: ^1.1.3
-    chalkui: ^1.1.7
+    chalkui: 1.2.1
     copy-to-clipboard: ^3.3.1
     date-fns: ^2.25.0
     dotenv: ^10.0.0
     framer-motion: ^4.1.17
     graphql: ^16.0.1
+    graphql-codegen-apollo-next-ssr: ^1.7.1
     i18next: ^20.3.5
     i18next-browser-languagedetector: ^6.1.2
     i18next-http-backend: ^1.3.0

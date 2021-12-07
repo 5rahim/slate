@@ -12,12 +12,16 @@ import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { FormErrors } from '@slate/types/FormErrors'
-import { Text } from 'chalkui/dist/cjs'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
+import { Input } from 'chalkui/dist/cjs/Components/Input'
 import { Box, Divider } from 'chalkui/dist/cjs/Components/Layout'
 import {
-   Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, FormControl, FormLabel, Input, Switch,
-   useDisclosure,
-} from 'chalkui/dist/cjs/React'
+   Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/Drawer'
+import { Switch } from 'chalkui/dist/cjs/Components/Switch'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
 

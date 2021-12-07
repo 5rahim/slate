@@ -1,6 +1,7 @@
-import { Text } from 'chalkui/dist/cjs'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
-import { SimpleGrid, Spinner } from 'chalkui/dist/cjs/React'
+import { SimpleGrid } from 'chalkui/dist/cjs/Components/Layout/SimpleGrid'
+import { Spinner } from 'chalkui/dist/cjs/Components/Spinner'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 export const LoadingScreen = ({text}: any) => {

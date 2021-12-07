@@ -1,6 +1,6 @@
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import { Flex } from 'chalkui/dist/cjs/React'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
 import NextLink, { LinkProps } from 'next/link'
 import { useRouter } from 'next/router'
 import React, { cloneElement, forwardRef } from 'react'

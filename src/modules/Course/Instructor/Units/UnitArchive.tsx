@@ -9,11 +9,15 @@ import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
-import { Box, ListItem } from 'chalkui/dist/cjs/Components/Layout'
+import { Button } from 'chalkui/dist/cjs/Components/Button'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+import { Box, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
+import { CelledList } from 'chalkui/dist/cjs/Components/Layout/List'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogOverlay, Button, CelledList, Flex, IconBox, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+   AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
+import { Text } from 'chalkui/dist/cjs/Components/Typography'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 

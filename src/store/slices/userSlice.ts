@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Users } from '@slate/generated/graphql'
+// import { Users } from '@slate/generated/graphql'
 import { SlateUser } from '@slate/types/User'
 
 import type { GlobalState } from '..'
@@ -7,7 +7,7 @@ import type { GlobalState } from '..'
 type UserSettingsState = Pick<SlateUser, 'hour_format' | 'date_format'> | null
 
 interface UserState {
-   user: Users | null,
+   user: any | null,
    settings: UserSettingsState
 }
 
@@ -20,7 +20,7 @@ export const userSlice = createSlice({
    name: 'user',
    initialState: userState,
    reducers: {
-      setUser: (state, action: PayloadAction<Users>) => {
+      setUser: (state, action: PayloadAction<any>) => {
          state.user = action.payload
       },
       setSettings: (state, action: PayloadAction<UserSettingsState>) => {
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
 export const UserActions = userSlice.actions
 
 export const UserSelectors = {
-   getUser: (state: GlobalState) => state.user.user as Users,
+   getUser: (state: GlobalState) => state.user.user as any,
    getSettings: (state: GlobalState) => state.user.settings
 }
 

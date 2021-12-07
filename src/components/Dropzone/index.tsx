@@ -1,3 +1,4 @@
+import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
 import { FcAudioFile } from '@react-icons/all-files/fc/FcAudioFile'
 import { FcDocument } from '@react-icons/all-files/fc/FcDocument'
 import { FcFile } from '@react-icons/all-files/fc/FcFile'
@@ -6,6 +7,8 @@ import { FcPackage } from '@react-icons/all-files/fc/FcPackage'
 import { FcVideoFile } from '@react-icons/all-files/fc/FcVideoFile'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
+import { Input } from 'chalkui/dist/cjs/Components/Input'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box, Icon, Text, Tooltip } from 'chalkui/dist/cjs/React'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
@@ -25,7 +28,7 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
    const t = useTypeSafeTranslation()
    const cmf = useCMF()
    
-   const [files, setFiles] = useState([])
+   const [files, setFiles] = useState<File[]>([])
    
    const onDrop = useCallback(acceptedFiles => {
       onChange && onChange(acceptedFiles)
@@ -40,9 +43,10 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
       isDragActive,
       isDragAccept,
       isDragReject,
+      acceptedFiles,
    } = useDropzone({
       onDrop,
-      ...rest
+      ...rest,
       // accept: 'image/jpeg, image/png',
    })
    
@@ -83,8 +87,15 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
       isDragAccept,
    ])
    
-   const thumbs = files?.map((file: any) => {
-
+   const remove = (file: number) => {
+      const newFiles = [...files]
+      newFiles.splice(file, 1)
+      setFiles(newFiles)
+      onChange && onChange(newFiles)
+   }
+   
+   const thumbs = files?.map((file: any, index) => {
+      
       let Icon: any = null
       
       if (['image/jpeg', 'image/png', 'image/jpg', 'image/webm'].includes(file.type)) {
@@ -107,6 +118,7 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
          <Tooltip label={file.name} aria-label={file.name} key={file.name}>
             
             <Flex
+               position="relative"
                p="2"
                borderRadius="md"
                bgColor={cmf('#f0f5ff', 'gray.700')}
@@ -120,10 +132,11 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
                {/*   alt={file.name}*/}
                {/*/>*/}
                
-               {Icon && <Icon as={<Icon />} fontSize="4.5rem" />}
+               {Icon && <Icon as={<Icon />} fontSize="3.5rem" />}
                
                <Text width="100%" whiteSpace="nowrap" fontSize=".85rem">{file.name}</Text>
-               <Text textAlign="center" fontWeight="bold" width="100%" whiteSpace="nowrap" fontSize=".85rem">{humanSize(file.size)}</Text>
+               <Text mb="1" textAlign="center" fontWeight="bold" width="100%" whiteSpace="nowrap" fontSize=".85rem">{humanSize(file.size)}</Text>
+               <IconButton variant="secondary" aria-label="Delete" p=".15rem" as={BiTrash} size="xs" colorScheme="red.500" onClick={() => remove(index)} />
             
             </Flex>
          </Tooltip>
@@ -139,13 +152,13 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
       <section>
          {/*// @ts-ignore*/}
          <Box mb="2" {...getRootProps({ style })}>
-            <input {...inputProps} {...getInputProps()} />
+            <Input {...inputProps} {...getInputProps()} />
             <div>{t('Dropzone files')}</div>
          </Box>
          <Flex
             gridGap=".5rem"
             sx={{
-               flexFlow: 'wrap'
+               flexFlow: 'wrap',
             }}
          >
             {thumbs}

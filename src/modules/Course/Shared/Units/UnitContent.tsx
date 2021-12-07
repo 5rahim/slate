@@ -9,8 +9,10 @@ import { useFormFileUpload } from '@slate/hooks/useFormFileUpload'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Badge, Text } from 'chalkui/dist/cjs'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Button, IconBox } from 'chalkui/dist/cjs/React'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import React from 'react'
 
 export const UnitContent = () => {

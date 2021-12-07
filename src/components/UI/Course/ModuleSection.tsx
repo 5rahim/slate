@@ -1,8 +1,9 @@
 import { BiErrorCircle } from '@react-icons/all-files/bi/BiErrorCircle'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import { Parameter } from '@slate/types/Parameters'
-import { Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, IconBox, Text } from 'chalkui/dist/cjs/React'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
+import { Box, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 import { useSelector } from 'react-redux'
 

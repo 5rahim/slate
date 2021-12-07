@@ -4,8 +4,6 @@ import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { CourseHeader } from '@slate/modules/Course/CourseHeader'
 import { Container, Flex, Grid } from 'chalkui/dist/cjs/Components/Layout'
 import React from 'react'
-import { ErrorBoundary } from 'react-error-boundary'
-
 
 interface CourseLayoutProps {
    pageTitle?: string
@@ -24,7 +22,6 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
          
          <DefaultHead pageTitle={pageTitle} />
          
-         <ErrorBoundary fallback={<div>Oh no!</div>}>
             <UserDashboardLayout>
       
                <CourseHeader index={headerMenuIndex} />
@@ -72,8 +69,6 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
                </Container>
    
             </UserDashboardLayout>
-         </ErrorBoundary>
-      
       </>
    )
    

@@ -12,7 +12,7 @@ module.exports = {
         defaultLocale: 'en',
     },
     // webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    //     if (true) {
+    //     if (process.env.ANALYZE) {
     //         config.plugins.push(
     //             new BundleAnalyzerPlugin({
     //                 analyzerMode: 'server',

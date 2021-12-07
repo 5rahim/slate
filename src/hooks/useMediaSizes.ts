@@ -1,4 +1,4 @@
-import { useMediaQuery } from 'chalkui/dist/cjs/React'
+import { useMediaQuery } from "chalkui/dist/cjs/MediaQuery/use-media-query"
 
 export const useMediaSizes = () => {
    

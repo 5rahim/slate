@@ -1,5 +1,5 @@
-import { extendedTheme } from 'chalkui/dist/cjs/React'
-import { mode } from 'chalkui/dist/cjs/Theme/Tools'
+import { extendedTheme } from 'chalkui/dist/cjs/React/ExtendedTheme'
+import { mode } from 'chalkui/dist/cjs/Theme/Tools/Component'
 // import { createBreakpoints } from 'chalkui/chalk/Theme/Tools'
 
 // const fonts = { mono: `'Menlo', monospace` }

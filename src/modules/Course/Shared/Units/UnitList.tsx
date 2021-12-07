@@ -8,8 +8,8 @@ import { getLazyUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/h
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
-import { Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
+import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
 import React, { useEffect, useState } from 'react'
 
 export function UnitList() {

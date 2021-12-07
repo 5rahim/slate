@@ -14,10 +14,12 @@ import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import {
-   Box, IconBox, Menu, MenuItem, MenuList, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Menu, MenuItem, MenuList } from 'chalkui/dist/cjs/Components/Menu'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import Link from 'next/link'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -96,7 +98,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
          
          </Flex>
          
-         <CourseHeaderMenu index={index}/>
+         <CourseHeaderMenu index={index} />
          
          <Modal isOpen={svIsOpen} onClose={svOnClose}>
             <ModalOverlay />
@@ -121,7 +123,7 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
    
 }
 
-function CourseHeaderMenu({index = 0}: any) {
+function CourseHeaderMenu({ index = 0 }: any) {
    const cmf = useCMF()
    return (
       <Flex

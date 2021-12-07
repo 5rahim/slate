@@ -15,15 +15,15 @@ export const useUserSettings = (): UserSettings => {
    const { profile } = useUserSessionProfile()
    
    const [fetchSettings, data, loading] = getLazyUserSettings(profile)
-   const storedData = useSelector(UserSelectors.getSettings)
+   const storedSettings = useSelector(UserSelectors.getSettings)
    
    const [settings, setSettings] = useState<UserSettings>({ hourFormat: '24', dateFormat: 'DMY', settingsAreLoading: true })
    
    useEffect(() => {
-      if(!storedData) {
+      if(!storedSettings) {
          fetchSettings && fetchSettings()
       }
-   }, [storedData])
+   }, [storedSettings])
    
    useEffect(() => {
    
@@ -32,11 +32,11 @@ export const useUserSettings = (): UserSettings => {
       }
       
       setSettings({
-         hourFormat: storedData?.hour_format ?? (data?.hour_format ?? '24'),
-         dateFormat: storedData?.date_format ?? (data?.date_format ?? 'DMY'),
+         hourFormat: storedSettings?.hour_format ?? (data?.hour_format ?? '24'),
+         dateFormat: storedSettings?.date_format ?? (data?.date_format ?? 'DMY'),
          settingsAreLoading: loading ?? false,
       })
-   }, [data, storedData, loading])
+   }, [data, storedSettings, loading])
    
    return settings
    

@@ -1,7 +1,7 @@
 import { ApolloClient, DocumentNode, MutationFunctionOptions, MutationHookOptions, useMutation } from '@apollo/client'
 import { handleApolloErrors } from '@slate/graphql/hooks/handleApolloErrors'
 import { AppActions } from '@slate/store/slices/appSlice'
-import { useToast } from 'chalkui/dist/cjs/React'
+import { useToast } from 'chalkui/dist/cjs/Components/Toast/UseToast'
 import { useTranslation } from 'react-i18next'
 import { useDispatch } from 'react-redux'
 

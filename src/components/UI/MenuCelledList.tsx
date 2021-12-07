@@ -1,4 +1,4 @@
-import { CelledList, ListLinkItem, ListLinkItemProps, ListProps } from 'chalkui/dist/cjs/React'
+import { CelledList, ListLinkItem, ListLinkItemProps, ListProps } from 'chalkui/dist/cjs/Components/Layout/List'
 import React from 'react'
 
 export const MenuCelledList = (props: ListProps) => {

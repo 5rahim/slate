@@ -1,7 +1,7 @@
 import { ApolloClient, DocumentNode, ErrorPolicy, FetchPolicy, QueryHookOptions, QueryResult, useQuery } from '@apollo/client'
 import { handleApolloErrors } from '@slate/graphql/hooks/handleApolloErrors'
 import { getData, getSingleObject } from '@slate/graphql/utils'
-import { useToast } from 'chalkui/dist/cjs/React'
+import { useToast } from 'chalkui/dist/cjs/Components/Toast/UseToast'
 import { useEffect, useState } from 'react'
 
 export type QueryHookCreator<T> = (...props: any) => QueryHookCreatorReturn<T>

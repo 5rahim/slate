@@ -16,7 +16,7 @@ export const unitSlice = createSlice({
    name: 'unit',
    initialState: unitState,
    reducers: {
-      setUnit: (state, action: PayloadAction<Units>) => {
+      setUnit: (state, action: PayloadAction<Units | null>) => {
          state.unit = action.payload
       },
       setIsAllowed: (state, action: PayloadAction<boolean>) => {
