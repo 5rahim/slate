@@ -24,7 +24,6 @@ const Page = ({ user, school }: DashboardPage) => {
          <DefaultHead pageTitle={t('Dashboard')} />
          
          <UserDashboardLayout width="full" mx="auto" p={3}>
-            {/*<IndexHeader />*/}
             
             <Box>
                <Flex fontSize="1.6rem">

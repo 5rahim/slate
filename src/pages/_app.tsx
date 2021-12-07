@@ -19,7 +19,6 @@ import store from '../store'
 import '../styles/wave.css'
 import theme from '../theme'
 import i18n from './i18n'
-// import { AuthMiddleware } from '../components/Middlewares/AuthMiddleware'
 
 
 Router.events.on("routeChangeStart", () => {
@@ -32,8 +31,6 @@ export default ({ Component, pageProps }: AppProps) => {
    
    return (
       <I18nextProvider i18n={i18n}>
-         
-         {/*<SessionProvider session={pageProps.session}>*/}
          
          <UserProvider>
             
@@ -52,8 +49,6 @@ export default ({ Component, pageProps }: AppProps) => {
             </ReduxProvider>
          
          </UserProvider>
-         
-         {/*</SessionProvider>*/}
       
       </I18nextProvider>
    )

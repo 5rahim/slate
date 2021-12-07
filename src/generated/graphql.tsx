@@ -1991,6 +1991,235 @@ export type Date_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['date']>>;
 };
 
+/** columns and relationships of "modules" */
+export type Modules = {
+  __typename?: 'modules';
+  content: Scalars['String'];
+  id: Scalars['uuid'];
+  order: Scalars['Int'];
+  publish_on: Scalars['timestamp'];
+  status: Scalars['String'];
+  type: Scalars['String'];
+  unit_id: Scalars['uuid'];
+};
+
+/** aggregated selection of "modules" */
+export type Modules_Aggregate = {
+  __typename?: 'modules_aggregate';
+  aggregate?: Maybe<Modules_Aggregate_Fields>;
+  nodes: Array<Modules>;
+};
+
+/** aggregate fields of "modules" */
+export type Modules_Aggregate_Fields = {
+  __typename?: 'modules_aggregate_fields';
+  avg?: Maybe<Modules_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Modules_Max_Fields>;
+  min?: Maybe<Modules_Min_Fields>;
+  stddev?: Maybe<Modules_Stddev_Fields>;
+  stddev_pop?: Maybe<Modules_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Modules_Stddev_Samp_Fields>;
+  sum?: Maybe<Modules_Sum_Fields>;
+  var_pop?: Maybe<Modules_Var_Pop_Fields>;
+  var_samp?: Maybe<Modules_Var_Samp_Fields>;
+  variance?: Maybe<Modules_Variance_Fields>;
+};
+
+
+/** aggregate fields of "modules" */
+export type Modules_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Modules_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Modules_Avg_Fields = {
+  __typename?: 'modules_avg_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "modules". All fields are combined with a logical 'AND'. */
+export type Modules_Bool_Exp = {
+  _and?: Maybe<Array<Modules_Bool_Exp>>;
+  _not?: Maybe<Modules_Bool_Exp>;
+  _or?: Maybe<Array<Modules_Bool_Exp>>;
+  content?: Maybe<String_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  order?: Maybe<Int_Comparison_Exp>;
+  publish_on?: Maybe<Timestamp_Comparison_Exp>;
+  status?: Maybe<String_Comparison_Exp>;
+  type?: Maybe<String_Comparison_Exp>;
+  unit_id?: Maybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "modules" */
+export enum Modules_Constraint {
+  /** unique or primary key constraint */
+  ModulePkey = 'module_pkey'
+}
+
+/** input type for incrementing numeric columns in table "modules" */
+export type Modules_Inc_Input = {
+  order?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "modules" */
+export type Modules_Insert_Input = {
+  content?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  unit_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type Modules_Max_Fields = {
+  __typename?: 'modules_max_fields';
+  content?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  unit_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate min on columns */
+export type Modules_Min_Fields = {
+  __typename?: 'modules_min_fields';
+  content?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  unit_id?: Maybe<Scalars['uuid']>;
+};
+
+/** response of any mutation on the table "modules" */
+export type Modules_Mutation_Response = {
+  __typename?: 'modules_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Modules>;
+};
+
+/** on conflict condition type for table "modules" */
+export type Modules_On_Conflict = {
+  constraint: Modules_Constraint;
+  update_columns?: Array<Modules_Update_Column>;
+  where?: Maybe<Modules_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "modules". */
+export type Modules_Order_By = {
+  content?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  order?: Maybe<Order_By>;
+  publish_on?: Maybe<Order_By>;
+  status?: Maybe<Order_By>;
+  type?: Maybe<Order_By>;
+  unit_id?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: modules */
+export type Modules_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "modules" */
+export enum Modules_Select_Column {
+  /** column name */
+  Content = 'content',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Order = 'order',
+  /** column name */
+  PublishOn = 'publish_on',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  UnitId = 'unit_id'
+}
+
+/** input type for updating data in table "modules" */
+export type Modules_Set_Input = {
+  content?: Maybe<Scalars['String']>;
+  id?: Maybe<Scalars['uuid']>;
+  order?: Maybe<Scalars['Int']>;
+  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  unit_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate stddev on columns */
+export type Modules_Stddev_Fields = {
+  __typename?: 'modules_stddev_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Modules_Stddev_Pop_Fields = {
+  __typename?: 'modules_stddev_pop_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Modules_Stddev_Samp_Fields = {
+  __typename?: 'modules_stddev_samp_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Modules_Sum_Fields = {
+  __typename?: 'modules_sum_fields';
+  order?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "modules" */
+export enum Modules_Update_Column {
+  /** column name */
+  Content = 'content',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Order = 'order',
+  /** column name */
+  PublishOn = 'publish_on',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  UnitId = 'unit_id'
+}
+
+/** aggregate var_pop on columns */
+export type Modules_Var_Pop_Fields = {
+  __typename?: 'modules_var_pop_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Modules_Var_Samp_Fields = {
+  __typename?: 'modules_var_samp_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Modules_Variance_Fields = {
+  __typename?: 'modules_variance_fields';
+  order?: Maybe<Scalars['Float']>;
+};
+
 /** mutation root */
 export type Mutation_Root = {
   __typename?: 'mutation_root';
@@ -2018,6 +2247,10 @@ export type Mutation_Root = {
   delete_courses?: Maybe<Courses_Mutation_Response>;
   /** delete single row from the table: "courses" */
   delete_courses_by_pk?: Maybe<Courses>;
+  /** delete data from the table: "modules" */
+  delete_modules?: Maybe<Modules_Mutation_Response>;
+  /** delete single row from the table: "modules" */
+  delete_modules_by_pk?: Maybe<Modules>;
   /** delete data from the table: "prospective_users" */
   delete_prospective_users?: Maybe<Prospective_Users_Mutation_Response>;
   /** delete single row from the table: "prospective_users" */
@@ -2066,6 +2299,10 @@ export type Mutation_Root = {
   insert_courses?: Maybe<Courses_Mutation_Response>;
   /** insert a single row into the table: "courses" */
   insert_courses_one?: Maybe<Courses>;
+  /** insert data into the table: "modules" */
+  insert_modules?: Maybe<Modules_Mutation_Response>;
+  /** insert a single row into the table: "modules" */
+  insert_modules_one?: Maybe<Modules>;
   /** insert data into the table: "prospective_users" */
   insert_prospective_users?: Maybe<Prospective_Users_Mutation_Response>;
   /** insert a single row into the table: "prospective_users" */
@@ -2114,6 +2351,10 @@ export type Mutation_Root = {
   update_courses?: Maybe<Courses_Mutation_Response>;
   /** update single row of the table: "courses" */
   update_courses_by_pk?: Maybe<Courses>;
+  /** update data of the table: "modules" */
+  update_modules?: Maybe<Modules_Mutation_Response>;
+  /** update single row of the table: "modules" */
+  update_modules_by_pk?: Maybe<Modules>;
   /** update data of the table: "prospective_users" */
   update_prospective_users?: Maybe<Prospective_Users_Mutation_Response>;
   /** update single row of the table: "prospective_users" */
@@ -2209,6 +2450,18 @@ export type Mutation_RootDelete_CoursesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Courses_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ModulesArgs = {
+  where: Modules_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Modules_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -2366,6 +2619,20 @@ export type Mutation_RootInsert_CoursesArgs = {
 export type Mutation_RootInsert_Courses_OneArgs = {
   object: Courses_Insert_Input;
   on_conflict?: Maybe<Courses_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_ModulesArgs = {
+  objects: Array<Modules_Insert_Input>;
+  on_conflict?: Maybe<Modules_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Modules_OneArgs = {
+  object: Modules_Insert_Input;
+  on_conflict?: Maybe<Modules_On_Conflict>;
 };
 
 
@@ -2546,6 +2813,22 @@ export type Mutation_RootUpdate_Courses_By_PkArgs = {
   _inc?: Maybe<Courses_Inc_Input>;
   _set?: Maybe<Courses_Set_Input>;
   pk_columns: Courses_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ModulesArgs = {
+  _inc?: Maybe<Modules_Inc_Input>;
+  _set?: Maybe<Modules_Set_Input>;
+  where: Modules_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Modules_By_PkArgs = {
+  _inc?: Maybe<Modules_Inc_Input>;
+  _set?: Maybe<Modules_Set_Input>;
+  pk_columns: Modules_Pk_Columns_Input;
 };
 
 
@@ -3020,6 +3303,12 @@ export type Query_Root = {
   courses_aggregate: Courses_Aggregate;
   /** fetch data from the table: "courses" using primary key columns */
   courses_by_pk?: Maybe<Courses>;
+  /** fetch data from the table: "modules" */
+  modules: Array<Modules>;
+  /** fetch aggregated fields from the table: "modules" */
+  modules_aggregate: Modules_Aggregate;
+  /** fetch data from the table: "modules" using primary key columns */
+  modules_by_pk?: Maybe<Modules>;
   /** fetch data from the table: "prospective_users" */
   prospective_users: Array<Prospective_Users>;
   /** fetch aggregated fields from the table: "prospective_users" */
@@ -3193,6 +3482,29 @@ export type Query_RootCourses_AggregateArgs = {
 
 
 export type Query_RootCourses_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootModulesArgs = {
+  distinct_on?: Maybe<Array<Modules_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Modules_Order_By>>;
+  where?: Maybe<Modules_Bool_Exp>;
+};
+
+
+export type Query_RootModules_AggregateArgs = {
+  distinct_on?: Maybe<Array<Modules_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Modules_Order_By>>;
+  where?: Maybe<Modules_Bool_Exp>;
+};
+
+
+export type Query_RootModules_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -3813,6 +4125,12 @@ export type Subscription_Root = {
   courses_aggregate: Courses_Aggregate;
   /** fetch data from the table: "courses" using primary key columns */
   courses_by_pk?: Maybe<Courses>;
+  /** fetch data from the table: "modules" */
+  modules: Array<Modules>;
+  /** fetch aggregated fields from the table: "modules" */
+  modules_aggregate: Modules_Aggregate;
+  /** fetch data from the table: "modules" using primary key columns */
+  modules_by_pk?: Maybe<Modules>;
   /** fetch data from the table: "prospective_users" */
   prospective_users: Array<Prospective_Users>;
   /** fetch aggregated fields from the table: "prospective_users" */
@@ -3986,6 +4304,29 @@ export type Subscription_RootCourses_AggregateArgs = {
 
 
 export type Subscription_RootCourses_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootModulesArgs = {
+  distinct_on?: Maybe<Array<Modules_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Modules_Order_By>>;
+  where?: Maybe<Modules_Bool_Exp>;
+};
+
+
+export type Subscription_RootModules_AggregateArgs = {
+  distinct_on?: Maybe<Array<Modules_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Modules_Order_By>>;
+  where?: Maybe<Modules_Bool_Exp>;
+};
+
+
+export type Subscription_RootModules_By_PkArgs = {
   id: Scalars['uuid'];
 };
 

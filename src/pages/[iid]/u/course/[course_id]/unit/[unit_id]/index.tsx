@@ -2,13 +2,13 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
 import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
 import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
-import { BiFile } from '@react-icons/all-files/bi/BiFile'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
 import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
 import { BiLink } from '@react-icons/all-files/bi/BiLink'
-import { BiListOl } from '@react-icons/all-files/bi/BiListOl'
 import { BiPlus } from '@react-icons/all-files/bi/BiPlus'
-import { BiText } from '@react-icons/all-files/bi/BiText'
+import { RiArticleLine } from '@react-icons/all-files/ri/RiArticleLine'
+import { RiFile3Line } from '@react-icons/all-files/ri/RiFile3Line'
+import { RiMistFill } from '@react-icons/all-files/ri/RiMistFill'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -98,19 +98,19 @@ const Page = ({ course }: DashboardPage) => {
                                  {t('Add')}
                               </DropdownButton>
                               <DropdownList>
-                                 <DropdownItem icon={<BiListOl />}>
+                                 <DropdownItem icon={<RiArticleLine />}>
                                     {t('Document')}
                                  </DropdownItem>
                                  <DropdownItem icon={<BiHeading />}>
                                     {t('Text header')}
                                  </DropdownItem>
-                                 <DropdownItem icon={<BiFile />}>
+                                 <DropdownItem icon={<RiFile3Line />}>
                                     {t('File')}
                                  </DropdownItem>
                                  <DropdownItem icon={<BiLink />}>
                                     {t('Link')}
                                  </DropdownItem>
-                                 <DropdownItem icon={<BiText />}>
+                                 <DropdownItem icon={<RiMistFill />}>
                                     {t('Message')}
                                  </DropdownItem>
                                  <DropdownItem icon={<BiEditAlt />}>
