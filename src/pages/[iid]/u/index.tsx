@@ -44,8 +44,8 @@ const Page = ({ user, school }: DashboardPage) => {
 }
 
 export default Compose(
+   withApollo(),
    withPageAuthRequired,
-   withApollo({ ssr: true }),
    withAuth({ requireActiveAccount: true }),
    withDashboard(),
 )(Page)

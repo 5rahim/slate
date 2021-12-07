@@ -25,7 +25,7 @@ let globalApolloClient: any = null
 export const initOnContext = (ctx: any) => {
    const inAppContext = Boolean(ctx.ctx)
    
-   // We consider installing `withApollo({ ssr: true })` on global App level
+   // We consider installing `withApollo()` on global App level
    // as antipattern since it disables project wide Automatic Static Optimization.
    if (process.env.NODE_ENV === 'development') {
       if (inAppContext) {
@@ -83,6 +83,7 @@ const initApolloClient = (initialState: any, headers: any) => {
    // Make sure to create a new client for every server-side request so that data
    // isn't shared between connections (which would be bad)
    if (typeof window === 'undefined') {
+      console.log('[Server] Creating Apollo Client')
       return createApolloClient(initialState, headers)
    }
    
@@ -149,9 +150,11 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
                return pageProps
             }
             
+            
             // Only if ssr is enabled
             if (ssr) {
                try {
+                  console.log('SSR GETDATAFROMTREE')
                   // Run all GraphQL queries
                   const { getDataFromTree } = await import('@apollo/client/react/ssr')
                   await getDataFromTree(

@@ -1,7 +1,14 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
+import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
+import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
+import { BiFile } from '@react-icons/all-files/bi/BiFile'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
+import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
+import { BiLink } from '@react-icons/all-files/bi/BiLink'
+import { BiListOl } from '@react-icons/all-files/bi/BiListOl'
 import { BiPlus } from '@react-icons/all-files/bi/BiPlus'
+import { BiText } from '@react-icons/all-files/bi/BiText'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -21,8 +28,13 @@ import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMen
 import { UnitContent } from '@slate/modules/Course/Shared/Units/UnitContent'
 import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
+import { Alert, AlertDescription, AlertIcon } from 'chalkui/dist/cjs/Components/Alert'
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/Components/Breadcrumb'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Alert, AlertDescription, AlertIcon, Box, Breadcrumb, BreadcrumbItem, BreadcrumbLink, Button, useDisclosure } from 'chalkui/dist/cjs/React'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import Link from 'next/link'
 import React from 'react'
 
@@ -75,13 +87,41 @@ const Page = ({ course }: DashboardPage) => {
                            >
                               {t('Edit')}
                            </Button>
-                           <Button
-                              borderRadius="3xl"
-                              colorScheme="primary"
-                              leftIcon={<BiPlus />}
-                           >
-                              {t('Add')}
-                           </Button>
+                           
+                           <Dropdown>
+                              <DropdownButton
+                                 as={Button}
+                                 borderRadius="3xl"
+                                 colorScheme="primary"
+                                 leftIcon={<BiPlus />}
+                              >
+                                 {t('Add')}
+                              </DropdownButton>
+                              <DropdownList>
+                                 <DropdownItem icon={<BiListOl />}>
+                                    {t('Document')}
+                                 </DropdownItem>
+                                 <DropdownItem icon={<BiHeading />}>
+                                    {t('Text header')}
+                                 </DropdownItem>
+                                 <DropdownItem icon={<BiFile />}>
+                                    {t('File')}
+                                 </DropdownItem>
+                                 <DropdownItem icon={<BiLink />}>
+                                    {t('Link')}
+                                 </DropdownItem>
+                                 <DropdownItem icon={<BiText />}>
+                                    {t('Message')}
+                                 </DropdownItem>
+                                 <DropdownItem icon={<BiEditAlt />}>
+                                    {t('Quiz')}
+                                 </DropdownItem>
+                                 <DropdownItem icon={<BiEraser />}>
+                                    {t('Assignment')}
+                                 </DropdownItem>
+                              </DropdownList>
+                           </Dropdown>
+                        
                         </Flex>
                      </ComponentVisibility.InstructorOnly>
                   }
@@ -131,8 +171,8 @@ const Page = ({ course }: DashboardPage) => {
 }
 
 export default Compose(
+   withApollo(),
    withPageAuthRequired,
-   withApollo({ ssr: true }),
    withAuth({ requireActiveAccount: true }),
    withDashboard(),
    withCourse(),

@@ -104,7 +104,7 @@ const Page: NextPage = () => {
 }
 
 export default compose(
-   withApollo({ ssr: true }),
+   withApollo(),
    withAuth({ requireNoAuth: true }),
 )(Page)
 

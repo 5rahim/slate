@@ -67,8 +67,8 @@ const Page = ({ course, iid }: DashboardPage) => {
 }
 
 export default Compose(
+   withApollo(),
    withPageAuthRequired,
-   withApollo({ ssr: true }),
    withAuth({ requireActiveAccount: true }),
    // withCacheReset(),
    withDashboard(),

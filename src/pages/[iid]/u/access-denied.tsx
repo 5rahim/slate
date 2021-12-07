@@ -62,8 +62,8 @@ function Page({ iid }: DashboardPage) {
 }
 
 export default Compose(
+   withApollo(),
    withPageAuthRequired,
-   withApollo({ ssr: true }),
    withCacheReset(),
    withAuth({ requireActiveAccount: true }),
    withDashboard(),

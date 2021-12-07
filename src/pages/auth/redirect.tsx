@@ -42,6 +42,6 @@ function Page() {
 
 
 export default Compose(
+   withApollo(),
    withPageAuthRequired,
-   withApollo({ ssr: true }),
 )(Page)

@@ -232,4 +232,4 @@ const ContactUs: NextPage = () => {
 }
 
 
-export default withApollo({ ssr: true })(ContactUs)
+export default withApollo()(ContactUs)

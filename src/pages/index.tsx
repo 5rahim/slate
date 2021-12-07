@@ -49,6 +49,6 @@ const Page = () => {
 }
 
 export default Compose(
-   withApollo({ ssr: true }),
+   withApollo(),
 )(Page)
 

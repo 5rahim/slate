@@ -31,7 +31,7 @@ const Page = () => {
 }
 
 export default Compose(
-   withApollo({ ssr: true }),
+   withApollo(),
    withPageAuthRequired,
    withAuth({ requireActiveAccount: true }),
 )(Page)
