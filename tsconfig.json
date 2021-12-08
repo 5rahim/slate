@@ -19,7 +19,7 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "esnext",
+    "target": "es6",
     "baseUrl": "./",
     "paths": {
       "@slate/components/*": [

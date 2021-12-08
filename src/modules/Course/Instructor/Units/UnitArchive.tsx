@@ -45,7 +45,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    
    function handleUnarchive(unit_id: string) {
-      unarchiveUnit({ id: unit_id, order: ( cache.readUnits()?.length ) ?? 0 })
+      unarchiveUnit({ id: unit_id, order: ( cache.readEntry('units')?.length ) ?? 0 })
    }
    
    return (

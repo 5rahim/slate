@@ -1,30 +1,25 @@
 import { FcAdvertising } from '@react-icons/all-files/fc/FcAdvertising'
 import { Empty } from '@slate/components/UI/Empty'
+import { Announcements } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useGlobalCache } from '@slate/hooks/useGlobalCache'
+import { useCachedEntry } from '@slate/hooks/useGlobalCache'
 import { AnnouncementListItem } from '@slate/modules/Course/Shared/Announcements/AnnouncementListItem'
 import { DividedList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { ListProps, Skeleton } from 'chalkui/dist/cjs/React'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 export function AnnouncementList({ ...rest }: ListProps) {
    const course = useCurrentCourse()
    
-   const [announcements, loading, empty] = getAnnouncements(course?.id)
-   
-   const cache = useGlobalCache()
-   
-   useEffect(() => {
-      cache.writeAnnouncements(announcements, loading)
-   }, [cache, announcements, loading])
+   const [announcements, loading, empty] = useCachedEntry<Announcements[] | null>('announcements', getAnnouncements(course?.id))
    
    return (
       <DataListModule
-         data={cache.readAnnouncements(announcements)}
-         dataIsLoading={cache.isDataLoading(announcements, loading)}
-         dataIsEmpty={cache.noAnnouncements(empty, loading)}
+         data={announcements}
+         dataIsLoading={loading}
+         dataIsEmpty={empty}
          fallback={
             <Stack>
                <Skeleton width="100px" height="10px" borderRadius="md" />

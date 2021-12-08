@@ -6,7 +6,7 @@ import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getLazyUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useGlobalCache } from '@slate/hooks/useGlobalCache'
+import { useLazyCachedEntry } from '@slate/hooks/useGlobalCache'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
 import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
@@ -14,20 +14,18 @@ import React, { useEffect, useState } from 'react'
 
 export function UnitList() {
    const { id } = useCurrentCourse()
-   const [fetchUnits, units, loading, empty] = getLazyUnits(id)
-   const cache = useGlobalCache()
-   const [listedUnits, setListedUnits] = useState<Units[] | null>()
    
+   const [listedUnits, setListedUnits] = useState<Units[] | null>()
+   const [fetchUnits, units, loading, empty] = useLazyCachedEntry('units', getLazyUnits(id))
    const [updateUnitOrder] = useMutateUnitOrder()
    
    useEffect(() => {
-      fetchUnits && fetchUnits()
+      fetchUnits()
    }, [])
    
    useEffect(() => {
-      setListedUnits(cache.readUnits(units))
-      cache.writeUnits(units, loading)
-   }, [units, cache, loading])
+      setListedUnits(units)
+   }, [units])
    
    
    function handleSorting({ active, over }: DragEndEvent) {
@@ -54,8 +52,8 @@ export function UnitList() {
    return (
       <DataListModule
          data={listedUnits}
-         dataIsLoading={cache.isDataLoading(units, loading)}
-         dataIsEmpty={cache.noUnits(empty, loading)}
+         dataIsLoading={loading}
+         dataIsEmpty={empty}
          displayData={({ list }) =>
             <Box>
                <DndContext
