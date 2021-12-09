@@ -1,8 +1,8 @@
 import { StudentViewPortal } from '@slate/components/StudentViewPortal'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useGlobalCacheConfig } from '@slate/hooks/useGlobalCache'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { useStoreCacheConfig } from '@slate/store/cache/hooks/useStoreCacheConfig'
 import { AppSelectors } from '@slate/store/slices/appSlice'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Box, BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
@@ -25,7 +25,7 @@ type UserDashboardLayoutProps = UserDashboardLayoutOptions & BoxProps
 
 const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...rest }: UserDashboardLayoutProps) => {
    const { colorMode } = useColorMode()
-   useGlobalCacheConfig()
+   useStoreCacheConfig()
    const cmf = useCMF()
    const toast = useToast()
    const t = useTypeSafeTranslation()

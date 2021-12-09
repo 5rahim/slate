@@ -6,9 +6,9 @@ import { DataListModule } from '@slate/graphql/DataListModule'
 import { getArchivedUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Box, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
@@ -33,7 +33,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    const course = useCurrentCourse()
    const { linkToUnit } = useLinkHref()
    const cmf = useCMF()
-   const cache = useGlobalCache()
+   const cache = useStoreCache()
    
    const [units, unitsLoading, empty] = getArchivedUnits(course.id)
    
@@ -45,7 +45,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    
    function handleUnarchive(unit_id: string) {
-      unarchiveUnit({ id: unit_id, order: ( cache.readEntry('units')?.length ) ?? 0 })
+      unarchiveUnit({ id: unit_id, order: ( cache.read('units')?.length ) ?? 0 })
    }
    
    return (

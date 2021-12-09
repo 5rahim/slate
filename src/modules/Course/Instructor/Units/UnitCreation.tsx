@@ -15,8 +15,8 @@ import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
 import { useDateAndTimeFields } from '@slate/hooks/useDateAndTimeFields'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
-import { useGlobalCache } from '@slate/hooks/useGlobalCache'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Utils } from '@slate/utils'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
@@ -39,7 +39,7 @@ export function UnitCreation() {
    const user = useCurrentUser()
    const course = useCurrentCourse()
    const { isOpen, onOpen, onClose } = useDisclosure()
-   const cache = useGlobalCache()
+   const cache = useStoreCache()
    const [createUnit, mutationLoading] = useCreateUnit({
       onCompleted: () => {
          fields.reset()
@@ -67,7 +67,7 @@ export function UnitCreation() {
             publish_on: ( !data.available && data.publish_later ) ? publishOn : new Date(),
             course_id: course.id,
             type: data.type,
-            order: cache.readEntry('units')?.length ?? 0,
+            order: cache.read('units')?.length ?? 0,
             number: data.number,
          }
          

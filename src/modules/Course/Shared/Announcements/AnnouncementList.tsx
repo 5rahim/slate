@@ -4,8 +4,8 @@ import { Announcements } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useCachedEntry } from '@slate/hooks/useGlobalCache'
 import { AnnouncementListItem } from '@slate/modules/Course/Shared/Announcements/AnnouncementListItem'
+import { useCachedQuery } from '@slate/store/cache/hooks/useCachedQuery'
 import { DividedList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { ListProps, Skeleton } from 'chalkui/dist/cjs/React'
 import React from 'react'
@@ -13,7 +13,7 @@ import React from 'react'
 export function AnnouncementList({ ...rest }: ListProps) {
    const course = useCurrentCourse()
    
-   const [announcements, loading, empty] = useCachedEntry<Announcements[] | null>('announcements', getAnnouncements(course?.id))
+   const [announcements, loading, empty] = useCachedQuery<Announcements[] | null>('announcements', getAnnouncements(course?.id))
    
    return (
       <DataListModule

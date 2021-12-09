@@ -6,8 +6,8 @@ import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getLazyUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { useLazyCachedEntry } from '@slate/hooks/useGlobalCache'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
+import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
 import React, { useEffect, useState } from 'react'
@@ -16,7 +16,7 @@ export function UnitList() {
    const { id } = useCurrentCourse()
    
    const [listedUnits, setListedUnits] = useState<Units[] | null>()
-   const [fetchUnits, units, loading, empty] = useLazyCachedEntry('units', getLazyUnits(id))
+   const [fetchUnits, units, loading, empty] = useCachedLazyQuery('units', getLazyUnits(id))
    const [updateUnitOrder] = useMutateUnitOrder()
    
    useEffect(() => {
