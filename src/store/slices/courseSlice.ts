@@ -17,7 +17,7 @@ export const courseSlice = createSlice({
    name: 'course',
    initialState: courseState,
    reducers: {
-      set: (state, action: PayloadAction<any>) => {
+      setCourse: (state, action: PayloadAction<any>) => {
          state.course = action.payload
       },
       setIsEnrolled: (state, action: PayloadAction<boolean>) => {

@@ -66,7 +66,7 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
           */
          if (!courseIsLoading && !enrollmentIsLoading && !!course && ( ( !!enrollment && enrollment[0].authorized && course.available && isReallyStudent ) || !isReallyStudent )) {
             setDisplayPage(true)
-            dispatch(CourseActions.set(course as SlateCourse))
+            dispatch(CourseActions.setCourse(course as SlateCourse))
             dispatch(CourseActions.setIsEnrolled(true))
             /**
              * Refuse access when:

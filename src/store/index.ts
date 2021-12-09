@@ -32,11 +32,10 @@ const localStorageMiddleware = ({ getState }: any) => {
          const state = store.getState().school
          localStorage.setItem('redux/school', JSON.stringify(state))
       }
-      if (action.type?.includes('empty')) {
+      else if (action.type?.includes('empty')) {
          localStorage.setItem('redux/cache', JSON.stringify({}))
-         localStorage.setItem('redux/course', JSON.stringify({}))
+         // localStorage.setItem('redux/course', JSON.stringify({}))
          localStorage.setItem('redux/unit', JSON.stringify({}))
-         localStorage.setItem('redux/school', JSON.stringify({}))
       }
       // localStorage.setItem('applicationState', JSON.stringify(getState()))
       return result
