@@ -34,7 +34,6 @@ export const withAuth = (
       
       const { profile, profileIsLoading } = useUserSessionProfile()
       
-      
       const router = useRouter()
       
       const dispatch = useDispatch()

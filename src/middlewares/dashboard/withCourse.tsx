@@ -47,12 +47,12 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
        * Otherwise, use stored course data to display page.
        */
       useEffect(() => {
-         if(!storedCourse.course) {
+         if(!!course_id && (!storedCourse.course || storedCourse.course.id !== course_id)) {
             fetchCourse && fetchCourse()
             fetchEnrollment && fetchEnrollment()
          }
          
-         if(storedCourse && storedCourse.course && storedCourse.isEnrolled) {
+         if(!!course_id && storedCourse && storedCourse.course && (storedCourse.course.id === course_id) && storedCourse.isEnrolled) {
             setDisplayPage(true)
          }
       }, [storedCourse])

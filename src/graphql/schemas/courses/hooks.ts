@@ -103,7 +103,7 @@ export const useMutateCourseDetails: SlateMutationHook<UpdateCourseDetailsMutati
 export const getCourseById = (id: string) => {
    
    return useQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", {
-      variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
+      variables: { id }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
    })
    
 }
@@ -111,7 +111,7 @@ export const getCourseById = (id: string) => {
 export const getLazyCourseById = (id: string) => {
    
    return useLazyQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", {
-      variables: { id }, fetchPolicy: 'cache-first', nextFetchPolicy: "cache-and-network",
+      variables: { id }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
    })
    
 }
@@ -170,14 +170,14 @@ export const getCourseList = () => {
 
 export const getAllStudentEnrollments = () => {
    
-   return useQueryHookCreator<Course_Enrollment[]>("course_enrollment", GET_ALL_COURSE_ENROLLMENTS, "array", { fetchPolicy: "cache-first" })
+   return useQueryHookCreator<Course_Enrollment[]>("course_enrollment", GET_ALL_COURSE_ENROLLMENTS, "array", { fetchPolicy: "no-cache" })
    
 }
 
 
 export const getAllCourseManagements = () => {
    
-   return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "cache-first" })
+   return useQueryHookCreator<Course_Management[]>("course_management", GET_ALL_COURSE_MANAGEMENTS, "array", { fetchPolicy: "no-cache" })
    
    
 }
@@ -191,7 +191,7 @@ export const getStudentEnrollments = (course_id: string) => {
       "array",
       {
          variables: { course_id },
-         fetchPolicy: "cache-first",
+         fetchPolicy: "no-cache",
          nextFetchPolicy: 'cache-and-network'
       },
    )
@@ -206,7 +206,7 @@ export const getLazyStudentEnrollments = (course_id: string) => {
       "array",
       {
          variables: { course_id },
-         fetchPolicy: "cache-first",
+         fetchPolicy: "no-cache",
          nextFetchPolicy: 'cache-and-network'
       },
    )
@@ -232,6 +232,6 @@ export const getCourseManagements = (course_id: string) => {
 
 export const getOwnCourses = () => {
    
-   return useQueryHookCreator<SlateCourse[]>("courses", GET_OWN_COURSES, "array", { fetchPolicy: "cache-first", nextFetchPolicy: 'cache-and-network' })
+   return useQueryHookCreator<SlateCourse[]>("courses", GET_OWN_COURSES, "array", { fetchPolicy: "no-cache"})
    
 }

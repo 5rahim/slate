@@ -5931,14 +5931,14 @@ export type UpdateNewUserMutationVariables = Exact<{
 
 export type UpdateNewUserMutation = { __typename?: 'mutation_root', update_users?: { __typename?: 'users_mutation_response', affected_rows: number, returning: Array<{ __typename?: 'users', first_name?: string | null | undefined, middle_name?: string | null | undefined, last_name?: string | null | undefined, student_id?: string | null | undefined, username?: string | null | undefined, school_id?: number | null | undefined, email: string, name?: string | null | undefined, image?: string | null | undefined, id: number, role?: string | null | undefined }> } | null | undefined };
 
-export type BaseUserFragment = { __typename?: 'users', id: number, title?: number | null | undefined, birthdate?: any | null | undefined, city?: string | null | undefined, country?: string | null | undefined, created_at: any, department?: string | null | undefined, education_level?: number | null | undefined, email: string, email_verified?: boolean | null | undefined, first_name?: string | null | undefined, gender?: number | null | undefined, home_phone?: string | null | undefined, image?: string | null | undefined, is_active: boolean, job_title?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, mobile_phone?: string | null | undefined, name?: string | null | undefined, other_name?: string | null | undefined, postal_code?: string | null | undefined, role?: string | null | undefined, school_id?: number | null | undefined, state?: string | null | undefined, street_1?: string | null | undefined, street_2?: string | null | undefined, student_id?: string | null | undefined, suffix?: string | null | undefined, updated_at: any, username?: string | null | undefined, work_phone?: string | null | undefined, school?: { __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number } | null | undefined };
+export type BaseUserFragment = { __typename?: 'users', id: number, title?: number | null | undefined, created_at: any, email: string, email_verified?: boolean | null | undefined, first_name?: string | null | undefined, image?: string | null | undefined, is_active: boolean, last_name?: string | null | undefined, middle_name?: string | null | undefined, name?: string | null | undefined, role?: string | null | undefined, school_id?: number | null | undefined, student_id?: string | null | undefined, updated_at: any, username?: string | null | undefined, school?: { __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number } | null | undefined };
 
 export type GetUserByEmailQueryVariables = Exact<{
   email: Scalars['String'];
 }>;
 
 
-export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: number, title?: number | null | undefined, birthdate?: any | null | undefined, city?: string | null | undefined, country?: string | null | undefined, created_at: any, department?: string | null | undefined, education_level?: number | null | undefined, email: string, email_verified?: boolean | null | undefined, first_name?: string | null | undefined, gender?: number | null | undefined, home_phone?: string | null | undefined, image?: string | null | undefined, is_active: boolean, job_title?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, mobile_phone?: string | null | undefined, name?: string | null | undefined, other_name?: string | null | undefined, postal_code?: string | null | undefined, role?: string | null | undefined, school_id?: number | null | undefined, state?: string | null | undefined, street_1?: string | null | undefined, street_2?: string | null | undefined, student_id?: string | null | undefined, suffix?: string | null | undefined, updated_at: any, username?: string | null | undefined, work_phone?: string | null | undefined, school?: { __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number } | null | undefined }> };
+export type GetUserByEmailQuery = { __typename?: 'query_root', users: Array<{ __typename?: 'users', id: number, title?: number | null | undefined, created_at: any, email: string, email_verified?: boolean | null | undefined, first_name?: string | null | undefined, image?: string | null | undefined, is_active: boolean, last_name?: string | null | undefined, middle_name?: string | null | undefined, name?: string | null | undefined, role?: string | null | undefined, school_id?: number | null | undefined, student_id?: string | null | undefined, updated_at: any, username?: string | null | undefined, school?: { __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number } | null | undefined }> };
 
 export type GetUserSettingsQueryVariables = Exact<{
   email: Scalars['String'];
@@ -5962,36 +5962,20 @@ export const BaseUserFragmentDoc = gql`
     fragment baseUser on users {
   id
   title
-  birthdate
-  city
-  country
   created_at
-  department
-  education_level
   email
   email_verified
   first_name
-  gender
-  home_phone
   image
   is_active
-  job_title
   last_name
   middle_name
-  mobile_phone
   name
-  other_name
-  postal_code
   role
   school_id
-  state
-  street_1
-  street_2
   student_id
-  suffix
   updated_at
   username
-  work_phone
   school {
     id
     is_active

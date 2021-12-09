@@ -3,6 +3,7 @@ import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { LazyQueryHookCreatorReturn } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { QueryHookCreatorReturn } from '@slate/graphql/hooks/useQueryHookCreator'
 import { CacheActions, CacheSelectors } from '@slate/store/slices/cacheSlice'
+import { CourseActions } from '@slate/store/slices/courseSlice'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -37,15 +38,16 @@ export function useLazyCachedEntry<T>(entry: string, queryHook: LazyQueryHookCre
    }, [fetched, loading])
    
    return [
-      (options?: (QueryLazyOptions<any> | undefined)) => {
+      (options?: ( QueryLazyOptions<any> | undefined )) => {
          fetch && fetch(options)
       },
       cache.readEntry(entry, fetched),
       cache.isEntryLoading(entry, fetched, loading),
       cache.hasNoEntry(entry, empty, loading),
-   ] as [((options?: (QueryLazyOptions<any> | undefined)) => void), T, boolean, boolean]
+   ] as [( (options?: ( QueryLazyOptions<any> | undefined )) => void ), T, boolean, boolean]
    
 }
+
 
 /**
  * @important This does not eliminate "unnecessary" requests. It is purely for UX purposes
@@ -67,16 +69,6 @@ export const useGlobalCache = () => {
          return isEmpty(cachedObject) ? fetchedObject : cachedObject
       }
    }, [cachedCourseId, course_id])
-   
-   useEffect(() => {
-      dispatch(CacheActions.writeCourseId(course_id ? course_id as string : null))
-      /**
-       * Empty the cache when we switch courses
-       */
-      if (cachedCourseId !== course_id) {
-         dispatch(CacheActions.empty())
-      }
-   }, [course_id, cachedCourseId])
    
    /**
     *
@@ -114,6 +106,30 @@ export const useGlobalCache = () => {
          return false
       },
    }
+}
+
+
+export const useGlobalCacheConfig = () => {
+   const dispatch = useDispatch()
+   const router = useRouter()
+   const { course_id } = router.query
+   const cachedCourseId = useSelector(CacheSelectors.readCourseId)
+   useEffect(() => {
+      dispatch(CacheActions.writeCourseId(course_id ? course_id as string : null))
+      /**
+       * Empty the cache when we switch courses
+       */
+      console.log()
+      if (!!course_id && cachedCourseId !== course_id) {
+         dispatch(CacheActions.empty())
+      }
+      /**
+       * Empty course course cache if there's no course_id
+       */
+      if(!course_id) {
+         dispatch(CourseActions.empty())
+      }
+   }, [course_id, cachedCourseId])
 }
 
 

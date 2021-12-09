@@ -23,7 +23,10 @@ export const courseSlice = createSlice({
       setIsEnrolled: (state, action: PayloadAction<boolean>) => {
          state.isEnrolled = action.payload
       },
-      
+      empty: (state) => {
+         state.course = null
+         state.isEnrolled = false
+      }
    },
 })
 

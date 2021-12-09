@@ -1,7 +1,6 @@
 import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
 import { onError } from '@apollo/client/link/error'
 import { WebSocketLink } from '@apollo/client/link/ws'
-import { LocalStorageWrapper, persistCache } from 'apollo3-cache-persist'
 import fetch from 'isomorphic-unfetch'
 import { SubscriptionClient } from 'subscriptions-transport-ws'
 
@@ -64,10 +63,10 @@ const initCache = (initialState?: any) => {
     * This cache is used by Apollo (graphql client).
     */
    if (typeof window !== 'undefined') {
-      persistCache({
-         cache,
-         storage: new LocalStorageWrapper(window.localStorage),
-      })
+      // persistCache({
+      //    cache,
+      //    storage: new LocalStorageWrapper(window.localStorage),
+      // })
    }
    
    return cache

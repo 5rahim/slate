@@ -59,7 +59,7 @@ export function useQueryHookCreator<T>(
          
          }
       },
-      fetchPolicy: options.fetchPolicy ?? "cache-first",
+      fetchPolicy: options.fetchPolicy ?? "no-cache",
       ...rest,
    })
    
@@ -76,7 +76,7 @@ export type QueryHookCreatorReturn<T> = [T, LoadingState, EmptyState, ApolloClie
  * @example
  * const res = useQuery(GET_USER_BY_EMAIL, {
    variables: { email: profile?.email },
-   fetchPolicy: 'cache-first',
+   fetchPolicy: 'no-cache',
 })
  
  return getQueryHookReturn({ table: 'users', queryResult: res, objectOrArray: 'object' })

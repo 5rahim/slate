@@ -54,7 +54,7 @@ export function useLazyQueryHookCreator<TData>(
          
          }
       },
-      fetchPolicy: options.fetchPolicy ?? "cache-first",
+      fetchPolicy: options.fetchPolicy ?? "no-cache",
       ...rest,
    })
    
