@@ -2,7 +2,7 @@ export function UploadTest() {
    const uploadPhoto = async (e: any) => {
       const file = e.target.files[0]
       const filename = encodeURIComponent(file.name)
-      const res = await fetch(`/api/gcs-file-upload?file=${filename}`)
+      const res = await fetch(`/api/gcs/upload?file=${filename}`)
       const { raw: { url, fields } } = await res.json()
       const formData = new FormData()
       

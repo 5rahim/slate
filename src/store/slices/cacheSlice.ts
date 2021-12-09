@@ -3,15 +3,15 @@ import { Announcements, Units } from '@slate/generated/graphql'
 import { GlobalState } from '@slate/store/index'
 
 export interface CacheState {
-   units: Units[] | null,
+   units: Units[] | null
    announcements: Announcements[] | null
    courseId: string | null
 }
 
-export const cacheState: CacheState | {} = {
+export const cacheState: CacheState = {
    units: null,
    announcements: null,
-   courseId: null
+   courseId: null,
 }
 
 export const cacheSlice = createSlice({
@@ -39,7 +39,7 @@ export const CacheActions = cacheSlice.actions
 export const CacheSelectors = {
    readUnits: (state: GlobalState) => state.cache.units,
    readAnnouncements: (state: GlobalState) => state.cache.announcements,
-   readCourseId: (state: GlobalState) => state.cache.courseId
+   readCourseId: (state: GlobalState) => state.cache.courseId,
 }
 
 

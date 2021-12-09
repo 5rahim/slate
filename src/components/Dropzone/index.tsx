@@ -24,6 +24,27 @@ type DropzoneProps = DropzoneOptions & {
    inputProps?: any
 }
 
+/**
+ * @example
+ <form onSubmit={onFormSubmit}>
+ <Dropzone disabled={isUploading} onChange={populateFiles} inputProps={{ ...fields.register('files') }} />
+ {fields.errorMessage('files')}
+ <Button isLoading={isUploading} type="submit">Save</Button>
+ </form>
+ * @param {any} inputProps
+ * @param {((files: File[]) => void) | undefined} onChange
+ * @param {Pick<Pick<React.HTMLProps<HTMLElement>, "multiple" | "onDragEnter" | "onDragOver" | "onDragLeave"> & {accept?: string | string[],
+ *    minSize?: number, maxSize?: number, maxFiles?: number, preventDropOnDocument?: boolean, noClick?: boolean, noKeyboard?: boolean, noDrag?:
+ *    boolean, noDragEventsBubbling?: boolean, disabled?: boolean, onDrop?: <T extends File>(acceptedFiles: T[], fileRejections: FileRejection[],
+ *    event: DropEvent) => void, onDropAccepted?: <T extends File>(files: T[], event: DropEvent) => void, onDropRejected?: (fileRejections:
+ *    FileRejection[], event: DropEvent) => void, getFilesFromEvent?: (event: DropEvent) => Promise<Array<File | DataTransferItem>>,
+ *    onFileDialogCancel?: () => void, validator?: <T extends File>(file: T) => (FileError | FileError[] | null)} & {onChange?: (files: File[]) =>
+ *    void, inputProps?: any}, "multiple" | "onDragEnter" | "onDragLeave" | "onDragOver" | "accept" | "minSize" | "maxSize" | "maxFiles" |
+ *    "preventDropOnDocument" | "noClick" | "noKeyboard" | "noDrag" | "noDragEventsBubbling" | "disabled" | "onDrop" | "onDropAccepted" |
+ *    "onDropRejected" | "getFilesFromEvent" | "onFileDialogCancel" | "validator">} rest
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
    const t = useTypeSafeTranslation()
    const cmf = useCMF()

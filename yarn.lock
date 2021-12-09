@@ -5,6 +5,22 @@ __metadata:
   version: 5
   cacheKey: 8
 
+"@apideck/file-picker@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@apideck/file-picker@npm:0.5.1"
+  dependencies:
+    "@headlessui/react": ^1.4.1
+    react-dropzone: ^11.4.2
+    react-table: ^7.7.0
+    react-waypoint: ^10.1.0
+    swr: ^1.0.0
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 10f69fab750d95fd74d169961037a2d8b1b756ef9a71ffc18a319031fb0e3bd1f414be07e786d5bc3999d7c80e8af852ca0804c8ad56860e86f887db644bf10c
+  languageName: node
+  linkType: hard
+
 "@apollo/client@npm:^3.4.16":
   version: 3.4.16
   resolution: "@apollo/client@npm:3.4.16"
@@ -1898,6 +1914,16 @@ __metadata:
   dependencies:
     "@hapi/hoek": ^9.0.0
   checksum: 604dfd5dde76d5c334bd03f9001fce69c7ce529883acf92da96f4fe7e51221bf5e5110e964caca287a6a616ba027c071748ab636ff178ad750547fba611d6014
+  languageName: node
+  linkType: hard
+
+"@headlessui/react@npm:^1.4.1":
+  version: 1.4.2
+  resolution: "@headlessui/react@npm:1.4.2"
+  peerDependencies:
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+  checksum: 28c36204430365190c05cbd48235f8239897360c8d55189583c03868fe640b171051238a8672a501b441de79281bb08285966105bfeb4534ca0e612382dcd41f
   languageName: node
   linkType: hard
 
@@ -4176,6 +4202,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"camelcase-keys@npm:^7.0.1":
+  version: 7.0.1
+  resolution: "camelcase-keys@npm:7.0.1"
+  dependencies:
+    camelcase: ^6.2.0
+    map-obj: ^4.1.0
+    quick-lru: ^5.1.1
+    type-fest: ^1.2.1
+  checksum: 5dd8554a1eb85f23fc480b82691e144de5218b1b1e6b59ea02dd717dbbd769f2093496dd3006795af2fc39f6a67b6e046e7fba9be4dd17afdecfb3a46a8ba1eb
+  languageName: node
+  linkType: hard
+
 "camelcase@npm:^5.0.0, camelcase@npm:^5.3.1":
   version: 5.3.1
   resolution: "camelcase@npm:5.3.1"
@@ -4639,6 +4677,13 @@ __metadata:
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
   checksum: 8755d76787f94e6cf79ce4666f0c5519906d7f5b02d4b884cf41e11dcd759ed69c57da0670afd9236d229a46e0f9cf519db0cd829c6dca820bb5a5c3def584ed
+  languageName: node
+  linkType: hard
+
+"consolidated-events@npm:^1.1.0 || ^2.0.0":
+  version: 2.0.2
+  resolution: "consolidated-events@npm:2.0.2"
+  checksum: 3ffb9fa2647ffbc07845f7ddb22c2e7be88a51aabf2256da860b5e88d9fbbddea60af51d849330d6159fd698881ecd51f168aa07a4f5d238056db75b2e96ff9a
   languageName: node
   linkType: hard
 
@@ -8403,6 +8448,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"map-obj@npm:^4.1.0":
+  version: 4.3.0
+  resolution: "map-obj@npm:4.3.0"
+  checksum: fbc554934d1a27a1910e842bc87b177b1a556609dd803747c85ece420692380827c6ae94a95cce4407c054fa0964be3bf8226f7f2cb2e9eeee432c7c1985684e
+  languageName: node
+  linkType: hard
+
 "material-colors@npm:^1.2.1":
   version: 1.2.6
   resolution: "material-colors@npm:1.2.6"
@@ -9634,7 +9686,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.10, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
+"prop-types@npm:^15.0.0, prop-types@npm:^15.5.10, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.7.2
   resolution: "prop-types@npm:15.7.2"
   dependencies:
@@ -10044,6 +10096,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-table@npm:^7.7.0":
+  version: 7.7.0
+  resolution: "react-table@npm:7.7.0"
+  peerDependencies:
+    react: ^16.8.3 || ^17.0.0-0
+  checksum: a679edecc76d3e51311b095528395b38ac85a1ffa371716bea01559a5fdc75af9a6abb9bb907c63190c8e77da22b11f7b05065b3a45d190d8f43cb83e4366206
+  languageName: node
+  linkType: hard
+
 "react-visibility-sensor@npm:^5.1.1":
   version: 5.1.1
   resolution: "react-visibility-sensor@npm:5.1.1"
@@ -10053,6 +10114,20 @@ __metadata:
     react: ">=16.0.0"
     react-dom: ">=16.0.0"
   checksum: ebce7bc743071930a2dd333a041c4a99aac24d5059c47a52eff25a8d81ab9307fadc87b8a6655ebb3154f5c1ceafcc309ae04ee07a7d5fad2949a6903d15acd5
+  languageName: node
+  linkType: hard
+
+"react-waypoint@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "react-waypoint@npm:10.1.0"
+  dependencies:
+    "@babel/runtime": ^7.12.5
+    consolidated-events: ^1.1.0 || ^2.0.0
+    prop-types: ^15.0.0
+    react-is: ^17.0.1
+  peerDependencies:
+    react: ^15.3.0 || ^16.0.0 || ^17.0.0
+  checksum: 70d7e753eba909a2cd3519cee33e25725a89ad883c94fbc8cf7e5705c94c47d909f5ebcb58a7e0018d8c9ecaaf39c831524bf9e15100a03863173c752cf54db1
   languageName: node
   linkType: hard
 
@@ -10716,6 +10791,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "slate@workspace:."
   dependencies:
+    "@apideck/file-picker": ^0.5.1
     "@apollo/client": ^3.4.16
     "@auth0/nextjs-auth0": ^1.6.1
     "@datepicker-react/hooks": ^2.8.4
@@ -10756,6 +10832,7 @@ __metadata:
     "@types/uuid": ^8.3.3
     apollo3-cache-persist: ^0.13.0
     aria-hidden: ^1.1.3
+    camelcase-keys: ^7.0.1
     chalkui: 1.2.1
     copy-to-clipboard: ^3.3.1
     date-fns: ^2.25.0
@@ -10768,6 +10845,7 @@ __metadata:
     isomorphic-unfetch: ^3.1.0
     jest: ^27.0.4
     jest-css-modules-transform: ^4.2.1
+    jsonwebtoken: ^8.5.1
     next: 12.0.1
     nprogress: ^0.2.0
     object-assign: ^4.1.1
@@ -11340,6 +11418,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"swr@npm:^1.0.0":
+  version: 1.1.0
+  resolution: "swr@npm:1.1.0"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: ee878b7a5dce6a8c866e9e56125168e732678e27be9211c5d32505e940c6b67ecf841c81badfba72eff82f126b18bcdadbb24211dcebeb440bd2bc67df37e29e
+  languageName: node
+  linkType: hard
+
 "symbol-observable@npm:^1.0.4, symbol-observable@npm:^1.1.0":
   version: 1.2.0
   resolution: "symbol-observable@npm:1.2.0"
@@ -11745,6 +11832,13 @@ __metadata:
   version: 0.7.1
   resolution: "type-fest@npm:0.7.1"
   checksum: 5b1b113529d59949d97b76977d545989ddc11b81bb0c766b6d2ccc65473cb4b4a5c7d24f5be2c2bb2de302a5d7a13c1732ea1d34c8c59b7e0ec1f890cf7fc424
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^1.2.1":
+  version: 1.4.0
+  resolution: "type-fest@npm:1.4.0"
+  checksum: b011c3388665b097ae6a109a437a04d6f61d81b7357f74cbcb02246f2f5bd72b888ae33631b99871388122ba0a87f4ff1c94078e7119ff22c70e52c0ff828201
   languageName: node
   linkType: hard
 

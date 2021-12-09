@@ -63,6 +63,9 @@
       ],
       "@slate/generated/*": [
         "./src/generated/*"
+      ],
+      "@slate/lib/*": [
+        "./src/lib/*"
       ]
     }
   },

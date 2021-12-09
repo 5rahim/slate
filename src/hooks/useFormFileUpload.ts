@@ -63,7 +63,7 @@ export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
                
                const filename = uuid()
                // const filename = encodeURIComponent(file.name)
-               const res = await fetch(`/api/gcs-file-upload?file=${filename}`)
+               const res = await fetch(`/api/gcs/upload?file=${filename}`)
                const { raw: { url, fields } } = await res.json()
                const formData = new FormData()
                

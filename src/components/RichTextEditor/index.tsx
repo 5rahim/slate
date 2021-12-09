@@ -12,7 +12,7 @@ interface RichTextEditorProps {
 async function gcs_image_upload_handler(blobInfo: any, success: any, failure: any, progress: any) {
    
    const file = blobInfo.blob()
-   const res = await fetch(`/api/gcs-file-upload?file=${blobInfo.filename()}`)
+   const res = await fetch(`/api/gcs/upload?file=${blobInfo.filename()}`)
    const { raw: { url, fields } } = await res.json()
    const formData = new FormData()
    
@@ -33,10 +33,8 @@ async function gcs_image_upload_handler(blobInfo: any, success: any, failure: an
          
          if (upload.ok) {
             success(url + fields.key)
-            console.log('Uploaded successfully!')
          } else {
             failure()
-            console.error('Upload failed.')
          }
       }
       catch (e) {
@@ -76,7 +74,6 @@ export function RichTextEditor({ defaultValue, editorRef, ...rest }: RichTextEdi
                   'removeformat | help'],
                content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
                fontsize_formats: '8px 10px 12px 14px 16px 18px 24px 36px 48px',
-               // images_upload_url: '/api/gcs-file-upload?file=' + uuid(),
                // images_reuse_filename: true,
                images_upload_handler: gcs_image_upload_handler,
             }}

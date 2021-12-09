@@ -1,6 +1,6 @@
 import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
 import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
-import { Dropzone } from '@slate/components/Dropzone'
+import { CloudFilePicker } from '@slate/components/CloudFilePicker'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
@@ -9,7 +9,6 @@ import { useFormFileUpload } from '@slate/hooks/useFormFileUpload'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Badge, Text } from 'chalkui/dist/cjs'
-import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
@@ -111,12 +110,15 @@ export const UnitContent = () => {
                </Flex>
             </Flex>
    
+            <br/>
    
-            <form onSubmit={onFormSubmit}>
-               <Dropzone disabled={isUploading} onChange={populateFiles} inputProps={{ ...fields.register('files') }} />
-               {fields.errorMessage('files')}
-               <Button isLoading={isUploading} type="submit">Save</Button>
-            </form>
+            {/*<form onSubmit={onFormSubmit}>*/}
+            {/*   <Dropzone disabled={isUploading} onChange={populateFiles} inputProps={{ ...fields.register('files') }} />*/}
+            {/*   {fields.errorMessage('files')}*/}
+            {/*   <Button isLoading={isUploading} type="submit">Save</Button>*/}
+            {/*</form>*/}
+            
+            <CloudFilePicker />
             
          </Box>
       
