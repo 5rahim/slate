@@ -1,3 +1,5 @@
+import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
+import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { CacheActions, CacheSelectors } from '@slate/store/slices/cacheSlice'
 import { CourseActions } from '@slate/store/slices/courseSlice'
 import { useRouter } from 'next/router'
@@ -10,8 +12,10 @@ import { useDispatch, useSelector } from 'react-redux'
 export const useStoreCacheConfig = () => {
    const dispatch = useDispatch()
    const router = useRouter()
-   const { course_id } = router.query
+   const { course_id, unit_id } = router.query
    const cachedCourseId = useSelector(CacheSelectors.readCourseId)
+   const cache = useStoreCache()
+   const unit = useCurrentUnit()
    
    /**
     * This behavior happens when course changes
@@ -31,4 +35,13 @@ export const useStoreCacheConfig = () => {
          dispatch(CourseActions.empty())
       }
    }, [course_id, cachedCourseId])
+   
+   /**
+    * This behavior happens when unit changes
+    */
+   useEffect(() => {
+      if(!unit_id || unit_id !== unit.id) {
+         dispatch(CacheActions.writeModules(null))
+      }
+   }, [unit_id, unit])
 }

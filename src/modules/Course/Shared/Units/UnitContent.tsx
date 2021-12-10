@@ -1,12 +1,12 @@
 import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
 import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
-import { CloudFilePicker } from '@slate/components/CloudFilePicker'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useFormFileUpload } from '@slate/hooks/useFormFileUpload'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { ModuleList } from '@slate/modules/Course/Shared/Units/Modules/ModuleList'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Badge, Text } from 'chalkui/dist/cjs'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
@@ -51,6 +51,7 @@ export const UnitContent = () => {
                flexDirection={['column', 'column', 'row', 'row', 'row']}
                gridGap="1rem"
                placeItems="flex-start"
+               mb="1rem"
             >
                <Flex
                   p={[3,3,4,4,4]}
@@ -60,14 +61,13 @@ export const UnitContent = () => {
                   borderRadius="xl"
                   transition="all .15s linear"
                   flexDirection="column"
-                  // boxShadow="sm"
                   _hover={{
                      boxShadow: 'md'
                   }}
                >
                   <Flex>
                      <Box mr="3">
-                        <IconBox size="lg" fontSize="xl" colorScheme="brand.700" variant="secondary" as={BiEraser}/>
+                        <IconBox size="lg" p="3" colorScheme="brand.700" variant="secondary" as={BiEraser}/>
                      </Box>
                      <Box width="100%">
                         <Text fontSize="2xl" fontWeight="bold">{t('Assignments')}</Text>
@@ -95,30 +95,38 @@ export const UnitContent = () => {
                <Flex
                   p={[3,3,4,4,4]}
                   width="100%"
-                  bgColor={cmf("gray.100", 'gray.700')}
+                  border="2px solid"
+                  borderColor={cmf("gray.200", 'gray.700')}
                   borderRadius="xl"
+                  transition="all .15s linear"
+                  flexDirection="column"
+                  _hover={{
+                     boxShadow: 'md'
+                  }}
                >
-                  <Box mr="3">
-                     <IconBox size="lg" fontSize="xl" colorScheme="brand.400" variant="secondary" as={BiEditAlt}/>
-                  </Box>
-                  <Box>
-                     <Text fontSize="2xl" fontWeight="bold">{t('Quizzes')}</Text>
-                     <Box>
-                        <Text>No quiz due this week</Text>
+                  <Flex>
+                     <Box mr="3">
+                        <IconBox size="lg" p="3" colorScheme="brand.400" variant="secondary" as={BiEditAlt}/>
                      </Box>
-                  </Box>
+                     <Box width="100%">
+                        <Text fontSize="2xl" fontWeight="bold">{t('Assignments')}</Text>
+                        <Box width="100%">
+                           <Text>No quiz due this week</Text>
+                        </Box>
+                     </Box>
+                  </Flex>
                </Flex>
             </Flex>
-   
-            <br/>
-   
+            
             {/*<form onSubmit={onFormSubmit}>*/}
             {/*   <Dropzone disabled={isUploading} onChange={populateFiles} inputProps={{ ...fields.register('files') }} />*/}
             {/*   {fields.errorMessage('files')}*/}
             {/*   <Button isLoading={isUploading} type="submit">Save</Button>*/}
             {/*</form>*/}
             
-            <CloudFilePicker />
+            {/*<CloudFilePicker />*/}
+            
+            <ModuleList />
             
          </Box>
       

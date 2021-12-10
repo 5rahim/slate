@@ -10,7 +10,7 @@ import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
 import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 export function UnitList() {
    const { id } = useCurrentCourse()
@@ -28,7 +28,7 @@ export function UnitList() {
    }, [units])
    
    
-   function handleSorting({ active, over }: DragEndEvent) {
+   const handleSorting = useCallback(({ active, over }: DragEndEvent) => {
       if (active.id !== over?.id) {
          setListedUnits((items) => {
             const oldIndex = items?.findIndex(item => item.id === active.id) ?? 0
@@ -47,7 +47,7 @@ export function UnitList() {
             return newArray
          })
       }
-   }
+   }, [])
    
    return (
       <DataListModule
@@ -55,7 +55,7 @@ export function UnitList() {
          dataIsLoading={loading}
          dataIsEmpty={empty}
          displayData={({ list }) =>
-            <Box>
+            <Box position="relative">
                <DndContext
                   onDragEnd={handleSorting}
                >

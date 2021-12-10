@@ -15,6 +15,10 @@ export const getCacheEntries = (): CacheEntries => {
          read: useSelector(CacheSelectors.readAnnouncements),
          write: CacheActions.writeAnnouncements,
       },
+      modules: {
+         read: useSelector(CacheSelectors.readModules),
+         write: CacheActions.writeModules,
+      },
    }
    
 }

@@ -1997,9 +1997,11 @@ export type Modules = {
   content: Scalars['String'];
   id: Scalars['uuid'];
   order: Scalars['Int'];
-  publish_on: Scalars['timestamp'];
-  status: Scalars['String'];
+  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
   type: Scalars['String'];
+  /** An object relationship */
+  unit?: Maybe<Units>;
   unit_id: Scalars['uuid'];
 };
 
@@ -2050,6 +2052,7 @@ export type Modules_Bool_Exp = {
   publish_on?: Maybe<Timestamp_Comparison_Exp>;
   status?: Maybe<String_Comparison_Exp>;
   type?: Maybe<String_Comparison_Exp>;
+  unit?: Maybe<Units_Bool_Exp>;
   unit_id?: Maybe<Uuid_Comparison_Exp>;
 };
 
@@ -2072,6 +2075,7 @@ export type Modules_Insert_Input = {
   publish_on?: Maybe<Scalars['timestamp']>;
   status?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  unit?: Maybe<Units_Obj_Rel_Insert_Input>;
   unit_id?: Maybe<Scalars['uuid']>;
 };
 
@@ -2123,6 +2127,7 @@ export type Modules_Order_By = {
   publish_on?: Maybe<Order_By>;
   status?: Maybe<Order_By>;
   type?: Maybe<Order_By>;
+  unit?: Maybe<Units_Order_By>;
   unit_id?: Maybe<Order_By>;
 };
 
@@ -4624,6 +4629,13 @@ export type Units_Mutation_Response = {
   returning: Array<Units>;
 };
 
+/** input type for inserting object relation for remote table "units" */
+export type Units_Obj_Rel_Insert_Input = {
+  data: Units_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Units_On_Conflict>;
+};
+
 /** on conflict condition type for table "units" */
 export type Units_On_Conflict = {
   constraint: Units_Constraint;
@@ -5794,6 +5806,30 @@ export type GetOwnCoursesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetOwnCoursesQuery = { __typename?: 'query_root', courses: Array<{ __typename?: 'courses', access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, level?: string | null | undefined, instructor_id: number, name: string, enrollments: Array<{ __typename?: 'course_enrollment', id: any, student?: { __typename?: 'users', first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, image?: string | null | undefined } | null | undefined }> }> };
 
+export type CreateModuleMutationVariables = Exact<{
+  content: Scalars['String'];
+  order: Scalars['Int'];
+  unit_id: Scalars['uuid'];
+  type: Scalars['String'];
+}>;
+
+
+export type CreateModuleMutation = { __typename?: 'mutation_root', insert_modules?: { __typename?: 'modules_mutation_response', affected_rows: number } | null | undefined };
+
+export type GetModulesQueryVariables = Exact<{
+  unit_id: Scalars['uuid'];
+}>;
+
+
+export type GetModulesQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any }> };
+
+export type UpdateModuleOrderMutationVariables = Exact<{
+  objects: Array<Modules_Insert_Input> | Modules_Insert_Input;
+}>;
+
+
+export type UpdateModuleOrderMutation = { __typename?: 'mutation_root', insert_modules?: { __typename?: 'modules_mutation_response', affected_rows: number } | null | undefined };
+
 export type UpdateProspectiveUserEmailMutationVariables = Exact<{
   student_id: Scalars['String'];
   email: Scalars['String'];
@@ -6343,6 +6379,45 @@ export const GetOwnCoursesDocument = gql`
 }
     `;
 export type GetOwnCoursesQueryResult = Apollo.QueryResult<GetOwnCoursesQuery, GetOwnCoursesQueryVariables>;
+export const CreateModuleDocument = gql`
+    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!) {
+  insert_modules(
+    objects: {content: $content, order: $order, unit_id: $unit_id, type: $type}
+  ) {
+    affected_rows
+  }
+}
+    `;
+export type CreateModuleMutationFn = Apollo.MutationFunction<CreateModuleMutation, CreateModuleMutationVariables>;
+export type CreateModuleMutationResult = Apollo.MutationResult<CreateModuleMutation>;
+export type CreateModuleMutationOptions = Apollo.BaseMutationOptions<CreateModuleMutation, CreateModuleMutationVariables>;
+export const GetModulesDocument = gql`
+    query GetModules($unit_id: uuid!) {
+  modules(where: {unit_id: {_eq: $unit_id}}, order_by: {order: asc}) {
+    content
+    id
+    order
+    publish_on
+    status
+    type
+    unit_id
+  }
+}
+    `;
+export type GetModulesQueryResult = Apollo.QueryResult<GetModulesQuery, GetModulesQueryVariables>;
+export const UpdateModuleOrderDocument = gql`
+    mutation UpdateModuleOrder($objects: [modules_insert_input!]!) {
+  insert_modules(
+    objects: $objects
+    on_conflict: {constraint: module_pkey, update_columns: order}
+  ) {
+    affected_rows
+  }
+}
+    `;
+export type UpdateModuleOrderMutationFn = Apollo.MutationFunction<UpdateModuleOrderMutation, UpdateModuleOrderMutationVariables>;
+export type UpdateModuleOrderMutationResult = Apollo.MutationResult<UpdateModuleOrderMutation>;
+export type UpdateModuleOrderMutationOptions = Apollo.BaseMutationOptions<UpdateModuleOrderMutation, UpdateModuleOrderMutationVariables>;
 export const UpdateProspectiveUserEmailDocument = gql`
     mutation UpdateProspectiveUserEmail($student_id: String!, $email: String!, $registration_step: Int!) {
   update_prospective_users(

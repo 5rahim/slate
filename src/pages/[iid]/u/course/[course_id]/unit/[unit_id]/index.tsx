@@ -1,14 +1,6 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
-import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
-import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
-import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
-import { BiLink } from '@react-icons/all-files/bi/BiLink'
-import { BiPlus } from '@react-icons/all-files/bi/BiPlus'
-import { RiArticleLine } from '@react-icons/all-files/ri/RiArticleLine'
-import { RiFile3Line } from '@react-icons/all-files/ri/RiFile3Line'
-import { RiMistFill } from '@react-icons/all-files/ri/RiMistFill'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -23,6 +15,7 @@ import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { withUnit } from '@slate/middlewares/dashboard/withUnit'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
+import { UnitModuleCreation } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleCreation'
 import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { UnitContent } from '@slate/modules/Course/Shared/Units/UnitContent'
@@ -31,7 +24,6 @@ import { DashboardPage } from '@slate/types/Next'
 import { Alert, AlertDescription, AlertIcon } from 'chalkui/dist/cjs/Components/Alert'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/Components/Breadcrumb'
 import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
-import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
@@ -88,39 +80,7 @@ const Page = ({ course }: DashboardPage) => {
                               {t('Edit')}
                            </Button>
                            
-                           <Dropdown>
-                              <DropdownButton
-                                 as={Button}
-                                 borderRadius="3xl"
-                                 colorScheme="primary"
-                                 leftIcon={<BiPlus />}
-                              >
-                                 {t('Add')}
-                              </DropdownButton>
-                              <DropdownList>
-                                 <DropdownItem icon={<RiArticleLine />}>
-                                    {t('Document')}
-                                 </DropdownItem>
-                                 <DropdownItem icon={<BiHeading />}>
-                                    {t('Text header')}
-                                 </DropdownItem>
-                                 <DropdownItem icon={<RiFile3Line />}>
-                                    {t('File')}
-                                 </DropdownItem>
-                                 <DropdownItem icon={<BiLink />}>
-                                    {t('Link')}
-                                 </DropdownItem>
-                                 <DropdownItem icon={<RiMistFill />}>
-                                    {t('Message')}
-                                 </DropdownItem>
-                                 <DropdownItem icon={<BiEditAlt />}>
-                                    {t('Quiz')}
-                                 </DropdownItem>
-                                 <DropdownItem icon={<BiEraser />}>
-                                    {t('Assignment')}
-                                 </DropdownItem>
-                              </DropdownList>
-                           </Dropdown>
+                           <UnitModuleCreation />
                         
                         </Flex>
                      </ComponentVisibility.InstructorOnly>

@@ -51,7 +51,13 @@
       "yes": "This course has teaching assistants",
       "no": "This course does not have any teaching assistant"
     },
-    "Add a unit": "Add a unit",
+    "Add a document": "Add a document",
+    "Add a header": "Add a header",
+    "Add a file": "Add a file",
+    "Add a link": "Add a link",
+    "Add a message": "Add a message",
+    "Add a quiz_links": "Add a quiz",
+    "Add a assignment_links": "Add an assignment",
     "Edit the unit": "Edit the unit",
     "unit": {
       "is archived": "This unit is archived",

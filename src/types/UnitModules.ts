@@ -1,4 +1,4 @@
-export enum ModuleTypes {
+export enum UnitModuleTypes {
    Document = 'document',
    TextHeader = 'header',
    File = 'file',
@@ -9,7 +9,7 @@ export enum ModuleTypes {
 }
 
 
-export type ModuleContentTypes = {
+export type UnitModuleContentTypes = {
    document: {
       type: 'text' | 'file' | 'link' | 'header',
       content: string

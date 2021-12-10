@@ -57,6 +57,7 @@ export const useCreateUnit: SlateMutationHook<CreateUnitMutationVariables> = (op
    })
    
 }
+
 export const useMutateUnitDetails: SlateMutationHook<UpdateUnitDetailsMutationVariables> = (options) => {
    
    const unit = useCurrentUnit()
