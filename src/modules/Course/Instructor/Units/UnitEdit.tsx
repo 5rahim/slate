@@ -242,7 +242,7 @@ export const UnitEdit = (
                         {t('Save')}
                      </Button>
                      
-                     <Button colorScheme="brand.800" onClick={onClose} isFullWidth isDisabled={mutationLoading}>
+                     <Button variant="outline" colorScheme="brand.800" onClick={onClose} isFullWidth isDisabled={mutationLoading}>
                         {t('Cancel')}
                      </Button>
                   </ModalFooter>

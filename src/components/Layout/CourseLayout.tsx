@@ -36,6 +36,7 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
                         flexDirection={["column", "column", "column", "row", "column"]}
                         minWidth={["100%", "100%", "100%", '20rem', '20rem']}
                         placeItems={["none", "normal", "normal", "normal", "none"]}
+                        alignSelf={['normal', 'normal', 'normal', 'normal', 'flex-start']}
                         flexWrap="wrap"
                         gridGap={5}
                         sx={{

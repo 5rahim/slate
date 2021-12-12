@@ -4,6 +4,7 @@ export enum UnitModuleTypes {
    File = 'file',
    Link = 'link',
    Message = 'message',
+   Text = 'text',
    QuizLinks = 'quiz_links',
    AssignmentLinks = 'assignment_links'
 }

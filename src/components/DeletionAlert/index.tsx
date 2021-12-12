@@ -13,7 +13,7 @@ interface DeletionAlertProps {
    onClose: any
    isOpen: any
    handleDelete: any
-   type: 'announcement'
+   type: 'announcement' | 'module'
 }
 
 export function DeletionAlert({ onClose, isOpen, handleDelete, type }: DeletionAlertProps) {

@@ -8,7 +8,7 @@ import { getLazyUnits, useMutateUnitOrder } from '@slate/graphql/schemas/units/h
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { UnitItem } from '@slate/modules/Course/Shared/Units/UnitItem'
 import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
-import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { CelledList, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
 import React, { useCallback, useEffect, useState } from 'react'
 
@@ -55,7 +55,7 @@ export function UnitList() {
          dataIsLoading={loading}
          dataIsEmpty={empty}
          displayData={({ list }) =>
-            <Box position="relative">
+            <CelledList overflow="hidden" width="100%" position="relative">
                <DndContext
                   onDragEnd={handleSorting}
                >
@@ -65,7 +65,7 @@ export function UnitList() {
                      ))}
                   </SortableContext>
                </DndContext>
-            </Box>
+            </CelledList>
          }
          fallback={
             <Stack gridGap="1rem">

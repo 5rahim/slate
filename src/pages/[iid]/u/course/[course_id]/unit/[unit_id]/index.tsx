@@ -6,6 +6,7 @@ import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
+import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUnit, useCurrentUnitName } from '@slate/hooks/useCurrentUnit'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
@@ -20,7 +21,6 @@ import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { UnitContent } from '@slate/modules/Course/Shared/Units/UnitContent'
 import { Compose } from '@slate/next/compose'
-import { DashboardPage } from '@slate/types/Next'
 import { Alert, AlertDescription, AlertIcon } from 'chalkui/dist/cjs/Components/Alert'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/Components/Breadcrumb'
 import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
@@ -30,11 +30,12 @@ import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import Link from 'next/link'
 import React from 'react'
 
-const Page = ({ course }: DashboardPage) => {
+const Page = () => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const t = useTypeSafeTranslation()
    const { getCourseHref } = useLinkHref()
    const unit = useCurrentUnit()
+   const course = useCurrentCourse()
    const unitName = useCurrentUnitName()
    const cmf = useCMF()
    const { formatDate } = useDateFormatter()
@@ -42,7 +43,7 @@ const Page = ({ course }: DashboardPage) => {
    return (
       <CourseLayout
          headerMenuIndex={1}
-         pageTitle={unitName + ' | ' + course?.name}
+         pageTitle={unitName + ' - ' + course.name}
          leftPanel={
             <>
                

@@ -18,7 +18,7 @@ export const useStoreCache = () => {
    
    // Not sure if necessary but works either way
    // Return fetched object instead of cached one when course changes
-   const readObject = useCallback((cachedObject: any, fetchedObject: any) => {
+   const readObject = useCallback(<T>(cachedObject: any, fetchedObject: any): T => {
       if (cachedCourseId !== course_id) {
          return fetchedObject
       } else {
@@ -43,8 +43,8 @@ export const useStoreCache = () => {
        * @param fetched
        * @returns {any}
        */
-      read: (entry: string, fetched?: any) => {
-         return readObject(objects[entry].read, fetched)
+      read: <T>(entry: string, fetched?: any) => {
+         return readObject<T>(objects[entry].read, fetched)
       },
       /**
        * Updates the entry (typically after a request)

@@ -53,12 +53,12 @@ const theme = extendedTheme({
             focusBorderColor: '#84776a',
          },
          variants: {
-            outline: (props) => ({
+            outline: (props) => ( {
                field: {
                   boxShadow: 'sm',
                   borderColor: mode('#e0d8d5', '#464646')(props),
                },
-            }),
+            } ),
          },
       },
       Select: {
@@ -67,12 +67,12 @@ const theme = extendedTheme({
             focusBorderColor: 'secondary',
          },
          variants: {
-            outline: (props) => ({
+            outline: (props) => ( {
                field: {
                   boxShadow: 'sm',
                   borderColor: mode('#e0d8d5', '#464646')(props),
                },
-            }),
+            } ),
          },
       },
       Textarea: {
@@ -81,12 +81,12 @@ const theme = extendedTheme({
             focusBorderColor: 'secondary',
          },
          variants: {
-            outline: (props) => ({
+            outline: (props) => ( {
                field: {
                   boxShadow: 'sm',
                   borderColor: mode('#e0d8d5', '#464646')(props),
                },
-            }),
+            } ),
          },
       },
       Dropdown: {
@@ -99,8 +99,8 @@ const theme = extendedTheme({
                fontSize: '1.1rem',
                fontWeight: 600,
                '& > .chalk-dropdown__icon-wrapper': {
-                  fontSize: '1.4rem'
-               }
+                  fontSize: '1.4rem',
+               },
             },
          },
       },
@@ -123,6 +123,13 @@ const theme = extendedTheme({
                   },
                },
             },
+         } ),
+      },
+      Link: {
+         baseStyle: (props) => ( {
+            color: mode('black', 'white')(props),
+            textDecoration: 'underline',
+            _hover: {},
          } ),
       },
    },

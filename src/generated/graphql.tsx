@@ -5830,6 +5830,32 @@ export type UpdateModuleOrderMutationVariables = Exact<{
 
 export type UpdateModuleOrderMutation = { __typename?: 'mutation_root', insert_modules?: { __typename?: 'modules_mutation_response', affected_rows: number } | null | undefined };
 
+export type MoveModuleMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  order: Scalars['Int'];
+  unit_id: Scalars['uuid'];
+}>;
+
+
+export type MoveModuleMutation = { __typename?: 'mutation_root', update_modules_by_pk?: { __typename?: 'modules', id: any } | null | undefined };
+
+export type DeleteModuleMutationVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type DeleteModuleMutation = { __typename?: 'mutation_root', delete_modules_by_pk?: { __typename?: 'modules', id: any } | null | undefined };
+
+export type UpdateModuleMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  content: Scalars['String'];
+  status: Scalars['String'];
+  publish_on: Scalars['timestamp'];
+}>;
+
+
+export type UpdateModuleMutation = { __typename?: 'mutation_root', update_modules_by_pk?: { __typename?: 'modules', id: any } | null | undefined };
+
 export type UpdateProspectiveUserEmailMutationVariables = Exact<{
   student_id: Scalars['String'];
   email: Scalars['String'];
@@ -6418,6 +6444,42 @@ export const UpdateModuleOrderDocument = gql`
 export type UpdateModuleOrderMutationFn = Apollo.MutationFunction<UpdateModuleOrderMutation, UpdateModuleOrderMutationVariables>;
 export type UpdateModuleOrderMutationResult = Apollo.MutationResult<UpdateModuleOrderMutation>;
 export type UpdateModuleOrderMutationOptions = Apollo.BaseMutationOptions<UpdateModuleOrderMutation, UpdateModuleOrderMutationVariables>;
+export const MoveModuleDocument = gql`
+    mutation MoveModule($id: uuid!, $order: Int!, $unit_id: uuid!) {
+  update_modules_by_pk(
+    pk_columns: {id: $id}
+    _set: {order: $order, unit_id: $unit_id}
+  ) {
+    id
+  }
+}
+    `;
+export type MoveModuleMutationFn = Apollo.MutationFunction<MoveModuleMutation, MoveModuleMutationVariables>;
+export type MoveModuleMutationResult = Apollo.MutationResult<MoveModuleMutation>;
+export type MoveModuleMutationOptions = Apollo.BaseMutationOptions<MoveModuleMutation, MoveModuleMutationVariables>;
+export const DeleteModuleDocument = gql`
+    mutation DeleteModule($id: uuid!) {
+  delete_modules_by_pk(id: $id) {
+    id
+  }
+}
+    `;
+export type DeleteModuleMutationFn = Apollo.MutationFunction<DeleteModuleMutation, DeleteModuleMutationVariables>;
+export type DeleteModuleMutationResult = Apollo.MutationResult<DeleteModuleMutation>;
+export type DeleteModuleMutationOptions = Apollo.BaseMutationOptions<DeleteModuleMutation, DeleteModuleMutationVariables>;
+export const UpdateModuleDocument = gql`
+    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!) {
+  update_modules_by_pk(
+    pk_columns: {id: $id}
+    _set: {content: $content, status: $status, publish_on: $publish_on}
+  ) {
+    id
+  }
+}
+    `;
+export type UpdateModuleMutationFn = Apollo.MutationFunction<UpdateModuleMutation, UpdateModuleMutationVariables>;
+export type UpdateModuleMutationResult = Apollo.MutationResult<UpdateModuleMutation>;
+export type UpdateModuleMutationOptions = Apollo.BaseMutationOptions<UpdateModuleMutation, UpdateModuleMutationVariables>;
 export const UpdateProspectiveUserEmailDocument = gql`
     mutation UpdateProspectiveUserEmail($student_id: String!, $email: String!, $registration_step: Int!) {
   update_prospective_users(

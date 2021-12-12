@@ -4,6 +4,7 @@ import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
+import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
@@ -20,14 +21,14 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-const Page = ({ course, iid }: DashboardPage) => {
+const Page = ({ iid }: DashboardPage) => {
    const { t } = useTranslation(['common'], { useSuspense: false })
-   
+   const course = useCurrentCourse()
    
    return (
       <CourseLayout
          headerMenuIndex={0}
-         pageTitle={course?.name}
+         pageTitle={course.name}
          leftPanel={
             <>
                

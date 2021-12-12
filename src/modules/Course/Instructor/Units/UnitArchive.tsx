@@ -2,6 +2,7 @@ import { BiArchive } from '@react-icons/all-files/bi/BiArchive'
 import { BiArchiveOut } from '@react-icons/all-files/bi/BiArchiveOut'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Empty } from '@slate/components/UI/Empty'
+import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getArchivedUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
@@ -45,7 +46,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    
    function handleUnarchive(unit_id: string) {
-      unarchiveUnit({ id: unit_id, order: ( cache.read('units')?.length ) ?? 0 })
+      unarchiveUnit({ id: unit_id, order: ( cache.read<Units[] | null>('units')?.length ) ?? 0 })
    }
    
    return (

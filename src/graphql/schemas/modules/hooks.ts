@@ -1,7 +1,8 @@
-import { CreateModuleMutationVariables, Modules } from '@slate/generated/graphql'
+import { CreateModuleMutationVariables, DeleteModuleMutationVariables, Modules, MoveModuleMutationVariables } from '@slate/generated/graphql'
 import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
-import { CREATE_MODULE, GET_MODULES, UPDATE_MODULE_ORDER } from '@slate/graphql/schemas/modules/mutations'
+import { CREATE_MODULE, DELETE_MODULE, GET_MODULES, MOVE_MODULE, UPDATE_MODULE, UPDATE_MODULE_ORDER } from '@slate/graphql/schemas/modules/mutations'
+import { GET_UNITS } from '@slate/graphql/schemas/units/queries'
 
 export const useCreateModule: SlateMutationHook<CreateModuleMutationVariables> = (options) => {
    
@@ -24,6 +25,54 @@ export const useMutateModuleOrder = () => {
             { query: GET_MODULES },
             'GetModules',
          ],
+      },
+   )
+}
+
+
+export const useMutateMoveModule: SlateMutationHook<MoveModuleMutationVariables> = (options) => {
+   
+   return useMutationHookCreator(
+      MOVE_MODULE,
+      {
+         refetchQueries: [
+            { query: GET_UNITS },
+            { query: GET_MODULES },
+            'GetUnits',
+            'GetModules',
+         ],
+         successAlert: { type: "toast", title: "Module moved" },
+         ...options,
+      },
+   )
+}
+
+export const useDeleteModule: SlateMutationHook<DeleteModuleMutationVariables> = (options) => {
+   
+   return useMutationHookCreator(
+      DELETE_MODULE,
+      {
+         refetchQueries: [
+            { query: GET_MODULES },
+            'GetModules',
+         ],
+         successAlert: { type: "toast", title: "Module deleted" },
+         ...options,
+      },
+   )
+}
+
+export const useUpdateModule: SlateMutationHook<DeleteModuleMutationVariables> = (options) => {
+   
+   return useMutationHookCreator(
+      UPDATE_MODULE,
+      {
+         refetchQueries: [
+            { query: GET_MODULES },
+            'GetModules',
+         ],
+         successAlert: { type: "toast", title: "Module updated" },
+         ...options,
       },
    )
 }

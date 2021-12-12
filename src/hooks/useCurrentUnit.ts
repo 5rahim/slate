@@ -12,3 +12,10 @@ export const useCurrentUnitName = () => {
    const unit = useCurrentUnit()
    return `${t('form:' + unit?.type)} ${unit?.number}${!!unit?.title ? `:  ${unit?.title}` : ``}`
 }
+
+export const useUnitHelpers = () => {
+   const t = useTypeSafeTranslation()
+   return {
+      getUnitName: (unit: Units) => `${t('form:' + unit?.type)} ${unit?.number}${!!unit?.title ? `:  ${unit?.title}` : ``}`
+   }
+}

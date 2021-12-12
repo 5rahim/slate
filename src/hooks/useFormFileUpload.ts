@@ -1,3 +1,4 @@
+import path from 'path'
 import { useState } from 'react'
 import { v4 as uuid } from 'uuid'
 
@@ -23,8 +24,6 @@ const {populateFiles, hasFiles, uploadFiles, isUploading} = useFormFileUpload("m
    
 },
  * @param {"single" | "multiple"} singleOrMultiple
- * @returns {{hasFiles: boolean, uploadFiles: () => Promise<string[] | string | null>, uploaded: boolean, populateFiles: (files: any) => void,
- *    isUploading: boolean}}
  */
 export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
    
@@ -52,7 +51,7 @@ export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
       
       uploadFiles: async () => {
          
-         let results: string[] | string | null = singleOrMultiple === 'multiple' ? [] : null
+         let results: any = singleOrMultiple === 'multiple' ? [] : null
          let success = false
          
          if (files.length > 0) {
@@ -61,13 +60,11 @@ export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
                
                const file = files[i]
                
-               const filename = uuid()
+               const filename = file.name.replace(path.extname(file.name), '') + ` [Slate ${uuid().slice(-8)}]` + path.extname(file.name)
                // const filename = encodeURIComponent(file.name)
                const res = await fetch(`/api/gcs/upload?file=${filename}`)
                const { raw: { url, fields } } = await res.json()
                const formData = new FormData()
-               
-               console.log({ file })
                
                Object.entries({ ...fields, file }).forEach(([key, value]) => {
                   formData.append(key, value as string)
@@ -91,7 +88,7 @@ export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
                         setIsUploading(false)
                         success = true
                      } else {
-                        console.error('Upload failed.')
+                        // console.error('Upload failed.')
                      }
                   }
                   catch (e) {
@@ -99,9 +96,17 @@ export const useFormFileUpload = (singleOrMultiple: "single" | "multiple") => {
                   }
                   
                   if (singleOrMultiple === 'multiple') {
-                     ( results as string[] ).push(url + fields.key)
+                     results.push({
+                        name: file.name,
+                        url: url + fields.key,
+                        ext: path.extname(file.name).replace('.', '')
+                     })
                   } else {
-                     results = url + fields.key
+                     results = {
+                        name: file.name,
+                        url: url + fields.key,
+                        ext: path.extname(file.name).replace('.', '')
+                     }
                   }
                   
                }

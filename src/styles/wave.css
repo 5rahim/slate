@@ -19,3 +19,7 @@
     /*fill: #eeeeee;*/
     fill: #fff7f1;
 }
+
+.tox-tinymce-aux {
+    z-index: 9999 !important;
+}

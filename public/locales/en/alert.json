@@ -10,7 +10,11 @@
   "Unit has been archived": "Unit has been archived",
   "Unit has been updated": "Unit has been updated",
   "Unit has been unarchived": "Unit has been unarchived",
+  "Module moved": "Module has been moved",
+  "Module deleted": "Module has been deleted",
+  "Module updated": "Module has been updated",
   "delete": {
-    "announcement": "Are you sure you want to delete this announcement?"
+    "announcement": "Are you sure you want to delete this announcement?",
+    "module": "Are you sure you want to delete this module?"
   }
 }

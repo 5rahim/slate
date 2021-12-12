@@ -8,7 +8,7 @@ import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { DateInput } from '@slate/components/DateInput'
 import { TimePicker } from '@slate/components/TimePicker'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
-import { CreateUnitMutationVariables } from '@slate/generated/graphql'
+import { CreateUnitMutationVariables, Units } from '@slate/generated/graphql'
 import { useCreateUnit } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
@@ -67,7 +67,7 @@ export function UnitCreation() {
             publish_on: ( !data.available && data.publish_later ) ? publishOn : new Date(),
             course_id: course.id,
             type: data.type,
-            order: cache.read('units')?.length ?? 0,
+            order: cache.read<Units[] | null>('units')?.length ?? 0,
             number: data.number,
          }
          
