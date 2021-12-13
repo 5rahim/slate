@@ -2,8 +2,8 @@ import { gql } from '@apollo/client'
 
 
 export const CREATE_MODULE = gql`
-    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!) {
-        insert_modules(objects: {content: $content, order: $order, unit_id: $unit_id, type: $type}) {
+    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!, $folder_id: uuid) {
+        insert_modules(objects: {content: $content, order: $order, unit_id: $unit_id, type: $type, folder_id: $folder_id}) {
             affected_rows
         }
     }
@@ -19,6 +19,7 @@ export const GET_MODULES = gql`
             status
             type
             unit_id
+            folder_id
         }
     }
 `
@@ -33,7 +34,14 @@ export const UPDATE_MODULE_ORDER = gql`
 
 export const MOVE_MODULE = gql`
     mutation MoveModule($id: uuid!, $order: Int!, $unit_id: uuid!) {
-        update_modules_by_pk(pk_columns: {id: $id}, _set: {order: $order, unit_id: $unit_id}) {
+        update_modules_by_pk(pk_columns: {id: $id}, _set: {order: $order, unit_id: $unit_id, folder_id: null}) {
+            id
+        }
+    }
+`
+export const CHANGE_MODULE_FOLDER = gql`
+    mutation ChangeModuleFolder($id: uuid!, $folder_id: uuid) {
+        update_modules_by_pk(pk_columns: {id: $id}, _set: {folder_id: $folder_id}) {
             id
         }
     }
@@ -49,8 +57,8 @@ export const DELETE_MODULE = gql`
 
 
 export const UPDATE_MODULE = gql`
-    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!) {
-        update_modules_by_pk(pk_columns: {id: $id}, _set: {content: $content, status: $status, publish_on: $publish_on}) {
+    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!, $folder_id: uuid) {
+        update_modules_by_pk(pk_columns: {id: $id}, _set: {content: $content, status: $status, publish_on: $publish_on, folder_id: $folder_id}) {
             id
         }
     }

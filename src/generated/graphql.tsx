@@ -1995,6 +1995,7 @@ export type Date_Comparison_Exp = {
 export type Modules = {
   __typename?: 'modules';
   content: Scalars['String'];
+  folder_id?: Maybe<Scalars['uuid']>;
   id: Scalars['uuid'];
   order: Scalars['Int'];
   publish_on?: Maybe<Scalars['timestamp']>;
@@ -2047,6 +2048,7 @@ export type Modules_Bool_Exp = {
   _not?: Maybe<Modules_Bool_Exp>;
   _or?: Maybe<Array<Modules_Bool_Exp>>;
   content?: Maybe<String_Comparison_Exp>;
+  folder_id?: Maybe<Uuid_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   order?: Maybe<Int_Comparison_Exp>;
   publish_on?: Maybe<Timestamp_Comparison_Exp>;
@@ -2070,6 +2072,7 @@ export type Modules_Inc_Input = {
 /** input type for inserting data into table "modules" */
 export type Modules_Insert_Input = {
   content?: Maybe<Scalars['String']>;
+  folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
   publish_on?: Maybe<Scalars['timestamp']>;
@@ -2083,6 +2086,7 @@ export type Modules_Insert_Input = {
 export type Modules_Max_Fields = {
   __typename?: 'modules_max_fields';
   content?: Maybe<Scalars['String']>;
+  folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
   publish_on?: Maybe<Scalars['timestamp']>;
@@ -2095,6 +2099,7 @@ export type Modules_Max_Fields = {
 export type Modules_Min_Fields = {
   __typename?: 'modules_min_fields';
   content?: Maybe<Scalars['String']>;
+  folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
   publish_on?: Maybe<Scalars['timestamp']>;
@@ -2122,6 +2127,7 @@ export type Modules_On_Conflict = {
 /** Ordering options when selecting data from "modules". */
 export type Modules_Order_By = {
   content?: Maybe<Order_By>;
+  folder_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   order?: Maybe<Order_By>;
   publish_on?: Maybe<Order_By>;
@@ -2141,6 +2147,8 @@ export enum Modules_Select_Column {
   /** column name */
   Content = 'content',
   /** column name */
+  FolderId = 'folder_id',
+  /** column name */
   Id = 'id',
   /** column name */
   Order = 'order',
@@ -2157,6 +2165,7 @@ export enum Modules_Select_Column {
 /** input type for updating data in table "modules" */
 export type Modules_Set_Input = {
   content?: Maybe<Scalars['String']>;
+  folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
   publish_on?: Maybe<Scalars['timestamp']>;
@@ -2193,6 +2202,8 @@ export type Modules_Sum_Fields = {
 export enum Modules_Update_Column {
   /** column name */
   Content = 'content',
+  /** column name */
+  FolderId = 'folder_id',
   /** column name */
   Id = 'id',
   /** column name */
@@ -5811,6 +5822,7 @@ export type CreateModuleMutationVariables = Exact<{
   order: Scalars['Int'];
   unit_id: Scalars['uuid'];
   type: Scalars['String'];
+  folder_id?: Maybe<Scalars['uuid']>;
 }>;
 
 
@@ -5821,7 +5833,7 @@ export type GetModulesQueryVariables = Exact<{
 }>;
 
 
-export type GetModulesQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any }> };
+export type GetModulesQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
 
 export type UpdateModuleOrderMutationVariables = Exact<{
   objects: Array<Modules_Insert_Input> | Modules_Insert_Input;
@@ -5839,6 +5851,14 @@ export type MoveModuleMutationVariables = Exact<{
 
 export type MoveModuleMutation = { __typename?: 'mutation_root', update_modules_by_pk?: { __typename?: 'modules', id: any } | null | undefined };
 
+export type ChangeModuleFolderMutationVariables = Exact<{
+  id: Scalars['uuid'];
+  folder_id?: Maybe<Scalars['uuid']>;
+}>;
+
+
+export type ChangeModuleFolderMutation = { __typename?: 'mutation_root', update_modules_by_pk?: { __typename?: 'modules', id: any } | null | undefined };
+
 export type DeleteModuleMutationVariables = Exact<{
   id: Scalars['uuid'];
 }>;
@@ -5851,6 +5871,7 @@ export type UpdateModuleMutationVariables = Exact<{
   content: Scalars['String'];
   status: Scalars['String'];
   publish_on: Scalars['timestamp'];
+  folder_id?: Maybe<Scalars['uuid']>;
 }>;
 
 
@@ -6406,9 +6427,9 @@ export const GetOwnCoursesDocument = gql`
     `;
 export type GetOwnCoursesQueryResult = Apollo.QueryResult<GetOwnCoursesQuery, GetOwnCoursesQueryVariables>;
 export const CreateModuleDocument = gql`
-    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!) {
+    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!, $folder_id: uuid) {
   insert_modules(
-    objects: {content: $content, order: $order, unit_id: $unit_id, type: $type}
+    objects: {content: $content, order: $order, unit_id: $unit_id, type: $type, folder_id: $folder_id}
   ) {
     affected_rows
   }
@@ -6427,6 +6448,7 @@ export const GetModulesDocument = gql`
     status
     type
     unit_id
+    folder_id
   }
 }
     `;
@@ -6448,7 +6470,7 @@ export const MoveModuleDocument = gql`
     mutation MoveModule($id: uuid!, $order: Int!, $unit_id: uuid!) {
   update_modules_by_pk(
     pk_columns: {id: $id}
-    _set: {order: $order, unit_id: $unit_id}
+    _set: {order: $order, unit_id: $unit_id, folder_id: null}
   ) {
     id
   }
@@ -6457,6 +6479,16 @@ export const MoveModuleDocument = gql`
 export type MoveModuleMutationFn = Apollo.MutationFunction<MoveModuleMutation, MoveModuleMutationVariables>;
 export type MoveModuleMutationResult = Apollo.MutationResult<MoveModuleMutation>;
 export type MoveModuleMutationOptions = Apollo.BaseMutationOptions<MoveModuleMutation, MoveModuleMutationVariables>;
+export const ChangeModuleFolderDocument = gql`
+    mutation ChangeModuleFolder($id: uuid!, $folder_id: uuid) {
+  update_modules_by_pk(pk_columns: {id: $id}, _set: {folder_id: $folder_id}) {
+    id
+  }
+}
+    `;
+export type ChangeModuleFolderMutationFn = Apollo.MutationFunction<ChangeModuleFolderMutation, ChangeModuleFolderMutationVariables>;
+export type ChangeModuleFolderMutationResult = Apollo.MutationResult<ChangeModuleFolderMutation>;
+export type ChangeModuleFolderMutationOptions = Apollo.BaseMutationOptions<ChangeModuleFolderMutation, ChangeModuleFolderMutationVariables>;
 export const DeleteModuleDocument = gql`
     mutation DeleteModule($id: uuid!) {
   delete_modules_by_pk(id: $id) {
@@ -6468,10 +6500,10 @@ export type DeleteModuleMutationFn = Apollo.MutationFunction<DeleteModuleMutatio
 export type DeleteModuleMutationResult = Apollo.MutationResult<DeleteModuleMutation>;
 export type DeleteModuleMutationOptions = Apollo.BaseMutationOptions<DeleteModuleMutation, DeleteModuleMutationVariables>;
 export const UpdateModuleDocument = gql`
-    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!) {
+    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!, $folder_id: uuid) {
   update_modules_by_pk(
     pk_columns: {id: $id}
-    _set: {content: $content, status: $status, publish_on: $publish_on}
+    _set: {content: $content, status: $status, publish_on: $publish_on, folder_id: $folder_id}
   ) {
     id
   }

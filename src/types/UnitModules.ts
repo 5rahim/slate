@@ -1,4 +1,5 @@
 export enum UnitModuleTypes {
+   Folder = 'folder',
    Document = 'document',
    TextHeader = 'header',
    File = 'file',

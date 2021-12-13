@@ -37,7 +37,9 @@
   "No archived units": "No archived units",
   "No course content": "No course content",
   "Archive this unit": "Archive this unit",
+  "Remove from folder": "Remove from folder",
   "Archive this unit description": "The unit will not be accessible to students. The content linked to it will not be deleted and you will still be able to access it.",
+  "Move to different unit": "Move module to a different unit",
   "options": {
     "status": {
       "title": "Course is {{status}}",
@@ -51,6 +53,7 @@
       "yes": "This course has teaching assistants",
       "no": "This course does not have any teaching assistant"
     },
+    "Add a folder": "Add a folder",
     "Add a text": "Add a text",
     "Add a document": "Add a document",
     "Add a header": "Add a header",

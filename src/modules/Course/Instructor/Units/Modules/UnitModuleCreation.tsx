@@ -1,6 +1,7 @@
 import { BiAddToQueue } from '@react-icons/all-files/bi/BiAddToQueue'
 import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
 import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
 import { BiLink } from '@react-icons/all-files/bi/BiLink'
 import { BiMessageAlt } from '@react-icons/all-files/bi/BiMessageAlt'
@@ -16,6 +17,7 @@ import { useCreateModule } from '@slate/graphql/schemas/modules/hooks'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useFormFileUpload } from '@slate/hooks/useFormFileUpload'
+import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { FormErrors } from '@slate/types/FormErrors'
@@ -32,7 +34,7 @@ import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHea
 import { Radio } from 'chalkui/dist/cjs/Components/Radio/Radio'
 import { RadioGroup } from 'chalkui/dist/cjs/Components/Radio/RadioGroup'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 
 export function UnitModuleCreation() {
@@ -46,6 +48,8 @@ export function UnitModuleCreation() {
    const cache = useStoreCache()
    const unit = useCurrentUnit()
    
+   const { isFolderOpen, openedFolder } = useModuleFolder()
+   
    const { populateFiles, hasFiles, uploadFiles, isUploading } = useFormFileUpload("single")
    
    const [createModule, isLoading] = useCreateModule({
@@ -58,7 +62,7 @@ export function UnitModuleCreation() {
    const descriptionInputRef: any = useRef()
    
    const { onFormSubmit, fields, formState } = useFormCreator({
-      schema: ({ z }) => (moduleType !== UnitModuleTypes.File && moduleType !== UnitModuleTypes.Text)
+      schema: ({ z }) => ( moduleType !== UnitModuleTypes.File && moduleType !== UnitModuleTypes.Text )
          ? z.object({
             content: z.string().nonempty(FormErrors.RequiredField),
          })
@@ -72,17 +76,22 @@ export function UnitModuleCreation() {
             type: moduleType as string,
             order: cache.read<Modules[] | null>('modules')?.length ?? 0,
             content: JSON.stringify({}),
+            folder_id: isFolderOpen ? openedFolder?.id : null
          }
          
          switch (moduleType) {
             case UnitModuleTypes.Text:
                insert_data['content'] = editorRef.current?.getContent() ?? ''
-               if(editorRef.current?.getContent().length === 0)
+               if (editorRef.current?.getContent().length === 0)
                   fields.setError('text', FormErrors.RequiredField)
                else
                   insert = true
                break
             case UnitModuleTypes.TextHeader:
+               insert_data['content'] = data.content
+               insert = true
+               break
+            case UnitModuleTypes.Folder:
                insert_data['content'] = data.content
                insert = true
                break
@@ -108,14 +117,14 @@ export function UnitModuleCreation() {
                insert = true
                break
             case UnitModuleTypes.File:
-               if(!hasFiles) {
+               if (!hasFiles) {
                   insert = false
                   fields.setError('content', FormErrors.RequiredFile)
                }
                
                const uploadRes = await uploadFiles()
                
-               if(uploadRes) {
+               if (uploadRes) {
                   insert_data['content'] = JSON.stringify({
                      file: uploadRes,
                      name: descriptionInputRef.current?.value?.length > 0 ? descriptionInputRef.current.value : null,
@@ -124,16 +133,15 @@ export function UnitModuleCreation() {
                }
                break
          }
-   
+         
          console.log(insert_data)
-         if(insert) {createModule(insert_data)}
+         if (insert) {
+            createModule(insert_data)
+         }
          
       },
    })
    
-   useEffect(() => {
-      console.log(moduleType)
-   }, [moduleType])
    
    function handleOpenCreationModal(type: UnitModuleTypes) {
       setModuleType(type)
@@ -155,6 +163,9 @@ export function UnitModuleCreation() {
                   {t('Add')}
                </DropdownButton>
                <DropdownList>
+                  {!isFolderOpen && <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Folder)} icon={<BiFolder />}>
+                     {t('Folder')}
+                  </DropdownItem>}
                   <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.TextHeader)} icon={<BiHeading />}>
                      {t('Text header')}
                   </DropdownItem>
@@ -170,12 +181,16 @@ export function UnitModuleCreation() {
                   <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Text)} icon={<RiMistFill />}>
                      {t('Text')}
                   </DropdownItem>
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.QuizLinks)} icon={<BiEditAlt />}>
-                     {t('Quiz')}
-                  </DropdownItem>
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.AssignmentLinks)} icon={<BiEraser />}>
-                     {t('Assignment')}
-                  </DropdownItem>
+                  {!isFolderOpen && (
+                     <>
+                        <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.QuizLinks)} icon={<BiEditAlt />}>
+                           {t('Quiz')}
+                        </DropdownItem>
+                        <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.AssignmentLinks)} icon={<BiEraser />}>
+                           {t('Assignment')}
+                        </DropdownItem>
+                     </>
+                  )}
                </DropdownList>
             </Dropdown>
          
@@ -190,6 +205,18 @@ export function UnitModuleCreation() {
                   <IconBox isCircular icon={<BiAddToQueue />} colorScheme="primary" margin="0 auto" mt={3} />
                   <ModalHeader textAlign="center">{t(`course:options.Add a ${moduleType}`)}</ModalHeader>
                   <ModalBody>
+                     
+                     {
+                        moduleType === UnitModuleTypes.Folder && (
+                           <>
+                              <FormControl mb={3} id="folder" isRequired={true}>
+                                 <FormLabel>{t('form:Folder name')}</FormLabel>
+                                 <Input {...fields.register('content', { placeholder: '', required: true })} />
+                                 {fields.errorMessage('content')}
+                              </FormControl>
+                           </>
+                        )
+                     }
                      
                      {
                         moduleType === UnitModuleTypes.Text && (
@@ -220,12 +247,12 @@ export function UnitModuleCreation() {
                                  <Input {...fields.register('content', { placeholder: '', required: true })} />
                                  {fields.errorMessage('content')}
                               </FormControl>
-   
+                              
                               <RadioGroup onChange={setMessageType} value={messageType}>
-                                 <Stack direction='row'>
-                                    <Radio value='1'>{t('Normal')}</Radio>
-                                    <Radio value='2'>{t('Warning')}</Radio>
-                                    <Radio value='3'>{t('Alert')}</Radio>
+                                 <Stack direction="row">
+                                    <Radio value="1">{t('Normal')}</Radio>
+                                    <Radio value="2">{t('Warning')}</Radio>
+                                    <Radio value="3">{t('Alert')}</Radio>
                                  </Stack>
                               </RadioGroup>
                            </>
@@ -258,7 +285,7 @@ export function UnitModuleCreation() {
                                  multiple={false}
                                  disabled={isUploading}
                                  onChange={populateFiles}
-                                 inputProps={{...fields.register('content')}}
+                                 inputProps={{ ...fields.register('content') }}
                               />
                               {fields.errorMessage('content')}
                            

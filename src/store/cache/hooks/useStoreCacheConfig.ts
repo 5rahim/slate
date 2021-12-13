@@ -2,6 +2,7 @@ import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { CacheActions, CacheSelectors } from '@slate/store/slices/cacheSlice'
 import { CourseActions } from '@slate/store/slices/courseSlice'
+import { UnitActions } from '@slate/store/slices/unitSlice'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -42,6 +43,7 @@ export const useStoreCacheConfig = () => {
    useEffect(() => {
       if(!unit_id || unit_id !== unit.id) {
          dispatch(CacheActions.writeModules(null))
+         dispatch(UnitActions.setOpenedFolder(null))
       }
    }, [unit_id, unit])
 }

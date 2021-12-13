@@ -1,7 +1,11 @@
-import { CreateModuleMutationVariables, DeleteModuleMutationVariables, Modules, MoveModuleMutationVariables } from '@slate/generated/graphql'
+import {
+   ChangeModuleFolderMutationVariables, CreateModuleMutationVariables, DeleteModuleMutationVariables, Modules, MoveModuleMutationVariables,
+} from '@slate/generated/graphql'
 import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
-import { CREATE_MODULE, DELETE_MODULE, GET_MODULES, MOVE_MODULE, UPDATE_MODULE, UPDATE_MODULE_ORDER } from '@slate/graphql/schemas/modules/mutations'
+import {
+   CHANGE_MODULE_FOLDER, CREATE_MODULE, DELETE_MODULE, GET_MODULES, MOVE_MODULE, UPDATE_MODULE, UPDATE_MODULE_ORDER,
+} from '@slate/graphql/schemas/modules/mutations'
 import { GET_UNITS } from '@slate/graphql/schemas/units/queries'
 
 export const useCreateModule: SlateMutationHook<CreateModuleMutationVariables> = (options) => {
@@ -39,6 +43,21 @@ export const useMutateMoveModule: SlateMutationHook<MoveModuleMutationVariables>
             { query: GET_UNITS },
             { query: GET_MODULES },
             'GetUnits',
+            'GetModules',
+         ],
+         successAlert: { type: "toast", title: "Module moved" },
+         ...options,
+      },
+   )
+}
+
+export const useChangeModuleFolder: SlateMutationHook<ChangeModuleFolderMutationVariables> = (options) => {
+   
+   return useMutationHookCreator(
+      CHANGE_MODULE_FOLDER,
+      {
+         refetchQueries: [
+            { query: GET_MODULES },
             'GetModules',
          ],
          successAlert: { type: "toast", title: "Module moved" },

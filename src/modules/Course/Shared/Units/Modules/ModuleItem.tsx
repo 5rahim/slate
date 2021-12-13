@@ -8,6 +8,7 @@ import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
 import { BiError } from '@react-icons/all-files/bi/BiError'
 import { BiErrorCircle } from '@react-icons/all-files/bi/BiErrorCircle'
 import { BiExit } from '@react-icons/all-files/bi/BiExit'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { BiLinkAlt } from '@react-icons/all-files/bi/BiLinkAlt'
 import { BiMessageAlt } from '@react-icons/all-files/bi/BiMessageAlt'
@@ -19,13 +20,15 @@ import { ComponentVisibility, HideItemInStudentView } from '@slate/components/Co
 import { DeletionAlert } from '@slate/components/DeletionAlert'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
 import { Modules } from '@slate/generated/graphql'
-import { useDeleteModule } from '@slate/graphql/schemas/modules/hooks'
+import { useChangeModuleFolder, useDeleteModule } from '@slate/graphql/schemas/modules/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
+import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { UnitModuleEdit } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'
 import { UnitModuleMove } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'
+import { UnitModuleMoveToFolder } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Utils } from '@slate/utils'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
@@ -50,10 +53,13 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const { isOpen: moveIsOpen, onOpen: moveOnOpen, onClose: moveOnClose } = useDisclosure()
+   const { isOpen: moveToFolderIsOpen, onOpen: moveToFolderOnOpen, onClose: moveToFolderOnClose } = useDisclosure()
    const { linkToUnit } = useLinkHref()
    const { formatDate } = useDateFormatter()
    const cancelRef: any = useRef()
    const [highlightedModule, setHighlightedModule] = useState<string | null>(null)
+   
+   const {openFolder, hasFolder, isFolderOpen, isInOpenedFolder} = useModuleFolder()
    
    const isModuleHighlighted = useCallback((id: string) => {
       return id === highlightedModule
@@ -101,6 +107,13 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
       },
    })
    
+   const [changeModulerFolder] = useChangeModuleFolder()
+   
+   
+   if(((!isFolderOpen && hasFolder(data)) || (isFolderOpen && !isInOpenedFolder(data)))) {
+      return <></>
+   }
+   
    return (
       <HideItemInStudentView showIf={data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
@@ -118,6 +131,14 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
             isOpen={moveIsOpen}
             onOpen={moveOnOpen}
             onClose={moveOnClose}
+         />
+         
+         <UnitModuleMoveToFolder
+            highlightModule={setHighlightedModule}
+            data={data}
+            isOpen={moveToFolderIsOpen}
+            onOpen={moveToFolderOnOpen}
+            onClose={moveToFolderOnClose}
          />
          
          <DeletionAlert onClose={deleteOnClose} isOpen={deleteIsOpen} handleDelete={() => deleteModule({ id: data.id })} type={'module'} />
@@ -150,9 +171,18 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                      <Icon as={BiDotsVertical} ml="-1.2rem" fontSize="1.6rem" />
                   </Flex>
                </ComponentVisibility.InstructorOnly>
+   
+               {/*Folder*/}
+               {
+                  (data.type === UnitModuleTypes.Folder) && (
+                     <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen} icon={BiFolder} iconColor="pink.500">
+                           <Link onClick={() => openFolder(data)}>{data.content}</Link>
+                     </ModuleContent>
+                  )
+               }
                
                {
-                  data.type === UnitModuleTypes.Text && (
+                  (data.type === UnitModuleTypes.Text) && (
                      <ModuleContent
                         highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
                         icon={RiMistFill} iconColor="yellow.500"
@@ -163,7 +193,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
 
                {
-                  data.type === UnitModuleTypes.TextHeader && (
+                  (data.type === UnitModuleTypes.TextHeader) && (
                      <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}>
                         <Text fontSize="lg" fontWeight="700">{data.content}</Text>
                      </ModuleContent>
@@ -171,7 +201,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  data.type === UnitModuleTypes.Message && (
+                  (data.type === UnitModuleTypes.Message) && (
                      <ModuleContent
                         highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
                         icon={JSON.parse(data.content).type === '1' ? BiMessageAlt : (JSON.parse(data.content).type === '2' ? BiError : BiErrorCircle)}
@@ -183,7 +213,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  data.type === UnitModuleTypes.Link && (
+                  (data.type === UnitModuleTypes.Link) && (
                      <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen} icon={BiLinkAlt} iconColor="blue.500">
                         {content.description && <Text>{content.description}</Text>}
                         <Link overflowWrap="anywhere" target="_blank" href={content.link}>{content.link}</Link>
@@ -192,7 +222,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  data.type === UnitModuleTypes.File && (
+                  (data.type === UnitModuleTypes.File) && (
                      <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen} icon={RiFile3Line} iconColor="blue.500">
                         <Flex gridGap=".5rem" flexDirection={['column', 'column', 'row', 'row', 'row']}>
                            <Link target="_blank" href={content.file.url}>{content.name ?? content.file.name ?? content.file.url.slice(-36)}</Link>
@@ -203,7 +233,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  data.type === UnitModuleTypes.Document && (
+                  (data.type === UnitModuleTypes.Document) && (
                      <ModuleContent
                         highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
                         icon={RiArticleLine}
@@ -261,9 +291,29 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                            <DropdownItem icon={<BiEdit />} onClick={editOnOpen}>
                               {t('Edit')}
                            </DropdownItem>
-                           <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
-                              {t('Move')}
-                           </DropdownItem>
+                           
+                           {
+                              isFolderOpen ? (
+                                 <DropdownItem icon={<BiExit />} onClick={() => {
+                                    changeModulerFolder({
+                                       id: data.id,
+                                       folder_id: null
+                                    })
+                                 }}>
+                                    {t('course:Remove from folder')}
+                                 </DropdownItem>
+                              ) : (
+                                 <>
+                                    <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
+                                       {t('course:Move to different unit')}
+                                    </DropdownItem>
+                                    <DropdownItem icon={<BiFolder />} onClick={moveToFolderOnOpen}>
+                                       {t('course:Move to folder')}
+                                    </DropdownItem>
+                                 </>
+                              )
+                           }
+                           
                            <DropdownItem icon={<BiTrash />} onClick={deleteOnOpen}>
                               {t('Delete')}
                            </DropdownItem>
@@ -285,7 +335,7 @@ interface ModuleContentProps {
    icon?: any,
    iconColor?: any,
    children?: React.ReactNode
-   highlighted: boolean
+   highlighted?: boolean
 }
 
 function ModuleContent({ icon, iconColor, children, highlighted }: ModuleContentProps) {

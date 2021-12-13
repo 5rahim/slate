@@ -1,15 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Units } from '@slate/generated/graphql'
+import { Modules, Units } from '@slate/generated/graphql'
 import type { GlobalState } from '..'
 
 interface UnitState {
    unit: Units | null,
-   isAllowed: boolean
+   isAllowed: boolean,
+   openedFolder: Modules | null
 }
 
 const unitState: UnitState = {
    unit: null,
    isAllowed: false,
+   openedFolder: null
 }
 
 export const unitSlice = createSlice({
@@ -22,7 +24,9 @@ export const unitSlice = createSlice({
       setIsAllowed: (state, action: PayloadAction<boolean>) => {
          state.isAllowed = action.payload
       },
-      
+      setOpenedFolder: (state, action: PayloadAction<Modules | null>) => {
+         state.openedFolder = action.payload
+      },
    },
 })
 
@@ -32,6 +36,7 @@ export const UnitSelectors = {
    getAll: (state: GlobalState) => state.unit,
    getUnit: (state: GlobalState) => state.unit.unit,
    isAllowed: (state: GlobalState) => state.unit.isAllowed,
+   openedFolder: (state: GlobalState) => state.unit.openedFolder
 }
 
 

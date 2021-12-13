@@ -90,6 +90,10 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
                update_data['content'] = formData.content
                update = true
                break
+            case UnitModuleTypes.Folder:
+               update_data['content'] = formData.content
+               update = true
+               break
             case UnitModuleTypes.Message:
                update_data['content'] = JSON.stringify({
                   message: formData.content,
@@ -142,6 +146,18 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
                            <>
                               <RichTextEditor mb={4} defaultValue={data.content} editorRef={editorRef} />
                               {fields.errorMessage('text')}
+                           </>
+                        )
+                     }
+                     
+                     {
+                        data.type === UnitModuleTypes.Folder && (
+                           <>
+                              <FormControl mb={3} id="name" isRequired={true}>
+                                 <FormLabel>{t('form:Folder name')}</FormLabel>
+                                 <Input defaultValue={data.content} {...fields.register('content', { placeholder: '', required: true })} />
+                                 {fields.errorMessage('content')}
+                              </FormControl>
                            </>
                         )
                      }

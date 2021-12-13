@@ -4,12 +4,12 @@ import { GlobalState } from '@slate/store/index'
 
 export interface AppState {
    mutationIsLoading: boolean,
-   studentView: boolean
+   studentView: boolean,
 }
 
 export const appState: AppState | {} = {
    mutationIsLoading: false,
-   studentView: false
+   studentView: false,
 }
 
 
@@ -33,7 +33,7 @@ export const AppActions = appSlice.actions
 
 export const AppSelectors = {
    mutationIsLoading: (state: GlobalState) => state.app.mutationIsLoading,
-   studentView: (state: GlobalState) => state.app.studentView,
+   studentView: (state: GlobalState) => state.app.studentView
 }
 
 

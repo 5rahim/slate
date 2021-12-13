@@ -1,10 +1,10 @@
-import { BiExit } from '@react-icons/all-files/bi/BiExit'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
-import { Modules, Units } from '@slate/generated/graphql'
-import { useMutateMoveModule } from '@slate/graphql/schemas/modules/hooks'
-import { useCurrentUnit, useUnitHelpers } from '@slate/hooks/useCurrentUnit'
+import { Modules } from '@slate/generated/graphql'
+import { useChangeModuleFolder } from '@slate/graphql/schemas/modules/hooks'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
+import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { FormControl } from 'chalkui/dist/cjs/Components/FormControl'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
@@ -15,7 +15,7 @@ import {
 import { Select } from 'chalkui/dist/cjs/Components/Select'
 import React, { useEffect, useRef } from 'react'
 
-interface UnitModuleMoveProps {
+interface UnitModuleMoveToFolderProps {
    isOpen: boolean
    onOpen: any
    onClose: any
@@ -23,20 +23,18 @@ interface UnitModuleMoveProps {
    highlightModule: any
 }
 
-export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitModuleMoveProps) => {
+export const UnitModuleMoveToFolder = ({ isOpen, onClose, data, highlightModule }: UnitModuleMoveToFolderProps) => {
    
    const t = useTypeSafeTranslation()
    const cancelRef: any = useRef()
    const cache = useStoreCache()
-   const { getUnitName } = useUnitHelpers()
-   const currentUnit = useCurrentUnit()
    const selectRef: any = useRef()
-   const units = cache.read<Units[]>('units')
+   const modules = cache.read<Modules[] | null>('modules')
    
-   const [moveModule, mutationLoading] = useMutateMoveModule({
+   const [moveModule, mutationLoading] = useChangeModuleFolder({
       onCompleted: () => {
          onClose()
-      }
+      },
    })
    
    useEffect(() => {
@@ -47,8 +45,7 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
       if(!selectRef.current.value || !(selectRef.current.value.length > 0)) return
       moveModule({
          id: data.id,
-         unit_id: selectRef.current.value,
-         order: units?.length ? units[units?.length - 1].order+1 : 0
+         folder_id: selectRef.current.value,
       })
    }
    
@@ -68,15 +65,15 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
             <AlertDialogContent width="100%">
                <AlertDialogCloseButton />
                <Flex width="100%">
-                  <IconBox fontSize="2xl" colorScheme="primary" isCircular icon={<BiExit />} mt={4} ml={4} position="absolute" />
+                  <IconBox fontSize="2xl" colorScheme="primary" isCircular icon={<BiFolder />} mt={4} ml={4} position="absolute" />
                   <Box pl="3.5rem" width="100%">
-                     <AlertDialogHeader>{t('course:Move to different unit')}</AlertDialogHeader>
+                     <AlertDialogHeader>{t('course:Move to folder')}</AlertDialogHeader>
                      <AlertDialogBody pb="6">
                         
                         <FormControl id="country" mb="2">
                            <Select ref={selectRef}>
-                              {units?.filter((u) => u.id !== currentUnit.id).map((unit) => {
-                                 return <option key={unit.id} value={unit.id}>{getUnitName(unit)}</option>
+                              {modules?.filter((m) => m.type === UnitModuleTypes.Folder).map((module) => {
+                                 return <option key={module.id} value={module.id}>{module.content}</option>
                               })}
                            </Select>
                         </FormControl>

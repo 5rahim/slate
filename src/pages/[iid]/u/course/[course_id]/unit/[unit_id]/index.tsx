@@ -21,13 +21,10 @@ import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { UnitContent } from '@slate/modules/Course/Shared/Units/UnitContent'
 import { Compose } from '@slate/next/compose'
-import { Alert, AlertDescription, AlertIcon } from 'chalkui/dist/cjs/Components/Alert'
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/Components/Breadcrumb'
 import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
-import Link from 'next/link'
 import React from 'react'
 
 const Page = () => {
@@ -87,39 +84,6 @@ const Page = () => {
                      </ComponentVisibility.InstructorOnly>
                   }
                >
-                  
-                  <Breadcrumb
-                     bgColor={cmf('gray.100', 'gray.700')}
-                     padding="2"
-                     borderRadius="md"
-                     mb="3"
-                  >
-                     <BreadcrumbItem>
-                        <Link href={getCourseHref('/content')}>
-                           <BreadcrumbLink>{t('course:Course Content')}</BreadcrumbLink>
-                        </Link>
-                     </BreadcrumbItem>
-                     
-                     <BreadcrumbItem isCurrentPage>
-                        <BreadcrumbLink>{unitName}</BreadcrumbLink>
-                     </BreadcrumbItem>
-                  
-                  </Breadcrumb>
-                  
-                  {unit.archived && <Alert mb="3" status="warning" variant="secondary">
-                      <AlertIcon />
-                      <AlertDescription>{t('course:options.unit.is archived')}</AlertDescription>
-                  </Alert>}
-                  
-                  {!unit.archived && !unit.available && !unit.is_scheduled && <Alert mb="3" status="warning" variant="secondary">
-                      <AlertIcon />
-                      <AlertDescription>{t('course:options.unit.not available')}</AlertDescription>
-                  </Alert>}
-                  
-                  {!unit.archived && !unit.available && unit.is_scheduled && <Alert mb="3" status="info" variant="secondary">
-                      <AlertIcon />
-                      <AlertDescription>{t('course:options.unit.will be available')} {formatDate(unit.publish_on, 'short with hours')}</AlertDescription>
-                  </Alert>}
                   
                   <UnitContent />
                
