@@ -4,7 +4,7 @@ import {
 import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import {
-   CHANGE_MODULE_FOLDER, CREATE_MODULE, DELETE_MODULE, GET_MODULES, MOVE_MODULE, UPDATE_MODULE, UPDATE_MODULE_ORDER,
+   CHANGE_MODULE_FOLDER, CREATE_MODULE, DELETE_MODULE, GET_MODULE_BY_ID, GET_MODULES, MOVE_MODULE, UPDATE_MODULE, UPDATE_MODULE_ORDER,
 } from '@slate/graphql/schemas/modules/mutations'
 import { GET_UNITS } from '@slate/graphql/schemas/units/queries'
 
@@ -103,4 +103,12 @@ export const getLazyModules = (unit_id: string) => {
       nextFetchPolicy: 'cache-and-network',
       debug: false,
    })
+}
+
+export const getLazyModuleById = () => {
+   
+   return useLazyQueryHookCreator<Modules>('modules', GET_MODULE_BY_ID, "object", {
+      fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
+   })
+   
 }

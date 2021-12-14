@@ -8,14 +8,14 @@ import { getLazyModules, useMutateModuleOrder } from '@slate/graphql/schemas/mod
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
-import { ModuleItem } from '@slate/modules/Course/Shared/Units/Modules/ModuleItem'
+import { UnitModuleItem } from '@slate/modules/Course/Shared/Units/Modules/UnitModuleItem'
 import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { CelledList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
 import React, { useCallback, useEffect, useState } from 'react'
 
-export function ModuleList() {
+export function UnitModuleList() {
    const { id } = useCurrentCourse()
    const cache = useStoreCache()
    const unit = useCurrentUnit()
@@ -76,7 +76,7 @@ export function ModuleList() {
                >
                   <SortableContext strategy={verticalListSortingStrategy} items={listed ? listed?.map((module) => module.id) : []}>
                      {listed?.map((module) => {
-                        return <ModuleItem key={module.id} id={module.id} data={module} />
+                        return <UnitModuleItem key={module.id} id={module.id} data={module} />
                      })}
                   </SortableContext>
                </DndContext>

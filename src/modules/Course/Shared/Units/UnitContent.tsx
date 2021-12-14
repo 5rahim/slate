@@ -5,7 +5,7 @@ import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { ModuleList } from '@slate/modules/Course/Shared/Units/Modules/ModuleList'
+import { UnitModuleList } from '@slate/modules/Course/Shared/Units/Modules/UnitModuleList'
 import { UnitAssessments } from '@slate/modules/Course/Shared/Units/UnitAssessments'
 import { Alert, AlertDescription, AlertIcon } from 'chalkui/dist/cjs/Components/Alert'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/Components/Breadcrumb'
@@ -72,7 +72,7 @@ export const UnitContent = () => {
             </Alert>}
             
             
-            { !isFolderOpen && <UnitAssessments /> }
+            <UnitAssessments />
             
             { isFolderOpen && (
                <Flex alignItems="center" gridGap=".5rem" mb="2">
@@ -81,7 +81,7 @@ export const UnitContent = () => {
                </Flex>
             ) }
             
-            <ModuleList />
+            <UnitModuleList />
          
          </Box>
       

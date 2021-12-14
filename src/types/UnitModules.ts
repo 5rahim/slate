@@ -6,6 +6,7 @@ export enum UnitModuleTypes {
    Link = 'link',
    Message = 'message',
    Text = 'text',
+   Shortcut = 'shortcut',
    QuizLinks = 'quiz_links',
    AssignmentLinks = 'assignment_links'
 }

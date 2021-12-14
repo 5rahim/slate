@@ -39,6 +39,9 @@
   "No course content": "No course content",
   "Archive this unit": "Archive this unit",
   "Remove from folder": "Remove from folder",
+  "Create a shortcut": "Create a shortcut",
+  "Open in unit": "Open in unit",
+  "Delete shortcut": "Delete the shortcut",
   "Archive this unit description": "The unit will not be accessible to students. The content linked to it will not be deleted and you will still be able to access it.",
   "Move to different unit": "Move module to a different unit",
   "options": {

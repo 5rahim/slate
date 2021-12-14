@@ -15,6 +15,7 @@
   "Module updated": "Module has been updated",
   "delete": {
     "announcement": "Are you sure you want to delete this announcement?",
-    "module": "Are you sure you want to delete this module?"
+    "module": "Are you sure you want to delete this module?",
+    "shortcut": "Are you sure you want to delete this shortcut? Deleting a shortcut will not delete the actual module."
   }
 }

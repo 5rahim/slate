@@ -9,8 +9,10 @@ import { BiError } from '@react-icons/all-files/bi/BiError'
 import { BiErrorCircle } from '@react-icons/all-files/bi/BiErrorCircle'
 import { BiExit } from '@react-icons/all-files/bi/BiExit'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
+import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
 import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { BiLinkAlt } from '@react-icons/all-files/bi/BiLinkAlt'
+import { BiLinkExternal } from '@react-icons/all-files/bi/BiLinkExternal'
 import { BiMessageAlt } from '@react-icons/all-files/bi/BiMessageAlt'
 import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
 import { RiArticleLine } from '@react-icons/all-files/ri/RiArticleLine'
@@ -25,10 +27,12 @@ import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useModuleFolder } from '@slate/hooks/useModuleFolder'
+import { useModuleShortcut } from '@slate/hooks/useModuleShortcut'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { UnitModuleEdit } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'
 import { UnitModuleMove } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'
 import { UnitModuleMoveToFolder } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'
+import { UnitModuleShortcut } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleShortcut'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Utils } from '@slate/utils'
@@ -42,15 +46,16 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button } from 'chalkui/dist/cjs/React'
-import React, { useCallback, useRef, useState } from 'react'
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Skeleton } from 'chalkui/dist/cjs/React'
+import NextLink from 'next/link'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ModuleItemProps {
    data: Modules
    id: string
 }
 
-export const ModuleItem = ({ data, id }: ModuleItemProps) => {
+export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
@@ -58,14 +63,41 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
    const { isOpen: moveIsOpen, onOpen: moveOnOpen, onClose: moveOnClose } = useDisclosure()
    const { isOpen: moveToFolderIsOpen, onOpen: moveToFolderOnOpen, onClose: moveToFolderOnClose } = useDisclosure()
    const { isOpen: cannotDeleteFolderIsOpen, onOpen: cannotDeleteFolderOnOpen, onClose: cannotDeleteFolderOnClose } = useDisclosure()
+   const { isOpen: shortcutIsOpen, onOpen: shortcutOnOpen, onClose: shortcutOnClose } = useDisclosure()
    const { linkToUnit } = useLinkHref()
    const { formatDate } = useDateFormatter()
    const cancelRef: any = useRef()
    const [highlightedModule, setHighlightedModule] = useState<string | null>(null)
    const cache = useStoreCache()
    const modules = cache.read<Modules[] | null>('modules')
+   const [data, setData] = useState<Modules>(initialData)
+   const [isShortcut, setIsShortcut] = useState(false)
    
-   const {openFolder, hasFolder, isFolderOpen, isInOpenedFolder} = useModuleFolder()
+   const { openFolder, hasFolder, isFolderOpen, isInOpenedFolder } = useModuleFolder()
+   
+   const { fetchShortcutModules, shortcutModule } = useModuleShortcut()
+   
+   useEffect(() => {
+      if (data.type === UnitModuleTypes.Shortcut) {
+         setIsShortcut(true)
+         fetchShortcutModules(data.content)
+      }
+   }, [])
+   
+   useEffect(() => {
+      if (shortcutModule) {
+         setData({ ...shortcutModule, id: initialData.id })
+      }
+   }, [shortcutModule])
+   
+   const [deleteModule] = useDeleteModule({
+      onCompleted: () => {
+         deleteOnClose()
+      },
+   })
+   
+   const [changeModulerFolder] = useChangeModuleFolder()
+   
    
    const isModuleHighlighted = useCallback((id: string) => {
       return id === highlightedModule
@@ -107,26 +139,19 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
       transition,
    }
    
-   const [deleteModule] = useDeleteModule({
-      onCompleted: () => {
-         deleteOnClose()
-      },
-   })
-   
-   const [changeModulerFolder] = useChangeModuleFolder()
    
    function handleOnDelete() {
-      if(data.type !== UnitModuleTypes.Folder) return deleteOnOpen()
+      if (data.type !== UnitModuleTypes.Folder) return deleteOnOpen()
       
       const modulesInFolder = modules?.filter((m) => m.folder_id === data.id)
-      if(!!modulesInFolder && modulesInFolder.length > 0) {
+      if (!!modulesInFolder && modulesInFolder.length > 0) {
          cannotDeleteFolderOnOpen()
       } else {
          deleteOnOpen()
       }
    }
    
-   if(((!isFolderOpen && hasFolder(data)) || (isFolderOpen && !isInOpenedFolder(data)))) {
+   if (( ( !isFolderOpen && hasFolder(data) ) || ( isFolderOpen && !isInOpenedFolder(data) ) )) {
       return <></>
    }
    
@@ -134,7 +159,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
       <HideItemInStudentView showIf={data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
          {/*<UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />*/}
-   
+         
          <AlertDialog
             motionPreset="slideInBottom"
             leastDestructiveRef={cancelRef}
@@ -143,7 +168,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
             isCentered
          >
             <AlertDialogOverlay />
-      
+            
             <AlertDialogContent>
                <AlertDialogCloseButton />
                <AlertDialogHeader>Oops!</AlertDialogHeader>
@@ -174,6 +199,14 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
             onClose={moveOnClose}
          />
          
+         <UnitModuleShortcut
+            highlightModule={setHighlightedModule}
+            data={data}
+            isOpen={shortcutIsOpen}
+            onOpen={shortcutOnOpen}
+            onClose={shortcutOnClose}
+         />
+         
          <UnitModuleMoveToFolder
             highlightModule={setHighlightedModule}
             data={data}
@@ -182,7 +215,12 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
             onClose={moveToFolderOnClose}
          />
          
-         <DeletionAlert onClose={deleteOnClose} isOpen={deleteIsOpen} handleDelete={() => deleteModule({ id: data.id })} type={'module'} />
+         <DeletionAlert
+            onClose={deleteOnClose}
+            isOpen={deleteIsOpen}
+            handleDelete={() => deleteModule({ id: data.id })}
+            type={isShortcut ? 'shortcut' : 'module'}
+         />
          
          <ListItem
             ref={setNodeRef}
@@ -212,19 +250,38 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                      <Icon as={BiDotsVertical} ml="-1.2rem" fontSize="1.6rem" />
                   </Flex>
                </ComponentVisibility.InstructorOnly>
-   
+               
+               {
+                  ( data.type === UnitModuleTypes.Shortcut ) && (
+                     <ModuleContent
+                        isShortcut={isShortcut}
+                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        icon={BiLinkExternal}
+                        iconColor="pink.500"
+                     >
+                        <Skeleton width="60%" height="15px" borderRadius="md" />
+                     </ModuleContent>
+                  )
+               }
+               
                {/*Folder*/}
                {
-                  (data.type === UnitModuleTypes.Folder) && (
-                     <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen} icon={BiFolder} iconColor="pink.500">
-                           <Link onClick={() => openFolder(data)}>{data.content}</Link>
+                  ( data.type === UnitModuleTypes.Folder ) && (
+                     <ModuleContent
+                        isShortcut={isShortcut}
+                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        icon={BiFolder}
+                        iconColor="pink.500"
+                     >
+                        <Link onClick={() => openFolder(data)}>{data.content}</Link>
                      </ModuleContent>
                   )
                }
                
                {
-                  (data.type === UnitModuleTypes.Text) && (
+                  ( data.type === UnitModuleTypes.Text ) && (
                      <ModuleContent
+                        isShortcut={isShortcut}
                         highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
                         icon={RiMistFill} iconColor="yellow.500"
                      >
@@ -232,21 +289,26 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                      </ModuleContent>
                   )
                }
-
+               
                {
-                  (data.type === UnitModuleTypes.TextHeader) && (
-                     <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}>
+                  ( data.type === UnitModuleTypes.TextHeader ) && (
+                     <ModuleContent isShortcut={isShortcut} highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}>
                         <Text fontSize="lg" fontWeight="700">{data.content}</Text>
                      </ModuleContent>
                   )
                }
                
                {
-                  (data.type === UnitModuleTypes.Message) && (
+                  ( data.type === UnitModuleTypes.Message ) && (
                      <ModuleContent
+                        isShortcut={isShortcut}
                         highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
-                        icon={JSON.parse(data.content).type === '1' ? BiMessageAlt : (JSON.parse(data.content).type === '2' ? BiError : BiErrorCircle)}
-                        iconColor={JSON.parse(data.content).type === '1' ? 'purple.500' : (JSON.parse(data.content).type === '2' ? 'orange.500' : 'red.500')}
+                        icon={JSON.parse(data.content).type === '1' ? BiMessageAlt : ( JSON.parse(data.content).type === '2'
+                           ? BiError
+                           : BiErrorCircle )}
+                        iconColor={JSON.parse(data.content).type === '1' ? 'purple.500' : ( JSON.parse(data.content).type === '2'
+                           ? 'orange.500'
+                           : 'red.500' )}
                      >
                         <Text>{JSON.parse(data.content).message}</Text>
                      </ModuleContent>
@@ -254,8 +316,13 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  (data.type === UnitModuleTypes.Link) && (
-                     <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen} icon={BiLinkAlt} iconColor="blue.500">
+                  ( data.type === UnitModuleTypes.Link ) && (
+                     <ModuleContent
+                        isShortcut={isShortcut}
+                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        icon={BiLinkAlt}
+                        iconColor="blue.500"
+                     >
                         {content.description && <Text>{content.description}</Text>}
                         <Link overflowWrap="anywhere" target="_blank" href={content.link}>{content.link}</Link>
                      </ModuleContent>
@@ -263,8 +330,13 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  (data.type === UnitModuleTypes.File) && (
-                     <ModuleContent highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen} icon={RiFile3Line} iconColor="blue.500">
+                  ( data.type === UnitModuleTypes.File ) && (
+                     <ModuleContent
+                        isShortcut={isShortcut}
+                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        icon={RiFile3Line}
+                        iconColor="blue.500"
+                     >
                         <Flex gridGap=".5rem" flexDirection={['column', 'column', 'row', 'row', 'row']}>
                            <Link target="_blank" href={content.file.url}>{content.name ?? content.file.name ?? content.file.url.slice(-36)}</Link>
                            <Badge alignSelf="flex-start" pill colorScheme="green.600">{content.file.ext}</Badge>
@@ -274,8 +346,9 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                }
                
                {
-                  (data.type === UnitModuleTypes.Document) && (
+                  ( data.type === UnitModuleTypes.Document ) && (
                      <ModuleContent
+                        isShortcut={isShortcut}
                         highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
                         icon={RiArticleLine}
                         iconColor="orange.500"
@@ -305,7 +378,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                      {( data.status !== 'available' ) && (
                         <Icon as={BiHide} fontSize="2xl" />
                      )}
-                     
+                  
                   </Flex>
                   
                   <Flex alignItems="center">
@@ -329,34 +402,53 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                         
                         </DropdownButton>
                         <DropdownList>
-                           <DropdownItem icon={<BiEdit />} onClick={editOnOpen}>
-                              {t('Edit')}
-                           </DropdownItem>
                            
-                           {
-                              isFolderOpen ? (
-                                 <DropdownItem icon={<BiExit />} onClick={() => {
-                                    changeModulerFolder({
-                                       id: data.id,
-                                       folder_id: null
-                                    })
-                                 }}>
-                                    {t('course:Remove from folder')}
+                           {isShortcut && (
+                              <NextLink href={linkToUnit(data.unit_id)}>
+                                 <DropdownItem icon={<BiFolderOpen />}>
+                                    {t('course:Open in unit')}
                                  </DropdownItem>
-                              ) : (
-                                 <>
-                                    <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
-                                       {t('course:Move to different unit')}
-                                    </DropdownItem>
-                                    <DropdownItem icon={<BiFolder />} onClick={moveToFolderOnOpen}>
-                                       {t('course:Move to folder')}
-                                    </DropdownItem>
-                                 </>
-                              )
-                           }
+                              </NextLink>
+                           )}
+                           
+                           {!isShortcut && (
+                              <>
+                                 <DropdownItem icon={<BiEdit />} onClick={editOnOpen}>
+                                    {t('Edit')}
+                                 </DropdownItem>
+                                 {
+                                    isFolderOpen ? (
+                                       <DropdownItem
+                                          icon={<BiExit />} onClick={() => {
+                                          changeModulerFolder({
+                                             id: data.id,
+                                             folder_id: null,
+                                          })
+                                       }}
+                                       >
+                                          {t('course:Remove from folder')}
+                                       </DropdownItem>
+                                    ) : (
+                                       !( data.type === UnitModuleTypes.Folder ) && (
+                                          <>
+                                             <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
+                                                {t('course:Move to different unit')}
+                                             </DropdownItem>
+                                             <DropdownItem icon={<BiFolder />} onClick={moveToFolderOnOpen}>
+                                                {t('course:Move to folder')}
+                                             </DropdownItem>
+                                             <DropdownItem icon={<BiLinkExternal />} onClick={shortcutOnOpen}>
+                                                {t('course:Create a shortcut')}
+                                             </DropdownItem>
+                                          </>
+                                       )
+                                    )
+                                 }
+                              </>
+                           )}
                            
                            <DropdownItem icon={<BiTrash />} onClick={handleOnDelete}>
-                              {t('Delete')}
+                              {t(isShortcut ? 'course:Delete shortcut' : 'Delete')}
                            </DropdownItem>
                         </DropdownList>
                      </Dropdown>
@@ -376,10 +468,11 @@ interface ModuleContentProps {
    icon?: any,
    iconColor?: any,
    children?: React.ReactNode
-   highlighted?: boolean
+   highlighted?: boolean,
+   isShortcut?: boolean
 }
 
-function ModuleContent({ icon, iconColor, children, highlighted }: ModuleContentProps) {
+function ModuleContent({ icon, iconColor, children, highlighted, isShortcut }: ModuleContentProps) {
    
    const cmf = useCMF()
    
@@ -395,8 +488,19 @@ function ModuleContent({ icon, iconColor, children, highlighted }: ModuleContent
             alignItems={["flex-start", "center", "center", "center", "center"]}
             flexDirection={['column', 'row', 'row', 'row', 'row']}
          >
-            {icon && <Flex mr="3">
+            {icon && <Flex mr="3" position="relative">
                 <IconBox p=".5rem" size="md" fontSize="xs" colorScheme={iconColor} variant="secondary" as={icon} />
+               {isShortcut && <IconBox
+                   colorScheme="brand.100"
+                   color="gray.900"
+                   variant="primary"
+                   size="xs"
+                   p="1"
+                   ml="-.3rem"
+                   mt="-.3rem"
+                   as={BiLinkExternal}
+                   position="absolute"
+               />}
             </Flex>}
             
             <Box>

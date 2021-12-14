@@ -24,6 +24,21 @@ export const GET_MODULES = gql`
     }
 `
 
+export const GET_MODULE_BY_ID = gql`
+    query GetModuleById($id: uuid!) {
+        modules(where: {id: {_eq: $id}}, order_by: {order: asc}) {
+            content
+            id
+            order
+            publish_on
+            status
+            type
+            unit_id
+            folder_id
+        }
+    }
+`
+
 export const UPDATE_MODULE_ORDER = gql`
     mutation UpdateModuleOrder($objects: [modules_insert_input!]!) {
         insert_modules(objects: $objects, on_conflict: {constraint: module_pkey, update_columns: order}) {

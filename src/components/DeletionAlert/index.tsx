@@ -13,7 +13,7 @@ interface DeletionAlertProps {
    onClose: any
    isOpen: any
    handleDelete: any
-   type: 'announcement' | 'module'
+   type: 'announcement' | 'module' | 'shortcut'
 }
 
 export function DeletionAlert({ onClose, isOpen, handleDelete, type }: DeletionAlertProps) {
@@ -46,7 +46,7 @@ export function DeletionAlert({ onClose, isOpen, handleDelete, type }: DeletionA
                      </Text>
                   </AlertDialogBody>
                   <AlertDialogFooter gridGap=".5rem">
-                     <Button variant="secondary" isLoading={mutationIsLoading} colorScheme="red.500" onClick={handleDelete}>
+                     <Button isLoading={mutationIsLoading} colorScheme="red.500" onClick={handleDelete}>
                         {t('Delete')}
                      </Button>
                      <Button isDisabled={mutationIsLoading} colorScheme="secondary" variant="secondary" ref={cancelRef} onClick={onClose}>

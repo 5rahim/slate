@@ -5835,6 +5835,13 @@ export type GetModulesQueryVariables = Exact<{
 
 export type GetModulesQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
 
+export type GetModuleByIdQueryVariables = Exact<{
+  id: Scalars['uuid'];
+}>;
+
+
+export type GetModuleByIdQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
+
 export type UpdateModuleOrderMutationVariables = Exact<{
   objects: Array<Modules_Insert_Input> | Modules_Insert_Input;
 }>;
@@ -6453,6 +6460,21 @@ export const GetModulesDocument = gql`
 }
     `;
 export type GetModulesQueryResult = Apollo.QueryResult<GetModulesQuery, GetModulesQueryVariables>;
+export const GetModuleByIdDocument = gql`
+    query GetModuleById($id: uuid!) {
+  modules(where: {id: {_eq: $id}}, order_by: {order: asc}) {
+    content
+    id
+    order
+    publish_on
+    status
+    type
+    unit_id
+    folder_id
+  }
+}
+    `;
+export type GetModuleByIdQueryResult = Apollo.QueryResult<GetModuleByIdQuery, GetModuleByIdQueryVariables>;
 export const UpdateModuleOrderDocument = gql`
     mutation UpdateModuleOrder($objects: [modules_insert_input!]!) {
   insert_modules(

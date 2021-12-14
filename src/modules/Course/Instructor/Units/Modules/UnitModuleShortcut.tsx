@@ -1,10 +1,11 @@
-import { BiExit } from '@react-icons/all-files/bi/BiExit'
+import { BiLinkExternal } from '@react-icons/all-files/bi/BiLinkExternal'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
-import { Modules, Units } from '@slate/generated/graphql'
-import { useMutateMoveModule } from '@slate/graphql/schemas/modules/hooks'
+import { CreateModuleMutationVariables, Modules, Units } from '@slate/generated/graphql'
+import { useCreateModule } from '@slate/graphql/schemas/modules/hooks'
 import { useCurrentUnit, useUnitHelpers } from '@slate/hooks/useCurrentUnit'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
+import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { FormControl } from 'chalkui/dist/cjs/Components/FormControl'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
@@ -15,7 +16,7 @@ import {
 import { Select } from 'chalkui/dist/cjs/Components/Select'
 import React, { useEffect, useRef } from 'react'
 
-interface UnitModuleMoveProps {
+interface UnitModuleShortcutProps {
    isOpen: boolean
    onOpen: any
    onClose: any
@@ -23,7 +24,7 @@ interface UnitModuleMoveProps {
    highlightModule: any
 }
 
-export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitModuleMoveProps) => {
+export const UnitModuleShortcut = ({ isOpen, onClose, data, highlightModule }: UnitModuleShortcutProps) => {
    
    const t = useTypeSafeTranslation()
    const cancelRef: any = useRef()
@@ -32,8 +33,9 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
    const currentUnit = useCurrentUnit()
    const selectRef: any = useRef()
    const units = cache.read<Units[]>('units')
+   const unit = useCurrentUnit()
    
-   const [moveModule, mutationLoading] = useMutateMoveModule({
+   const [createShortcut, mutationLoading] = useCreateModule({
       onCompleted: () => {
          onClose()
       }
@@ -45,11 +47,16 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
    
    function handleMoveModule() {
       if(!selectRef.current.value || !(selectRef.current.value.length > 0)) return
-      moveModule({
-         id: data.id,
+   
+      let insert_data: CreateModuleMutationVariables = {
          unit_id: selectRef.current.value,
-         order: 999
-      })
+         type: UnitModuleTypes.Shortcut,
+         order: 999,
+         content: data.id,
+         folder_id: null
+      }
+      
+      createShortcut(insert_data)
    }
    
    return (
@@ -68,9 +75,9 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
             <AlertDialogContent width="100%">
                <AlertDialogCloseButton />
                <Flex width="100%">
-                  <IconBox fontSize="2xl" colorScheme="primary" isCircular icon={<BiExit />} mt={4} ml={4} position="absolute" />
+                  <IconBox fontSize="2xl" colorScheme="primary" isCircular icon={<BiLinkExternal />} mt={4} ml={4} position="absolute" />
                   <Box pl="3.5rem" width="100%">
-                     <AlertDialogHeader>{t('course:Move to different unit')}</AlertDialogHeader>
+                     <AlertDialogHeader>{t('course:Create a shortcut')}</AlertDialogHeader>
                      <AlertDialogBody pb="6">
                         
                         <FormControl id="country" mb="2">
@@ -87,7 +94,7 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
                               colorScheme="brand.100"
                               isDisabled={mutationLoading}
                            >
-                              {t('Move')}
+                              {t('Create')}
                            </Button>
                         </Flex>
                      

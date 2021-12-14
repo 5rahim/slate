@@ -1,7 +1,7 @@
 import { BiAddToQueue } from '@react-icons/all-files/bi/BiAddToQueue'
 import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
 import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
-import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
+import { BiFolderPlus } from '@react-icons/all-files/bi/BiFolderPlus'
 import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
 import { BiLink } from '@react-icons/all-files/bi/BiLink'
 import { BiMessageAlt } from '@react-icons/all-files/bi/BiMessageAlt'
@@ -163,7 +163,7 @@ export function UnitModuleCreation() {
                   {t('Add')}
                </DropdownButton>
                <DropdownList>
-                  {!isFolderOpen && <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Folder)} icon={<BiFolder />}>
+                  {!isFolderOpen && <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Folder)} icon={<BiFolderPlus />}>
                      {t('Folder')}
                   </DropdownItem>}
                   <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.TextHeader)} icon={<BiHeading />}>
