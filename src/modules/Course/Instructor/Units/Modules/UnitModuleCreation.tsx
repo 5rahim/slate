@@ -30,7 +30,7 @@ import { Input } from 'chalkui/dist/cjs/Components/Input'
 import { InputLeftElement } from 'chalkui/dist/cjs/Components/Input/InputElement'
 import { InputGroup } from 'chalkui/dist/cjs/Components/Input/InputGroup'
 import { Box, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal'
 import { Radio } from 'chalkui/dist/cjs/Components/Radio/Radio'
 import { RadioGroup } from 'chalkui/dist/cjs/Components/Radio/RadioGroup'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
@@ -196,12 +196,11 @@ export function UnitModuleCreation() {
          
          </Box>
          
-         <Modal size="2xl" isCentered isOpen={isOpen} onClose={onClose}>
+         <Modal size="2xl" isCentered isOpen={isOpen} onClose={() => !(isLoading || isUploading) && onClose()}>
             <ModalOverlay />
             
             <form onSubmit={onFormSubmit}>
                <ModalContent>
-                  <ModalCloseButton />
                   <IconBox isCircular icon={<BiAddToQueue />} colorScheme="primary" margin="0 auto" mt={3} />
                   <ModalHeader textAlign="center">{t(`course:options.Add a ${moduleType}`)}</ModalHeader>
                   <ModalBody>

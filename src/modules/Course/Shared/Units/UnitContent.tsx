@@ -70,9 +70,9 @@ export const UnitContent = () => {
                 <AlertIcon />
                 <AlertDescription>{t('course:options.unit.will be available')} {formatDate(unit.publish_on, 'short with hours')}</AlertDescription>
             </Alert>}
-            
-            
-            <UnitAssessments />
+   
+   
+            { unit.type !== 'folder' && <UnitAssessments />}
             
             { isFolderOpen && (
                <Flex alignItems="center" gridGap=".5rem" mb="2">

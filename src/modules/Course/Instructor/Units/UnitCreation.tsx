@@ -1,6 +1,5 @@
 import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
 import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
-import { BiDotsVertical } from '@react-icons/all-files/bi/BiDotsVertical'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiFolderPlus } from '@react-icons/all-files/bi/BiFolderPlus'
 import { BiHide } from '@react-icons/all-files/bi/BiHide'
@@ -116,26 +115,13 @@ export function UnitCreation() {
                         overflow="hidden"
                      >
                         
-                        <ComponentVisibility.InstructorOnly>
-                           <Flex
-                              bgColor={cmf('#dfdfdf', 'gray.400')}
-                              color={cmf("#979797", 'gray.200')}
-                              height="100%"
-                              width="1.4rem"
-                              justify="center"
-                              align="center"
-                           >
-                              <Icon as={BiDotsVertical} fontSize="1.6rem" />
-                           </Flex>
-                        </ComponentVisibility.InstructorOnly>
-                        
                         <Flex px="4" width="100%" justifyContent="space-between" alignItems="center">
                            
                            <Flex cursor="pointer" _hover={{ color: 'brand.400' }}>
                               <Text
                                  fontWeight="bold"
                                  fontSize="lg"
-                              >{t(fields.watch('type')).charAt(0).toUpperCase() + t(fields.watch('type')).slice(1)}
+                              >{fields.watch('type') !== 'folder' && t(fields.watch('type')).charAt(0).toUpperCase() + t(fields.watch('type')).slice(1)}
                                  &nbsp;{!!fields.watch('number') && fields.watch('number')}</Text>
                               {fields.watch('title') && <Text fontWeight="bold" fontSize="lg">: {fields.watch('title')}</Text>}
                            </Flex>
@@ -177,25 +163,26 @@ export function UnitCreation() {
                               <option value="week">{t('form:Week')}</option>
                               <option value="unit">{t('form:Unit')}</option>
                               <option value="chapter">{t('form:Chapter')}</option>
+                              <option value="folder">{t('form:Folder')}</option>
                            </Select>
                            {fields.errorMessage('type')}
                         </FormControl>
                         
                         {/*Number*/}
                         <FormControl mb={3} id="number" isRequired>
-                           <FormLabel>{t('form:Number')}</FormLabel>
-                           <Input {...fields.register('number', { placeholder: 'Number' })} />
+                           <FormLabel>{fields.watch('type') === 'folder' ? t('form:Title') : t('form:Number')}</FormLabel>
+                           <Input {...fields.register('number', { placeholder: fields.watch('type') === 'folder' ? 'Title': 'Number' })} />
                            {fields.errorMessage('number')}
                         </FormControl>
                      
                      </Flex>
                      
                      {/*Title*/}
-                     <FormControl mb={3} id="title">
+                     { fields.watch('type') !== 'folder' && <FormControl mb={3} id="title">
                         <FormLabel>{t('form:Title')}</FormLabel>
                         <Input {...fields.register('title', { placeholder: 'ex: Jan 2-8', required: false })} />
                         {fields.errorMessage('title')}
-                     </FormControl>
+                     </FormControl>}
                      
                      
                      {/*Available*/}
@@ -203,7 +190,7 @@ export function UnitCreation() {
                         <Checkbox
                            size="lg"
                            id="available"
-                           defaultChecked={true} {...fields.register("available")}>{t('form:Available to students')}</Checkbox>
+                           defaultChecked={false} {...fields.register("available")}>{t('form:Available to students')}</Checkbox>
                      </FormControl>
                      
                      

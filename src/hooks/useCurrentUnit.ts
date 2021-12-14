@@ -10,12 +10,23 @@ export const useCurrentUnit = () => {
 export const useCurrentUnitName = () => {
    const t = useTypeSafeTranslation()
    const unit = useCurrentUnit()
-   return `${t('form:' + unit?.type)} ${unit?.number}${!!unit?.title ? `:  ${unit?.title}` : ``}`
+   if(unit.type === 'folder') {
+      return `${unit?.number}`
+   } else {
+      return `${t('form:' + unit?.type)} ${unit?.number}${!!unit?.title ? `:  ${unit?.title}` : ``}`
+   }
 }
 
 export const useUnitHelpers = () => {
    const t = useTypeSafeTranslation()
+   
    return {
-      getUnitName: (unit: Units) => `${t('form:' + unit?.type)} ${unit?.number}${!!unit?.title ? `:  ${unit?.title}` : ``}`
+      getUnitName: (unit: Units) => {
+         if(unit.type === 'folder') {
+            return `${unit?.number}`
+         } else {
+            return `${t('form:' + unit?.type)} ${unit?.number}${!!unit?.title ? `:  ${unit?.title}` : ``}`
+         }
+      }
    }
 }

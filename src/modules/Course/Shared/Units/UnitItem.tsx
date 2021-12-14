@@ -6,7 +6,9 @@ import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
 import { BiDotsVertical } from '@react-icons/all-files/bi/BiDotsVertical'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
+import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { BiHide } from '@react-icons/all-files/bi/BiHide'
+import { BiNotepad } from '@react-icons/all-files/bi/BiNotepad'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { Units } from '@slate/generated/graphql'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
@@ -18,6 +20,7 @@ import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
 import { Utils } from '@slate/utils'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Box, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
@@ -53,7 +56,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    
    
    const style = {
-      transform: CSS.Transform.toString( transform ? {
+      transform: CSS.Transform.toString(transform ? {
          x: 0,
          y: transform.y,
          scaleX: transform.scaleX,
@@ -74,7 +77,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
          />
          
          <ListItem>
-   
+            
             <Flex
                ref={setNodeRef}
                style={style}
@@ -86,7 +89,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                //    bgColor: cmf('#e5e5e5', 'gray.700'),
                // }}
             >
-      
+               
                <ComponentVisibility.InstructorOnly>
                   <Flex
                      color={cmf("#979797", 'gray.200')}
@@ -103,17 +106,34 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                      <Icon as={BiDotsVertical} ml="-1.2rem" fontSize="1.6rem" />
                   </Flex>
                </ComponentVisibility.InstructorOnly>
-      
+               
                <Flex px="4" width="100%" justifyContent="space-between" alignItems="center">
-         
+                  
                   <Link href={linkToUnit(data.id)}>
-                     <Flex cursor="pointer" _hover={{ color: 'brand.400' }}>
-                        <Text fontWeight="bold" fontSize="lg">{t('form:' + data.type)}
-                           &nbsp;{data.number}</Text>
-                        {!!data.title && <Text fontWeight="bold" fontSize="lg">: {data.title}</Text>}
+                     <Flex alignItems="center" cursor="pointer" _hover={{ color: 'brand.400' }}>
+                        
+                        {
+                           data.type !== 'folder' ? (
+                                 <Flex mr="3" position="relative" alignItems="center" gridGap=".7rem">
+                                    <IconBox p=".5rem" size="md" fontSize="xs" colorScheme="purple.500" variant="secondary" as={BiNotepad} />
+                                    <Flex>
+                                       <Text fontWeight="bold" fontSize="lg">{t('form:' + data.type)}
+                                          &nbsp;{data.number}
+                                       </Text>
+                                       {!!data.title && <Text fontWeight="bold" fontSize="lg">: {data.title}</Text>}
+                                    </Flex>
+                                 </Flex>
+                              ) :
+                              (
+                                 <Flex mr="3" position="relative" alignItems="center" gridGap=".7rem">
+                                    <IconBox p=".5rem" size="md" fontSize="xs" colorScheme="purple.500" variant="secondary" as={BiFolder} />
+                                    <Text fontWeight="bold" fontSize="lg">{data.number}</Text>
+                                 </Flex>
+                              )
+                        }
                      </Flex>
                   </Link>
-         
+                  
                   <ComponentVisibility.AssistantAndHigher>
                      <Flex alignItems="center">
                         {( data.is_scheduled && !data.available ) && (
@@ -125,7 +145,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                               <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />
                            </>
                         )}
-               
+                        
                         <Box mr="2">
                            {
                               data.available || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )
@@ -134,7 +154,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                                  <Icon as={BiHide} fontSize="2xl" />
                            }
                         </Box>
-               
+                        
                         <ComponentVisibility.InstructorOnly>
                            <Dropdown>
                               <DropdownButton
@@ -153,7 +173,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                                  >
                                     <Icon as={BiDotsVerticalRounded} />
                                  </Box>
-                     
+                              
                               </DropdownButton>
                               <DropdownList>
                                  <DropdownItem icon={<BiEdit />} onClick={onOpen}>
@@ -165,13 +185,13 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                               </DropdownList>
                            </Dropdown>
                         </ComponentVisibility.InstructorOnly>
-            
+                     
                      </Flex>
                   </ComponentVisibility.AssistantAndHigher>
-      
+               
                </Flex>
             </Flex>
-            
+         
          </ListItem>
       
       </HideItemInStudentView>
