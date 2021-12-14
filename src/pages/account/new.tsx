@@ -14,7 +14,7 @@ import { useForm } from 'react-hook-form'
 import { useTranslation } from 'react-i18next'
 import { compose } from 'redux'
 
-const Page: NextPage = () => {
+const Page: NextPage = React.memo(() => {
    
    const [displayCode, setDisplayCode] = useState<boolean>(false)
    const [isLoading, setIsLoading] = useState(false)
@@ -101,7 +101,7 @@ const Page: NextPage = () => {
       </>
    
    )
-}
+})
 
 export default compose(
    withApollo(),

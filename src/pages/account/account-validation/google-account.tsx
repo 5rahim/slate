@@ -17,7 +17,7 @@ import { useForm } from 'react-hook-form'
 import { Trans, useTranslation } from 'react-i18next'
 
 
-const Page: NextPage = () => {
+const Page: NextPage = React.memo(() => {
    
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    
@@ -138,7 +138,7 @@ const Page: NextPage = () => {
       </>
    
    )
-}
+})
 
 
 export default Compose(

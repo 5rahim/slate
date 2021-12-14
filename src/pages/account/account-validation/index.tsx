@@ -14,7 +14,7 @@ import { useCookies } from 'react-cookie'
 import { useTranslation } from 'react-i18next'
 
 
-const Page: NextPage = () => {
+const Page: NextPage = React.memo(() => {
    
    const { t, i18n } = useTranslation(['common', 'contact', 'form', 'auth'], { useSuspense: false })
    const router = useRouter()
@@ -100,7 +100,7 @@ const Page: NextPage = () => {
       </>
    
    )
-}
+})
 
 
 export default Compose(

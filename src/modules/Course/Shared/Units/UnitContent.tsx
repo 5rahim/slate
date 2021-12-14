@@ -77,7 +77,7 @@ export const UnitContent = () => {
             { isFolderOpen && (
                <Flex alignItems="center" gridGap=".5rem" mb="2">
                   <IconButton aria-label="" as={BiArrowBack} p="2" colorScheme="brand.100" size="sm" onClick={closeFolder} />
-                  <Text textDecoration="underline" fontSize="xl" fontWeight="bold">{openedFolder?.content}</Text>
+                  <Text fontSize="xl" fontWeight="bold">{openedFolder?.content}</Text>
                </Flex>
             ) }
             

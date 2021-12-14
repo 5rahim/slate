@@ -14,7 +14,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-const Page = ({ user, school }: DashboardPage) => {
+const Page = React.memo(({ user, school }: DashboardPage) => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
    
@@ -40,7 +40,7 @@ const Page = ({ user, school }: DashboardPage) => {
          </UserDashboardLayout>
       </>
    )
-}
+})
 
 export default Compose(
    withApollo(),

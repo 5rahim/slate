@@ -14,7 +14,7 @@ import { Box, Heading } from 'chalkui/dist/cjs/React'
 import React from 'react'
 
 
-const Page = ({ user, school, iid }: DashboardPage) => {
+const Page = React.memo(({ user, school, iid }: DashboardPage) => {
    
    const t = useTypeSafeTranslation()
    
@@ -52,7 +52,7 @@ const Page = ({ user, school, iid }: DashboardPage) => {
          </UserDashboardLayout>
       </>
    )
-}
+})
 
 export default Compose(
    withApollo(),

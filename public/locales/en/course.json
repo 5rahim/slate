@@ -26,6 +26,7 @@
   "Message course assistant": "Message course assistant",
   "Update an announcement": "Update an announcement",
   "announcementAlreadyPublished": "This announcement has already been published. To avoid confusion, you should delete it or create a new one.",
+  "Folder is not empty": "Folder is not empty",
   "This action is irreversible": "This action is irreversible.",
   "Student view": "Student view",
   "You are currently in Student View": "You are currently in Student View",
@@ -68,7 +69,7 @@
       "not available": "This unit is not available to students",
       "will be available": "This unit will be available to students on"
     },
-    "Move to different unit": "Move module to a different unit",
+    "Move to different unit": "Move to a different unit",
     "Create an announcement": "Create an announcement",
     "Make course accessible": "Make course accessible",
     "Make course non-accessible": "Make course non-accessible",

@@ -11,7 +11,7 @@ import { withApollo } from '../graphql/apollo/withApollo'
 import { Compose } from '../next/compose'
 
 
-const Page = () => {
+const Page = React.memo(() => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
    
@@ -46,7 +46,7 @@ const Page = () => {
       
       </>
    )
-}
+})
 
 export default Compose(
    withApollo(),

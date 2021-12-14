@@ -76,6 +76,7 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
             content: JSON.stringify(null),
             status: formData.available ? "available" : ( formData.publish_later ? "scheduled" : "not_available" ),
             publish_on: ( !formData.available && formData.publish_later ) ? publishOn : null,
+            folder_id: data.folder_id
          }
          
          switch (data.type) {

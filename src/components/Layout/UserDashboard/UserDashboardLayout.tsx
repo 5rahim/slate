@@ -11,7 +11,7 @@ import { Spinner } from 'chalkui/dist/cjs/Components/Spinner/Spinner'
 import { useToast } from 'chalkui/dist/cjs/Components/Toast/UseToast'
 import { Text } from 'chalkui/dist/cjs/Components/Typography'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Header } from '../Header'
 import { UserDashboardSideNav } from './UserDashboardSideNav'
@@ -23,7 +23,7 @@ interface UserDashboardLayoutOptions {
 type UserDashboardLayoutProps = UserDashboardLayoutOptions & BoxProps
 
 
-const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...rest }: UserDashboardLayoutProps) => {
+const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = memo(({ children, ...rest }: UserDashboardLayoutProps) => {
    const { colorMode } = useColorMode()
    useStoreCacheConfig()
    const cmf = useCMF()
@@ -124,6 +124,6 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = ({ children, ...
          </Box>
       </>
    )
-}
+})
 
 export default UserDashboardLayout

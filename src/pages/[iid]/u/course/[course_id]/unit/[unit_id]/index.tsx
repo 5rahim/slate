@@ -27,7 +27,7 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
-const Page = () => {
+const Page = React.memo(() => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const t = useTypeSafeTranslation()
    const { getCourseHref } = useLinkHref()
@@ -93,7 +93,7 @@ const Page = () => {
       
       </CourseLayout>
    )
-}
+})
 
 export default Compose(
    withApollo(),

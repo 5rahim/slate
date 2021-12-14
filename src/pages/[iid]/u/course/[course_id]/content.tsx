@@ -25,7 +25,7 @@ import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 
-const Page = ({ user, school, course }: DashboardPage) => {
+const Page = React.memo(({ user, school, course }: DashboardPage) => {
    
    const t = useTypeSafeTranslation()
    
@@ -94,7 +94,7 @@ const Page = ({ user, school, course }: DashboardPage) => {
       
       </CourseLayout>
    )
-}
+})
 
 export default Compose(
    withApollo(),

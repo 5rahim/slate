@@ -3,7 +3,7 @@ import UserDashboardLayout from '@slate/components/Layout/UserDashboard/UserDash
 import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { CourseHeader } from '@slate/modules/Course/CourseHeader'
 import { Container, Flex, Grid } from 'chalkui/dist/cjs/Components/Layout'
-import React from 'react'
+import React, { memo } from 'react'
 
 interface CourseLayoutProps {
    pageTitle?: string
@@ -13,7 +13,7 @@ interface CourseLayoutProps {
    headerMenuIndex: number
 }
 
-export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex, children }: CourseLayoutProps) {
+export const CourseLayout = memo(({ pageTitle, leftPanel, rightPanel, headerMenuIndex, children }: CourseLayoutProps) => {
    
    const {isDesktop, isTabletAndSmaller} = useMediaSizes()
    
@@ -73,4 +73,4 @@ export function CourseLayout({ pageTitle, leftPanel, rightPanel, headerMenuIndex
       </>
    )
    
-}
+})

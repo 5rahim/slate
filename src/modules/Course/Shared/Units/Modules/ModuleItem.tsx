@@ -29,8 +29,10 @@ import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { UnitModuleEdit } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'
 import { UnitModuleMove } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'
 import { UnitModuleMoveToFolder } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'
+import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Utils } from '@slate/utils'
+import { AlertDialogCloseButton, AlertDialogHeader } from 'chalkui/dist/cjs'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
@@ -40,6 +42,7 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button } from 'chalkui/dist/cjs/React'
 import React, { useCallback, useRef, useState } from 'react'
 
 interface ModuleItemProps {
@@ -54,10 +57,13 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const { isOpen: moveIsOpen, onOpen: moveOnOpen, onClose: moveOnClose } = useDisclosure()
    const { isOpen: moveToFolderIsOpen, onOpen: moveToFolderOnOpen, onClose: moveToFolderOnClose } = useDisclosure()
+   const { isOpen: cannotDeleteFolderIsOpen, onOpen: cannotDeleteFolderOnOpen, onClose: cannotDeleteFolderOnClose } = useDisclosure()
    const { linkToUnit } = useLinkHref()
    const { formatDate } = useDateFormatter()
    const cancelRef: any = useRef()
    const [highlightedModule, setHighlightedModule] = useState<string | null>(null)
+   const cache = useStoreCache()
+   const modules = cache.read<Modules[] | null>('modules')
    
    const {openFolder, hasFolder, isFolderOpen, isInOpenedFolder} = useModuleFolder()
    
@@ -109,6 +115,16 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
    
    const [changeModulerFolder] = useChangeModuleFolder()
    
+   function handleOnDelete() {
+      if(data.type !== UnitModuleTypes.Folder) return deleteOnOpen()
+      
+      const modulesInFolder = modules?.filter((m) => m.folder_id === data.id)
+      if(!!modulesInFolder && modulesInFolder.length > 0) {
+         cannotDeleteFolderOnOpen()
+      } else {
+         deleteOnOpen()
+      }
+   }
    
    if(((!isFolderOpen && hasFolder(data)) || (isFolderOpen && !isInOpenedFolder(data)))) {
       return <></>
@@ -118,6 +134,31 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
       <HideItemInStudentView showIf={data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
          {/*<UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />*/}
+   
+         <AlertDialog
+            motionPreset="slideInBottom"
+            leastDestructiveRef={cancelRef}
+            onClose={cannotDeleteFolderOnClose}
+            isOpen={cannotDeleteFolderIsOpen}
+            isCentered
+         >
+            <AlertDialogOverlay />
+      
+            <AlertDialogContent>
+               <AlertDialogCloseButton />
+               <AlertDialogHeader>Oops!</AlertDialogHeader>
+               <AlertDialogBody>
+                  <Text>
+                     {t('course:Folder is not empty')}
+                  </Text>
+               </AlertDialogBody>
+               <AlertDialogFooter>
+                  <Button colorScheme="primary" variant="outline" ref={cancelRef} onClick={cannotDeleteFolderOnClose}>
+                     {t('Cancel')}
+                  </Button>
+               </AlertDialogFooter>
+            </AlertDialogContent>
+         </AlertDialog>
          
          <UnitModuleEdit
             isOpen={editIsOpen}
@@ -314,7 +355,7 @@ export const ModuleItem = ({ data, id }: ModuleItemProps) => {
                               )
                            }
                            
-                           <DropdownItem icon={<BiTrash />} onClick={deleteOnOpen}>
+                           <DropdownItem icon={<BiTrash />} onClick={handleOnDelete}>
                               {t('Delete')}
                            </DropdownItem>
                         </DropdownList>

@@ -10,7 +10,7 @@ import React, { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 
-const Page = () => {
+const Page = React.memo(() => {
    
    const { t, i18n } = useTranslation(['common'], { useSuspense: false })
    
@@ -28,7 +28,7 @@ const Page = () => {
    
    
    return <LoadingScreen />
-}
+})
 
 export default Compose(
    withApollo(),
