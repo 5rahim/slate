@@ -5,13 +5,15 @@ import type { GlobalState } from '..'
 interface UnitState {
    unit: Units | null,
    isAllowed: boolean,
-   openedFolder: Modules | null
+   openedFolder: Modules | null,
+   shouldOpenFolder: Modules | null
 }
 
 const unitState: UnitState = {
    unit: null,
    isAllowed: false,
-   openedFolder: null
+   openedFolder: null,
+   shouldOpenFolder: null
 }
 
 export const unitSlice = createSlice({
@@ -27,6 +29,9 @@ export const unitSlice = createSlice({
       setOpenedFolder: (state, action: PayloadAction<Modules | null>) => {
          state.openedFolder = action.payload
       },
+      setShouldOpenFolder: (state, action: PayloadAction<Modules | null>) => {
+         state.shouldOpenFolder = action.payload
+      },
    },
 })
 
@@ -36,7 +41,8 @@ export const UnitSelectors = {
    getAll: (state: GlobalState) => state.unit,
    getUnit: (state: GlobalState) => state.unit.unit,
    isAllowed: (state: GlobalState) => state.unit.isAllowed,
-   openedFolder: (state: GlobalState) => state.unit.openedFolder
+   openedFolder: (state: GlobalState) => state.unit.openedFolder,
+   shouldOpenFolder: (state: GlobalState) => state.unit.shouldOpenFolder
 }
 
 

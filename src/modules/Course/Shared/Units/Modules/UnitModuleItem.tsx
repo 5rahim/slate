@@ -48,6 +48,7 @@ import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Skeleton } from 'chalkui/dist/cjs/React'
 import NextLink from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 interface ModuleItemProps {
@@ -55,6 +56,16 @@ interface ModuleItemProps {
    id: string
 }
 
+/**
+ * As shortcut
+ * initialData -> shortcut data,
+ * data -> module data + shortcut's folder, id and order
+ *
+ * @param {Modules} initialData
+ * @param {string} id
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
@@ -72,8 +83,9 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    const modules = cache.read<Modules[] | null>('modules')
    const [data, setData] = useState<Modules>(initialData)
    const [isShortcut, setIsShortcut] = useState(false)
+   const router = useRouter()
    
-   const { openFolder, hasFolder, isFolderOpen, isInOpenedFolder } = useModuleFolder()
+   const { openFolder, hasFolder, isFolderOpen, isInOpenedFolder, shouldOpenFolder } = useModuleFolder()
    
    const { fetchShortcutModules, shortcutModule } = useModuleShortcut()
    
@@ -82,13 +94,15 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          setIsShortcut(true)
          fetchShortcutModules(data.content)
       }
-   }, [])
+   }, [initialData])
    
    useEffect(() => {
       if (shortcutModule) {
-         setData({ ...shortcutModule, id: initialData.id })
+         setData({ ...shortcutModule, id: initialData.id, folder_id: initialData.folder_id, order: initialData.order })
+      } else {
+         setData(initialData)
       }
-   }, [shortcutModule])
+   }, [shortcutModule, initialData])
    
    const [deleteModule] = useDeleteModule({
       onCompleted: () => {
@@ -96,7 +110,10 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
       },
    })
    
-   const [changeModulerFolder] = useChangeModuleFolder()
+   const [changeModuleFolder] = useChangeModuleFolder({
+      onCompleted: () => {
+      }
+   })
    
    
    const isModuleHighlighted = useCallback((id: string) => {
@@ -140,7 +157,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    }
    
    
-   function handleOnDelete() {
+   const handleOnDelete = useCallback(() => {
       if (data.type !== UnitModuleTypes.Folder) return deleteOnOpen()
       
       const modulesInFolder = modules?.filter((m) => m.folder_id === data.id)
@@ -149,9 +166,16 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
       } else {
          deleteOnOpen()
       }
-   }
+   }, [data, modules])
    
-   if (( ( !isFolderOpen && hasFolder(data) ) || ( isFolderOpen && !isInOpenedFolder(data) ) )) {
+   const handleOpenShortcutFolder = useCallback(() => {
+      if(shortcutModule) {
+         router.push(linkToUnit(shortcutModule.unit_id))
+         shouldOpenFolder(shortcutModule)
+      }
+   }, [shortcutModule])
+   
+   if (( !isFolderOpen && hasFolder(initialData) ) || ( isFolderOpen && !isInOpenedFolder(initialData) )) {
       return <></>
    }
    
@@ -188,12 +212,12 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          <UnitModuleEdit
             isOpen={editIsOpen}
             onClose={editOnClose}
-            data={data}
+            data={initialData}
          />
          
          <UnitModuleMove
             highlightModule={setHighlightedModule}
-            data={data}
+            data={isShortcut ? initialData : data}
             isOpen={moveIsOpen}
             onOpen={moveOnOpen}
             onClose={moveOnClose}
@@ -209,7 +233,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          
          <UnitModuleMoveToFolder
             highlightModule={setHighlightedModule}
-            data={data}
+            data={isShortcut ? initialData : data}
             isOpen={moveToFolderIsOpen}
             onOpen={moveToFolderOnOpen}
             onClose={moveToFolderOnClose}
@@ -218,7 +242,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          <DeletionAlert
             onClose={deleteOnClose}
             isOpen={deleteIsOpen}
-            handleDelete={() => deleteModule({ id: data.id })}
+            handleDelete={() => deleteModule({ id: initialData.id })}
             type={isShortcut ? 'shortcut' : 'module'}
          />
          
@@ -273,7 +297,13 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                         icon={BiFolder}
                         iconColor="pink.500"
                      >
-                        <Link onClick={() => openFolder(data)}>{data.content}</Link>
+                        <Link onClick={() => {
+                           if(initialData.type === 'shortcut') {
+                              handleOpenShortcutFolder()
+                           } else {
+                              openFolder(data)
+                           }
+                        }}>{data.content}</Link>
                      </ModuleContent>
                   )
                }
@@ -416,35 +446,40 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                                  <DropdownItem icon={<BiEdit />} onClick={editOnOpen}>
                                     {t('Edit')}
                                  </DropdownItem>
+                                 <DropdownItem icon={<BiLinkExternal />} onClick={shortcutOnOpen}>
+                                    {t('course:Create a shortcut')}
+                                 </DropdownItem>
                                  {
-                                    isFolderOpen ? (
-                                       <DropdownItem
-                                          icon={<BiExit />} onClick={() => {
-                                          changeModulerFolder({
-                                             id: data.id,
-                                             folder_id: null,
-                                          })
-                                       }}
-                                       >
-                                          {t('course:Remove from folder')}
-                                       </DropdownItem>
-                                    ) : (
-                                       !( data.type === UnitModuleTypes.Folder ) && (
-                                          <>
-                                             <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
-                                                {t('course:Move to different unit')}
-                                             </DropdownItem>
-                                             <DropdownItem icon={<BiFolder />} onClick={moveToFolderOnOpen}>
-                                                {t('course:Move to folder')}
-                                             </DropdownItem>
-                                             <DropdownItem icon={<BiLinkExternal />} onClick={shortcutOnOpen}>
-                                                {t('course:Create a shortcut')}
-                                             </DropdownItem>
-                                          </>
-                                       )
+                                    ( !isFolderOpen && !( data.type === UnitModuleTypes.Folder ) ) && (
+                                       <>
+                                          <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
+                                             {t('course:Move to different unit')}
+                                          </DropdownItem>
+                                       </>
                                     )
                                  }
                               </>
+                           )}
+                           
+                           {
+                              isFolderOpen && (
+                                 <DropdownItem
+                                    icon={<BiExit />} onClick={() => {
+                                    changeModuleFolder({
+                                       id: initialData.id,
+                                       folder_id: null,
+                                    })
+                                 }}
+                                 >
+                                    {t('course:Remove from folder')}
+                                 </DropdownItem>
+                              )
+                           }
+                           
+                           {!isFolderOpen && (
+                              <DropdownItem icon={<BiFolder />} onClick={moveToFolderOnOpen}>
+                                 {t('course:Move to folder')}
+                              </DropdownItem>
                            )}
                            
                            <DropdownItem icon={<BiTrash />} onClick={handleOnDelete}>

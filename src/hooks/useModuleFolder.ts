@@ -6,6 +6,7 @@ export const useModuleFolder = () => {
    
    const dispatch = useDispatch()
    const openedFolder = useSelector(UnitSelectors.openedFolder)
+   const shouldOpenFolder = useSelector(UnitSelectors.shouldOpenFolder)
    
    return {
    
@@ -15,6 +16,15 @@ export const useModuleFolder = () => {
       
       openFolder: (module: Modules) => {
          dispatch(UnitActions.setOpenedFolder(module))
+      },
+      
+      shouldOpenFolder: (module: Modules | null) => {
+         dispatch(UnitActions.setShouldOpenFolder(module))
+      },
+      
+      openPendingFolder: () => {
+         dispatch(UnitActions.setOpenedFolder(shouldOpenFolder))
+         dispatch(UnitActions.setShouldOpenFolder(null))
       },
       
       closeFolder: () => {

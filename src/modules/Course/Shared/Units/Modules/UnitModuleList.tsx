@@ -8,6 +8,7 @@ import { getLazyModules, useMutateModuleOrder } from '@slate/graphql/schemas/mod
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
+import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { UnitModuleItem } from '@slate/modules/Course/Shared/Units/Modules/UnitModuleItem'
 import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
@@ -25,12 +26,18 @@ export function UnitModuleList() {
    const [listed, setListed] = useState<Modules[] | null>()
    const [fetchModules, modules, isLoading, isEmpty] = useCachedLazyQuery('modules', getLazyModules(unit.id))
    
+   const { openPendingFolder } = useModuleFolder()
+   
    useEffect(() => {
       fetchModules()
    }, [])
    
    useEffect(() => {
-      setListed(modules)
+      // !!modules && setListed(modules)
+      if(modules) {
+         setListed(modules)
+         // openPendingFolder() TODO: Solve bug where current folder is closed when new data arrives
+      }
    }, [modules])
    
    

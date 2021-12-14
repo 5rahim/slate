@@ -6503,7 +6503,10 @@ export type MoveModuleMutationResult = Apollo.MutationResult<MoveModuleMutation>
 export type MoveModuleMutationOptions = Apollo.BaseMutationOptions<MoveModuleMutation, MoveModuleMutationVariables>;
 export const ChangeModuleFolderDocument = gql`
     mutation ChangeModuleFolder($id: uuid!, $folder_id: uuid) {
-  update_modules_by_pk(pk_columns: {id: $id}, _set: {folder_id: $folder_id}) {
+  update_modules_by_pk(
+    pk_columns: {id: $id}
+    _set: {folder_id: $folder_id, order: 999}
+  ) {
     id
   }
 }
