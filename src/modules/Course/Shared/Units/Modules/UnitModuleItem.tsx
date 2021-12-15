@@ -476,7 +476,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                               )
                            }
                            
-                           {!isFolderOpen && (
+                           {(!isFolderOpen && initialData.type !== 'folder' && data.type !== 'folder' && initialData.type !== 'shortcut') && (
                               <DropdownItem icon={<BiFolder />} onClick={moveToFolderOnOpen}>
                                  {t('course:Move to folder')}
                               </DropdownItem>

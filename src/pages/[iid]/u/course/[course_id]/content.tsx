@@ -1,6 +1,5 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
-import { FcViewDetails } from '@react-icons/all-files/fc/FcViewDetails'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -18,10 +17,8 @@ import { Compose } from '@slate/next/compose'
 import { DashboardPage } from '@slate/types/Next'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { ButtonGroup } from 'chalkui/dist/cjs/Components/Button/ButtonGroup'
-import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
-import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 
@@ -63,28 +60,28 @@ const Page = React.memo(({ user, school, course }: DashboardPage) => {
                   </Flex>
                }>
                   
-                  <Flex
-                     height="50px"
-                     borderRadius="xl"
-                     bgColor="brand.300"
-                     width="100%"
-                     alignItems="center"
-                     px="4"
-                     color="#fff"
-                     mb="4"
-                     position="relative"
-                     cursor="pointer"
-                     sx={{
-                        _hover: {
-                           '& > .syllabus_icon': {
-                              transform: 'scale(1.8) rotate(-8deg)'
-                           }
-                        }
-                     }}
-                  >
-                     <Icon as={FcViewDetails} position="absolute" fontSize="3xl" className="syllabus_icon" transition="all .15s ease-in-out" />
-                     <Text ml="10" fontSize="xl">Syllabus</Text>
-                  </Flex>
+                  {/*<Flex*/}
+                  {/*   height="50px"*/}
+                  {/*   borderRadius="xl"*/}
+                  {/*   bgColor="brand.300"*/}
+                  {/*   width="100%"*/}
+                  {/*   alignItems="center"*/}
+                  {/*   px="4"*/}
+                  {/*   color="#fff"*/}
+                  {/*   mb="4"*/}
+                  {/*   position="relative"*/}
+                  {/*   cursor="pointer"*/}
+                  {/*   sx={{*/}
+                  {/*      _hover: {*/}
+                  {/*         '& > .syllabus_icon': {*/}
+                  {/*            transform: 'scale(1.8) rotate(-8deg)'*/}
+                  {/*         }*/}
+                  {/*      }*/}
+                  {/*   }}*/}
+                  {/*>*/}
+                  {/*   <Icon as={FcViewDetails} position="absolute" fontSize="3xl" className="syllabus_icon" transition="all .15s ease-in-out" />*/}
+                  {/*   <Text ml="10" fontSize="xl">Syllabus</Text>*/}
+                  {/*</Flex>*/}
                   
                   <UnitList />
                
