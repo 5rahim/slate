@@ -1,8 +1,9 @@
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import { Flex, Portal } from 'chalkui/dist/cjs/React'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
+import { Portal } from 'chalkui/dist/cjs/Portal/Portal'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 

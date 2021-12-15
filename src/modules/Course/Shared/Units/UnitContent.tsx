@@ -9,10 +9,10 @@ import { UnitModuleList } from '@slate/modules/Course/Shared/Units/Modules/UnitM
 import { UnitAssessments } from '@slate/modules/Course/Shared/Units/UnitAssessments'
 import { Alert, AlertDescription, AlertIcon } from 'chalkui/dist/cjs/Components/Alert'
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from 'chalkui/dist/cjs/Components/Breadcrumb'
+import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
 import { Text } from 'chalkui/dist/cjs/Components/Typography'
-import { IconButton } from 'chalkui/dist/cjs/React'
 import Link from 'next/link'
 import React from 'react'
 

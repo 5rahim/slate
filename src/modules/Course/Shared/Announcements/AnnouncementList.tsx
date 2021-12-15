@@ -6,8 +6,8 @@ import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { AnnouncementListItem } from '@slate/modules/Course/Shared/Announcements/AnnouncementListItem'
 import { useCachedQuery } from '@slate/store/cache/hooks/useCachedQuery'
-import { DividedList, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { ListProps, Skeleton } from 'chalkui/dist/cjs/React'
+import { DividedList, ListProps, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
 import React from 'react'
 
 export function AnnouncementList({ ...rest }: ListProps) {

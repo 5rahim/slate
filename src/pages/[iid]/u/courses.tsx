@@ -7,14 +7,13 @@ import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { CoursesList } from '@slate/modules/Course/Shared/Courses/CoursesList'
 import { Compose } from '@slate/next/compose'
-import { DashboardPage } from '@slate/types/Next'
 import { Utils } from '@slate/utils'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Heading } from 'chalkui/dist/cjs/React'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Heading } from 'chalkui/dist/cjs/Components/Typography/Heading'
 import React from 'react'
 
 
-const Page = React.memo(({ user, school, iid }: DashboardPage) => {
+const Page = React.memo(() => {
    
    const t = useTypeSafeTranslation()
    

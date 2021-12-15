@@ -1,10 +1,11 @@
 import { TimePicker } from '@slate/components/TimePicker'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
-import { HStack } from 'chalkui/dist/cjs'
-import { Wrap, WrapItem } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Checkbox, Text } from 'chalkui/dist/cjs/React'
+import { Checkbox } from 'chalkui/dist/cjs/Components/Checkbox'
+import { Box, HStack, Wrap, WrapItem } from 'chalkui/dist/cjs/Components/Layout'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
 
 interface Schedule {
    [day: string]: { from: number, to: number } | null

@@ -5,8 +5,11 @@ import { DataListModule } from '@slate/graphql/DataListModule'
 import { getCourseManagements } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { Utils } from '@slate/utils'
-import { Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { Avatar, Box, Link, Skeleton, Text } from 'chalkui/dist/cjs/React'
+import { Avatar } from 'chalkui/dist/cjs/Components/Avatar/Avatar'
+import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Link } from 'chalkui/dist/cjs/Components/Layout/Link'
+import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -44,10 +47,10 @@ export function ManagementItem() {
             displayData={() =>
                <>
                   <Flex>
-                     <Text mr="2">{t( "course:options.assistant.yes")}</Text>
-         
+                     <Text mr="2">{t("course:options.assistant.yes")}</Text>
+                     
                      <Link>{t('Manage')}</Link>
-      
+                  
                   </Flex>
                   <Box mt="1">
                      {courseManagements?.map((management) => {
@@ -64,9 +67,9 @@ export function ManagementItem() {
             empty={
                <Flex>
                   <Text mr="2">{t("course:options.assistant.no")}</Text>
-      
+                  
                   <Link>{t('Add')}</Link>
-   
+               
                </Flex>
             }
          />

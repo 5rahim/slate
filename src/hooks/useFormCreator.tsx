@@ -1,8 +1,8 @@
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useFormValidation, UseFormValidationSchema } from '@slate/hooks/useFormValidation'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { InputProps } from 'chalkui/dist/cjs'
-import { SystemStyleObject, Text } from 'chalkui/dist/cjs/React'
+import { InputProps } from 'chalkui/dist/cjs/Components/Input/Input'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { SubmitErrorHandler, SubmitHandler, useForm } from 'react-hook-form'
 import { DefaultValues } from 'react-hook-form/dist/types/form'
 
@@ -86,7 +86,7 @@ export function useFormCreator<T>(props: UseFormCreatorProps<T>) {
             }
          },
          
-         errorMessage: (name: string, style?: SystemStyleObject) => {
+         errorMessage: (name: string, style?: any) => {
             const message = !!errors[name] ? errors[name].message : null
             if (message) {
                return (

@@ -3,10 +3,10 @@ import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
 import { MenuCelledList, MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { Badge, Text } from 'chalkui/dist/cjs'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Badge, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 export function UnitAssessments() {

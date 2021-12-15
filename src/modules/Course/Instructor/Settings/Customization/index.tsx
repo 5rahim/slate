@@ -3,14 +3,14 @@ import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useMutateCourseBackgroundColor, useMutateCourseBannerColor } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, Box } from 'chalkui/dist/cjs/React'
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel } from 'chalkui/dist/cjs/Components/Accordion/Accordion'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import React from 'react'
 import Circle from 'react-color/lib/components/circle/Circle'
 import Swatches from 'react-color/lib/components/swatches/Swatches'
 
 export function Customization() {
-
+   
    const t = useTypeSafeTranslation()
    const course = useCurrentCourse()
    

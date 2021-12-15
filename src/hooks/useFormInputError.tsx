@@ -1,7 +1,7 @@
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { Parameter } from '@slate/types/Parameters'
-import { SystemStyleObject, Text } from 'chalkui/dist/cjs/React'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 
 export function useFormInputError() {
    
@@ -9,7 +9,7 @@ export function useFormInputError() {
    const cmf = useCMF()
    
    return {
-      inputError: (errorMessage: Parameter<string>, style?: SystemStyleObject) => {
+      inputError: (errorMessage: Parameter<string>, style?: any) => {
          if (errorMessage) {
             return (
                <Text

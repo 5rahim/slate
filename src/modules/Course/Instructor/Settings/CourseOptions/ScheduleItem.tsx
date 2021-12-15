@@ -1,9 +1,10 @@
 import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { ScheduleSelector } from '@slate/components/ScheduleSelector'
 import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
-import {
-   Button, IconBox, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

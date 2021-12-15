@@ -4,12 +4,16 @@ import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
 import { useMutateCourseCode } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import {
-   Dropdown, DropdownButton, DropdownItem, DropdownList, IconButton, Link, Text, Tooltip, useClipboard, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
+import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
+import { Flex, Link } from 'chalkui/dist/cjs/Components/Layout'
+import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip/Tooltip'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import { useClipboard } from 'chalkui/dist/cjs/Hooks/use-clipboard'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+
 
 export function AccessCodeItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })

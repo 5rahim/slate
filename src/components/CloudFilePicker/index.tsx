@@ -1,8 +1,8 @@
 import { FilePicker } from '@apideck/file-picker'
 import '@apideck/file-picker/dist/styles.css'
 import { useApideckVaultSession } from '@slate/lib/apideck/useApideckVaultSession'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import { Button } from 'chalkui/dist/cjs/React'
 import { useEffect, useState } from 'react'
 import { DropzoneOptions } from 'react-dropzone'
 
@@ -20,7 +20,7 @@ export function CloudFilePicker({ onChange, ...rest }: DropzoneProps) {
    }
    
    useEffect(() => {
-       console.log(selectedFile)
+      console.log(selectedFile)
    }, [selectedFile])
    
    

@@ -3,9 +3,14 @@ import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useMutateCourseDetails } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
-import {
-   Button, FormControl, FormLabel, IconBox, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { FormControl } from 'chalkui/dist/cjs/Components/FormControl/FormControl'
+import { FormLabel } from 'chalkui/dist/cjs/Components/FormControl/FormLabel'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+import { Input } from 'chalkui/dist/cjs/Components/Input/Input'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 

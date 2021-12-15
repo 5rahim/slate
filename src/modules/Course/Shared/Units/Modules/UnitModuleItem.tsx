@@ -35,17 +35,20 @@ import { UnitModuleShortcut } from '@slate/modules/Course/Instructor/Units/Modul
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Utils } from '@slate/utils'
-import { AlertDialogCloseButton, AlertDialogHeader } from 'chalkui/dist/cjs'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
-import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
+import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Flex, Link, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Badge } from 'chalkui/dist/cjs/Components/Layout/Badge'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import {
+   AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
+import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
 import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, Skeleton } from 'chalkui/dist/cjs/React'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
@@ -437,30 +440,30 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                               </NextLink>
                            )}
                            
-                              {!isShortcut && (
-                                 <>
-                                    <DropdownItem icon={<BiEdit />} onClick={editOnOpen}>
-                                       {t('Edit')}
+                           {!isShortcut && (
+                              <>
+                                 <DropdownItem icon={<BiEdit />} onClick={editOnOpen}>
+                                    {t('Edit')}
+                                 </DropdownItem>
+                                 
+                                 <ComponentVisibility.InstructorOnly>
+                                    <DropdownItem icon={<BiLinkExternal />} onClick={shortcutOnOpen}>
+                                       {t('course:Create a shortcut')}
                                     </DropdownItem>
-                                    
-                                    <ComponentVisibility.InstructorOnly>
-                                       <DropdownItem icon={<BiLinkExternal />} onClick={shortcutOnOpen}>
-                                          {t('course:Create a shortcut')}
-                                       </DropdownItem>
-                                       {
-                                          ( !isFolderOpen && !( data.type === UnitModuleTypes.Folder ) ) && (
-                                             <>
-                                                <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
-                                                   {t('course:Move to different unit')}
-                                                </DropdownItem>
-                                             </>
-                                          )
-                                       }
-                                    </ComponentVisibility.InstructorOnly>
-                                    
-                                 </>
-                              )}
+                                    {
+                                       ( !isFolderOpen && !( data.type === UnitModuleTypes.Folder ) ) && (
+                                          <>
+                                             <DropdownItem icon={<BiExit />} onClick={moveOnOpen}>
+                                                {t('course:Move to different unit')}
+                                             </DropdownItem>
+                                          </>
+                                       )
+                                    }
+                                 </ComponentVisibility.InstructorOnly>
                               
+                              </>
+                           )}
+                           
                            <ComponentVisibility.InstructorOnly>
                               {
                                  isFolderOpen && (

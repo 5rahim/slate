@@ -1,8 +1,9 @@
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getCourseList } from '@slate/graphql/schemas/courses/hooks'
 import { CoursesListItem } from '@slate/modules/Course/Shared/Courses/CoursesListItem'
-import { Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Flex, Skeleton } from 'chalkui/dist/cjs/React'
+import { Box, Flex, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
+
 import React from 'react'
 
 export function CoursesList() {

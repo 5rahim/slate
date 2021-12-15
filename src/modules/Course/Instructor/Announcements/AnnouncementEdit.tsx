@@ -13,12 +13,18 @@ import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Utils } from '@slate/utils'
-import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { FormControl } from 'chalkui/dist/cjs/Components/FormControl/FormControl'
+import { FormLabel } from 'chalkui/dist/cjs/Components/FormControl/FormLabel'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+import { Input } from 'chalkui/dist/cjs/Components/Input/Input'
 import { Box, Divider } from 'chalkui/dist/cjs/Components/Layout'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay, Button, FormControl, FormLabel, IconBox, Input, Modal,
-   ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Switch,
-} from 'chalkui/dist/cjs/React'
+   AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
+import { Switch } from 'chalkui/dist/cjs/Components/Switch/Switch'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 
 
@@ -48,7 +54,7 @@ export function AnnouncementEdit(
    const [deleteAnnouncement] = useDeleteAnnouncement({
       onCompleted: () => {
          deleteOnClose()
-      }
+      },
    })
    
    const cancelRef: any = React.useRef()
@@ -90,7 +96,7 @@ export function AnnouncementEdit(
       <ComponentVisibility.AssistantAndHigher>
          
          
-         {!data.is_scheduled || (data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on)) ?
+         {!data.is_scheduled || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) ) ?
             (
                <>
                   <AlertDialog
@@ -186,7 +192,12 @@ export function AnnouncementEdit(
                </>
             )}
          
-         <DeletionAlert onClose={deleteOnClose} isOpen={deleteIsOpen} handleDelete={() => deleteAnnouncement({ id: data.id })} type={'announcement'} />
+         <DeletionAlert
+            onClose={deleteOnClose}
+            isOpen={deleteIsOpen}
+            handleDelete={() => deleteAnnouncement({ id: data.id })}
+            type={'announcement'}
+         />
       
       
       </ComponentVisibility.AssistantAndHigher>

@@ -1,5 +1,4 @@
-import { BoxProps } from 'chalkui/dist/cjs/Components/Layout'
-import { Box } from 'chalkui/dist/cjs/React'
+import { Box, BoxProps } from 'chalkui/dist/cjs/Components/Layout/Box'
 import React from 'react'
 
 export function AlignedFlex({ ...rest }: { children?: React.ReactNode } & BoxProps) {

@@ -3,13 +3,13 @@ import { Units } from '@slate/generated/graphql'
 import { useMutateArchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppSelectors } from '@slate/store/slices/appSlice'
-import { AlertDialogCloseButton, AlertDialogHeader, Text } from 'chalkui/dist/cjs'
-import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import {
-   AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay,
+   AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
 } from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React from 'react'
 import { useSelector } from 'react-redux'
 

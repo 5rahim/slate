@@ -12,8 +12,13 @@ import { useLocale } from '@slate/hooks/useLocale'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AnnouncementEdit } from '@slate/modules/Course/Instructor/Announcements/AnnouncementEdit'
 import { Utils } from '@slate/utils'
-import { Divider, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
-import { Avatar, Box, Dropdown, DropdownButton, DropdownItem, DropdownList, Icon, Tag, Text, useDisclosure } from 'chalkui/dist/cjs/React'
+import { Avatar } from 'chalkui/dist/cjs/Components/Avatar/Avatar'
+import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
+import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
+import { Box, Divider, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
+import { Tag } from 'chalkui/dist/cjs/Components/Tag/Tag'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
 export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
@@ -22,7 +27,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const locale = useLocale()
    const { data } = props
    
-   const {formatDate} = useDateFormatter()
+   const { formatDate } = useDateFormatter()
    
    const { isOpen, onOpen, onClose } = useDisclosure()
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()

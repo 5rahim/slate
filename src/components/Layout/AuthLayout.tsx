@@ -1,5 +1,5 @@
+import { Image } from 'chalkui/dist/cjs/Components/Image/Image'
 import { Box, BoxProps, Center, Container } from 'chalkui/dist/cjs/Components/Layout'
-import { Image } from 'chalkui/dist/cjs/React'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 

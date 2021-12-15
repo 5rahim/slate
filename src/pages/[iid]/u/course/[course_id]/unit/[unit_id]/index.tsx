@@ -22,12 +22,12 @@ import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMen
 import { UnitContent } from '@slate/modules/Course/Shared/Units/UnitContent'
 import { Compose } from '@slate/next/compose'
 import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
-import React from 'react'
+import { memo } from 'react'
 
-const Page = React.memo(({ displayPage }: any) => {
+const Page = memo(({ displayPage }: any) => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const t = useTypeSafeTranslation()
    const { getCourseHref } = useLinkHref()

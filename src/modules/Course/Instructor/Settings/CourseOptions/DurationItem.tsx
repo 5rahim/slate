@@ -6,9 +6,11 @@ import { useMutateCourseDuration } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { DurationDateFormat } from '@slate/types/Course'
 import { Utils } from '@slate/utils'
-import {
-   Button, IconBox, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, useBreakpointValue, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import { useBreakpointValue } from 'chalkui/dist/cjs/MediaQuery/use-breakpoint-value'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 

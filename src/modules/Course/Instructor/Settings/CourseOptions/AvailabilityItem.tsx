@@ -5,10 +5,15 @@ import { BiShow } from '@react-icons/all-files/bi/BiShow'
 import { ModuleSection } from '@slate/components/UI/Course/ModuleSection'
 import { useMutateCourseAvailability } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import {
-   Button, Dropdown, DropdownButton, DropdownItem, DropdownList, Flex, IconBox, Link, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,
-   ModalOverlay, Text, useDisclosure,
-} from 'chalkui/dist/cjs/React'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+
+import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
+import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
+
+import { Flex, Link } from 'chalkui/dist/cjs/Components/Layout'
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 

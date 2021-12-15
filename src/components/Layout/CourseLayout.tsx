@@ -5,7 +5,6 @@ import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { CourseHeader } from '@slate/modules/Course/CourseHeader'
 import { Container, Flex, Grid } from 'chalkui/dist/cjs/Components/Layout'
 import { Spinner } from 'chalkui/dist/cjs/Components/Spinner'
-
 import React, { memo } from 'react'
 
 interface CourseLayoutProps {

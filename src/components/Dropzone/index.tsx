@@ -9,8 +9,9 @@ import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
 import { Input } from 'chalkui/dist/cjs/Components/Input'
-import { Flex } from 'chalkui/dist/cjs/Components/Layout'
-import { Box, Icon, Text, Tooltip } from 'chalkui/dist/cjs/React'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip/Tooltip'
+import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DropzoneOptions, useDropzone } from 'react-dropzone'
 
@@ -157,7 +158,15 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
                
                <Text width="100%" whiteSpace="nowrap" fontSize=".85rem">{file.name}</Text>
                <Text mb="1" textAlign="center" fontWeight="bold" width="100%" whiteSpace="nowrap" fontSize=".85rem">{humanSize(file.size)}</Text>
-               <IconButton variant="secondary" aria-label="Delete" p=".15rem" as={BiTrash} size="xs" colorScheme="red.500" onClick={() => remove(index)} />
+               <IconButton
+                  variant="secondary"
+                  aria-label="Delete"
+                  p=".15rem"
+                  as={BiTrash}
+                  size="xs"
+                  colorScheme="red.500"
+                  onClick={() => remove(index)}
+               />
             
             </Flex>
          </Tooltip>
