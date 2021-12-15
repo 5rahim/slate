@@ -27,7 +27,7 @@ import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
-const Page = React.memo(() => {
+const Page = React.memo(({ displayPage }: any) => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const t = useTypeSafeTranslation()
    const { getCourseHref } = useLinkHref()
@@ -39,6 +39,7 @@ const Page = React.memo(() => {
    
    return (
       <CourseLayout
+         displayPage={displayPage}
          headerMenuIndex={1}
          pageTitle={unitName + ' - ' + course.name}
          leftPanel={

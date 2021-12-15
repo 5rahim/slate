@@ -1,4 +1,3 @@
-import { LoadingScreen } from '@slate/components/UI/LoadingScreen'
 import { getUnitById } from '@slate/graphql/schemas/units/hooks'
 import { useUserRole } from '@slate/hooks/useUserRole'
 import { UnitActions, UnitSelectors } from '@slate/store/slices/unitSlice'
@@ -58,7 +57,7 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
          
       }, [unit, isReallyStudent])
       
-      return displayPage ? <Component {...props} unit={unit} /> : <LoadingScreen text="withUnit" />
+      return <Component {...props} unit={unit} displayPage={displayPage} />
       
       
    }

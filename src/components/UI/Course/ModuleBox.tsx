@@ -11,7 +11,7 @@ import React from 'react'
 
 type CourseModuleBoxProps = {
    headerIcon?: React.ReactNode
-   headerText: string,
+   headerText?: string,
    headerAction?: React.ReactNode
    children?: React.ReactNode
    minimizeOnMobile?: boolean
@@ -51,26 +51,30 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
                onToggle()
             }}
          >
-            
-            <Flex alignItems="center" gridGap=".5rem">
-               
-               <Flex fontSize="1.5rem" alignItems="center">
-                  {headerIcon && headerIcon}
-               </Flex>
-               
-               <Text p={0} fontWeight="700" fontSize={["lg", "lg", "lg", "xl"]}>
-                  {headerText}
-               </Text>
-            
-            </Flex>
-            
-            <Flex align="center">
-               {headerAction}
-               
-               {minimizeOnMobile && isTabletAndSmaller && (
-                  isOpen ? <Icon as={BiCaretDown} fontSize="xl" /> : <Icon as={BiCaretUp} fontSize="xl" />
-               )}
-            </Flex>
+   
+            {headerText && (
+               <>
+                  <Flex alignItems="center" gridGap=".5rem">
+      
+                     <Flex fontSize="1.5rem" alignItems="center">
+                        {headerIcon && headerIcon}
+                     </Flex>
+      
+                     <Text p={0} fontWeight="700" fontSize={["lg", "lg", "lg", "xl"]}>
+                        {headerText}
+                     </Text>
+   
+                  </Flex>
+   
+                  <Flex align="center">
+                     {headerAction}
+      
+                     {minimizeOnMobile && isTabletAndSmaller && (
+                        isOpen ? <Icon as={BiCaretDown} fontSize="xl" /> : <Icon as={BiCaretUp} fontSize="xl" />
+                     )}
+                  </Flex>
+               </>
+            )}
          
          </Flex>
          
