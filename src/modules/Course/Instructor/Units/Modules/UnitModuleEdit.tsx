@@ -131,7 +131,7 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
    }
    
    return (
-      <ComponentVisibility.InstructorOnly>
+      <ComponentVisibility.AssistantAndHigher>
          
          
          <Modal size="2xl" isOpen={isOpen} onClose={handleClose}>
@@ -303,7 +303,7 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
          {/*   data.type === UnitModuleTypes.Document && <UnitModuleEditDocument isOpen={isOpen} onClose={onClose} data={data} />*/}
          {/*}*/}
       
-      </ComponentVisibility.InstructorOnly>
+      </ComponentVisibility.AssistantAndHigher>
    )
    
 }

@@ -126,7 +126,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                               ) :
                               (
                                  <Flex mr="3" position="relative" alignItems="center" gridGap=".7rem">
-                                    <IconBox p=".5rem" size="md" fontSize="xs" colorScheme="purple.500" variant="secondary" as={BiFolder} />
+                                    <IconBox p=".5rem" size="md" fontSize="xs" colorScheme="teal.500" variant="secondary" as={BiFolder} />
                                     <Text fontWeight="bold" fontSize="lg">{data.number}</Text>
                                  </Flex>
                               )
@@ -155,7 +155,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                            }
                         </Box>
                         
-                        <ComponentVisibility.InstructorOnly>
+                        <ComponentVisibility.AssistantAndHigher>
                            <Dropdown>
                               <DropdownButton
                                  as={Box}
@@ -179,12 +179,16 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                                  <DropdownItem icon={<BiEdit />} onClick={onOpen}>
                                     {t('Edit')}
                                  </DropdownItem>
-                                 <DropdownItem icon={<BiArchiveIn />} onClick={archiveOnOpen}>
-                                    {t('Archive')}
-                                 </DropdownItem>
+                                 
+                                 <ComponentVisibility.InstructorOnly>
+                                    <DropdownItem icon={<BiArchiveIn />} onClick={archiveOnOpen}>
+                                       {t('Archive')}
+                                    </DropdownItem>
+                                 </ComponentVisibility.InstructorOnly>
+                                 
                               </DropdownList>
                            </Dropdown>
-                        </ComponentVisibility.InstructorOnly>
+                        </ComponentVisibility.AssistantAndHigher>
                      
                      </Flex>
                   </ComponentVisibility.AssistantAndHigher>

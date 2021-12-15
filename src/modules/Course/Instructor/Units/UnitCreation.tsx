@@ -78,7 +78,7 @@ export function UnitCreation() {
    })
    
    return (
-      <ComponentVisibility.AssistantAndHigher>
+      <ComponentVisibility.InstructorOnly>
          
          <Box>
             
@@ -245,6 +245,6 @@ export function UnitCreation() {
          </Modal>
       
       
-      </ComponentVisibility.AssistantAndHigher>
+      </ComponentVisibility.InstructorOnly>
    )
 }

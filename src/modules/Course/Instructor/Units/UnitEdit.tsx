@@ -85,7 +85,7 @@ export const UnitEdit = (
    })
    
    return (
-      <ComponentVisibility.InstructorOnly>
+      <ComponentVisibility.AssistantAndHigher>
          <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             
@@ -239,7 +239,7 @@ export const UnitEdit = (
          </Modal>
       
       
-      </ComponentVisibility.InstructorOnly>
+      </ComponentVisibility.AssistantAndHigher>
    )
    
 }

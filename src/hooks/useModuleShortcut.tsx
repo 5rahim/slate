@@ -6,7 +6,7 @@ export const useModuleShortcut = () => {
    
    return {
       
-      fetchShortcutModules: (id: string) => {
+      fetchShortcutModuleData: (id: string) => {
          fetch && fetch({ variables: { id } })
       },
       

@@ -2,14 +2,13 @@ import { BiArchive } from '@react-icons/all-files/bi/BiArchive'
 import { BiArchiveOut } from '@react-icons/all-files/bi/BiArchiveOut'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { Empty } from '@slate/components/UI/Empty'
-import { Units } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getArchivedUnits, useMutateUnarchiveUnit } from '@slate/graphql/schemas/units/hooks'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useUnitHelpers } from '@slate/hooks/useCurrentUnit'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Box, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
@@ -34,7 +33,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    const course = useCurrentCourse()
    const { linkToUnit } = useLinkHref()
    const cmf = useCMF()
-   const cache = useStoreCache()
+   const {getUnitName} = useUnitHelpers()
    
    const [units, unitsLoading, empty] = getArchivedUnits(course.id)
    
@@ -46,7 +45,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    
    function handleUnarchive(unit_id: string) {
-      unarchiveUnit({ id: unit_id, order: ( cache.read<Units[] | null>('units')?.length ) ?? 0 })
+      unarchiveUnit({ id: unit_id, order: 999 })
    }
    
    return (
@@ -94,8 +93,7 @@ export const UnitArchive = (props: UnitArchiveProps) => {
                                           <Box>
                                              <Link href={linkToUnit(unit.id)}>
                                                 <Flex cursor="pointer" _hover={{ color: 'brand.400' }}>
-                                                   <Text fontSize="lg">{t('form:' + unit.type)}
-                                                      &nbsp;{unit.number}</Text>
+                                                   <Text fontSize="lg">{getUnitName(unit)}</Text>
                                                    {!!unit.title && <Text fontSize="lg">: {unit.title}</Text>}
                                                 </Flex>
                                              </Link>
