@@ -16,19 +16,19 @@ import { CelledList } from 'chalkui/dist/cjs/Components/Layout/List'
 import {
    AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay,
 } from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
+import { Spinner } from 'chalkui/dist/cjs/Components/Spinner'
 import { Text } from 'chalkui/dist/cjs/Components/Typography'
-import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 
 interface UnitArchiveProps {
-
+   isOpen: boolean
+   onClose: any
 }
 
-export const UnitArchive = (props: UnitArchiveProps) => {
+export const UnitArchive = ({ isOpen, onClose }: UnitArchiveProps) => {
    
    const t = useTypeSafeTranslation()
-   const { isOpen, onOpen, onClose } = useDisclosure()
    const cancelRef: any = useRef()
    const course = useCurrentCourse()
    const { linkToUnit } = useLinkHref()
@@ -50,16 +50,6 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    
    return (
       <ComponentVisibility.InstructorOnly>
-         
-         <Button
-            onClick={onOpen}
-            variant="outline"
-            borderRadius="3xl"
-            colorScheme="primary"
-            leftIcon={<BiArchive />}
-         >
-            {t('course:Archive')}
-         </Button>
          
          <AlertDialog
             motionPreset="slideInBottom"
@@ -83,7 +73,12 @@ export const UnitArchive = (props: UnitArchiveProps) => {
                            data={units}
                            dataIsLoading={unitsLoading}
                            dataIsEmpty={empty}
-                           fallback={<></>}
+                           fallback={<Flex
+                              mt="-1rem"
+                              justifyContent="center"
+                           >
+                              <Spinner size="lg" />
+                           </Flex>}
                            empty={<Empty icon={BiArchive} text="No archived units" />}
                            displayData={({ list }) => (
                               <CelledList width="100%" overflow="hidden">
@@ -125,3 +120,5 @@ export const UnitArchive = (props: UnitArchiveProps) => {
    )
    
 }
+
+export default UnitArchive

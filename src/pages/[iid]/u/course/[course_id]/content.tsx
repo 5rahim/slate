@@ -1,5 +1,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
+import { BiArchive } from '@react-icons/all-files/bi/BiArchive'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
+import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
@@ -9,8 +11,6 @@ import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
-import { UnitArchive } from '@slate/modules/Course/Instructor/Units/UnitArchive'
-import { UnitCreation } from '@slate/modules/Course/Instructor/Units/UnitCreation'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { UnitList } from '@slate/modules/Course/Shared/Units/UnitList'
 import { Compose } from '@slate/next/compose'
@@ -19,10 +19,16 @@ import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { ButtonGroup } from 'chalkui/dist/cjs/Components/Button/ButtonGroup'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import dynamic from 'next/dynamic'
 import React from 'react'
 
+const UnitArchive = dynamic(() => import('@slate/modules/Course/Instructor/Units/UnitArchive'))
+const UnitCreation = dynamic(() => import('@slate/modules/Course/Instructor/Units/UnitCreation'))
 
 const Page = React.memo(({ user, school, course }: DashboardPage) => {
+   const { isOpen: archiveIsOpen, onOpen: archiveOnOpen, onClose: archiveOnClose } = useDisclosure()
+   const { isOpen: createIsOpen, onOpen: createOnOpen, onClose: createOnClose } = useDisclosure()
    
    const t = useTypeSafeTranslation()
    
@@ -53,35 +59,42 @@ const Page = React.memo(({ user, school, course }: DashboardPage) => {
                   </Box>
                </MediaComponent.ShowOnTabletAndSmaller>
                
-               <ModuleBox headerText={t('Content')} headerIcon={<BiFolderOpen />} headerAction={
+               <ModuleBox
+                  headerText={t('Content')} headerIcon={<BiFolderOpen />} headerAction={
                   <Flex gridGap=".5rem">
-                     <UnitArchive />
-                     <UnitCreation />
+                     
+                     <ComponentVisibility.InstructorOnly>
+                        <Button
+                           onClick={archiveOnOpen}
+                           variant="outline"
+                           borderRadius="3xl"
+                           colorScheme="primary"
+                           leftIcon={<BiArchive />}
+                        >
+                           {t('course:Archive')}
+                        </Button>
+                        
+                        {archiveIsOpen && <UnitArchive isOpen={archiveIsOpen} onClose={archiveOnClose} />}
+                        
+                        
+                        <Box>
+                           
+                           <Button
+                              borderRadius="2rem"
+                              colorScheme="brand.100"
+                              size="md"
+                              onClick={createOnOpen}
+                           >
+                              {t('Create')}
+                           </Button>
+                        
+                        </Box>
+                        
+                        {createIsOpen && <UnitCreation isOpen={createIsOpen} onClose={createOnClose} />}
+                     </ComponentVisibility.InstructorOnly>
                   </Flex>
-               }>
-                  
-                  {/*<Flex*/}
-                  {/*   height="50px"*/}
-                  {/*   borderRadius="xl"*/}
-                  {/*   bgColor="brand.300"*/}
-                  {/*   width="100%"*/}
-                  {/*   alignItems="center"*/}
-                  {/*   px="4"*/}
-                  {/*   color="#fff"*/}
-                  {/*   mb="4"*/}
-                  {/*   position="relative"*/}
-                  {/*   cursor="pointer"*/}
-                  {/*   sx={{*/}
-                  {/*      _hover: {*/}
-                  {/*         '& > .syllabus_icon': {*/}
-                  {/*            transform: 'scale(1.8) rotate(-8deg)'*/}
-                  {/*         }*/}
-                  {/*      }*/}
-                  {/*   }}*/}
-                  {/*>*/}
-                  {/*   <Icon as={FcViewDetails} position="absolute" fontSize="3xl" className="syllabus_icon" transition="all .15s ease-in-out" />*/}
-                  {/*   <Text ml="10" fontSize="xl">Syllabus</Text>*/}
-                  {/*</Flex>*/}
+               }
+               >
                   
                   <UnitList />
                

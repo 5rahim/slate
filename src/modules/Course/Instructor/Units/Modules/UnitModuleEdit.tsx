@@ -308,3 +308,4 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
    
 }
 
+export default UnitModuleEdit

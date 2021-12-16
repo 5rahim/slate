@@ -97,3 +97,5 @@ export const UnitModuleMoveToFolder = ({ isOpen, onClose, data, highlightModule 
    )
    
 }
+
+export default UnitModuleMoveToFolder

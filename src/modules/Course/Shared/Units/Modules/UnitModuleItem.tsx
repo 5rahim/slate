@@ -28,10 +28,10 @@ import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { useModuleShortcut } from '@slate/hooks/useModuleShortcut'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { UnitModuleEdit } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'
-import { UnitModuleMove } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'
-import { UnitModuleMoveToFolder } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'
-import { UnitModuleShortcut } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleShortcut'
+// import { UnitModuleEdit } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'
+// import { UnitModuleMove } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'
+// import { UnitModuleMoveToFolder } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'
+// import { UnitModuleShortcut } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleShortcut'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Utils } from '@slate/utils'
@@ -49,9 +49,15 @@ import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
 import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import dynamic from 'next/dynamic'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
+
+const UnitModuleEdit = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'))
+const UnitModuleMove = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'))
+const UnitModuleMoveToFolder = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'))
+const UnitModuleShortcut = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleShortcut'))
 
 interface ModuleItemProps {
    data: Modules
@@ -205,36 +211,36 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                </AlertDialogFooter>
             </AlertDialogContent>
          </AlertDialog>
-         
-         <UnitModuleEdit
+   
+         {editIsOpen && <UnitModuleEdit
             isOpen={editIsOpen}
             onClose={editOnClose}
             data={initialData}
-         />
-         
-         <UnitModuleMove
+         />}
+   
+         {moveIsOpen && <UnitModuleMove
             highlightModule={setHighlightedModule}
             data={isShortcut ? initialData : data}
             isOpen={moveIsOpen}
             onOpen={moveOnOpen}
             onClose={moveOnClose}
-         />
-         
-         <UnitModuleShortcut
+         />}
+   
+         {shortcutIsOpen && <UnitModuleShortcut
             highlightModule={setHighlightedModule}
             data={data}
             isOpen={shortcutIsOpen}
             onOpen={shortcutOnOpen}
             onClose={shortcutOnClose}
-         />
-         
-         <UnitModuleMoveToFolder
+         />}
+   
+         {moveToFolderIsOpen && <UnitModuleMoveToFolder
             highlightModule={setHighlightedModule}
             data={isShortcut ? initialData : data}
             isOpen={moveToFolderIsOpen}
             onOpen={moveToFolderOnOpen}
             onClose={moveToFolderOnClose}
-         />
+         />}
          
          <DeletionAlert
             onClose={deleteOnClose}
@@ -557,3 +563,5 @@ function ModuleContent({ icon, iconColor, children, highlighted, isShortcut }: M
    )
    
 }
+
+export default UnitModuleItem

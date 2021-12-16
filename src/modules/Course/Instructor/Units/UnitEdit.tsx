@@ -243,3 +243,5 @@ export const UnitEdit = (
    )
    
 }
+
+export default UnitEdit

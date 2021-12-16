@@ -107,3 +107,5 @@ export const UnitModuleShortcut = ({ isOpen, onClose, data, highlightModule }: U
    )
    
 }
+
+export default UnitModuleShortcut

@@ -1,4 +1,4 @@
-import { StudentViewPortal } from '@slate/components/StudentViewPortal'
+// import { StudentViewPortal } from '@slate/components/StudentViewPortal'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -10,11 +10,14 @@ import { Drawer, DrawerContent, DrawerOverlay } from 'chalkui/dist/cjs/Component
 import { Spinner } from 'chalkui/dist/cjs/Components/Spinner/Spinner'
 import { useToast } from 'chalkui/dist/cjs/Components/Toast/UseToast'
 import { Text } from 'chalkui/dist/cjs/Components/Typography'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import React, { memo, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Header } from '../Header'
 import { UserDashboardSideNav } from './UserDashboardSideNav'
+
+const StudentViewPortal = dynamic(() => import('@slate/components/StudentViewPortal'), { ssr: false })
 
 interface UserDashboardLayoutOptions {
    children?: React.ReactNode
@@ -31,6 +34,8 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = memo(({ children
    const t = useTypeSafeTranslation()
    const { query } = useRouter()
    const { course_id } = query
+   const studentView = useSelector(AppSelectors.studentView)
+   
    
    const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false)
    
@@ -93,8 +98,8 @@ const UserDashboardLayout: React.FC<UserDashboardLayoutProps> = memo(({ children
             >
                <Spinner size="md" />
             </Box>
-            
-            <StudentViewPortal />
+   
+            {studentView && <StudentViewPortal />}
             
             <UserDashboardSideNav as="nav" display={['none', null, 'block']} maxWidth="6rem" width="full" />
             

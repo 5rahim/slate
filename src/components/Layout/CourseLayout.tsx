@@ -88,3 +88,5 @@ export const CourseLayout = memo(({ pageTitle, leftPanel, rightPanel, headerMenu
    )
    
 })
+
+export default CourseLayout

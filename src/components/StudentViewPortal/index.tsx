@@ -68,3 +68,5 @@ export const StudentViewPortal = () => {
    )
    
 }
+
+export default StudentViewPortal

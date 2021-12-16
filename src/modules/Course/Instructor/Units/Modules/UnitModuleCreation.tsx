@@ -1,13 +1,5 @@
 import { BiAddToQueue } from '@react-icons/all-files/bi/BiAddToQueue'
-import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
-import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
-import { BiFolderPlus } from '@react-icons/all-files/bi/BiFolderPlus'
-import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
 import { BiLink } from '@react-icons/all-files/bi/BiLink'
-import { BiMessageAlt } from '@react-icons/all-files/bi/BiMessageAlt'
-import { BiPlus } from '@react-icons/all-files/bi/BiPlus'
-import { RiFile3Line } from '@react-icons/all-files/ri/RiFile3Line'
-import { RiMistFill } from '@react-icons/all-files/ri/RiMistFill'
 import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { Dropzone } from '@slate/components/Dropzone'
 import { RichTextEditor } from '@slate/components/RichTextEditor'
@@ -23,28 +15,26 @@ import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { FormErrors } from '@slate/types/FormErrors'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
 import { Input } from 'chalkui/dist/cjs/Components/Input'
 import { InputLeftElement } from 'chalkui/dist/cjs/Components/Input/InputElement'
 import { InputGroup } from 'chalkui/dist/cjs/Components/Input/InputGroup'
-import { Box, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal'
 import { Radio } from 'chalkui/dist/cjs/Components/Radio/Radio'
 import { RadioGroup } from 'chalkui/dist/cjs/Components/Radio/RadioGroup'
-import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 
 
-export function UnitModuleCreation() {
+export function UnitModuleCreation({ moduleType, onClose, isOpen }: any) {
    
-   const [moduleType, setModuleType] = useState<UnitModuleTypes>()
+   // const [moduleType, setModuleType] = useState<UnitModuleTypes>()
    const editorRef = createRichTextEditorRef()
    const [messageType, setMessageType] = React.useState('1')
    
    const t = useTypeSafeTranslation()
-   const { isOpen, onOpen, onClose } = useDisclosure()
+   // const { isOpen, onOpen, onClose } = useDisclosure()
    const cache = useStoreCache()
    const unit = useCurrentUnit()
    
@@ -143,58 +133,8 @@ export function UnitModuleCreation() {
    })
    
    
-   function handleOpenCreationModal(type: UnitModuleTypes) {
-      setModuleType(type)
-      onOpen()
-   }
-   
    return (
       <ComponentVisibility.AssistantAndHigher>
-         
-         <Box>
-            
-            <Dropdown>
-               <DropdownButton
-                  as={Button}
-                  borderRadius="3xl"
-                  colorScheme="primary"
-                  leftIcon={<BiPlus />}
-               >
-                  {t('Add')}
-               </DropdownButton>
-               <DropdownList>
-                  {!isFolderOpen && <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Folder)} icon={<BiFolderPlus />}>
-                     {t('Folder')}
-                  </DropdownItem>}
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.TextHeader)} icon={<BiHeading />}>
-                     {t('Text header')}
-                  </DropdownItem>
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.File)} icon={<RiFile3Line />}>
-                     {t('File')}
-                  </DropdownItem>
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Link)} icon={<BiLink />}>
-                     {t('Link')}
-                  </DropdownItem>
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Message)} icon={<BiMessageAlt />}>
-                     {t('Message')}
-                  </DropdownItem>
-                  <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.Text)} icon={<RiMistFill />}>
-                     {t('Text')}
-                  </DropdownItem>
-                  {!isFolderOpen && (
-                     <>
-                        <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.QuizLinks)} icon={<BiEditAlt />}>
-                           {t('Quiz')}
-                        </DropdownItem>
-                        <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.AssignmentLinks)} icon={<BiEraser />}>
-                           {t('Assignment')}
-                        </DropdownItem>
-                     </>
-                  )}
-               </DropdownList>
-            </Dropdown>
-         
-         </Box>
          
          <Modal size="2xl" isCentered isOpen={isOpen} onClose={() => !(isLoading || isUploading) && onClose()}>
             <ModalOverlay />
@@ -339,3 +279,5 @@ export function UnitModuleCreation() {
       </ComponentVisibility.AssistantAndHigher>
    )
 }
+
+export default UnitModuleCreation

@@ -100,3 +100,5 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
    )
    
 }
+
+export default UnitModuleMove

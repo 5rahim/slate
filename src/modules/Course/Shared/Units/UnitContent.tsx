@@ -89,3 +89,5 @@ export const UnitContent = () => {
    )
    
 }
+
+export default UnitContent

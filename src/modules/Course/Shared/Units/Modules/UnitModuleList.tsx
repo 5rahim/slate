@@ -9,12 +9,15 @@ import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useModuleFolder } from '@slate/hooks/useModuleFolder'
-import { UnitModuleItem } from '@slate/modules/Course/Shared/Units/Modules/UnitModuleItem'
+// import { UnitModuleItem } from '@slate/modules/Course/Shared/Units/Modules/UnitModuleItem'
 import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { CelledList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
+import dynamic from 'next/dynamic'
 import React, { useCallback, useEffect, useState } from 'react'
+
+const UnitModuleItem = dynamic(() => import('@slate/modules/Course/Shared/Units/Modules/UnitModuleItem'))
 
 export function UnitModuleList() {
    const { id } = useCurrentCourse()

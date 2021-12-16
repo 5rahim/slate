@@ -28,16 +28,14 @@ import { Box, Divider, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal'
 import { Select } from 'chalkui/dist/cjs/Components/Select'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
-import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
 
-export function UnitCreation() {
+export function UnitCreation({ isOpen, onClose }: any) {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    const user = useCurrentUser()
    const course = useCurrentCourse()
-   const { isOpen, onOpen, onClose } = useDisclosure()
    const cache = useStoreCache()
    const [createUnit, mutationLoading] = useCreateUnit({
       onCompleted: () => {
@@ -79,19 +77,6 @@ export function UnitCreation() {
    
    return (
       <ComponentVisibility.InstructorOnly>
-         
-         <Box>
-            
-            <Button
-               borderRadius="2rem"
-               colorScheme="brand.100"
-               size="md"
-               onClick={onOpen}
-            >
-               {t('Create')}
-            </Button>
-         
-         </Box>
          
          <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
@@ -248,3 +233,5 @@ export function UnitCreation() {
       </ComponentVisibility.InstructorOnly>
    )
 }
+
+export default UnitCreation
