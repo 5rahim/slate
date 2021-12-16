@@ -1,5 +1,4 @@
 import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
-import { DatePicker } from '@slate/components/DatePicker'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useUserSettings } from '@slate/hooks/useUserSettings'
@@ -12,7 +11,10 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogOverlay,
 } from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import dynamic from 'next/dynamic'
 import React, { useEffect, useState } from 'react'
+
+const DatePicker = dynamic(() => import('@slate/components/DatePicker'))
 
 interface DateInputProps {
    onChange?: any,
@@ -73,12 +75,12 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
             <AlertDialogContent>
                <AlertDialogCloseButton />
                <AlertDialogBody>
-                  <DatePicker
+                  {isOpen && <DatePicker
                      defaultSelectedDates={selectedDate ?? undefined}
                      onChange={(data) => setSelectedDate(data)}
                      disableDatesBeforeToday
                      selectOneDate
-                  />
+                  />}
                </AlertDialogBody>
                <AlertDialogFooter>
                   <Button colorScheme="primary" variant="outline" ref={cancelRef} onClick={onClose}>

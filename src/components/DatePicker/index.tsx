@@ -145,3 +145,5 @@ export function NavButton({ children, onClick }: any) {
       </Button>
    )
 }
+
+export default DatePicker
