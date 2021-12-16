@@ -13,17 +13,16 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay,
 } from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
 import { Select } from 'chalkui/dist/cjs/Components/Select'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 
 interface UnitModuleMoveProps {
    isOpen: boolean
    onOpen: any
    onClose: any
    data: Modules,
-   highlightModule: any
 }
 
-export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitModuleMoveProps) => {
+export const UnitModuleMove = ({ isOpen, onClose, data }: UnitModuleMoveProps) => {
    
    const t = useTypeSafeTranslation()
    const cancelRef: any = useRef()
@@ -38,10 +37,6 @@ export const UnitModuleMove = ({ isOpen, onClose, data, highlightModule }: UnitM
          onClose()
       }
    })
-   
-   useEffect(() => {
-      highlightModule(isOpen ? data.id : null)
-   }, [isOpen])
    
    function handleMoveModule() {
       if(!selectRef.current.value || !(selectRef.current.value.length > 0)) return

@@ -34,3 +34,5 @@ export function CourseOptions() {
    )
    
 }
+
+export default CourseOptions

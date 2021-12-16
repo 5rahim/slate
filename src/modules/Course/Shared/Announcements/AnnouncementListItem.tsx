@@ -10,7 +10,6 @@ import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLocale } from '@slate/hooks/useLocale'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { AnnouncementEdit } from '@slate/modules/Course/Instructor/Announcements/AnnouncementEdit'
 import { Utils } from '@slate/utils'
 import { Avatar } from 'chalkui/dist/cjs/Components/Avatar/Avatar'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
@@ -19,7 +18,10 @@ import { Box, Divider, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout
 import { Tag } from 'chalkui/dist/cjs/Components/Tag/Tag'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import dynamic from 'next/dynamic'
 import React from 'react'
+
+const AnnouncementEdit = dynamic(() => import('@slate/modules/Course/Instructor/Announcements/AnnouncementEdit'))
 
 export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const cmf = useCMF()
@@ -137,17 +139,19 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                </Box>
             </Flex>
          </ListItem>
-         
-         <AnnouncementEdit
+   
+         {isOpen && <AnnouncementEdit
             isOpen={isOpen}
             onClose={onClose}
             deleteIsOpen={deleteIsOpen}
             deleteOnOpen={deleteOnOpen}
             deleteOnClose={deleteOnClose}
             data={data}
-         />
+         />}
       
       </HideItemInStudentView>
    )
    
 }
+
+export default AnnouncementListItem

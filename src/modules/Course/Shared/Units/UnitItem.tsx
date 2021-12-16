@@ -84,7 +84,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                height="3.5rem"
                alignItems="center"
                overflow="hidden"
-               bgColor="white"
+               bgColor={cmf('white', 'transparent')}
                // _hover={{
                //    bgColor: cmf('#e5e5e5', 'gray.700'),
                // }}
@@ -110,7 +110,12 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                <Flex px="4" width="100%" justifyContent="space-between" alignItems="center">
                   
                   <Link href={linkToUnit(data.id)}>
-                     <Flex alignItems="center" cursor="pointer" _hover={{ color: 'brand.400' }}>
+                     <Flex
+                        alignItems="center"
+                        cursor="pointer"
+                        _hover={{ color: cmf('messenger.500', 'messenger.500') }}
+                        textDecoration="underline"
+                     >
                         
                         {
                            data.type !== 'folder' ? (
@@ -136,7 +141,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                   
                   <ComponentVisibility.AssistantAndHigher>
                      <Flex alignItems="center">
-                        {( data.is_scheduled && !data.available ) && (
+                        {( data.is_scheduled && !data.available && !Utils.Dates.publicationDateHasPassed(data.publish_on) ) && (
                            <>
                               <Text
                                  color={cmf("gray.500", "gray.300")}

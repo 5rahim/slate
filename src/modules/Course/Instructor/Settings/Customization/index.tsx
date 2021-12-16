@@ -86,3 +86,5 @@ export function Customization() {
    )
    
 }
+
+export default Customization

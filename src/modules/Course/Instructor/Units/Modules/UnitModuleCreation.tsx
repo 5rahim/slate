@@ -66,7 +66,8 @@ export function UnitModuleCreation({ moduleType, onClose, isOpen }: any) {
             type: moduleType as string,
             order: cache.read<Modules[] | null>('modules')?.length ?? 0,
             content: JSON.stringify({}),
-            folder_id: isFolderOpen ? openedFolder?.id : null
+            folder_id: isFolderOpen ? openedFolder?.id : null,
+            status: 'not_available',
          }
          
          switch (moduleType) {

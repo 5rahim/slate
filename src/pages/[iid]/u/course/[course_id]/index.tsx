@@ -8,22 +8,27 @@ import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
-import { AnnouncementCreation } from '@slate/modules/Course/Instructor/Announcements/AnnouncementCreation'
-import { CourseOptions } from '@slate/modules/Course/Instructor/Settings/CourseOptions'
-import { Customization } from '@slate/modules/Course/Instructor/Settings/Customization'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
 import { AnnouncementList } from '@slate/modules/Course/Shared/Announcements/AnnouncementList'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
 import { Compose } from '@slate/next/compose'
-import { DashboardPage } from '@slate/types/Next'
+import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
+import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import dynamic from 'next/dynamic'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
 
+const CourseOptions = dynamic(() => import('@slate/modules/Course/Instructor/Settings/CourseOptions'))
+const Customization = dynamic(() => import('@slate/modules/Course/Instructor/Settings/Customization'))
+const AnnouncementCreation = dynamic(() => import('@slate/modules/Course/Instructor/Announcements/AnnouncementCreation'))
 
-const Page = React.memo(({ iid }: DashboardPage) => {
+const Page = React.memo(() => {
    const { t } = useTranslation(['common'], { useSuspense: false })
    const course = useCurrentCourse()
+   const { isOpen: createIsOpen, onOpen: createOnOpen, onClose: createOnClose } = useDisclosure()
+   
    
    return (
       <CourseLayout
@@ -50,7 +55,28 @@ const Page = React.memo(({ iid }: DashboardPage) => {
       >
          
          <>
-            <ModuleBox headerText={t('Announcements')} headerIcon={<HiOutlineSpeakerphone />} headerAction={<AnnouncementCreation />}>
+            <ModuleBox
+               headerText={t('Announcements')}
+               headerIcon={<HiOutlineSpeakerphone />}
+               headerAction={
+                  <ComponentVisibility.AssistantAndHigher>
+                     <Box mb="3">
+                        
+                        <Button
+                           borderRadius="2rem"
+                           colorScheme="brand.100"
+                           size="md"
+                           onClick={createOnOpen}
+                        >
+                           {t('Create')}
+                        </Button>
+                        
+                        {createIsOpen && <AnnouncementCreation isOpen={createIsOpen} onClose={createOnClose} />}
+                     
+                     </Box>
+                  </ComponentVisibility.AssistantAndHigher>
+               }
+            >
                
                <AnnouncementList maxHeight="800px" />
             

@@ -1,5 +1,4 @@
 import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
-import { DatePicker } from '@slate/components/DatePicker'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { MenuCelledListItem } from '@slate/components/UI/MenuCelledList'
 import { useMutateCourseDuration } from '@slate/graphql/schemas/courses/hooks'
@@ -11,8 +10,11 @@ import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal/Modal'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import { useBreakpointValue } from 'chalkui/dist/cjs/MediaQuery/use-breakpoint-value'
+import dynamic from 'next/dynamic'
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
+
+const DatePicker = dynamic(() => import('@slate/components/DatePicker'))
 
 export function DurationItem() {
    const { t } = useTranslation(['common', 'course'], { useSuspense: false })
@@ -53,19 +55,19 @@ export function DurationItem() {
                <ModalBody textAlign="center">
                   
                   <MediaComponent.HideOnMobile>
-                     <DatePicker
+                     {durationModalIsOpen && <DatePicker
                         template={datePickerOrientation}
                         defaultSelectedDates={Utils.Dates.parseDurationDateObject(course?.duration)}
                         onChange={(data) => setCourseDuration(data)}
-                     />
+                     />}
                   </MediaComponent.HideOnMobile>
                   
                   <MediaComponent.ShowOnMobileOnly>
-                     <DatePicker
+                     {durationModalIsOpen && <DatePicker
                         template={"vertical"}
                         defaultSelectedDates={Utils.Dates.parseDurationDateObject(course?.duration)}
                         onChange={(data) => setCourseDuration(data)}
-                     />
+                     />}
                   </MediaComponent.ShowOnMobileOnly>
                
                </ModalBody>

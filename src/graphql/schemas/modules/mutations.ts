@@ -2,8 +2,8 @@ import { gql } from '@apollo/client'
 
 
 export const CREATE_MODULE = gql`
-    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!, $folder_id: uuid) {
-        insert_modules(objects: {content: $content, order: $order, unit_id: $unit_id, type: $type, folder_id: $folder_id}) {
+    mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!, $folder_id: uuid, $status: String!) {
+        insert_modules(objects: {content: $content, order: $order, unit_id: $unit_id, type: $type, folder_id: $folder_id, status: $status}) {
             affected_rows
         }
     }

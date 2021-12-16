@@ -14,17 +14,16 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogHeader, AlertDialogOverlay,
 } from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
 import { Select } from 'chalkui/dist/cjs/Components/Select'
-import React, { useEffect, useRef } from 'react'
+import React, { useRef } from 'react'
 
 interface UnitModuleShortcutProps {
    isOpen: boolean
    onOpen: any
    onClose: any
-   data: Modules,
-   highlightModule: any
+   data: Modules
 }
 
-export const UnitModuleShortcut = ({ isOpen, onClose, data, highlightModule }: UnitModuleShortcutProps) => {
+export const UnitModuleShortcut = ({ isOpen, onClose, data }: UnitModuleShortcutProps) => {
    
    const t = useTypeSafeTranslation()
    const cancelRef: any = useRef()
@@ -41,9 +40,6 @@ export const UnitModuleShortcut = ({ isOpen, onClose, data, highlightModule }: U
       }
    })
    
-   useEffect(() => {
-      highlightModule(isOpen ? data.id : null)
-   }, [isOpen])
    
    function handleMoveModule() {
       if(!selectRef.current.value || !(selectRef.current.value.length > 0)) return
@@ -53,7 +49,8 @@ export const UnitModuleShortcut = ({ isOpen, onClose, data, highlightModule }: U
          type: UnitModuleTypes.Shortcut,
          order: 999,
          content: data.id,
-         folder_id: null
+         folder_id: null,
+         status: 'available'
       }
       
       createShortcut(insert_data)

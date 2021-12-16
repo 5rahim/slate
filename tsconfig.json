@@ -66,6 +66,9 @@
       ],
       "@slate/lib/*": [
         "./src/lib/*"
+      ],
+      "@slate/chalkui/*": [
+        "./src/chalkui/*"
       ]
     }
   },

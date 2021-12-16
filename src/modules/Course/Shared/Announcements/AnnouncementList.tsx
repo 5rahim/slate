@@ -4,11 +4,14 @@ import { Announcements } from '@slate/generated/graphql'
 import { DataListModule } from '@slate/graphql/DataListModule'
 import { getAnnouncements } from '@slate/graphql/schemas/announcements/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
-import { AnnouncementListItem } from '@slate/modules/Course/Shared/Announcements/AnnouncementListItem'
 import { useCachedQuery } from '@slate/store/cache/hooks/useCachedQuery'
 import { DividedList, ListProps, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
+import dynamic from 'next/dynamic'
 import React from 'react'
+
+const AnnouncementListItem = dynamic(() => import('@slate/modules/Course/Shared/Announcements/AnnouncementListItem'))
+
 
 export function AnnouncementList({ ...rest }: ListProps) {
    const course = useCurrentCourse()

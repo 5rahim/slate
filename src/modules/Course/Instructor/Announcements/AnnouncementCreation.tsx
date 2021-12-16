@@ -21,17 +21,14 @@ import {
 } from 'chalkui/dist/cjs/Components/Modal/Drawer'
 import { Switch } from 'chalkui/dist/cjs/Components/Switch'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
-import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import React from 'react'
 
 
-export function AnnouncementCreation() {
+export function AnnouncementCreation({ isOpen, onClose }: any) {
    
    const t = useTypeSafeTranslation()
    const user = useCurrentUser()
    const course = useCurrentCourse()
-   const { isOpen, onOpen, onClose } = useDisclosure()
-
    
    const [createAnnouncement, mutationLoading] = useCreateAnnouncement({
       onCompleted: () => {
@@ -71,19 +68,6 @@ export function AnnouncementCreation() {
    
    return (
       <ComponentVisibility.AssistantAndHigher>
-         
-         <Box mb="3">
-            
-            <Button
-               borderRadius="2rem"
-               colorScheme="brand.100"
-               size="md"
-               onClick={onOpen}
-            >
-               {t('Create')}
-            </Button>
-         
-         </Box>
          
          
          <Drawer
@@ -157,3 +141,5 @@ export function AnnouncementCreation() {
       </ComponentVisibility.AssistantAndHigher>
    )
 }
+
+export default AnnouncementCreation

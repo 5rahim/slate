@@ -203,3 +203,5 @@ export function AnnouncementEdit(
       </ComponentVisibility.AssistantAndHigher>
    )
 }
+
+export default AnnouncementEdit

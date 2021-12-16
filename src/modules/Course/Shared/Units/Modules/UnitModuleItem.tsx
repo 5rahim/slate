@@ -16,7 +16,6 @@ import { BiLinkExternal } from '@react-icons/all-files/bi/BiLinkExternal'
 import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
 import { RiArticleLine } from '@react-icons/all-files/ri/RiArticleLine'
 import { RiFile3Line } from '@react-icons/all-files/ri/RiFile3Line'
-import { RiMistFill } from '@react-icons/all-files/ri/RiMistFill'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { DeletionAlert } from '@slate/components/DeletionAlert'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
@@ -28,10 +27,6 @@ import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { useModuleShortcut } from '@slate/hooks/useModuleShortcut'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-// import { UnitModuleEdit } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleEdit'
-// import { UnitModuleMove } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMove'
-// import { UnitModuleMoveToFolder } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleMoveToFolder'
-// import { UnitModuleShortcut } from '@slate/modules/Course/Instructor/Units/Modules/UnitModuleShortcut'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { UnitModuleTypes } from '@slate/types/UnitModules'
 import { Utils } from '@slate/utils'
@@ -89,7 +84,6 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    const { isOpen: cannotDeleteFolderIsOpen, onOpen: cannotDeleteFolderOnOpen, onClose: cannotDeleteFolderOnClose } = useDisclosure()
    const { isOpen: shortcutIsOpen, onOpen: shortcutOnOpen, onClose: shortcutOnClose } = useDisclosure()
    
-   const [highlightedModule, setHighlightedModule] = useState<string | null>(null)
    const [data, setData] = useState<Modules>(initialData)
    const [isShortcut, setIsShortcut] = useState(false)
    
@@ -130,12 +124,6 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          setData(initialData)
       }
    }, [shortcutModule, initialData])
-   
-   
-   const isModuleHighlighted = useCallback((id: string) => {
-      return id === highlightedModule
-   }, [highlightedModule])
-   
    
    const {
       attributes,
@@ -184,6 +172,8 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
       return <></>
    }
    
+   const isHighlighted = deleteIsOpen || editIsOpen || shortcutIsOpen || moveToFolderIsOpen || moveIsOpen
+   
    return (
       <HideItemInStudentView showIf={data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
@@ -219,7 +209,6 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          />}
    
          {moveIsOpen && <UnitModuleMove
-            highlightModule={setHighlightedModule}
             data={isShortcut ? initialData : data}
             isOpen={moveIsOpen}
             onOpen={moveOnOpen}
@@ -227,7 +216,6 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          />}
    
          {shortcutIsOpen && <UnitModuleShortcut
-            highlightModule={setHighlightedModule}
             data={data}
             isOpen={shortcutIsOpen}
             onOpen={shortcutOnOpen}
@@ -235,7 +223,6 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
          />}
    
          {moveToFolderIsOpen && <UnitModuleMoveToFolder
-            highlightModule={setHighlightedModule}
             data={isShortcut ? initialData : data}
             isOpen={moveToFolderIsOpen}
             onOpen={moveToFolderOnOpen}
@@ -279,10 +266,10 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                </ComponentVisibility.InstructorOnly>
                
                {
-                  ( data.type === UnitModuleTypes.Shortcut ) && (
+                  ( data.type === UnitModuleTypes.Shortcut && shortcutModule ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        highlighted={isHighlighted}
                         icon={BiLinkExternal}
                         iconColor="pink.500"
                      >
@@ -296,7 +283,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Folder ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        highlighted={isHighlighted}
                         icon={BiFolder}
                         iconColor="teal.500"
                      >
@@ -317,8 +304,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Text ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
-                        icon={RiMistFill} iconColor="yellow.500"
+                        highlighted={isHighlighted}
                      >
                         <RichTextContent truncate={400} content={data.content} />
                      </ModuleContent>
@@ -327,7 +313,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                
                {
                   ( data.type === UnitModuleTypes.TextHeader ) && (
-                     <ModuleContent isShortcut={isShortcut} highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}>
+                     <ModuleContent isShortcut={isShortcut} highlighted={isHighlighted}>
                         <Text fontSize="lg" fontWeight="700">{data.content}</Text>
                      </ModuleContent>
                   )
@@ -337,7 +323,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Message ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        highlighted={isHighlighted}
                         icon={JSON.parse(data.content).type === '1' ? null : ( JSON.parse(data.content).type === '2'
                            ? BiError
                            : BiErrorCircle )}
@@ -354,7 +340,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Link ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        highlighted={isHighlighted}
                         icon={BiLinkAlt}
                         iconColor="blue.500"
                      >
@@ -368,7 +354,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.File ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        highlighted={isHighlighted}
                         icon={RiFile3Line}
                         iconColor="blue.500"
                      >
@@ -384,7 +370,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Document ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
-                        highlighted={isModuleHighlighted(data.id) || deleteIsOpen || editIsOpen}
+                        highlighted={isHighlighted}
                         icon={RiArticleLine}
                         iconColor="orange.500"
                      >
