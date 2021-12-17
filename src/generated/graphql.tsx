@@ -5798,7 +5798,14 @@ export type GetCourseEnrollmentsQueryVariables = Exact<{
 }>;
 
 
-export type GetCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', id: any, course_id: any, student_id: number, authorized: boolean, created_at: any, authorized_at?: any | null | undefined, course?: { __typename?: 'courses', name: string, access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, schedule?: string | null | undefined, instructor_id: number, level?: string | null | undefined, instructor?: { __typename?: 'users', first_name?: string | null | undefined, middle_name?: string | null | undefined, last_name?: string | null | undefined, image?: string | null | undefined } | null | undefined } | null | undefined }> };
+export type GetCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', id: any, course_id: any, student_id: number, authorized: boolean, created_at: any, authorized_at?: any | null | undefined, student?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined }> };
+
+export type GetValidCourseEnrollmentsQueryVariables = Exact<{
+  course_id: Scalars['uuid'];
+}>;
+
+
+export type GetValidCourseEnrollmentsQuery = { __typename?: 'query_root', course_enrollment: Array<{ __typename?: 'course_enrollment', id: any, course_id: any, student_id: number, authorized: boolean, created_at: any, authorized_at?: any | null | undefined, student?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined }> };
 
 export type GetAllCourseManagementsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -6293,30 +6300,43 @@ export const GetCourseEnrollmentsDocument = gql`
     authorized
     created_at
     authorized_at
-    course {
-      name
-      access_code
-      available
-      background_color
-      banner_color
-      banner_image
-      description
-      duration
+    student {
       id
-      schedule
-      instructor_id
-      level
-      instructor {
-        first_name
-        middle_name
-        last_name
-        image
-      }
+      title
+      image
+      first_name
+      last_name
+      middle_name
+      username
     }
   }
 }
     `;
 export type GetCourseEnrollmentsQueryResult = Apollo.QueryResult<GetCourseEnrollmentsQuery, GetCourseEnrollmentsQueryVariables>;
+export const GetValidCourseEnrollmentsDocument = gql`
+    query GetValidCourseEnrollments($course_id: uuid!) {
+  course_enrollment(
+    where: {_and: {course_id: {_eq: $course_id}, authorized: {_eq: true}}}
+  ) {
+    id
+    course_id
+    student_id
+    authorized
+    created_at
+    authorized_at
+    student {
+      id
+      title
+      image
+      first_name
+      last_name
+      middle_name
+      username
+    }
+  }
+}
+    `;
+export type GetValidCourseEnrollmentsQueryResult = Apollo.QueryResult<GetValidCourseEnrollmentsQuery, GetValidCourseEnrollmentsQueryVariables>;
 export const GetAllCourseManagementsDocument = gql`
     query GetAllCourseManagements {
   course_management {

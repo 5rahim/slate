@@ -1,39 +1,46 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0'
-import { HiOutlineSpeakerphone } from '@react-icons/all-files/hi/HiOutlineSpeakerphone'
+import { BiArchive } from '@react-icons/all-files/bi/BiArchive'
+import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
+import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
-import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
+import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
-import { AnnouncementList } from '@slate/modules/Course/Shared/Announcements/AnnouncementList'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
+import { UnitList } from '@slate/modules/Course/Shared/Units/UnitList'
 import { CourseDetails } from '@slate/modules/Course/Student/CourseDetails'
 import { Compose } from '@slate/next/compose'
-import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
-import { Box } from 'chalkui/dist/cjs/Components/Layout'
+import { DashboardPage } from '@slate/types/Next'
+import { Button } from 'chalkui/dist/cjs/Components/Button'
+import { ButtonGroup } from 'chalkui/dist/cjs/Components/Button/ButtonGroup'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
+import { Flex } from 'chalkui/dist/cjs/Components/Layout/Flex'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import dynamic from 'next/dynamic'
 import React from 'react'
-import { useTranslation } from 'react-i18next'
 
 const CourseOptions = dynamic(() => import('@slate/modules/Course/Instructor/Settings/CourseOptions'))
+const UnitArchive = dynamic(() => import('@slate/modules/Course/Instructor/Units/UnitArchive'))
+const UnitCreation = dynamic(() => import('@slate/modules/Course/Instructor/Units/UnitCreation'))
+const StudentPicker = dynamic(() => import('@slate/components/StudentPicker'))
 const Customization = dynamic(() => import('@slate/modules/Course/Instructor/Settings/Customization'))
-const AnnouncementCreation = dynamic(() => import('@slate/modules/Course/Instructor/Announcements/AnnouncementCreation'))
 
-const Page = React.memo(() => {
-   const { t } = useTranslation(['common'], { useSuspense: false })
-   const course = useCurrentCourse()
+
+const Page = React.memo(({ user, school, course }: DashboardPage) => {
+   const { isOpen: archiveIsOpen, onOpen: archiveOnOpen, onClose: archiveOnClose } = useDisclosure()
    const { isOpen: createIsOpen, onOpen: createOnOpen, onClose: createOnClose } = useDisclosure()
    
+   const t = useTypeSafeTranslation()
    
    return (
       <CourseLayout
          headerMenuIndex={0}
-         pageTitle={course.name}
+         pageTitle={course?.name}
          leftPanel={
             <>
                
@@ -45,48 +52,77 @@ const Page = React.memo(() => {
          }
          rightPanel={
             <>
-               
+      
                <CourseDetails />
-               
+      
                <CourseOptions />
-            
+   
             </>
          }
       >
          
          <>
-            <ModuleBox
-               headerText={t('Announcements')}
-               headerIcon={<HiOutlineSpeakerphone />}
-               headerAction={
-                  <ComponentVisibility.AssistantAndHigher>
-                     <Box mb="3">
-                        
+            <Box>
+               
+               <MediaComponent.ShowOnTabletAndSmaller>
+                  <Box mb="5">
+                     <ButtonGroup width="100%" colorScheme="brand.100">
+                        <Button borderRadius="xl" width="100%">{t('Quizzes')}</Button>
+                        <Button borderRadius="xl" width="100%">{t('Assignments')}</Button>
+                     </ButtonGroup>
+                  </Box>
+               </MediaComponent.ShowOnTabletAndSmaller>
+               
+               <ModuleBox
+                  headerText={t('Content')} headerIcon={<BiFolderOpen />} headerAction={
+                  <Flex gridGap=".5rem">
+                     
+                     <ComponentVisibility.InstructorOnly>
                         <Button
-                           borderRadius="2rem"
-                           colorScheme="brand.100"
-                           size="md"
-                           onClick={createOnOpen}
+                           onClick={archiveOnOpen}
+                           variant="outline"
+                           borderRadius="3xl"
+                           colorScheme="primary"
+                           leftIcon={<BiArchive />}
                         >
-                           {t('Create')}
+                           {t('course:Archive')}
                         </Button>
                         
-                        {createIsOpen && <AnnouncementCreation isOpen={createIsOpen} onClose={createOnClose} />}
-                     
-                     </Box>
-                  </ComponentVisibility.AssistantAndHigher>
+                        {archiveIsOpen && <UnitArchive isOpen={archiveIsOpen} onClose={archiveOnClose} />}
+                        
+                        
+                        <Box>
+                           
+                           <Button
+                              borderRadius="2rem"
+                              colorScheme="brand.100"
+                              size="md"
+                              onClick={createOnOpen}
+                           >
+                              {t('Create')}
+                           </Button>
+                        
+                        </Box>
+                        
+                        {createIsOpen && <UnitCreation isOpen={createIsOpen} onClose={createOnClose} />}
+                     </ComponentVisibility.InstructorOnly>
+                  </Flex>
                }
-            >
+               >
+                  
+                  <StudentPicker defaultValue={['103']} />
+                  
+                  <UnitList />
                
-               <AnnouncementList maxHeight="800px" />
-            
-            </ModuleBox>
-            
-            <ComponentVisibility.InstructorOnly>
+               </ModuleBox>
+   
+               <ComponentVisibility.InstructorOnly>
+      
+                  <Customization />
+   
+               </ComponentVisibility.InstructorOnly>
                
-               <Customization />
-            
-            </ComponentVisibility.InstructorOnly>
+            </Box>
          </>
       
       </CourseLayout>
@@ -97,7 +133,6 @@ export default Compose(
    withApollo(),
    withPageAuthRequired,
    withAuth({ requireActiveAccount: true }),
-   // withCacheReset(),
    withDashboard(),
    withCourse(),
 )(Page)

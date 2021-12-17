@@ -4,6 +4,7 @@ import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { CourseHeader } from '@slate/modules/Course/CourseHeader'
 import { Container, Flex, Grid } from 'chalkui/dist/cjs/Components/Layout'
+import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Spinner } from 'chalkui/dist/cjs/Components/Spinner'
 import React, { memo } from 'react'
 
@@ -21,15 +22,15 @@ export const CourseLayout = memo(({ pageTitle, leftPanel, rightPanel, headerMenu
    const { isDesktop, isTabletAndSmaller } = useMediaSizes()
    
    return (
-      <>
+      <Box>
          
          <DefaultHead pageTitle={pageTitle} />
          
          <UserDashboardLayout>
             
-            <CourseHeader index={headerMenuIndex} />
-            
-            <Container maxW={['100%', '100%', '100%', '100%', '100rem']} mt={5} px={7} pb="5rem">
+            <Container maxW={['100%', '100%', '100%', '100%', '100rem']} px={7} pb="5rem" overflow="hidden">
+               
+               <CourseHeader index={headerMenuIndex} />
                
                <Flex
                   gridGap={18}
@@ -84,7 +85,7 @@ export const CourseLayout = memo(({ pageTitle, leftPanel, rightPanel, headerMenu
             </Container>
          
          </UserDashboardLayout>
-      </>
+      </Box>
    )
    
 })

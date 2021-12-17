@@ -41,7 +41,7 @@ export const UnitContent = () => {
                mb="3"
             >
                <BreadcrumbItem>
-                  <Link href={getCourseHref('/content')}>
+                  <Link href={getCourseHref('/')}>
                      <BreadcrumbLink>{t('course:Course Content')}</BreadcrumbLink>
                   </Link>
                </BreadcrumbItem>

@@ -3,14 +3,15 @@ import { BiCctv } from '@react-icons/all-files/bi/BiCctv'
 import { BiChat } from '@react-icons/all-files/bi/BiChat'
 import { BiFile } from '@react-icons/all-files/bi/BiFile'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
-import { BiGridAlt } from '@react-icons/all-files/bi/BiGridAlt'
 import { BiUserCheck } from '@react-icons/all-files/bi/BiUserCheck'
 import { FcReadingEbook } from '@react-icons/all-files/fc/FcReadingEbook'
+import { HiOutlineSpeakerphone } from '@react-icons/all-files/hi/HiOutlineSpeakerphone'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
+import { useMediaSizes } from '@slate/hooks/useMediaSizes'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { AppActions, AppSelectors } from '@slate/store/slices/appSlice'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
@@ -58,8 +59,10 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
    const t = useTypeSafeTranslation()
    const dispatch = useDispatch()
    const course = useCurrentCourse()
+   const cmf = useCMF()
    const studentView = useSelector(AppSelectors.studentView)
    const { isOpen: svIsOpen, onOpen: svOnOpen, onClose: svOnClose } = useDisclosure()
+   const { isDesktop, isTabletAndSmaller } = useMediaSizes()
    
    function toggleStudentView() {
       svOnClose()
@@ -67,20 +70,26 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
    }
    
    return (
-      <Box>
+      <Box mt="1rem">
          
          <Flex
             height={["80px", "80px", "80px", "100px"]}
             backgroundColor={course?.banner_color ?? "#4f7c6e"}
             backgroundImage={'url(/assets/patterns/memphis-mini.png)'}
             backgroundBlendMode={"color-burn"}
+            position="relative"
+            // color={cmf('black', 'gray.100')}
             color="white"
             alignItems="center"
-            justifyContent="center"
+            borderRadius="lg"
+            // borderBottomRightRadius="0"
+            // borderBottomLeftRadius="0"
+            mb="1rem"
             p={3}
+            px="8"
          >
             <Box>
-               <Text fontSize="2rem" fontWeight="600">{course?.name}</Text>
+               <Text fontSize="2.5rem" fontWeight="700">{course?.name}</Text>
             </Box>
             
             <ComponentVisibility.InstructorOnly>
@@ -125,11 +134,22 @@ export const CourseHeader = ({ index }: CourseHeaderProps) => {
 
 function CourseHeaderMenu({ index = 0 }: any) {
    const cmf = useCMF()
+   const { isDesktop, isTabletAndSmaller } = useMediaSizes()
+   
    return (
       <Flex
          justifyContent="center"
-         borderBottom={cmf("2px #f3f3f3 solid", "2px #4d4d4d solid")}
+         // borderBottom={cmf("2px #f3f3f3 solid", "2px #4d4d4d solid")}
          bgColor={cmf('white', 'gray.800')}
+         borderRadius="md"
+         mb="1rem"
+         boxShadow="sm"
+         sx={{
+            transition: 'all .15s linear',
+            _hover: {
+               boxShadow: isDesktop ? 'lg' : 'sm',
+            },
+         }}
       >
          <Menu
             variant="custom"
@@ -157,8 +177,8 @@ function CourseHeaderMenu({ index = 0 }: any) {
                   },
                }}
             >
-               <CourseHeaderLink icon={<BiGridAlt />} linkTo={'/'}>Course</CourseHeaderLink>
-               <CourseHeaderLink icon={<BiFolder />} linkTo={'/content'}>Content</CourseHeaderLink>
+               <CourseHeaderLink icon={<BiFolder />} linkTo={'/'}>Content</CourseHeaderLink>
+               <CourseHeaderLink icon={<HiOutlineSpeakerphone />} linkTo={'/announcements'}>Announcements</CourseHeaderLink>
                <CourseHeaderLink icon={<BiChat />} linkTo={'/discussions'}>Discussions</CourseHeaderLink>
                <ComponentVisibility.StudentOnly>
                   <CourseHeaderLink icon={<BiCalendar />} linkTo="/calendar">Calendar</CourseHeaderLink>

@@ -174,8 +174,10 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    
    const isHighlighted = deleteIsOpen || editIsOpen || shortcutIsOpen || moveToFolderIsOpen || moveIsOpen
    
+   const isAvailable = data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )
+   
    return (
-      <HideItemInStudentView showIf={data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
+      <HideItemInStudentView showIf={isAvailable}>
          
          <AlertDialog
             motionPreset="slideInBottom"
@@ -269,6 +271,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Shortcut && shortcutModule ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                         icon={BiLinkExternal}
                         iconColor="pink.500"
@@ -283,6 +286,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Folder ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                         icon={BiFolder}
                         iconColor="teal.500"
@@ -304,6 +308,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Text ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                      >
                         <RichTextContent truncate={400} content={data.content} />
@@ -323,6 +328,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Message ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                         icon={JSON.parse(data.content).type === '1' ? null : ( JSON.parse(data.content).type === '2'
                            ? BiError
@@ -340,6 +346,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Link ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                         icon={BiLinkAlt}
                         iconColor="blue.500"
@@ -354,6 +361,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.File ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                         icon={RiFile3Line}
                         iconColor="blue.500"
@@ -370,6 +378,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                   ( data.type === UnitModuleTypes.Document ) && (
                      <ModuleContent
                         isShortcut={isShortcut}
+                        isAvailable={isAvailable}
                         highlighted={isHighlighted}
                         icon={RiArticleLine}
                         iconColor="orange.500"
@@ -502,10 +511,11 @@ interface ModuleContentProps {
    iconColor?: any,
    children?: React.ReactNode
    highlighted?: boolean,
-   isShortcut?: boolean
+   isShortcut?: boolean,
+   isAvailable?: boolean
 }
 
-function ModuleContent({ icon, iconColor, children, highlighted, isShortcut }: ModuleContentProps) {
+function ModuleContent({ icon, iconColor, children, highlighted, isAvailable, isShortcut }: ModuleContentProps) {
    
    const cmf = useCMF()
    
@@ -520,9 +530,24 @@ function ModuleContent({ icon, iconColor, children, highlighted, isShortcut }: M
          <Flex
             alignItems={["flex-start", "center", "center", "center", "center"]}
             flexDirection={['column', 'row', 'row', 'row', 'row']}
+            position="relative"
          >
+            
+            
             {icon && <Flex mr="3" position="relative">
-                <IconBox p=".5rem" size="md" fontSize="xs" colorScheme={iconColor} variant="secondary" as={icon} />
+                <IconBox
+                    p=".5rem"
+                    size="md"
+                    fontSize="xs"
+                    colorScheme={iconColor}
+                    variant="secondary"
+                    as={icon}
+                    opacity={isAvailable ? "1" : ".5"}
+                />
+                
+            </Flex>}
+            
+            <ComponentVisibility.AssistantAndHigher>
                {isShortcut && <IconBox
                    colorScheme="brand.100"
                    color="gray.900"
@@ -530,11 +555,11 @@ function ModuleContent({ icon, iconColor, children, highlighted, isShortcut }: M
                    size="xs"
                    p="1"
                    ml="-.5rem"
-                   mt="-.3rem"
+                   top="-.5rem"
                    as={BiLinkExternal}
                    position="absolute"
                />}
-            </Flex>}
+            </ComponentVisibility.AssistantAndHigher>
             
             <Box>
                {children}

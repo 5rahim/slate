@@ -1,6 +1,7 @@
 import { QueryLazyOptions } from '@apollo/client'
 import { LazyQueryHookCreatorReturn } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
+import { isEmpty } from '@slate/store/cache/utils'
 import { useEffect } from 'react'
 
 export function useCachedLazyQuery<T>(entry: string, queryHook: LazyQueryHookCreatorReturn<T | null>) {
@@ -10,7 +11,7 @@ export function useCachedLazyQuery<T>(entry: string, queryHook: LazyQueryHookCre
    const cache = useStoreCache()
    
    useEffect(() => {
-      cache.write(entry, fetched, loading)
+      !isEmpty(fetched) && cache.write(entry, fetched, loading) // todo: remove isEmpty
    }, [fetched, loading])
    
    return [

@@ -19,6 +19,10 @@ export const getCacheEntries = (): CacheEntries => {
          read: useSelector(CacheSelectors.readModules),
          write: CacheActions.writeModules,
       },
+      enrollments: {
+         read: useSelector(CacheSelectors.readEnrollments),
+         write: CacheActions.writeEnrollments
+      }
    }
    
 }

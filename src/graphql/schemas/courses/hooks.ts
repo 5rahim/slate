@@ -11,6 +11,7 @@ import { SlateCourse } from '@slate/types/Course'
 import { useEffect, useState } from 'react'
 import {
    GET_ALL_COURSE_ENROLLMENTS, GET_ALL_COURSE_MANAGEMENTS, GET_COURSE_BY_ID, GET_COURSE_ENROLLMENTS, GET_COURSE_MANAGEMENTS, GET_OWN_COURSES,
+   GET_VALID_COURSE_ENROLLMENTS,
 } from './queries'
 
 export const useMutateCourseBannerColor = () => {
@@ -203,6 +204,21 @@ export const getLazyStudentEnrollments = (course_id: string) => {
    return useLazyQueryHookCreator<Course_Enrollment[]>(
       "course_enrollment",
       GET_COURSE_ENROLLMENTS,
+      "array",
+      {
+         variables: { course_id },
+         fetchPolicy: "no-cache",
+         nextFetchPolicy: 'cache-and-network'
+      },
+   )
+   
+}
+
+export const getLazyValidStudentEnrollments = (course_id: string) => {
+   
+   return useLazyQueryHookCreator<Course_Enrollment[]>(
+      "course_enrollment",
+      GET_VALID_COURSE_ENROLLMENTS,
       "array",
       {
          variables: { course_id },

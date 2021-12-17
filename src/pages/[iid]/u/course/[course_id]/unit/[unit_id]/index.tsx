@@ -70,7 +70,7 @@ const Page = memo(({ displayPage }: any) => {
          leftPanel={
             <>
                
-               <CourseContextMenu index={1} />
+               <CourseContextMenu index={0} />
                
                <StudentOptions />
             

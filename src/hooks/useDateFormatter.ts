@@ -22,22 +22,22 @@ const date_formats: { [key: string]: any } = {
    long: { DMY: "dd MMMM yyyy", MDY: "MMMM dd, yyyy" },
    'short with hours': {
       '12': {
-         DMY: "dd/MM/yy 'at' hh:mm a",
-         MDY: "MM/dd/yy 'at' hh:mm a",
+         DMY: "dd/MM/yy, hh:mm a",
+         MDY: "MM/dd/yy, hh:mm a",
       },
       '24': {
-         DMY: "dd/MM/yy 'at' HH:mm",
-         MDY: "MM/dd/yy 'at' HH:mm",
+         DMY: "dd/MM/yy, HH:mm",
+         MDY: "MM/dd/yy, HH:mm",
       },
    },
    'long with hours': {
       '12': {
-         DMY: "dd MMMM yyyy 'at' hh:mm a",
-         MDY: "MMMM dd, yyyy 'at' hh:mm a",
+         DMY: "dd MMMM yyyy, hh:mm a",
+         MDY: "MMMM dd, yyyy, hh:mm a",
       },
       '24': {
-         DMY: "dd MMMM yyyy 'at' HH:mm",
-         MDY: "MMMM dd, yyyy 'at' HH:mm",
+         DMY: "dd MMMM yyyy, HH:mm",
+         MDY: "MMMM dd, yyyy, HH:mm",
       },
    },
 }
@@ -59,10 +59,10 @@ export const useDateFormatter = () => {
                const hour_format = settings.hourFormat ?? '24'
    
                if(selected_format === 'short' || selected_format === 'long') {
-                  return format(d, (formats[date_format] as string).replace('at', locale === 'fr' ? '' : 'at'), { locale: getLocale(locale) })
+                  return format(d, (formats[date_format] as string), { locale: getLocale(locale) })
                }
                if(selected_format === 'short with hours' || selected_format === 'long with hours') {
-                  return format(d, (formats[hour_format][date_format] as string).replace('at', locale === 'fr' ? 'à' : 'at'), { locale: getLocale(locale) })
+                  return format(d, (formats[hour_format][date_format] as string), { locale: getLocale(locale) })
                }
             }
             

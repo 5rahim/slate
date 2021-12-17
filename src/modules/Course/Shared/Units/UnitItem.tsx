@@ -65,6 +65,9 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
       transition,
    }
    
+   const isAvailable = data.available || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )
+   const isScheduledButNotAvailable = data.is_scheduled && !data.available && !Utils.Dates.publicationDateHasPassed(data.publish_on)
+   
    return (
       <HideItemInStudentView showIf={( data.available ) || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
          
@@ -120,7 +123,15 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                         {
                            data.type !== 'folder' ? (
                                  <Flex mr="3" position="relative" alignItems="center" gridGap=".7rem">
-                                    <IconBox p=".5rem" size="md" fontSize="xs" colorScheme="purple.500" variant="secondary" as={BiNotepad} />
+                                    <IconBox
+                                       p=".5rem"
+                                       size="md"
+                                       fontSize="xs"
+                                       colorScheme="purple.500"
+                                       variant="secondary"
+                                       as={BiNotepad}
+                                       opacity={isAvailable ? "1" : ".5"}
+                                    />
                                     <Flex>
                                        <Text fontWeight="bold" fontSize="lg">{t('form:' + data.type)}
                                           &nbsp;{data.number}
@@ -131,7 +142,15 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                               ) :
                               (
                                  <Flex mr="3" position="relative" alignItems="center" gridGap=".7rem">
-                                    <IconBox p=".5rem" size="md" fontSize="xs" colorScheme="teal.500" variant="secondary" as={BiFolder} />
+                                    <IconBox
+                                       p=".5rem"
+                                       size="md"
+                                       fontSize="xs"
+                                       colorScheme="teal.500"
+                                       variant="secondary"
+                                       as={BiFolder}
+                                       opacity={isAvailable ? "1" : ".5"}
+                                    />
                                     <Text fontWeight="bold" fontSize="lg">{data.number}</Text>
                                  </Flex>
                               )
@@ -141,7 +160,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                   
                   <ComponentVisibility.AssistantAndHigher>
                      <Flex alignItems="center">
-                        {( data.is_scheduled && !data.available && !Utils.Dates.publicationDateHasPassed(data.publish_on) ) && (
+                        {( isScheduledButNotAvailable ) && (
                            <>
                               <Text
                                  color={cmf("gray.500", "gray.300")}
@@ -153,7 +172,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                         
                         <Box mr="2">
                            {
-                              data.available || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )
+                              isAvailable
                                  ? <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />
                                  :
                                  <Icon as={BiHide} fontSize="2xl" />

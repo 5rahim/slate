@@ -83,25 +83,36 @@ export const GET_COURSE_ENROLLMENTS = gql`
             authorized,
             created_at,
             authorized_at,
-            course {
-                name
-                access_code
-                available
-                background_color
-                banner_color
-                banner_image
-                description
-                duration
+            student {
                 id
-                schedule
-                instructor_id
-                level
-                instructor {
-                    first_name
-                    middle_name
-                    last_name
-                    image
-                }
+                title
+                image
+                first_name
+                last_name
+                middle_name
+                username
+            }
+        }
+    }
+`
+
+export const GET_VALID_COURSE_ENROLLMENTS = gql`
+    query GetValidCourseEnrollments($course_id: uuid!) {
+        course_enrollment(where: {_and: {course_id: {_eq: $course_id}, authorized: {_eq: true}}}) {
+            id,
+            course_id,
+            student_id,
+            authorized,
+            created_at,
+            authorized_at,
+            student {
+                id
+                title
+                image
+                first_name
+                last_name
+                middle_name
+                username
             }
         }
     }

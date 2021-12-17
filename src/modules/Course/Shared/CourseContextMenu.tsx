@@ -63,10 +63,10 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
             >
                <MenuList>
                   <Link href={getHref('/')}>
-                     <MenuItem><Box ml={-1} mr={3} transform="rotate(-25deg)" fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Home')}</MenuItem>
-                  </Link>
-                  <Link href={getHref('/content')}>
                      <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiFolder /></Box>{t('course:Content')}</MenuItem>
+                  </Link>
+                  <Link href={getHref('/announcements')}>
+                     <MenuItem><Box ml={-1} mr={3} transform="rotate(-25deg)" fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Announcements')}</MenuItem>
                   </Link>
                   <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiDetail /></Box>{t('course:Assignments')}</MenuItem>
                   <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiHighlight /></Box>{t('course:Quizzes')}</MenuItem>
