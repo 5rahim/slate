@@ -112,15 +112,15 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
                         
                               <Text fontWeight="bold" mb="1">{t('form:Available when')}</Text>
                         
-                              <AlignedFlex>
-                                 <AlignedFlex width="100%">
+                              <Box>
+                                 <AlignedFlex mb="2" width="100%">
                                     <DateInput {...dateFieldProps} defaultSelectedDate={Utils.Dates.parseDurationDateObject(defaultValue.available_from) ?? null} />
                                  </AlignedFlex>
                            
                                  <AlignedFlex>
                                     <TimePicker {...timeFieldProps} />
                                  </AlignedFlex>
-                              </AlignedFlex>
+                              </Box>
                            </Box>
                   
                         </Box>

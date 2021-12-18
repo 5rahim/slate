@@ -1,10 +1,9 @@
+import { AiOutlineFileDone } from '@react-icons/all-files/ai/AiOutlineFileDone'
 import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { BiChat } from '@react-icons/all-files/bi/BiChat'
-import { BiDetail } from '@react-icons/all-files/bi/BiDetail'
 import { BiFile } from '@react-icons/all-files/bi/BiFile'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { BiGroup } from '@react-icons/all-files/bi/BiGroup'
-import { BiHighlight } from '@react-icons/all-files/bi/BiHighlight'
 import { BiListUl } from '@react-icons/all-files/bi/BiListUl'
 import { HiOutlineSpeakerphone } from '@react-icons/all-files/hi/HiOutlineSpeakerphone'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
@@ -66,10 +65,14 @@ export function CourseContextMenu({ index = 0 }: CourseContextMenuProps) {
                      <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiFolder /></Box>{t('course:Content')}</MenuItem>
                   </Link>
                   <Link href={getHref('/announcements')}>
-                     <MenuItem><Box ml={-1} mr={3} transform="rotate(-25deg)" fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Announcements')}</MenuItem>
+                     <MenuItem>
+                        <Box ml={-1} mr={3} transform="rotate(-25deg)" fontSize="1.6rem"><HiOutlineSpeakerphone /></Box>{t('Announcements')}
+                     </MenuItem>
                   </Link>
-                  <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiDetail /></Box>{t('course:Assignments')}</MenuItem>
-                  <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiHighlight /></Box>{t('course:Quizzes')}</MenuItem>
+                  <Link href={getHref('/assessments')}>
+                     <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><AiOutlineFileDone /></Box>{t('Assessments')}</MenuItem>
+                  </Link>
+                  {/*<MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiHighlight /></Box>{t('course:Quizzes')}</MenuItem>*/}
                   <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiChat /></Box>{t('course:Discussion board')}</MenuItem>
                   <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiCalendar /></Box>{t('course:Calendar')}</MenuItem>
                   <MenuItem><Box ml={-1} mr={3} fontSize="1.6rem"><BiFile /></Box>{t('course:Grades')}</MenuItem>

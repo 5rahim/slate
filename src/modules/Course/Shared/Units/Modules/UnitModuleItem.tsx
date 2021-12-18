@@ -7,12 +7,12 @@ import { BiError } from '@react-icons/all-files/bi/BiError'
 import { BiErrorCircle } from '@react-icons/all-files/bi/BiErrorCircle'
 import { BiExit } from '@react-icons/all-files/bi/BiExit'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
-import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
 import { BiLinkAlt } from '@react-icons/all-files/bi/BiLinkAlt'
 import { BiLinkExternal } from '@react-icons/all-files/bi/BiLinkExternal'
 import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
 import { RiArticleLine } from '@react-icons/all-files/ri/RiArticleLine'
 import { RiFile3Line } from '@react-icons/all-files/ri/RiFile3Line'
+import { VscGoToFile } from '@react-icons/all-files/vsc/VscGoToFile'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { DeletionAlert } from '@slate/components/DeletionAlert'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
@@ -422,7 +422,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                            
                            {isShortcut && (
                               <NextLink href={linkToUnit(data.unit_id)}>
-                                 <DropdownItem icon={<BiFolderOpen />}>
+                                 <DropdownItem icon={<VscGoToFile />}>
                                     {t('course:Open in unit')}
                                  </DropdownItem>
                               </NextLink>

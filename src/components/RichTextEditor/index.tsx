@@ -6,7 +6,8 @@ import { Editor as TinyMCEEditor } from 'tinymce'
 
 interface RichTextEditorProps {
    editorRef?: MutableRefObject<TinyMCEEditor | null>
-   defaultValue?: string
+   defaultValue?: string,
+   height?: number
 }
 
 async function gcs_image_upload_handler(blobInfo: any, success: any, failure: any, progress: any) {
@@ -46,7 +47,7 @@ async function gcs_image_upload_handler(blobInfo: any, success: any, failure: an
 }
 
 
-export function RichTextEditor({ defaultValue, editorRef, ...rest }: RichTextEditorProps & BoxProps) {
+export function RichTextEditor({ defaultValue, editorRef, height = 500, ...rest }: RichTextEditorProps & BoxProps) {
    
    const locale = useLocale()
    
@@ -60,7 +61,7 @@ export function RichTextEditor({ defaultValue, editorRef, ...rest }: RichTextEdi
             onInit={(evt, editor) => !!editorRef ? editorRef.current = editor : null}
             initialValue={defaultValue}
             init={{
-               height: 500,
+               height,
                menubar: false,
                language: locale === 'fr' ? 'fr_FR' : undefined,
                plugins: [

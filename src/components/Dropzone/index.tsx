@@ -5,6 +5,7 @@ import { FcFile } from '@react-icons/all-files/fc/FcFile'
 import { FcImageFile } from '@react-icons/all-files/fc/FcImageFile'
 import { FcPackage } from '@react-icons/all-files/fc/FcPackage'
 import { FcVideoFile } from '@react-icons/all-files/fc/FcVideoFile'
+import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
@@ -22,7 +23,8 @@ function humanSize(size: number, precision = 2): string {
 
 type DropzoneProps = DropzoneOptions & {
    onChange?: (files: File[]) => void,
-   inputProps?: any
+   inputProps?: any,
+   inlineStyle?: boolean
 }
 
 /**
@@ -46,7 +48,7 @@ type DropzoneProps = DropzoneOptions & {
  * @returns {JSX.Element}
  * @constructor
  */
-export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
+export function Dropzone({ inputProps, onChange, inlineStyle = true, ...rest }: DropzoneProps) {
    const t = useTypeSafeTranslation()
    const cmf = useCMF()
    
@@ -135,41 +137,79 @@ export function Dropzone({ inputProps, onChange, ...rest }: DropzoneProps) {
       }
       
       return (
+         <>
+            {!inlineStyle && <Tooltip label={file.name} aria-label={file.name} key={file.name}>
+
+                <Flex
+                    position="relative"
+                    p="2"
+                    borderRadius="md"
+                    bgColor={cmf('#f0f5ff', 'gray.700')}
+                    width="8rem"
+                    overflow="hidden"
+                    flexDirection="column"
+                    alignItems="center"
+                >
+                   {/*<img*/}
+                   {/*   src={file.preview}*/}
+                   {/*   alt={file.name}*/}
+                   {/*/>*/}
+                   
+                   {Icon && <Icon as={<Icon />} fontSize="3.5rem" />}
+
+                    <Text width="100%" whiteSpace="nowrap" fontSize=".85rem">{file.name}</Text>
+                    <Text mb="1" textAlign="center" fontWeight="bold" width="100%" whiteSpace="nowrap" fontSize=".85rem">{humanSize(file.size)}</Text>
+                    <IconButton
+                        variant="secondary"
+                        aria-label="Delete"
+                        p=".15rem"
+                        as={BiTrash}
+                        size="xs"
+                        colorScheme="red.500"
+                        onClick={() => remove(index)}
+                    />
+
+                </Flex>
+            </Tooltip>}
+            
+            {inlineStyle && <Tooltip label={file.name} aria-label={file.name} key={file.name}>
+
+                <Flex
+                    position="relative"
+                    p="2"
+                    borderRadius="md"
+                    bgColor={cmf('gray.200', 'gray.700')}
+                    width="100%"
+                    overflow="hidden"
+                    alignItems="center"
+                    justifyContent="space-between"
+                >
+                   {/*<img*/}
+                   {/*   src={file.preview}*/}
+                   {/*   alt={file.name}*/}
+                   {/*/>*/}
+
+                    <AlignedFlex>
+                       {Icon && <Icon as={<Icon />} fontSize="3rem" mr="2" />}
+                        <Text whiteSpace="nowrap">{file.name}</Text>
+                        <Text textAlign="center" fontWeight="bold" whiteSpace="nowrap">({humanSize(file.size)})</Text>
+                    </AlignedFlex>
+
+                    <IconButton
+                        variant="secondary"
+                        aria-label="Delete"
+                        p=".15rem"
+                        as={BiTrash}
+                        size="xs"
+                        colorScheme="red.500"
+                        onClick={() => remove(index)}
+                    />
+
+                </Flex>
+            </Tooltip>}
          
          
-         <Tooltip label={file.name} aria-label={file.name} key={file.name}>
-            
-            <Flex
-               position="relative"
-               p="2"
-               borderRadius="md"
-               bgColor={cmf('#f0f5ff', 'gray.700')}
-               width="8rem"
-               overflow="hidden"
-               flexDirection="column"
-               alignItems="center"
-            >
-               {/*<img*/}
-               {/*   src={file.preview}*/}
-               {/*   alt={file.name}*/}
-               {/*/>*/}
-               
-               {Icon && <Icon as={<Icon />} fontSize="3.5rem" />}
-               
-               <Text width="100%" whiteSpace="nowrap" fontSize=".85rem">{file.name}</Text>
-               <Text mb="1" textAlign="center" fontWeight="bold" width="100%" whiteSpace="nowrap" fontSize=".85rem">{humanSize(file.size)}</Text>
-               <IconButton
-                  variant="secondary"
-                  aria-label="Delete"
-                  p=".15rem"
-                  as={BiTrash}
-                  size="xs"
-                  colorScheme="red.500"
-                  onClick={() => remove(index)}
-               />
-            
-            </Flex>
-         </Tooltip>
+         </>
       )
    })
    
