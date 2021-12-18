@@ -1994,11 +1994,11 @@ export type Date_Comparison_Exp = {
 /** columns and relationships of "modules" */
 export type Modules = {
   __typename?: 'modules';
+  available_from?: Maybe<Scalars['timestamp']>;
   content: Scalars['String'];
   folder_id?: Maybe<Scalars['uuid']>;
   id: Scalars['uuid'];
   order: Scalars['Int'];
-  publish_on?: Maybe<Scalars['timestamp']>;
   status?: Maybe<Scalars['String']>;
   type: Scalars['String'];
   /** An object relationship */
@@ -2047,11 +2047,11 @@ export type Modules_Bool_Exp = {
   _and?: Maybe<Array<Modules_Bool_Exp>>;
   _not?: Maybe<Modules_Bool_Exp>;
   _or?: Maybe<Array<Modules_Bool_Exp>>;
+  available_from?: Maybe<Timestamp_Comparison_Exp>;
   content?: Maybe<String_Comparison_Exp>;
   folder_id?: Maybe<Uuid_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   order?: Maybe<Int_Comparison_Exp>;
-  publish_on?: Maybe<Timestamp_Comparison_Exp>;
   status?: Maybe<String_Comparison_Exp>;
   type?: Maybe<String_Comparison_Exp>;
   unit?: Maybe<Units_Bool_Exp>;
@@ -2071,11 +2071,11 @@ export type Modules_Inc_Input = {
 
 /** input type for inserting data into table "modules" */
 export type Modules_Insert_Input = {
+  available_from?: Maybe<Scalars['timestamp']>;
   content?: Maybe<Scalars['String']>;
   folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
   status?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   unit?: Maybe<Units_Obj_Rel_Insert_Input>;
@@ -2085,11 +2085,11 @@ export type Modules_Insert_Input = {
 /** aggregate max on columns */
 export type Modules_Max_Fields = {
   __typename?: 'modules_max_fields';
+  available_from?: Maybe<Scalars['timestamp']>;
   content?: Maybe<Scalars['String']>;
   folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
   status?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   unit_id?: Maybe<Scalars['uuid']>;
@@ -2098,11 +2098,11 @@ export type Modules_Max_Fields = {
 /** aggregate min on columns */
 export type Modules_Min_Fields = {
   __typename?: 'modules_min_fields';
+  available_from?: Maybe<Scalars['timestamp']>;
   content?: Maybe<Scalars['String']>;
   folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
   status?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   unit_id?: Maybe<Scalars['uuid']>;
@@ -2126,11 +2126,11 @@ export type Modules_On_Conflict = {
 
 /** Ordering options when selecting data from "modules". */
 export type Modules_Order_By = {
+  available_from?: Maybe<Order_By>;
   content?: Maybe<Order_By>;
   folder_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   order?: Maybe<Order_By>;
-  publish_on?: Maybe<Order_By>;
   status?: Maybe<Order_By>;
   type?: Maybe<Order_By>;
   unit?: Maybe<Units_Order_By>;
@@ -2145,6 +2145,8 @@ export type Modules_Pk_Columns_Input = {
 /** select columns of table "modules" */
 export enum Modules_Select_Column {
   /** column name */
+  AvailableFrom = 'available_from',
+  /** column name */
   Content = 'content',
   /** column name */
   FolderId = 'folder_id',
@@ -2152,8 +2154,6 @@ export enum Modules_Select_Column {
   Id = 'id',
   /** column name */
   Order = 'order',
-  /** column name */
-  PublishOn = 'publish_on',
   /** column name */
   Status = 'status',
   /** column name */
@@ -2164,11 +2164,11 @@ export enum Modules_Select_Column {
 
 /** input type for updating data in table "modules" */
 export type Modules_Set_Input = {
+  available_from?: Maybe<Scalars['timestamp']>;
   content?: Maybe<Scalars['String']>;
   folder_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
   status?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   unit_id?: Maybe<Scalars['uuid']>;
@@ -2201,6 +2201,8 @@ export type Modules_Sum_Fields = {
 /** update columns of table "modules" */
 export enum Modules_Update_Column {
   /** column name */
+  AvailableFrom = 'available_from',
+  /** column name */
   Content = 'content',
   /** column name */
   FolderId = 'folder_id',
@@ -2208,8 +2210,6 @@ export enum Modules_Update_Column {
   Id = 'id',
   /** column name */
   Order = 'order',
-  /** column name */
-  PublishOn = 'publish_on',
   /** column name */
   Status = 'status',
   /** column name */
@@ -4514,15 +4514,14 @@ export type Timestamptz_Comparison_Exp = {
 export type Units = {
   __typename?: 'units';
   archived: Scalars['Boolean'];
-  available: Scalars['Boolean'];
+  available_from?: Maybe<Scalars['timestamp']>;
   /** An object relationship */
   course?: Maybe<Courses>;
   course_id: Scalars['uuid'];
   id: Scalars['uuid'];
-  is_scheduled: Scalars['Boolean'];
   number: Scalars['String'];
   order: Scalars['Int'];
-  publish_on?: Maybe<Scalars['timestamp']>;
+  status: Scalars['String'];
   title?: Maybe<Scalars['String']>;
   type: Scalars['String'];
 };
@@ -4569,14 +4568,13 @@ export type Units_Bool_Exp = {
   _not?: Maybe<Units_Bool_Exp>;
   _or?: Maybe<Array<Units_Bool_Exp>>;
   archived?: Maybe<Boolean_Comparison_Exp>;
-  available?: Maybe<Boolean_Comparison_Exp>;
+  available_from?: Maybe<Timestamp_Comparison_Exp>;
   course?: Maybe<Courses_Bool_Exp>;
   course_id?: Maybe<Uuid_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
-  is_scheduled?: Maybe<Boolean_Comparison_Exp>;
   number?: Maybe<String_Comparison_Exp>;
   order?: Maybe<Int_Comparison_Exp>;
-  publish_on?: Maybe<Timestamp_Comparison_Exp>;
+  status?: Maybe<String_Comparison_Exp>;
   title?: Maybe<String_Comparison_Exp>;
   type?: Maybe<String_Comparison_Exp>;
 };
@@ -4595,14 +4593,13 @@ export type Units_Inc_Input = {
 /** input type for inserting data into table "units" */
 export type Units_Insert_Input = {
   archived?: Maybe<Scalars['Boolean']>;
-  available?: Maybe<Scalars['Boolean']>;
+  available_from?: Maybe<Scalars['timestamp']>;
   course?: Maybe<Courses_Obj_Rel_Insert_Input>;
   course_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
-  is_scheduled?: Maybe<Scalars['Boolean']>;
   number?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -4610,11 +4607,12 @@ export type Units_Insert_Input = {
 /** aggregate max on columns */
 export type Units_Max_Fields = {
   __typename?: 'units_max_fields';
+  available_from?: Maybe<Scalars['timestamp']>;
   course_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   number?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -4622,11 +4620,12 @@ export type Units_Max_Fields = {
 /** aggregate min on columns */
 export type Units_Min_Fields = {
   __typename?: 'units_min_fields';
+  available_from?: Maybe<Scalars['timestamp']>;
   course_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   number?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -4657,14 +4656,13 @@ export type Units_On_Conflict = {
 /** Ordering options when selecting data from "units". */
 export type Units_Order_By = {
   archived?: Maybe<Order_By>;
-  available?: Maybe<Order_By>;
+  available_from?: Maybe<Order_By>;
   course?: Maybe<Courses_Order_By>;
   course_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
-  is_scheduled?: Maybe<Order_By>;
   number?: Maybe<Order_By>;
   order?: Maybe<Order_By>;
-  publish_on?: Maybe<Order_By>;
+  status?: Maybe<Order_By>;
   title?: Maybe<Order_By>;
   type?: Maybe<Order_By>;
 };
@@ -4679,19 +4677,17 @@ export enum Units_Select_Column {
   /** column name */
   Archived = 'archived',
   /** column name */
-  Available = 'available',
+  AvailableFrom = 'available_from',
   /** column name */
   CourseId = 'course_id',
   /** column name */
   Id = 'id',
   /** column name */
-  IsScheduled = 'is_scheduled',
-  /** column name */
   Number = 'number',
   /** column name */
   Order = 'order',
   /** column name */
-  PublishOn = 'publish_on',
+  Status = 'status',
   /** column name */
   Title = 'title',
   /** column name */
@@ -4701,13 +4697,12 @@ export enum Units_Select_Column {
 /** input type for updating data in table "units" */
 export type Units_Set_Input = {
   archived?: Maybe<Scalars['Boolean']>;
-  available?: Maybe<Scalars['Boolean']>;
+  available_from?: Maybe<Scalars['timestamp']>;
   course_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
-  is_scheduled?: Maybe<Scalars['Boolean']>;
   number?: Maybe<Scalars['String']>;
   order?: Maybe<Scalars['Int']>;
-  publish_on?: Maybe<Scalars['timestamp']>;
+  status?: Maybe<Scalars['String']>;
   title?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
 };
@@ -4741,19 +4736,17 @@ export enum Units_Update_Column {
   /** column name */
   Archived = 'archived',
   /** column name */
-  Available = 'available',
+  AvailableFrom = 'available_from',
   /** column name */
   CourseId = 'course_id',
   /** column name */
   Id = 'id',
   /** column name */
-  IsScheduled = 'is_scheduled',
-  /** column name */
   Number = 'number',
   /** column name */
   Order = 'order',
   /** column name */
-  PublishOn = 'publish_on',
+  Status = 'status',
   /** column name */
   Title = 'title',
   /** column name */
@@ -5841,14 +5834,14 @@ export type GetModulesQueryVariables = Exact<{
 }>;
 
 
-export type GetModulesQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
+export type GetModulesQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, available_from?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
 
 export type GetModuleByIdQueryVariables = Exact<{
   id: Scalars['uuid'];
 }>;
 
 
-export type GetModuleByIdQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, publish_on?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
+export type GetModuleByIdQuery = { __typename?: 'query_root', modules: Array<{ __typename?: 'modules', content: string, id: any, order: number, available_from?: any | null | undefined, status?: string | null | undefined, type: string, unit_id: any, folder_id?: any | null | undefined }> };
 
 export type UpdateModuleOrderMutationVariables = Exact<{
   objects: Array<Modules_Insert_Input> | Modules_Insert_Input;
@@ -5885,7 +5878,7 @@ export type UpdateModuleMutationVariables = Exact<{
   id: Scalars['uuid'];
   content: Scalars['String'];
   status: Scalars['String'];
-  publish_on: Scalars['timestamp'];
+  available_from: Scalars['timestamp'];
   folder_id?: Maybe<Scalars['uuid']>;
 }>;
 
@@ -5931,13 +5924,12 @@ export type GetSchoolByShortNameQueryVariables = Exact<{
 export type GetSchoolByShortNameQuery = { __typename?: 'query_root', schools: Array<{ __typename?: 'schools', id: number, is_active: boolean, name: string, short_name: string, type: number }> };
 
 export type CreateUnitMutationVariables = Exact<{
-  available: Scalars['Boolean'];
+  status: Scalars['String'];
   course_id: Scalars['uuid'];
-  is_scheduled: Scalars['Boolean'];
   title?: Maybe<Scalars['String']>;
   number: Scalars['String'];
   order: Scalars['Int'];
-  publish_on?: Maybe<Scalars['timestamp']>;
+  available_from?: Maybe<Scalars['timestamp']>;
   type: Scalars['String'];
 }>;
 
@@ -5970,11 +5962,10 @@ export type UnarchiveUnitMutation = { __typename?: 'mutation_root', update_units
 export type UpdateUnitDetailsMutationVariables = Exact<{
   id: Scalars['uuid'];
   type: Scalars['String'];
-  publish_on?: Maybe<Scalars['timestamp']>;
+  available_from?: Maybe<Scalars['timestamp']>;
   number: Scalars['String'];
   title?: Maybe<Scalars['String']>;
-  is_scheduled: Scalars['Boolean'];
-  available: Scalars['Boolean'];
+  status: Scalars['String'];
 }>;
 
 
@@ -5993,14 +5984,14 @@ export type GetUnitByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUnitByIdQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, available: boolean, course_id: any, id: any, is_scheduled: boolean, number: string, order: number, publish_on?: any | null | undefined, title?: string | null | undefined, type: string }> };
+export type GetUnitByIdQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, status: string, course_id: any, id: any, number: string, order: number, available_from?: any | null | undefined, title?: string | null | undefined, type: string }> };
 
 export type GetUnitsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
 }>;
 
 
-export type GetUnitsQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, available: boolean, course_id: any, id: any, is_scheduled: boolean, title?: string | null | undefined, number: string, order: number, publish_on?: any | null | undefined, type: string }> };
+export type GetUnitsQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, status: string, course_id: any, id: any, title?: string | null | undefined, number: string, order: number, available_from?: any | null | undefined, type: string }> };
 
 export type UnarchivedUnitCountQueryVariables = Exact<{
   course_id: Scalars['uuid'];
@@ -6014,7 +6005,7 @@ export type GetArchivedUnitsQueryVariables = Exact<{
 }>;
 
 
-export type GetArchivedUnitsQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, available: boolean, course_id: any, id: any, is_scheduled: boolean, title?: string | null | undefined, number: string, order: number, publish_on?: any | null | undefined, type: string }> };
+export type GetArchivedUnitsQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, status: string, course_id: any, id: any, title?: string | null | undefined, number: string, order: number, available_from?: any | null | undefined, type: string }> };
 
 export type UpdateNewUserMutationVariables = Exact<{
   email: Scalars['String'];
@@ -6472,7 +6463,7 @@ export const GetModulesDocument = gql`
     content
     id
     order
-    publish_on
+    available_from
     status
     type
     unit_id
@@ -6487,7 +6478,7 @@ export const GetModuleByIdDocument = gql`
     content
     id
     order
-    publish_on
+    available_from
     status
     type
     unit_id
@@ -6546,10 +6537,10 @@ export type DeleteModuleMutationFn = Apollo.MutationFunction<DeleteModuleMutatio
 export type DeleteModuleMutationResult = Apollo.MutationResult<DeleteModuleMutation>;
 export type DeleteModuleMutationOptions = Apollo.BaseMutationOptions<DeleteModuleMutation, DeleteModuleMutationVariables>;
 export const UpdateModuleDocument = gql`
-    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!, $folder_id: uuid) {
+    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $available_from: timestamp!, $folder_id: uuid) {
   update_modules_by_pk(
     pk_columns: {id: $id}
-    _set: {content: $content, status: $status, publish_on: $publish_on, folder_id: $folder_id}
+    _set: {content: $content, status: $status, available_from: $available_from, folder_id: $folder_id}
   ) {
     id
   }
@@ -6639,9 +6630,9 @@ export const GetSchoolByShortNameDocument = gql`
     `;
 export type GetSchoolByShortNameQueryResult = Apollo.QueryResult<GetSchoolByShortNameQuery, GetSchoolByShortNameQueryVariables>;
 export const CreateUnitDocument = gql`
-    mutation CreateUnit($available: Boolean!, $course_id: uuid!, $is_scheduled: Boolean!, $title: String, $number: String!, $order: Int!, $publish_on: timestamp, $type: String!) {
+    mutation CreateUnit($status: String!, $course_id: uuid!, $title: String, $number: String!, $order: Int!, $available_from: timestamp, $type: String!) {
   insert_units(
-    objects: {archived: false, available: $available, course_id: $course_id, is_scheduled: $is_scheduled, title: $title, number: $number, order: $order, publish_on: $publish_on, type: $type}
+    objects: {archived: false, status: $status, course_id: $course_id, title: $title, number: $number, order: $order, available_from: $available_from, type: $type}
   ) {
     affected_rows
   }
@@ -6687,10 +6678,10 @@ export type UnarchiveUnitMutationFn = Apollo.MutationFunction<UnarchiveUnitMutat
 export type UnarchiveUnitMutationResult = Apollo.MutationResult<UnarchiveUnitMutation>;
 export type UnarchiveUnitMutationOptions = Apollo.BaseMutationOptions<UnarchiveUnitMutation, UnarchiveUnitMutationVariables>;
 export const UpdateUnitDetailsDocument = gql`
-    mutation UpdateUnitDetails($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $title: String, $is_scheduled: Boolean!, $available: Boolean!) {
+    mutation UpdateUnitDetails($id: uuid!, $type: String!, $available_from: timestamp, $number: String!, $title: String, $status: String!) {
   update_units_by_pk(
     pk_columns: {id: $id}
-    _set: {title: $title, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled, available: $available}
+    _set: {title: $title, number: $number, available_from: $available_from, type: $type, status: $status}
   ) {
     id
   }
@@ -6711,15 +6702,14 @@ export type ChangeUnitOrderMutationResult = Apollo.MutationResult<ChangeUnitOrde
 export type ChangeUnitOrderMutationOptions = Apollo.BaseMutationOptions<ChangeUnitOrderMutation, ChangeUnitOrderMutationVariables>;
 export const GetUnitByIdDocument = gql`
     query GetUnitById($id: uuid!) {
-  units(limit: 1, where: {id: {_eq: $id}}, order_by: {publish_on: desc}) {
+  units(limit: 1, where: {id: {_eq: $id}}, order_by: {available_from: desc}) {
     archived
-    available
+    status
     course_id
     id
-    is_scheduled
     number
     order
-    publish_on
+    available_from
     title
     type
   }
@@ -6733,14 +6723,13 @@ export const GetUnitsDocument = gql`
     where: {_and: {course_id: {_eq: $course_id}, archived: {_eq: false}}}
   ) {
     archived
-    available
+    status
     course_id
     id
-    is_scheduled
     title
     number
     order
-    publish_on
+    available_from
     type
   }
 }
@@ -6765,14 +6754,13 @@ export const GetArchivedUnitsDocument = gql`
     where: {_and: {course_id: {_eq: $course_id}, archived: {_eq: true}}}
   ) {
     archived
-    available
+    status
     course_id
     id
-    is_scheduled
     title
     number
     order
-    publish_on
+    available_from
     type
   }
 }

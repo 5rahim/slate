@@ -64,15 +64,15 @@ export const UnitContent = () => {
                    <AlertDescription>{t('course:options.unit.is archived')}</AlertDescription>
                </Alert>}
    
-               {!unit.archived && !unit.available && !unit.is_scheduled && <Alert mb="3" status="warning" variant="secondary">
+               {!unit.archived && !(unit.status === 'available') && !(unit.status === 'scheduled') && <Alert mb="3" status="warning" variant="secondary">
                    <AlertIcon />
                    <AlertDescription>{t('course:options.unit.not available')}</AlertDescription>
                </Alert>}
    
-               {!unit.archived && !unit.available && unit.is_scheduled && !Utils.Dates.publicationDateHasPassed(unit.publish_on) && (
+               {!unit.archived && !(unit.status === 'available') && unit.status === 'scheduled' && !Utils.Dates.publicationDateHasPassed(unit.available_from) && (
                   <Alert mb="3" status="info" variant="secondary">
                      <AlertIcon />
-                     <AlertDescription>{t('course:options.unit.will be available')} {formatDate(unit.publish_on, 'short with hours')}</AlertDescription>
+                     <AlertDescription>{t('course:options.unit.will be available')} {formatDate(unit.available_from, 'short with hours')}</AlertDescription>
                   </Alert>
                )}
             </ComponentVisibility.AssistantAndHigher>

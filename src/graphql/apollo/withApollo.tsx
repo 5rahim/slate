@@ -83,7 +83,6 @@ const initApolloClient = (initialState: any, headers: any) => {
    // Make sure to create a new client for every server-side request so that data
    // isn't shared between connections (which would be bad)
    if (typeof window === 'undefined') {
-      console.log('[Server] Creating Apollo Client')
       return createApolloClient(initialState, headers)
    }
    
@@ -154,7 +153,6 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
             // Only if ssr is enabled
             if (ssr) {
                try {
-                  console.log('SSR GETDATAFROMTREE')
                   // Run all GraphQL queries
                   const { getDataFromTree } = await import('@apollo/client/react/ssr')
                   await getDataFromTree(
@@ -181,6 +179,8 @@ export const withApollo = ({ ssr = true } = {}) => (PageComponent: any) => {
          
          // Extract query data from the Apollo store
          const apolloState = apolloClient.cache.extract()
+   
+         console.log(apolloState)
          
          return {
             ...pageProps,

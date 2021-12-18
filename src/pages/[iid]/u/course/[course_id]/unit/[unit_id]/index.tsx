@@ -65,7 +65,7 @@ const Page = memo(({ displayPage }: any) => {
    return (
       <CourseLayout
          displayPage={displayPage}
-         headerMenuIndex={1}
+         headerMenuIndex={0}
          pageTitle={unitName + ' - ' + course.name}
          leftPanel={
             <>

@@ -4,6 +4,7 @@ import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { CourseLayout } from '@slate/components/Layout/CourseLayout'
 import { MediaComponent } from '@slate/components/Layout/MediaQueries/MediaComponent'
+import { useStudentPicker } from '@slate/components/StudentPicker/useStudentPicker'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -36,6 +37,8 @@ const Page = React.memo(({ user, school, course }: DashboardPage) => {
    const { isOpen: createIsOpen, onOpen: createOnOpen, onClose: createOnClose } = useDisclosure()
    
    const t = useTypeSafeTranslation()
+   
+   const { studentPickerProps } = useStudentPicker('[]')
    
    return (
       <CourseLayout
@@ -74,7 +77,9 @@ const Page = React.memo(({ user, school, course }: DashboardPage) => {
                </MediaComponent.ShowOnTabletAndSmaller>
                
                <ModuleBox
-                  headerText={t('Content')} headerIcon={<BiFolderOpen />} headerAction={
+                  headerText={t('Content')}
+                  headerIcon={<BiFolderOpen />}
+                  headerAction={
                   <Flex gridGap=".5rem">
                      
                      <ComponentVisibility.InstructorOnly>
@@ -110,7 +115,9 @@ const Page = React.memo(({ user, school, course }: DashboardPage) => {
                }
                >
                   
-                  <StudentPicker defaultValue={['103']} />
+                  <ComponentVisibility.AssistantAndHigher>
+                     <StudentPicker {...studentPickerProps} />
+                  </ComponentVisibility.AssistantAndHigher>
                   
                   <UnitList />
                
@@ -118,7 +125,9 @@ const Page = React.memo(({ user, school, course }: DashboardPage) => {
    
                <ComponentVisibility.InstructorOnly>
       
-                  <Customization />
+                  <Box mt="1rem">
+                     <Customization />
+                  </Box>
    
                </ComponentVisibility.InstructorOnly>
                

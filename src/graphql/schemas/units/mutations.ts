@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client'
 
 export const CREATE_UNIT = gql`
-    mutation CreateUnit($available: Boolean!, $course_id: uuid!, $is_scheduled: Boolean!, $title: String, $number: String!, $order: Int!, $publish_on: timestamp, $type: String!) {
-        insert_units(objects: {archived: false, available: $available, course_id: $course_id, is_scheduled: $is_scheduled, title: $title, number: $number, order: $order, publish_on: $publish_on, type: $type}) {
+    mutation CreateUnit($status: String!, $course_id: uuid!, $title: String, $number: String!, $order: Int!, $available_from: timestamp, $type: String!) {
+        insert_units(objects: {archived: false, status: $status, course_id: $course_id, title: $title, number: $number, order: $order, available_from: $available_from, type: $type}) {
             affected_rows
         }
     }
@@ -33,8 +33,8 @@ export const UNARCHIVE_UNIT = gql`
 `
 
 export const UPDATE_UNIT_DETAILS = gql`
-    mutation UpdateUnitDetails($id: uuid!, $type: String!, $publish_on: timestamp, $number: String!, $title: String, $is_scheduled: Boolean!, $available: Boolean!) {
-        update_units_by_pk(pk_columns: {id: $id}, _set: {title: $title, number: $number, publish_on: $publish_on, type: $type, is_scheduled: $is_scheduled, available: $available}) {
+    mutation UpdateUnitDetails($id: uuid!, $type: String!, $available_from: timestamp, $number: String!, $title: String, $status: String!) {
+        update_units_by_pk(pk_columns: {id: $id}, _set: {title: $title, number: $number, available_from: $available_from, type: $type, status: $status}) {
             id
         }
     }

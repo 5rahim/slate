@@ -2,20 +2,19 @@ import { gql } from '@apollo/client'
 
 
 /**
- * I have to add "order_by: {publish_on: desc}" because of a bug where Hasura returns publish_on in non-UTC format
+ * I have to add "order_by: {available_from: desc}" because of a bug where Hasura returns available_from in non-UTC format
  */
 
 export const GET_UNIT_BY_ID = gql`
     query GetUnitById($id: uuid!) {
-        units(limit: 1, where: {id: {_eq: $id}}, order_by: {publish_on: desc}) {
+        units(limit: 1, where: {id: {_eq: $id}}, order_by: {available_from: desc}) {
             archived
-            available
+            status
             course_id
             id
-            is_scheduled
             number
             order
-            publish_on
+            available_from
             title
             type
         }
@@ -27,14 +26,13 @@ export const GET_UNITS = gql`
     query GetUnits($course_id: uuid!) {
         units(order_by: {order: asc}, where: {_and: {course_id: {_eq: $course_id}, archived: {_eq: false}}}) {
             archived
-            available
+            status
             course_id
             id
-            is_scheduled
             title
             number
             order
-            publish_on
+            available_from
             type
         }
     }
@@ -54,14 +52,13 @@ export const GET_ARCHIVED_UNITS = gql`
     query GetArchivedUnits($course_id: uuid!) {
         units(order_by: {order: asc}, where: {_and: {course_id: {_eq: $course_id}, archived: {_eq: true}}}) {
             archived
-            available
+            status
             course_id
             id
-            is_scheduled
             title
             number
             order
-            publish_on
+            available_from
             type
         }
     }

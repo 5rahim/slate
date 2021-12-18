@@ -1,0 +1,44 @@
+test:
+- id,
+- type, (online, offline)
+- course_id,
+- week_id~,
+- status
+- available_from
+- available_until (due date)
+- attempts_allowed [int]
+- attempts_grading (last, highest)
+- submission_type (individual, group)
+- accommodations
+
+
+assignment: id, course_id, week-id~, available, available_on, available_for, details[...], grade_item_id
+
+// when professor marks something
+// create gradebook_item
+
+grade_item:
+- id
+- student_id
+- grade_book_item_id
+- points
+- status (available, not_available)
+
+gradebook_item
+- type (test, offline test, assignment, offline assignment, discussion board, standalone)
+- gradebook_grading_item_id
+- test_id
+- assignment_id
+- discussion_id
+
+
+// when professor creates assignments/test/discussion board or creates standalone grade
+gradebook_grade_item:
+- id,
+- type (assignment, test, discussion board)
+- item_id, (assignment id can be null)
+- course_id,
+- max_points,
+- point_type (percentage, points)
+- points_possible (only if point_type === points)
+- grading_rubric

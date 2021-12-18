@@ -34,7 +34,12 @@
   "Register my account": "Register my account",
   "Publish now": "Publish now",
   "Publish when": "When should it be published?",
+  "Available when": "Available from",
   "Available to students": "Available to students",
+  "Visible to students": "Visible to students",
+  "Available at a later date": "Available at a later date",
+  "Scheduled": "Scheduled, not visible to students",
+  "Not available": "Not visible to students",
 
   "title must be at least 4 characters": "The title must be at least 4 characters",
   "message is a required field": "The message must not be empty",

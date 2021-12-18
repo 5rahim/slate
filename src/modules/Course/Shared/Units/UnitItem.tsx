@@ -1,23 +1,20 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from "@dnd-kit/utilities"
 import { BiArchiveIn } from '@react-icons/all-files/bi/BiArchiveIn'
-import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
-import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
 import { BiDotsVertical } from '@react-icons/all-files/bi/BiDotsVertical'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
-import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { BiNotepad } from '@react-icons/all-files/bi/BiNotepad'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { Units } from '@slate/generated/graphql'
+import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { UnitAddArchive } from '@slate/modules/Course/Instructor/Units/UnitAddArchive'
 import { UnitEdit } from '@slate/modules/Course/Instructor/Units/UnitEdit'
-import { Utils } from '@slate/utils'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
@@ -40,6 +37,9 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    const { linkToUnit } = useLinkHref()
    const { formatDate } = useDateFormatter()
    const cancelRef: any = useRef()
+   
+   const { publishDateHelpers } = usePublishDateSetting()
+   
    const {
       attributes,
       listeners,
@@ -65,11 +65,13 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
       transition,
    }
    
-   const isAvailable = data.available || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )
-   const isScheduledButNotAvailable = data.is_scheduled && !data.available && !Utils.Dates.publicationDateHasPassed(data.publish_on)
+   const isVisible = publishDateHelpers.isAvailable({ status: data.status, availableFrom: data.available_from })
+   
+   // const isAvailable = data.available || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )
+   // const isScheduledButNotAvailable = data.is_scheduled && !data.available && !Utils.Dates.publicationDateHasPassed(data.publish_on)
    
    return (
-      <HideItemInStudentView showIf={( data.available ) || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
+      <HideItemInStudentView showIf={isVisible}>
          
          <UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />
          
@@ -130,7 +132,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                                        colorScheme="purple.500"
                                        variant="secondary"
                                        as={BiNotepad}
-                                       opacity={isAvailable ? "1" : ".5"}
+                                       opacity={isVisible ? "1" : ".5"}
                                     />
                                     <Flex>
                                        <Text fontWeight="bold" fontSize="lg">{t('form:' + data.type)}
@@ -149,7 +151,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                                        colorScheme="teal.500"
                                        variant="secondary"
                                        as={BiFolder}
-                                       opacity={isAvailable ? "1" : ".5"}
+                                       opacity={isVisible ? "1" : ".5"}
                                     />
                                     <Text fontWeight="bold" fontSize="lg">{data.number}</Text>
                                  </Flex>
@@ -160,24 +162,8 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                   
                   <ComponentVisibility.AssistantAndHigher>
                      <Flex alignItems="center">
-                        {( isScheduledButNotAvailable ) && (
-                           <>
-                              <Text
-                                 color={cmf("gray.500", "gray.300")}
-                                 mr="2"
-                              >{t('Accessible on')} {formatDate(data.publish_on, 'short with hours')}</Text>
-                              <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />
-                           </>
-                        )}
                         
-                        <Box mr="2">
-                           {
-                              isAvailable
-                                 ? <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />
-                                 :
-                                 <Icon as={BiHide} fontSize="2xl" />
-                           }
-                        </Box>
+                           {publishDateHelpers.icons({ status: data.status, availableFrom: data.available_from })}
                         
                         <ComponentVisibility.AssistantAndHigher>
                            <Dropdown>
@@ -185,6 +171,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                                  as={Box}
                                  aria-label="Options"
                                  size="lg"
+                                 ml="1"
                                  variant="outline"
                                  cursor="pointer"
                                  color={cmf('gray.300', 'gray.300')}

@@ -1,14 +1,10 @@
-import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
-import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiFolderPlus } from '@react-icons/all-files/bi/BiFolderPlus'
-import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { ComponentVisibility } from "@slate/components/ComponentVisibility"
-import { DateInput } from '@slate/components/DateInput'
-import { TimePicker } from '@slate/components/TimePicker'
-import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
+import { SettingList } from '@slate/components/UI/Course/SettingList'
 import { CreateUnitMutationVariables, Units } from '@slate/generated/graphql'
 import { useCreateUnit } from '@slate/graphql/schemas/units/hooks'
+import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
@@ -17,14 +13,12 @@ import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { FormErrors } from '@slate/types/FormErrors'
-import { Utils } from '@slate/utils'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
-import { Checkbox } from 'chalkui/dist/cjs/Components/Checkbox'
 import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
 import { Icon } from 'chalkui/dist/cjs/Components/Icon'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
 import { Input } from 'chalkui/dist/cjs/Components/Input'
-import { Box, Divider, Flex } from 'chalkui/dist/cjs/Components/Layout'
+import { Box, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from 'chalkui/dist/cjs/Components/Modal'
 import { Select } from 'chalkui/dist/cjs/Components/Select'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
@@ -46,12 +40,11 @@ export function UnitCreation({ isOpen, onClose }: any) {
    })
    
    const { value: publishOn, setDateField, setTimeField, resetDateAndTimeFields } = useDateAndTimeFields()
+   const { publishDateValues, publishDateFields, publishDateHelpers } = usePublishDateSetting()
    
    const { onFormSubmit, fields, formState } = useFormCreator({
       schema: ({ z }) => z.object({
          title: z.string().nullable(),
-         available: z.boolean(),
-         publish_later: z.boolean(),
          number: z.string().min(1, FormErrors.RequiredField),
          type: z.string().nonempty(FormErrors.RequiredField),
       }),
@@ -59,18 +52,14 @@ export function UnitCreation({ isOpen, onClose }: any) {
          
          const insert_data: CreateUnitMutationVariables = {
             title: data.title,
-            available: data.available,
-            is_scheduled: !data.available ? data.publish_later : false,
-            publish_on: ( !data.available && data.publish_later ) ? publishOn : new Date(),
+            ...publishDateValues,
             course_id: course.id,
             type: data.type,
             order: cache.read<Units[] | null>('units')?.length ?? 0,
             number: data.number,
          }
          
-         if (data.publish_later && !data.available && !publishOn)
-            fields.setError('date', FormErrors.RequiredField)
-         else createUnit(insert_data)
+         if(publishDateFields.isValid()) createUnit(insert_data)
          
       },
    })
@@ -114,17 +103,7 @@ export function UnitCreation({ isOpen, onClose }: any) {
                            <ComponentVisibility.AssistantAndHigher>
                               <Flex alignItems="center">
                                  
-                                 {( fields.watch('publish_later') && !fields.watch('available') ) &&
-                                 <Icon as={BiCalendarAlt} fontSize="2xl" mr="2" />}
-                                 
-                                 <Box mr="2">
-                                    {
-                                       fields.watch('available') || ( fields.watch('is_scheduled') && Utils.Dates.publicationDateHasPassed(fields.watch('publish_on')) )
-                                          ? <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />
-                                          :
-                                          <Icon as={BiHide} fontSize="2xl" />
-                                    }
-                                 </Box>
+                                 {publishDateHelpers.icons({ status: publishDateValues.status, availableFrom: 'N/A' })}
                                  
                                  <Box
                                     fontSize="1.6rem"
@@ -170,44 +149,9 @@ export function UnitCreation({ isOpen, onClose }: any) {
                      </FormControl>}
                      
                      
-                     {/*Available*/}
-                     <FormControl display="flex" alignItems="center" mb={3} id="available">
-                        <Checkbox
-                           size="lg"
-                           id="available"
-                           defaultChecked={false} {...fields.register("available")}>{t('form:Available to students')}</Checkbox>
-                     </FormControl>
-                     
-                     
-                     <Box display={fields.watch('available') === false ? 'block' : 'none'}>
-                        {/*Publish later*/}
-                        <FormControl display="flex" alignItems="center" mb={3} id="publish_later">
-                           <Checkbox
-                              ml="8"
-                              size="lg"
-                              id="puslish_later"
-                              defaultChecked={false} {...fields.register("publish_later")}>{t('form:Publish at a later date')}</Checkbox>
-                        </FormControl>
-                        
-                        <Box display={fields.watch('publish_later', true) === true ? 'block' : 'none'}>
-                           
-                           <Divider mb="3" />
-                           
-                           <Text mb="2">{t('form:Publish when')}</Text>
-                           
-                           <AlignedFlex mb="2">
-                              {t('form:Date')}:
-                              <DateInput onChange={setDateField} />
-                           </AlignedFlex>
-                           {fields.errorMessage('date')}
-                           
-                           <AlignedFlex>
-                              {t('form:Time')}:
-                              <TimePicker defaultTime={1439} onChange={setTimeField} />
-                           </AlignedFlex>
-                        </Box>
-                     
-                     </Box>
+                     <SettingList>
+                        {publishDateFields.render()}
+                     </SettingList>
                   
                   </ModalBody>
                   

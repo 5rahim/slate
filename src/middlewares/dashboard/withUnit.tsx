@@ -1,4 +1,5 @@
 import { getUnitById } from '@slate/graphql/schemas/units/hooks'
+import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
 import { useUserRole } from '@slate/hooks/useUserRole'
 import { UnitActions, UnitSelectors } from '@slate/store/slices/unitSlice'
 import { Utils } from '@slate/utils'
@@ -27,6 +28,8 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
       const dispatch = useDispatch()
       const { isReallyStudent, isAssistantOrInstructor } = useUserRole()
       
+      const { publishDateHelpers } = usePublishDateSetting()
+      
       if (!unit_id)
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
@@ -46,12 +49,14 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
       
       useEffect(() => {
          
-         if (!unitIsLoading && !!unit && ( ( unit.available ) || ( unit.is_scheduled && Utils.Dates.publicationDateHasPassed(unit.publish_on) ) || !isReallyStudent ) && (isAssistantOrInstructor || !unit.archived)) {
+         const isAvailable = unit ? publishDateHelpers.isAvailable({ status: unit.status, availableFrom: unit.available_from }) : false
+         
+         if (!unitIsLoading && !!unit && ( isAvailable || !isReallyStudent ) && (isAssistantOrInstructor || !unit.archived)) {
             setDisplayPage(true)
             dispatch(UnitActions.setUnit(unit))
             dispatch(UnitActions.setIsAllowed(true))
             
-         } else if (!unitIsLoading && isReallyStudent && ( !unit || !unit.available || unit.archived || (unit.is_scheduled && !Utils.Dates.publicationDateHasPassed(unit.publish_on)) )) {
+         } else if (!unitIsLoading && isReallyStudent && ( !unit || !isAvailable )) {
             router.push(Utils.Url.accessDeniedLink(props.iid))
          }
          

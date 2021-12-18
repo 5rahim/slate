@@ -15,7 +15,7 @@ export const GET_MODULES = gql`
             content
             id
             order
-            publish_on
+            available_from
             status
             type
             unit_id
@@ -30,7 +30,7 @@ export const GET_MODULE_BY_ID = gql`
             content
             id
             order
-            publish_on
+            available_from
             status
             type
             unit_id
@@ -72,8 +72,8 @@ export const DELETE_MODULE = gql`
 
 
 export const UPDATE_MODULE = gql`
-    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $publish_on: timestamp!, $folder_id: uuid) {
-        update_modules_by_pk(pk_columns: {id: $id}, _set: {content: $content, status: $status, publish_on: $publish_on, folder_id: $folder_id}) {
+    mutation UpdateModule($id: uuid!, $content: String!, $status: String!, $available_from: timestamp!, $folder_id: uuid) {
+        update_modules_by_pk(pk_columns: {id: $id}, _set: {content: $content, status: $status, available_from: $available_from, folder_id: $folder_id}) {
             id
         }
     }

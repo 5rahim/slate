@@ -14454,6 +14454,18 @@
         "description": "columns and relationships of \"modules\"",
         "fields": [
           {
+            "name": "available_from",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "args": [],
@@ -14509,18 +14521,6 @@
                 "name": "Int",
                 "ofType": null
               }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamp",
-              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -14896,6 +14896,18 @@
             "deprecationReason": null
           },
           {
+            "name": "available_from",
+            "description": null,
+            "type": {
+              "kind": "INPUT_OBJECT",
+              "name": "timestamp_comparison_exp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "type": {
@@ -14937,18 +14949,6 @@
             "type": {
               "kind": "INPUT_OBJECT",
               "name": "Int_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -15055,6 +15055,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "available_from",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "type": {
@@ -15096,18 +15108,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamp",
               "ofType": null
             },
             "defaultValue": null,
@@ -15173,6 +15173,18 @@
         "description": "aggregate max on columns",
         "fields": [
           {
+            "name": "available_from",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "args": [],
@@ -15215,18 +15227,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamp",
               "ofType": null
             },
             "isDeprecated": false,
@@ -15280,6 +15280,18 @@
         "description": "aggregate min on columns",
         "fields": [
           {
+            "name": "available_from",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "args": [],
@@ -15322,18 +15334,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
-              "ofType": null
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamp",
               "ofType": null
             },
             "isDeprecated": false,
@@ -15502,6 +15502,18 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "available_from",
+            "description": null,
+            "type": {
+              "kind": "ENUM",
+              "name": "order_by",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": null,
             "type": {
@@ -15539,18 +15551,6 @@
           },
           {
             "name": "order",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -15650,6 +15650,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "available_from",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": "column name",
             "isDeprecated": false,
@@ -15669,12 +15675,6 @@
           },
           {
             "name": "order",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -15706,6 +15706,18 @@
         "description": "input type for updating data in table \"modules\"",
         "fields": null,
         "inputFields": [
+          {
+            "name": "available_from",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "defaultValue": null,
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "content",
             "description": null,
@@ -15748,18 +15760,6 @@
             "type": {
               "kind": "SCALAR",
               "name": "Int",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "timestamp",
               "ofType": null
             },
             "defaultValue": null,
@@ -15908,6 +15908,12 @@
         "interfaces": null,
         "enumValues": [
           {
+            "name": "available_from",
+            "description": "column name",
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "content",
             "description": "column name",
             "isDeprecated": false,
@@ -15927,12 +15933,6 @@
           },
           {
             "name": "order",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "publish_on",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -30568,17 +30568,13 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": null,
             "args": [],
             "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -30628,22 +30624,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": null,
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": null,
             "args": [],
@@ -30676,13 +30656,17 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "args": [],
             "type": {
-              "kind": "SCALAR",
-              "name": "timestamp",
-              "ofType": null
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -31042,11 +31026,11 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "Boolean_comparison_exp",
+              "name": "timestamp_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -31090,18 +31074,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": null,
-            "type": {
-              "kind": "INPUT_OBJECT",
-              "name": "Boolean_comparison_exp",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": null,
             "type": {
@@ -31126,11 +31098,11 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "type": {
               "kind": "INPUT_OBJECT",
-              "name": "timestamp_comparison_exp",
+              "name": "String_comparison_exp",
               "ofType": null
             },
             "defaultValue": null,
@@ -31225,11 +31197,11 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Boolean",
+              "name": "timestamp",
               "ofType": null
             },
             "defaultValue": null,
@@ -31273,18 +31245,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": null,
             "type": {
@@ -31309,11 +31269,11 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -31355,6 +31315,18 @@
         "description": "aggregate max on columns",
         "fields": [
           {
+            "name": "available_from",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "course_id",
             "description": null,
             "args": [],
@@ -31403,12 +31375,12 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -31450,6 +31422,18 @@
         "description": "aggregate min on columns",
         "fields": [
           {
+            "name": "available_from",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "timestamp",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "course_id",
             "description": null,
             "args": [],
@@ -31498,12 +31482,12 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "args": [],
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "String",
               "ofType": null
             },
             "isDeprecated": false,
@@ -31711,7 +31695,7 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -31759,18 +31743,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": null,
-            "type": {
-              "kind": "ENUM",
-              "name": "order_by",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": null,
             "type": {
@@ -31795,7 +31767,7 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "type": {
               "kind": "ENUM",
@@ -31877,7 +31849,7 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -31895,12 +31867,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": "column name",
             "isDeprecated": false,
@@ -31913,7 +31879,7 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -31952,11 +31918,11 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "Boolean",
+              "name": "timestamp",
               "ofType": null
             },
             "defaultValue": null,
@@ -31988,18 +31954,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": null,
-            "type": {
-              "kind": "SCALAR",
-              "name": "Boolean",
-              "ofType": null
-            },
-            "defaultValue": null,
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": null,
             "type": {
@@ -32024,11 +31978,11 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": null,
             "type": {
               "kind": "SCALAR",
-              "name": "timestamp",
+              "name": "String",
               "ofType": null
             },
             "defaultValue": null,
@@ -32171,7 +32125,7 @@
             "deprecationReason": null
           },
           {
-            "name": "available",
+            "name": "available_from",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null
@@ -32189,12 +32143,6 @@
             "deprecationReason": null
           },
           {
-            "name": "is_scheduled",
-            "description": "column name",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "number",
             "description": "column name",
             "isDeprecated": false,
@@ -32207,7 +32155,7 @@
             "deprecationReason": null
           },
           {
-            "name": "publish_on",
+            "name": "status",
             "description": "column name",
             "isDeprecated": false,
             "deprecationReason": null

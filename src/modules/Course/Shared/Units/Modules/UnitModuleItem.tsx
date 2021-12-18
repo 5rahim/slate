@@ -1,7 +1,5 @@
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
-import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
 import { BiDotsVertical } from '@react-icons/all-files/bi/BiDotsVertical'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
@@ -10,7 +8,6 @@ import { BiErrorCircle } from '@react-icons/all-files/bi/BiErrorCircle'
 import { BiExit } from '@react-icons/all-files/bi/BiExit'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
-import { BiHide } from '@react-icons/all-files/bi/BiHide'
 import { BiLinkAlt } from '@react-icons/all-files/bi/BiLinkAlt'
 import { BiLinkExternal } from '@react-icons/all-files/bi/BiLinkExternal'
 import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
@@ -21,6 +18,7 @@ import { DeletionAlert } from '@slate/components/DeletionAlert'
 import { RichTextContent } from '@slate/components/UI/RichTextContent'
 import { Modules } from '@slate/generated/graphql'
 import { useChangeModuleFolder, useDeleteModule } from '@slate/graphql/schemas/modules/hooks'
+import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
@@ -41,7 +39,6 @@ import {
    AlertDialog, AlertDialogBody, AlertDialogCloseButton, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay,
 } from 'chalkui/dist/cjs/Components/Modal/AlertDialog'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton/Skeleton'
-import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import dynamic from 'next/dynamic'
@@ -94,6 +91,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    /** Helpers **/
    const { openFolder, hasFolder, isFolderOpen, isInOpenedFolder, shouldOpenFolder } = useModuleFolder()
    const { fetchShortcutModuleData, shortcutModule } = useModuleShortcut()
+   const { publishDateHelpers } = usePublishDateSetting()
    
    /** Mutations **/
    const [deleteModule] = useDeleteModule({
@@ -174,7 +172,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    
    const isHighlighted = deleteIsOpen || editIsOpen || shortcutIsOpen || moveToFolderIsOpen || moveIsOpen
    
-   const isAvailable = data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) )
+   const isAvailable = data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.available_from) )
    
    return (
       <HideItemInStudentView showIf={isAvailable}>
@@ -395,19 +393,8 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                <ComponentVisibility.AssistantAndHigher>
                   
                   <Flex alignItems="center" mr="2">
-                     {
-                        ( data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.publish_on) ) )
-                        && <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />
-                     }
-                     {( data.status === 'scheduled' && !Utils.Dates.publicationDateHasPassed(data.publish_on) )
-                     && (
-                        <Tooltip placement="auto-end" label={`${t('Accessible on')} ${formatDate(data.publish_on, 'short with hours')}`}>
-                           <Box mr="2"><Icon as={BiCalendarAlt} fontSize="2xl" /></Box>
-                        </Tooltip>
-                     )}
-                     {( data.status !== 'available' ) && (
-                        <Icon as={BiHide} fontSize="2xl" />
-                     )}
+                     
+                     {publishDateHelpers.icons({ status: data.status, availableFrom: data.available_from })}
                   
                   </Flex>
                   
