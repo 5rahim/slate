@@ -35,10 +35,6 @@ export function DateInput({ onChange, defaultSelectedDate = null, ...rest }: Dat
    const [inputValue, setInputValue] = useState<string | undefined>('')
    
    useEffect(() => {
-       console.log(defaultSelectedDate)
-   }, [defaultSelectedDate])
-   
-   useEffect(() => {
       if (defaultSelectedDate) {
          setInputValue(selectedDate?.startDate ? formatDate(selectedDate?.startDate, 'short') : '')
       }

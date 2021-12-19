@@ -19,7 +19,7 @@ import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
 /**
@@ -43,6 +43,22 @@ export const useDueDateSetting = (defaultValue?: Parameter<string>) => {
    const [error, setError] = useState<boolean>(false)
    
    const dateHasPassed = Utils.Dates.dateHasPassed(defaultValue)
+   
+   const [selectedDate, setSelectedDate] = useState<string | null>(null)
+   
+   useEffect(() => {
+      try {
+         setSelectedDate(s => {
+            try {
+               return !!availableUntil ? availableUntil.toISOString().replace('Z', '') : null
+            } catch {
+               return s
+            }
+         })
+      } catch (e) {
+      
+      }
+   }, [availableUntil])
    
    
    return {
@@ -96,11 +112,11 @@ export const useDueDateSetting = (defaultValue?: Parameter<string>) => {
          
                                  <Box>
                                     <AlignedFlex mb="2" width="100%">
-                                       <DateInput {...dateFieldProps} defaultSelectedDate={Utils.Dates.parseDurationDateObject(defaultValue) ?? null} />
+                                       <DateInput {...dateFieldProps} defaultSelectedDate={Utils.Dates.parseDurationDateObject(selectedDate ?? defaultValue) ?? null} />
                                     </AlignedFlex>
-            
+   
                                     <AlignedFlex>
-                                       <TimePicker {...timeFieldProps} />
+                                       <TimePicker {...timeFieldProps} defaultTime={Utils.Dates.getTimeInMinutesFromDate(selectedDate ?? defaultValue) ?? 1439} />
                                     </AlignedFlex>
                                  </Box>
                               </Box>

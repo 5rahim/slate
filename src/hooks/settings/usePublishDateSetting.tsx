@@ -58,7 +58,6 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
    
    useEffect(() => {
        try {
-          console.log(availableFrom?.toString(), !!availableFrom ? availableFrom.toISOString(): null)
           setSelectedDate(s => {
              try {
                 return !!availableFrom ? availableFrom.toISOString().replace('Z', '') : null
