@@ -53,6 +53,25 @@ export const Dates = {
          }
       }
    },
+   parseDurationDateObjectWithoutZ: (utcDate: Parameter<string>): DurationDateFormat => {
+      const onlyOneDate = (utcDate && !utcDate.includes('startDate')) ?? false
+      if(onlyOneDate && utcDate) {
+         return {
+            startDate: new Date(utcDate),
+            endDate: new Date(utcDate),
+         }
+      } else if(utcDate) {
+         return {
+            startDate: new Date(JSON.parse(utcDate).startDate),
+            endDate: new Date(JSON.parse(utcDate).endDate),
+         }
+      } else {
+         return {
+            startDate: null,
+            endDate: null
+         }
+      }
+   },
    
    asUTC: (date: Parameter<string>) => {
       return new Date(date + 'Z')
@@ -85,9 +104,9 @@ export const Dates = {
    
    
    
-   publicationDateHasPassed(publish_on: Parameter<Date | string>) {
-      if(publish_on) {
-         return differenceInMinutes(new Date(publish_on + "Z"), new Date()) <= 0
+   dateHasPassed(utcDate: Parameter<Date | string>) {
+      if(utcDate) {
+         return differenceInMinutes(new Date(utcDate + "Z"), new Date()) <= 0
       }
       return false
    },

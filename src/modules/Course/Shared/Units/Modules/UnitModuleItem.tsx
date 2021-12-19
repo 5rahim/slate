@@ -172,7 +172,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
    
    const isHighlighted = deleteIsOpen || editIsOpen || shortcutIsOpen || moveToFolderIsOpen || moveIsOpen
    
-   const isAvailable = data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.publicationDateHasPassed(data.available_from) )
+   const isAvailable = data.status === 'available' || ( data.status === 'scheduled' && Utils.Dates.dateHasPassed(data.available_from) )
    
    return (
       <HideItemInStudentView showIf={isAvailable}>

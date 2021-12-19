@@ -35,7 +35,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
    
    return (
-      <HideItemInStudentView showIf={!( data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) )}>
+      <HideItemInStudentView showIf={!( data.is_scheduled && !Utils.Dates.dateHasPassed(data.publish_on) )}>
          
          <ListItem
             width="full"
@@ -58,7 +58,7 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                      <ComponentVisibility.AssistantAndHigher>
                         <Flex alignItems="center" gridGap="1rem">
                            <Flex gridGap=".5rem">
-                              {( data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) ) && (
+                              {( data.is_scheduled && !Utils.Dates.dateHasPassed(data.publish_on) ) && (
                                  <Tag
                                     variant="secondary"
                                     pill
@@ -115,13 +115,13 @@ export const AnnouncementListItem: DataListItem<Announcements> = (props) => {
                            !data.is_scheduled && formatDate(new Date(data.created_at), 'long with hours')
                         }
                         {
-                           ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) ) &&
+                           ( data.is_scheduled && Utils.Dates.dateHasPassed(data.publish_on) ) &&
                            formatDate(data.publish_on, 'long with hours')
                         }
                      </Text>
                      
                      {
-                        data.is_scheduled && !Utils.Dates.publicationDateHasPassed(data.publish_on) && (
+                        data.is_scheduled && !Utils.Dates.dateHasPassed(data.publish_on) && (
                            <Text fontStyle="italic" color={cmf("gray.500", "gray.300")}>
                               {t('Scheduled for')}&nbsp;
                               <strong>{formatDate(data.publish_on, 'short with hours')}</strong>

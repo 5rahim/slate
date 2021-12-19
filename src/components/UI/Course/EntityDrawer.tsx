@@ -94,7 +94,7 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
             
                <DrawerFooter gridGap={5}>
                   <Button
-                     colorScheme="brand.100"
+                     colorScheme="primary"
                      width="100%"
                      type="submit"
                      isLoading={isLoading}

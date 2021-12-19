@@ -35,7 +35,7 @@ export const useDateAndTimeFields = (defaultValue?: Parameter<string>) => {
       },
       
       timeFieldProps: {
-         defaultTime: Utils.Dates.getTimeInMinutesFromDate(defaultValue) ?? 1439,
+         // defaultTime: Utils.Dates.getTimeInMinutesFromDate(defaultValue) ?? 1439,
          onChange: (value: number) => setTime(value)
       },
       

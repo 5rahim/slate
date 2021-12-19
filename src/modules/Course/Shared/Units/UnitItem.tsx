@@ -67,8 +67,8 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
    
    const isVisible = publishDateHelpers.isAvailable({ status: data.status, availableFrom: data.available_from })
    
-   // const isAvailable = data.available || ( data.is_scheduled && Utils.Dates.publicationDateHasPassed(data.publish_on) )
-   // const isScheduledButNotAvailable = data.is_scheduled && !data.available && !Utils.Dates.publicationDateHasPassed(data.publish_on)
+   // const isAvailable = data.available || ( data.is_scheduled && Utils.Dates.dateHasPassed(data.publish_on) )
+   // const isScheduledButNotAvailable = data.is_scheduled && !data.available && !Utils.Dates.dateHasPassed(data.publish_on)
    
    return (
       <HideItemInStudentView showIf={isVisible}>

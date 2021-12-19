@@ -3,6 +3,7 @@ import { Dropzone } from '@slate/components/Dropzone'
 import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
 import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
 import { useCreateModule } from '@slate/graphql/schemas/modules/hooks'
+import { useDueDateSetting } from '@slate/hooks/settings/useDueDateSetting'
 import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
@@ -28,6 +29,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
    
    const { populateFiles, hasFiles, uploadFiles, isUploading } = useFormFileUpload("multiple")
    const { publishDateValues, publishDateFields } = usePublishDateSetting()
+   const { dueDateValues, dueDateFields } = useDueDateSetting()
    const {textEditor} = useRichTextEditor()
    
    const [createModule, isLoading] = useCreateModule({
@@ -85,6 +87,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
             settings={
                <>
                   {publishDateFields.render()}
+                  {dueDateFields.render()}
                </>
             }
             

@@ -69,7 +69,7 @@ export const UnitContent = () => {
                    <AlertDescription>{t('course:options.unit.not available')}</AlertDescription>
                </Alert>}
    
-               {!unit.archived && !(unit.status === 'available') && unit.status === 'scheduled' && !Utils.Dates.publicationDateHasPassed(unit.available_from) && (
+               {!unit.archived && !(unit.status === 'available') && unit.status === 'scheduled' && !Utils.Dates.dateHasPassed(unit.available_from) && (
                   <Alert mb="3" status="info" variant="secondary">
                      <AlertIcon />
                      <AlertDescription>{t('course:options.unit.will be available')} {formatDate(unit.available_from, 'short with hours')}</AlertDescription>
