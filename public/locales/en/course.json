@@ -61,6 +61,7 @@
   "Highest score": "Highest score",
   "last attempt": "Last attempt",
   "highest attempt": "Highest score",
+  "View submissions": "View submissions",
   "Choose the number of attempts allowed": "Choose the number of attempts allowed",
   "options": {
     "status": {
@@ -86,6 +87,7 @@
     "Add a quiz_links": "Add a quiz",
     "Add a assignment_links": "Add an assignment",
     "Edit the unit": "Edit the unit",
+    "Edit an assignment": "Edit an assignment",
     "unit": {
       "is archived": "This unit is archived",
       "not available": "This unit is not available to students",

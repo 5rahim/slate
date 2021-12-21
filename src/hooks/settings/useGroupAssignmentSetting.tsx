@@ -13,7 +13,7 @@ import React, { useEffect, useState } from 'react'
 /*
  * Fields: submission_type
  */
-export const useGroupAssignmentSetting = (defaultValue?: "individual" | "group") => {
+export const useGroupAssignmentSetting = (defaultValue?: string) => {
    
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
@@ -35,7 +35,7 @@ export const useGroupAssignmentSetting = (defaultValue?: "individual" | "group")
    
    const [error, setError] = useState<boolean>(false)
    const [alert, setAlert] = useState<boolean>(false)
-   const [submissionType, setSubmissionType] = useState<"individual" | "group">(defaultValue ?? 'individual')
+   const [submissionType, setSubmissionType] = useState<string>(defaultValue ?? 'individual')
    
    // const summary = submissionType === 'individual' ? t(`course:Individual`) : t('course:Group')
    

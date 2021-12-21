@@ -41,7 +41,7 @@ export const UnitEdit = (
    const { publishDateValues, publishDateFields, publishDateHelpers } = usePublishDateSetting({
       defaultValue: {
          status: data.status,
-         available_from: data.available_from
+         availableFrom: data.available_from
       }
    })
 

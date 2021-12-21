@@ -2,6 +2,7 @@ import { AiOutlineSnippets } from '@react-icons/all-files/ai/AiOutlineSnippets'
 import { BiArchiveIn } from '@react-icons/all-files/bi/BiArchiveIn'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
+import { FcInspection } from '@react-icons/all-files/fc/FcInspection'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
 import { Gradebook_Items } from '@slate/generated/graphql'
 import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
@@ -19,8 +20,11 @@ import { Badge } from 'chalkui/dist/cjs/Components/Layout/Badge'
 import { Tag } from 'chalkui/dist/cjs/Components/Tag/Tag'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useRef } from 'react'
+
+const AssignmentEdit = dynamic(() => import('@slate/modules/Course/Instructor/Assessments/Assignments/AssignmentEdit'))
 
 interface AssessmentItemProps {
    gradebookItem: Gradebook_Items
@@ -32,6 +36,7 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
    const t = useTypeSafeTranslation()
    const course = useCurrentCourse()
    const { isOpen, onOpen, onClose } = useDisclosure()
+   const { isOpen: assignmentEditIsOpen, onOpen: assignmentEditOnOpen, onClose: assignmentEditOnClose } = useDisclosure()
    const { isOpen: archiveIsOpen, onOpen: archiveOnOpen, onClose: archiveOnClose } = useDisclosure()
    const { linkToAssignment } = useLinkHref()
    const { formatDate } = useDateFormatter()
@@ -54,12 +59,12 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
       <HideItemInStudentView showIf={isVisible}>
          
          {/*<UnitAddArchive data={data} onClose={archiveOnClose} isOpen={archiveIsOpen} cancelRef={cancelRef} />*/}
-         
-         {/*<UnitEdit*/}
-         {/*   isOpen={isOpen}*/}
-         {/*   onClose={onClose}*/}
-         {/*   data={data}*/}
-         {/*/>*/}
+   
+         {assignmentEditIsOpen && <AssignmentEdit
+            isOpen={assignmentEditIsOpen}
+            onClose={assignmentEditOnClose}
+            data={{ gradebookItem }}
+         />}
          
          <ListItem>
             
@@ -155,7 +160,15 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                               
                               </DropdownButton>
                               <DropdownList>
-                                 <DropdownItem icon={<BiEdit />} onClick={onOpen}>
+                                 <DropdownItem
+                                    icon={<FcInspection />}
+                                 >
+                                    {t('course:View submissions')}
+                                 </DropdownItem>
+                                 <DropdownItem
+                                    icon={<BiEdit />}
+                                    onClick={gradebookItem.assessment_type === 'assignment' ? assignmentEditOnOpen : undefined}
+                                 >
                                     {t('Edit')}
                                  </DropdownItem>
                                  

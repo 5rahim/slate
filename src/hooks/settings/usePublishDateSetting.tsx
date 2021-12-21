@@ -23,7 +23,7 @@ import React, { useEffect, useState } from 'react'
 interface UseAssignDatesProps {
    defaultValue: {
       status: Parameter<string>, // scheduled, available, not_available
-      available_from: Parameter<string>, // utc data
+      availableFrom: Parameter<string>, // utc data
    }
 }
 
@@ -32,7 +32,7 @@ interface UseAssignDatesProps {
  */
 export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
    
-   const { defaultValue } = props ? props : { defaultValue: { status: 'not_available', available_from: null } }
+   const { defaultValue } = props ? props : { defaultValue: { status: 'not_available', availableFrom: null } }
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    const {formatDate} = useDateFormatter()
@@ -43,13 +43,13 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
       isTouched: isDateTimeTouched,
       dateFieldProps,
       timeFieldProps,
-   } = useDateAndTimeFields(defaultValue.available_from)
+   } = useDateAndTimeFields(defaultValue.availableFrom)
    
    const [available, setAvailable] = useState<boolean>(defaultValue.status === 'available')
    const [scheduled, setScheduled] = useState<boolean>(defaultValue.status === 'scheduled')
    const [error, setError] = useState<boolean>(false)
    
-   const dateHasPassed = Utils.Dates.dateHasPassed(defaultValue.available_from)
+   const dateHasPassed = Utils.Dates.dateHasPassed(defaultValue.availableFrom)
    
    const [selectedDate, setSelectedDate] = useState<string | null>(null)
    
@@ -137,11 +137,11 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
             
                                     <Box>
                                        <AlignedFlex mb="2" width="100%">
-                                          <DateInput {...dateFieldProps} defaultSelectedDate={Utils.Dates.parseDurationDateObject(selectedDate ?? defaultValue.available_from) ?? null} />
+                                          <DateInput {...dateFieldProps} defaultSelectedDate={Utils.Dates.parseDurationDateObject(selectedDate ?? defaultValue.availableFrom) ?? null} />
                                        </AlignedFlex>
                
                                        <AlignedFlex>
-                                          <TimePicker {...timeFieldProps} defaultTime={Utils.Dates.getTimeInMinutesFromDate(selectedDate ?? defaultValue.available_from) ?? 1439} />
+                                          <TimePicker {...timeFieldProps} defaultTime={Utils.Dates.getTimeInMinutesFromDate(selectedDate ?? defaultValue.availableFrom) ?? 1439} />
                                        </AlignedFlex>
                                     </Box>
                                  </Box>

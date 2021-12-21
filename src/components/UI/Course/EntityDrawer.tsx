@@ -9,22 +9,23 @@ import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { ListItem, Stack, StackDivider } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import {
-   Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+   Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay, DrawerProps,
 } from 'chalkui/dist/cjs/Components/Modal/Drawer'
 import React from 'react'
 
-interface EntityDrawerProps {
+type EntityDrawerProps = {
    isOpen: boolean
    isLoading: boolean
    onClose: any
    onFormSubmit: any
    title: string
    entityTitle?: string
+   headerColor?: string
    children?: React.ReactNode
    settings?: React.ReactNode
-}
+} & DrawerProps
 
-export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, children, settings, title, entityTitle }: EntityDrawerProps) => {
+export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSubmit, children, settings, title, entityTitle, ...rest }: EntityDrawerProps) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    
@@ -35,18 +36,20 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
          isCentered
          isOpen={isOpen}
          onClose={() => !( isLoading ) && onClose()}
+         {...rest}
       >
          <DrawerOverlay />
          <form onSubmit={onFormSubmit}>
             <DrawerContent maxWidth="90rem">
-               {!isLoading && <DrawerCloseButton />}
+               {!isLoading && <DrawerCloseButton color={headerColor ? "white" : "black"} />}
                {/*<IconBox isCircular icon={<BiAddToQueue />} colorScheme="primary" margin="0 auto" mt={3} />*/}
                <DrawerHeader
                   fontSize="2rem"
                   fontWeight="bold"
                   backgroundImage={Utils.Url.assetImageUrl('topography.png', 'patterns')}
                   backgroundBlendMode={"color-burn"}
-                  bgColor={cmf("transparent", "gray.700")}
+                  bgColor={headerColor ?? cmf("transparent", "gray.700")}
+                  color={headerColor ? "white" : 'black'}
                   borderBottom="2px solid"
                   borderColor={cmf("gray.200", "gray.500")}
                >

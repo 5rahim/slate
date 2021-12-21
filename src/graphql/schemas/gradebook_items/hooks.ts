@@ -1,12 +1,24 @@
-import { CreateAssignmentMutationVariables, Gradebook_Items } from '@slate/generated/graphql'
+import { CreateAssignmentMutationVariables, EditAssignmentMutationVariables, Gradebook_Items } from '@slate/generated/graphql'
 import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
-import { CREATE_ASSIGNMENT } from '@slate/graphql/schemas/gradebook_items/mutations'
+import { CREATE_ASSIGNMENT, EDIT_ASSIGNMENT } from '@slate/graphql/schemas/gradebook_items/mutations'
 import { GET_GRADEBOOK_ITEMS } from '@slate/graphql/schemas/gradebook_items/queries'
 
 export const useCreateAssignment: SlateMutationHook<CreateAssignmentMutationVariables> = (options) => {
    
    return useMutationHookCreator(CREATE_ASSIGNMENT, {
+      refetchQueries: [
+         { query: GET_GRADEBOOK_ITEMS },
+         'GetGradebookItems',
+      ],
+      ...options,
+   })
+   
+}
+
+export const useEditAssignment: SlateMutationHook<EditAssignmentMutationVariables> = (options) => {
+   
+   return useMutationHookCreator(EDIT_ASSIGNMENT, {
       refetchQueries: [
          { query: GET_GRADEBOOK_ITEMS },
          'GetGradebookItems',

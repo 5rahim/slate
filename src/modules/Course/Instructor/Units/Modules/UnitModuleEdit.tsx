@@ -42,7 +42,7 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
    const { publishDateValues, publishDateFields } = usePublishDateSetting({
       defaultValue: {
          status: data.status,
-         available_from: data.available_from
+         availableFrom: data.available_from
       }
    })
    
@@ -109,8 +109,6 @@ export const UnitModuleEdit = ({ isOpen, onClose, data }: UnitModuleEditProps) =
                update = true
                break
          }
-         
-         console.log(update_data)
          
          if (update && publishDateFields.isValid()) {
             updateModule(update_data)

@@ -84,34 +84,22 @@ export const SettingSection = (props: SettingSectionProps) => {
                   <DrawerHeader
                      fontSize="2rem"
                      fontWeight="bold"
-                     backgroundImage={Utils.Url.assetImageUrl('topography.png', 'patterns')}
+                     backgroundImage={Utils.Url.assetImageUrl('memphis-mini.png', 'patterns')}
                      backgroundBlendMode={"color-burn"}
-                     bgColor={cmf("transparent", "gray.700")}
+                     bgColor={cmf("primary", "primary")}
+                     color="white"
                      borderBottom="2px solid"
                      borderColor={cmf("gray.200", "gray.500")}
                   >
-                  
+                     {title}
                   </DrawerHeader>
             
                   <DrawerBody>
    
                      <Flex alignItems="center" gridGap={3}>
-      
-                        <Box as={icon} width="40px" fontSize="3rem" alignSelf="flex-start" />
-      
-                        <Box fontSize="md" width="full">
-         
-                           <Flex gridGap={2} alignItems="center" mb="1" mt="1">
-            
-                              <Text fontSize="lg" fontWeight="700">
-                                 {title}
-                              </Text>
-                           </Flex>
-         
-                           <Box width="full">
-                              {settingEdit}
-                           </Box>
-      
+                        
+                        <Box width="full">
+                           {settingEdit}
                         </Box>
    
                      </Flex>

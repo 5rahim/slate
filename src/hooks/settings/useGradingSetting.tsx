@@ -24,7 +24,7 @@ type ScoringType = "percentage" | "points"
  * Fields: scoring_type, max_points
  */
 export const useGradingSetting = (defaultValue?: {
-   scoringType: ScoringType,
+   scoringType: string,
    maxPoints: number
 }) => {
    
@@ -33,7 +33,7 @@ export const useGradingSetting = (defaultValue?: {
    
    
    const [error, setError] = useState<boolean>(false)
-   const [scoringType, setScoringType] = useState<ScoringType>(defaultValue?.scoringType ?? ScoringTypes.Points)
+   const [scoringType, setScoringType] = useState<string>(defaultValue?.scoringType ?? ScoringTypes.Points)
    const [maxPoints, setMaxPoints] = useState<number>(defaultValue?.scoringType === ScoringTypes.Percentage
       ? 100
       : ( defaultValue?.maxPoints ?? 100 ))

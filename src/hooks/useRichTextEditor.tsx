@@ -19,6 +19,8 @@ export const useRichTextEditor = (defaultValue?: Parameter<string>, isRequired =
    return {
       textEditor: {
          
+         setValue: (value: string) => editorRef.current?.setContent(value),
+         
          value: editorRef?.current?.getContent() ?? '',
          
          isValid: () => {
