@@ -86,7 +86,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
             <Flex
                ref={setNodeRef}
                style={style}
-               height="3.5rem"
+               height="4rem"
                alignItems="center"
                overflow="hidden"
                bgColor={cmf('white', 'transparent')}
@@ -98,7 +98,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                <ComponentVisibility.InstructorOnly>
                   <Flex
                      color={cmf("#979797", 'gray.200')}
-                     mr="-.7rem"
+                     // mr="-.7rem"
                      height="100%"
                      width="2rem"
                      justify="center"
@@ -112,7 +112,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                   </Flex>
                </ComponentVisibility.InstructorOnly>
                
-               <Flex px="4" width="100%" justifyContent="space-between" alignItems="center">
+               <Flex width="100%" justifyContent="space-between" alignItems="center">
                   
                   <Link href={linkToUnit(data.id)}>
                      <Flex

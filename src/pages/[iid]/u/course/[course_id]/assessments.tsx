@@ -12,6 +12,7 @@ import { withAuth } from '@slate/middlewares/auth/withAuth'
 import { withCourse } from '@slate/middlewares/dashboard/withCourse'
 import { withDashboard } from '@slate/middlewares/dashboard/withDashboard'
 import { StudentOptions } from '@slate/modules/Course/Instructor/Settings/StudentOptions'
+import { AssessmentList } from '@slate/modules/Course/Shared/Assessments/AssessmentList'
 import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMenu'
 import { Compose } from '@slate/next/compose'
 import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
@@ -79,7 +80,8 @@ const Page = React.memo(() => {
                   </ComponentVisibility.AssistantAndHigher>
                }
             >
-            
+               
+               <AssessmentList />
             
             </ModuleBox>
          

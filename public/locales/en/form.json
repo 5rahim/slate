@@ -44,6 +44,9 @@
   "Scheduled": "Scheduled, not visible to students",
   "Not available": "Not visible to students",
   "Not available until": "Not available until",
+  "Set as a group assignment": "Set as a group assignment",
+  "Enter a name": "Enter a name",
+  "No groups in this course": "No groups were created in this course",
 
   "title must be at least 4 characters": "The title must be at least 4 characters",
   "message is a required field": "The message must not be empty",

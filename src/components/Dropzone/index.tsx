@@ -137,7 +137,7 @@ export function Dropzone({ inputProps, onChange, inlineStyle = true, ...rest }: 
       }
       
       return (
-         <>
+         <Box key={file.name} width="100%">
             {!inlineStyle && <Tooltip label={file.name} aria-label={file.name} key={file.name}>
 
                 <Flex
@@ -209,7 +209,7 @@ export function Dropzone({ inputProps, onChange, inlineStyle = true, ...rest }: 
             </Tooltip>}
          
          
-         </>
+         </Box>
       )
    })
    

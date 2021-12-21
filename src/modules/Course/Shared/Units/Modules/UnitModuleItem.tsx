@@ -252,7 +252,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
                
                <ComponentVisibility.InstructorOnly>
                   <Flex
-                     mr="-.5rem"
+                     // mr="-.5rem"
                      color={cmf("#979797", 'gray.200')}
                      height="100%"
                      alignSelf="center"
@@ -508,7 +508,7 @@ function ModuleContent({ icon, iconColor, children, highlighted, isAvailable, is
    
    return (
       <Box
-         px="3"
+         // px="3"
          py="3"
          width="100%"
          bgColor={highlighted ? cmf('#fff3e6', 'gray.600') : undefined}

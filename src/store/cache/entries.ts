@@ -22,6 +22,10 @@ export const getCacheEntries = (): CacheEntries => {
       enrollments: {
          read: useSelector(CacheSelectors.readEnrollments),
          write: CacheActions.writeEnrollments
+      },
+      gradebookItems: {
+         read: useSelector(CacheSelectors.readGradebookItems),
+         write: CacheActions.writeGradebookItems
       }
    }
    

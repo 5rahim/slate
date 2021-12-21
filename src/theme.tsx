@@ -15,6 +15,7 @@ const theme = extendedTheme({
    styles: {
       global: {
          "html, body": {
+            fontSize: '16px',
             fontFamily: "'Assistant', sans-serif",
             fontStyle: 'normal',
             fontWeight: '600',
@@ -92,11 +93,11 @@ const theme = extendedTheme({
       Dropdown: {
          baseStyle: {
             list: {
-               borderRadius: 0,
+               borderRadius: 'md',
                py: 0,
             },
             item: {
-               fontSize: '1.1rem',
+               fontSize: '1.25rem',
                fontWeight: 600,
                '& > .chalk-dropdown__icon-wrapper': {
                   fontSize: '1.4rem',
@@ -132,6 +133,11 @@ const theme = extendedTheme({
             _hover: {},
          } ),
       },
+      FormLabel: {
+         baseStyle: {
+            fontSize: 'lg'
+         }
+      }
    },
    // fonts,
    // breakpoints,

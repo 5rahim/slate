@@ -8,7 +8,9 @@ import { Button } from 'chalkui/dist/cjs/Components/Button'
 import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { ListItem, Stack, StackDivider } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
-import { Drawer, DrawerBody, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay } from 'chalkui/dist/cjs/Components/Modal/Drawer'
+import {
+   Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, DrawerOverlay,
+} from 'chalkui/dist/cjs/Components/Modal/Drawer'
 import React from 'react'
 
 interface EntityDrawerProps {
@@ -35,9 +37,9 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
          onClose={() => !( isLoading ) && onClose()}
       >
          <DrawerOverlay />
-      
          <form onSubmit={onFormSubmit}>
             <DrawerContent maxWidth="90rem">
+               {!isLoading && <DrawerCloseButton />}
                {/*<IconBox isCircular icon={<BiAddToQueue />} colorScheme="primary" margin="0 auto" mt={3} />*/}
                <DrawerHeader
                   fontSize="2rem"
@@ -51,16 +53,22 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
                   {t(`course:options.${title}`)}
                </DrawerHeader>
                
-               <DrawerBody>
+               <DrawerBody
+                  sx={{
+                     userSelect: isLoading ? 'none' : 'auto',
+                     pointerEvents: isLoading ? 'none' : 'auto',
+                     opacity: isLoading ? '.5' : '1',
+                  }}
+               >
                   
                   <Stack
                      divider={<StackDivider borderColor={cmf("gray.200", "gray.500")} />}
                      spacing={4}
                      direction={["column", "column", "column", "row", "row"]}
                   >
-   
+                     
                      <Box width="100%" minHeight={["100%", "100%", "100%", "calc(100vh - 220px)", "calc(100vh - 220px)"]}>
-   
+                        
                         {entityTitle && <Box fontSize="1.5rem" borderBottom="1px solid" borderColor={cmf("gray.200", "gray.500")} mb="4" pb="2">
                            {entityTitle}
                         </Box>}
@@ -74,7 +82,7 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
                         overflowY="auto"
                         width={["100%", "100%", "100%", "50%", "50%"]}
                      >
-   
+                        
                         <SettingList>
                            <ListItem fontSize="1.5rem">
                               <AlignedFlex>
@@ -82,16 +90,16 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
                                  {t('Settings')}
                               </AlignedFlex>
                            </ListItem>
-      
+                           
                            {settings}
                         </SettingList>
-                        
-                     </Box>
                      
+                     </Box>
+                  
                   </Stack>
-            
+               
                </DrawerBody>
-            
+               
                <DrawerFooter gridGap={5}>
                   <Button
                      colorScheme="primary"
@@ -101,7 +109,7 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, onFormSubmit, childre
                   >
                      {t('Save')}
                   </Button>
-               
+                  
                   <Button isDisabled={isLoading} colorScheme="brand.800" onClick={onClose} width="50%">
                      {t('Cancel')}
                   </Button>

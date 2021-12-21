@@ -22,16 +22,19 @@ import React, { useEffect, useState } from 'react'
 type StudentPickerProps = {
    defaultValue?: number[],
    onSelected?: (value: number[]) => any
+   onSelectedStudentNames?: (value: string) => any
+   selected?: number[]
 } & BoxProps
 
 export const StudentPicker = (props: StudentPickerProps) => {
    
-   const { defaultValue = [], onSelected, ...rest } = props
+   const { defaultValue = [], onSelected, onSelectedStudentNames, ...rest } = props
    const { formatFullName } = useNameFormatter()
    const t = useTypeSafeTranslation()
    const course = useCurrentCourse()
    const cache = useStoreCache()
    const [selected, setSelected] = useState<number[]>(defaultValue)
+   const [selectedStudentNames, setSelectedStudentNames] = useState<string | null>(null)
    const [studentIds, setStudentIds] = useState<number[]>([])
    const [fetchEnrollments, enrollments, isLoading, isEmpty] = useCachedLazyQuery('enrollments', getLazyValidStudentEnrollments(course?.id))
    const [option, setOption] = useState<"everyone" | "some">(selected.length === studentIds.length ? "everyone" : "some")
@@ -39,6 +42,15 @@ export const StudentPicker = (props: StudentPickerProps) => {
    useEffect(() => {
       fetchEnrollments()
    }, [])
+   
+   useEffect(() => {
+      if(onSelectedStudentNames) {
+         onSelectedStudentNames(option === 'everyone' ? t('Everyone') : selected.length > 0 ? selected?.map((id) => {
+            const e = enrollments?.filter((e) => e.student?.id === id)
+            return formatFullName(e[0].student)
+         }).join(', ') : '')
+      }
+   }, [selected, option])
    
    useEffect(() => {
       if (enrollments) {
@@ -103,8 +115,8 @@ export const StudentPicker = (props: StudentPickerProps) => {
                      option === 'everyone' ? t('Everyone') : (
                         <>
                            {selected.length > 0 && selected?.map((id) => {
-                              const e = enrollments.filter((e) => e.student?.id === id)
-                              return formatFullName(e[0].student)
+                              const e = enrollments?.filter((e) => e.student?.id === id)
+                              return e ? formatFullName(e[0].student) : 'N/A'
                            }).join(', ')}
                            {selected.length === 0 && t('Select')}
                         </>
@@ -114,7 +126,7 @@ export const StudentPicker = (props: StudentPickerProps) => {
                <DropdownList minWidth="240px">
                   <DropdownOptionGroup value={option} title={t("To")} type="radio">
                      <DropdownItemOption value="everyone" onClick={handleSelectEveryone}>{t('Everyone')}</DropdownItemOption>
-                     <DropdownItemOption value="some" onClick={handleDeselect}>{t('Some students only')}</DropdownItemOption>
+                     <DropdownItemOption value="some" onClick={handleDeselect}>{t('course:Specific students')}</DropdownItemOption>
                   </DropdownOptionGroup>
                   <DropdownDivider />
                   

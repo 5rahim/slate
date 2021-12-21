@@ -37,7 +37,7 @@ export function UnitAssessments() {
             >
                <Flex>
                   <Box mr="3">
-                     <IconBox size="lg" p="3" colorScheme="brand.700" variant="secondary" as={BiEraser}/>
+                     <IconBox size="lg" p="3" colorScheme="green.500" variant="secondary" as={BiEraser}/>
                   </Box>
                   <Box width="100%">
                      <Text fontSize="2xl" fontWeight="bold">{t('Assignments')}</Text>

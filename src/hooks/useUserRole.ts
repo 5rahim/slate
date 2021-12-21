@@ -16,6 +16,7 @@ export const useUserRole = () => {
    return {
       isReallyInstructor: profile?.role === 'instructor',
       isReallyStudent: profile?.role === 'student',
+      isReallyAssistantOrInstructor: profile?.role === 'instructor' || profile?.role === 'assistant',
       isStudent: studentView ? true : profile?.role === 'student',
       isInstructor: studentView ? false : profile?.role === 'instructor',
       isAssistant: studentView ? false : profile?.role === 'assistant',

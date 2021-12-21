@@ -661,6 +661,410 @@ export type Announcements_Variance_Fields = {
   author_id?: Maybe<Scalars['Float']>;
 };
 
+/** columns and relationships of "assignment_submissions" */
+export type Assignment_Submissions = {
+  __typename?: 'assignment_submissions';
+  /** An object relationship */
+  assignment?: Maybe<Assignments>;
+  assignment_id: Scalars['uuid'];
+  files?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['uuid']>;
+  id: Scalars['uuid'];
+  /** An object relationship */
+  student?: Maybe<Users>;
+  student_id: Scalars['Int'];
+  text?: Maybe<Scalars['String']>;
+};
+
+/** aggregated selection of "assignment_submissions" */
+export type Assignment_Submissions_Aggregate = {
+  __typename?: 'assignment_submissions_aggregate';
+  aggregate?: Maybe<Assignment_Submissions_Aggregate_Fields>;
+  nodes: Array<Assignment_Submissions>;
+};
+
+/** aggregate fields of "assignment_submissions" */
+export type Assignment_Submissions_Aggregate_Fields = {
+  __typename?: 'assignment_submissions_aggregate_fields';
+  avg?: Maybe<Assignment_Submissions_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Assignment_Submissions_Max_Fields>;
+  min?: Maybe<Assignment_Submissions_Min_Fields>;
+  stddev?: Maybe<Assignment_Submissions_Stddev_Fields>;
+  stddev_pop?: Maybe<Assignment_Submissions_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Assignment_Submissions_Stddev_Samp_Fields>;
+  sum?: Maybe<Assignment_Submissions_Sum_Fields>;
+  var_pop?: Maybe<Assignment_Submissions_Var_Pop_Fields>;
+  var_samp?: Maybe<Assignment_Submissions_Var_Samp_Fields>;
+  variance?: Maybe<Assignment_Submissions_Variance_Fields>;
+};
+
+
+/** aggregate fields of "assignment_submissions" */
+export type Assignment_Submissions_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Assignment_Submissions_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Assignment_Submissions_Avg_Fields = {
+  __typename?: 'assignment_submissions_avg_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "assignment_submissions". All fields are combined with a logical 'AND'. */
+export type Assignment_Submissions_Bool_Exp = {
+  _and?: Maybe<Array<Assignment_Submissions_Bool_Exp>>;
+  _not?: Maybe<Assignment_Submissions_Bool_Exp>;
+  _or?: Maybe<Array<Assignment_Submissions_Bool_Exp>>;
+  assignment?: Maybe<Assignments_Bool_Exp>;
+  assignment_id?: Maybe<Uuid_Comparison_Exp>;
+  files?: Maybe<String_Comparison_Exp>;
+  group_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  student?: Maybe<Users_Bool_Exp>;
+  student_id?: Maybe<Int_Comparison_Exp>;
+  text?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "assignment_submissions" */
+export enum Assignment_Submissions_Constraint {
+  /** unique or primary key constraint */
+  AssignmentSubmissionsPkey = 'assignment_submissions_pkey'
+}
+
+/** input type for incrementing numeric columns in table "assignment_submissions" */
+export type Assignment_Submissions_Inc_Input = {
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "assignment_submissions" */
+export type Assignment_Submissions_Insert_Input = {
+  assignment?: Maybe<Assignments_Obj_Rel_Insert_Input>;
+  assignment_id?: Maybe<Scalars['uuid']>;
+  files?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student?: Maybe<Users_Obj_Rel_Insert_Input>;
+  student_id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Assignment_Submissions_Max_Fields = {
+  __typename?: 'assignment_submissions_max_fields';
+  assignment_id?: Maybe<Scalars['uuid']>;
+  files?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student_id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Assignment_Submissions_Min_Fields = {
+  __typename?: 'assignment_submissions_min_fields';
+  assignment_id?: Maybe<Scalars['uuid']>;
+  files?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student_id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "assignment_submissions" */
+export type Assignment_Submissions_Mutation_Response = {
+  __typename?: 'assignment_submissions_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Assignment_Submissions>;
+};
+
+/** input type for inserting object relation for remote table "assignment_submissions" */
+export type Assignment_Submissions_Obj_Rel_Insert_Input = {
+  data: Assignment_Submissions_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Assignment_Submissions_On_Conflict>;
+};
+
+/** on conflict condition type for table "assignment_submissions" */
+export type Assignment_Submissions_On_Conflict = {
+  constraint: Assignment_Submissions_Constraint;
+  update_columns?: Array<Assignment_Submissions_Update_Column>;
+  where?: Maybe<Assignment_Submissions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "assignment_submissions". */
+export type Assignment_Submissions_Order_By = {
+  assignment?: Maybe<Assignments_Order_By>;
+  assignment_id?: Maybe<Order_By>;
+  files?: Maybe<Order_By>;
+  group_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  student?: Maybe<Users_Order_By>;
+  student_id?: Maybe<Order_By>;
+  text?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: assignment_submissions */
+export type Assignment_Submissions_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "assignment_submissions" */
+export enum Assignment_Submissions_Select_Column {
+  /** column name */
+  AssignmentId = 'assignment_id',
+  /** column name */
+  Files = 'files',
+  /** column name */
+  GroupId = 'group_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StudentId = 'student_id',
+  /** column name */
+  Text = 'text'
+}
+
+/** input type for updating data in table "assignment_submissions" */
+export type Assignment_Submissions_Set_Input = {
+  assignment_id?: Maybe<Scalars['uuid']>;
+  files?: Maybe<Scalars['String']>;
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student_id?: Maybe<Scalars['Int']>;
+  text?: Maybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Assignment_Submissions_Stddev_Fields = {
+  __typename?: 'assignment_submissions_stddev_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Assignment_Submissions_Stddev_Pop_Fields = {
+  __typename?: 'assignment_submissions_stddev_pop_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Assignment_Submissions_Stddev_Samp_Fields = {
+  __typename?: 'assignment_submissions_stddev_samp_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Assignment_Submissions_Sum_Fields = {
+  __typename?: 'assignment_submissions_sum_fields';
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "assignment_submissions" */
+export enum Assignment_Submissions_Update_Column {
+  /** column name */
+  AssignmentId = 'assignment_id',
+  /** column name */
+  Files = 'files',
+  /** column name */
+  GroupId = 'group_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StudentId = 'student_id',
+  /** column name */
+  Text = 'text'
+}
+
+/** aggregate var_pop on columns */
+export type Assignment_Submissions_Var_Pop_Fields = {
+  __typename?: 'assignment_submissions_var_pop_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Assignment_Submissions_Var_Samp_Fields = {
+  __typename?: 'assignment_submissions_var_samp_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Assignment_Submissions_Variance_Fields = {
+  __typename?: 'assignment_submissions_variance_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "assignments" */
+export type Assignments = {
+  __typename?: 'assignments';
+  description: Scalars['String'];
+  files?: Maybe<Scalars['String']>;
+  /** An object relationship */
+  gradebook_item?: Maybe<Gradebook_Items>;
+  gradebook_item_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  name: Scalars['String'];
+  type: Scalars['String'];
+};
+
+/** aggregated selection of "assignments" */
+export type Assignments_Aggregate = {
+  __typename?: 'assignments_aggregate';
+  aggregate?: Maybe<Assignments_Aggregate_Fields>;
+  nodes: Array<Assignments>;
+};
+
+/** aggregate fields of "assignments" */
+export type Assignments_Aggregate_Fields = {
+  __typename?: 'assignments_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Assignments_Max_Fields>;
+  min?: Maybe<Assignments_Min_Fields>;
+};
+
+
+/** aggregate fields of "assignments" */
+export type Assignments_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Assignments_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "assignments". All fields are combined with a logical 'AND'. */
+export type Assignments_Bool_Exp = {
+  _and?: Maybe<Array<Assignments_Bool_Exp>>;
+  _not?: Maybe<Assignments_Bool_Exp>;
+  _or?: Maybe<Array<Assignments_Bool_Exp>>;
+  description?: Maybe<String_Comparison_Exp>;
+  files?: Maybe<String_Comparison_Exp>;
+  gradebook_item?: Maybe<Gradebook_Items_Bool_Exp>;
+  gradebook_item_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  name?: Maybe<String_Comparison_Exp>;
+  type?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "assignments" */
+export enum Assignments_Constraint {
+  /** unique or primary key constraint */
+  AssignmentsPkey = 'assignments_pkey'
+}
+
+/** input type for inserting data into table "assignments" */
+export type Assignments_Insert_Input = {
+  description?: Maybe<Scalars['String']>;
+  files?: Maybe<Scalars['String']>;
+  gradebook_item?: Maybe<Gradebook_Items_Obj_Rel_Insert_Input>;
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Assignments_Max_Fields = {
+  __typename?: 'assignments_max_fields';
+  description?: Maybe<Scalars['String']>;
+  files?: Maybe<Scalars['String']>;
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Assignments_Min_Fields = {
+  __typename?: 'assignments_min_fields';
+  description?: Maybe<Scalars['String']>;
+  files?: Maybe<Scalars['String']>;
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "assignments" */
+export type Assignments_Mutation_Response = {
+  __typename?: 'assignments_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Assignments>;
+};
+
+/** input type for inserting object relation for remote table "assignments" */
+export type Assignments_Obj_Rel_Insert_Input = {
+  data: Assignments_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Assignments_On_Conflict>;
+};
+
+/** on conflict condition type for table "assignments" */
+export type Assignments_On_Conflict = {
+  constraint: Assignments_Constraint;
+  update_columns?: Array<Assignments_Update_Column>;
+  where?: Maybe<Assignments_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "assignments". */
+export type Assignments_Order_By = {
+  description?: Maybe<Order_By>;
+  files?: Maybe<Order_By>;
+  gradebook_item?: Maybe<Gradebook_Items_Order_By>;
+  gradebook_item_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+  type?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: assignments */
+export type Assignments_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "assignments" */
+export enum Assignments_Select_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Files = 'files',
+  /** column name */
+  GradebookItemId = 'gradebook_item_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Type = 'type'
+}
+
+/** input type for updating data in table "assignments" */
+export type Assignments_Set_Input = {
+  description?: Maybe<Scalars['String']>;
+  files?: Maybe<Scalars['String']>;
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "assignments" */
+export enum Assignments_Update_Column {
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Files = 'files',
+  /** column name */
+  GradebookItemId = 'gradebook_item_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name',
+  /** column name */
+  Type = 'type'
+}
+
 /** columns and relationships of "contacts" */
 export type Contacts = {
   __typename?: 'contacts';
@@ -1991,6 +2395,1334 @@ export type Date_Comparison_Exp = {
   _nin?: Maybe<Array<Scalars['date']>>;
 };
 
+/** columns and relationships of "grade_items" */
+export type Grade_Items = {
+  __typename?: 'grade_items';
+  /** An object relationship */
+  gradebook_item?: Maybe<Gradebook_Items>;
+  gradebook_item_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  points: Scalars['Int'];
+  status: Scalars['String'];
+  student_id: Scalars['Int'];
+};
+
+/** aggregated selection of "grade_items" */
+export type Grade_Items_Aggregate = {
+  __typename?: 'grade_items_aggregate';
+  aggregate?: Maybe<Grade_Items_Aggregate_Fields>;
+  nodes: Array<Grade_Items>;
+};
+
+/** aggregate fields of "grade_items" */
+export type Grade_Items_Aggregate_Fields = {
+  __typename?: 'grade_items_aggregate_fields';
+  avg?: Maybe<Grade_Items_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Grade_Items_Max_Fields>;
+  min?: Maybe<Grade_Items_Min_Fields>;
+  stddev?: Maybe<Grade_Items_Stddev_Fields>;
+  stddev_pop?: Maybe<Grade_Items_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Grade_Items_Stddev_Samp_Fields>;
+  sum?: Maybe<Grade_Items_Sum_Fields>;
+  var_pop?: Maybe<Grade_Items_Var_Pop_Fields>;
+  var_samp?: Maybe<Grade_Items_Var_Samp_Fields>;
+  variance?: Maybe<Grade_Items_Variance_Fields>;
+};
+
+
+/** aggregate fields of "grade_items" */
+export type Grade_Items_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Grade_Items_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Grade_Items_Avg_Fields = {
+  __typename?: 'grade_items_avg_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "grade_items". All fields are combined with a logical 'AND'. */
+export type Grade_Items_Bool_Exp = {
+  _and?: Maybe<Array<Grade_Items_Bool_Exp>>;
+  _not?: Maybe<Grade_Items_Bool_Exp>;
+  _or?: Maybe<Array<Grade_Items_Bool_Exp>>;
+  gradebook_item?: Maybe<Gradebook_Items_Bool_Exp>;
+  gradebook_item_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  points?: Maybe<Int_Comparison_Exp>;
+  status?: Maybe<String_Comparison_Exp>;
+  student_id?: Maybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "grade_items" */
+export enum Grade_Items_Constraint {
+  /** unique or primary key constraint */
+  GradeItemsPkey = 'grade_items_pkey'
+}
+
+/** input type for incrementing numeric columns in table "grade_items" */
+export type Grade_Items_Inc_Input = {
+  points?: Maybe<Scalars['Int']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "grade_items" */
+export type Grade_Items_Insert_Input = {
+  gradebook_item?: Maybe<Gradebook_Items_Obj_Rel_Insert_Input>;
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  points?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['String']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Grade_Items_Max_Fields = {
+  __typename?: 'grade_items_max_fields';
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  points?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['String']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate min on columns */
+export type Grade_Items_Min_Fields = {
+  __typename?: 'grade_items_min_fields';
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  points?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['String']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "grade_items" */
+export type Grade_Items_Mutation_Response = {
+  __typename?: 'grade_items_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Grade_Items>;
+};
+
+/** on conflict condition type for table "grade_items" */
+export type Grade_Items_On_Conflict = {
+  constraint: Grade_Items_Constraint;
+  update_columns?: Array<Grade_Items_Update_Column>;
+  where?: Maybe<Grade_Items_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "grade_items". */
+export type Grade_Items_Order_By = {
+  gradebook_item?: Maybe<Gradebook_Items_Order_By>;
+  gradebook_item_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  points?: Maybe<Order_By>;
+  status?: Maybe<Order_By>;
+  student_id?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: grade_items */
+export type Grade_Items_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "grade_items" */
+export enum Grade_Items_Select_Column {
+  /** column name */
+  GradebookItemId = 'gradebook_item_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Points = 'points',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  StudentId = 'student_id'
+}
+
+/** input type for updating data in table "grade_items" */
+export type Grade_Items_Set_Input = {
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  points?: Maybe<Scalars['Int']>;
+  status?: Maybe<Scalars['String']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Grade_Items_Stddev_Fields = {
+  __typename?: 'grade_items_stddev_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Grade_Items_Stddev_Pop_Fields = {
+  __typename?: 'grade_items_stddev_pop_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Grade_Items_Stddev_Samp_Fields = {
+  __typename?: 'grade_items_stddev_samp_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Grade_Items_Sum_Fields = {
+  __typename?: 'grade_items_sum_fields';
+  points?: Maybe<Scalars['Int']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "grade_items" */
+export enum Grade_Items_Update_Column {
+  /** column name */
+  GradebookItemId = 'gradebook_item_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Points = 'points',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  StudentId = 'student_id'
+}
+
+/** aggregate var_pop on columns */
+export type Grade_Items_Var_Pop_Fields = {
+  __typename?: 'grade_items_var_pop_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Grade_Items_Var_Samp_Fields = {
+  __typename?: 'grade_items_var_samp_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Grade_Items_Variance_Fields = {
+  __typename?: 'grade_items_variance_fields';
+  points?: Maybe<Scalars['Float']>;
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions = {
+  __typename?: 'gradebook_item_submissions';
+  /** An object relationship */
+  assignment_submission?: Maybe<Assignment_Submissions>;
+  /** An object relationship */
+  gradebook_item?: Maybe<Gradebook_Items>;
+  gradebook_item_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  submission_id: Scalars['uuid'];
+};
+
+/** aggregated selection of "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Aggregate = {
+  __typename?: 'gradebook_item_submissions_aggregate';
+  aggregate?: Maybe<Gradebook_Item_Submissions_Aggregate_Fields>;
+  nodes: Array<Gradebook_Item_Submissions>;
+};
+
+/** aggregate fields of "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Aggregate_Fields = {
+  __typename?: 'gradebook_item_submissions_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Gradebook_Item_Submissions_Max_Fields>;
+  min?: Maybe<Gradebook_Item_Submissions_Min_Fields>;
+};
+
+
+/** aggregate fields of "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Aggregate_Order_By = {
+  count?: Maybe<Order_By>;
+  max?: Maybe<Gradebook_Item_Submissions_Max_Order_By>;
+  min?: Maybe<Gradebook_Item_Submissions_Min_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Arr_Rel_Insert_Input = {
+  data: Array<Gradebook_Item_Submissions_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: Maybe<Gradebook_Item_Submissions_On_Conflict>;
+};
+
+/** Boolean expression to filter rows from the table "gradebook_item_submissions". All fields are combined with a logical 'AND'. */
+export type Gradebook_Item_Submissions_Bool_Exp = {
+  _and?: Maybe<Array<Gradebook_Item_Submissions_Bool_Exp>>;
+  _not?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+  _or?: Maybe<Array<Gradebook_Item_Submissions_Bool_Exp>>;
+  assignment_submission?: Maybe<Assignment_Submissions_Bool_Exp>;
+  gradebook_item?: Maybe<Gradebook_Items_Bool_Exp>;
+  gradebook_item_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  submission_id?: Maybe<Uuid_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "gradebook_item_submissions" */
+export enum Gradebook_Item_Submissions_Constraint {
+  /** unique or primary key constraint */
+  GradebookItemSubmissionsPkey = 'gradebook_item_submissions_pkey'
+}
+
+/** input type for inserting data into table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Insert_Input = {
+  assignment_submission?: Maybe<Assignment_Submissions_Obj_Rel_Insert_Input>;
+  gradebook_item?: Maybe<Gradebook_Items_Obj_Rel_Insert_Input>;
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  submission_id?: Maybe<Scalars['uuid']>;
+};
+
+/** aggregate max on columns */
+export type Gradebook_Item_Submissions_Max_Fields = {
+  __typename?: 'gradebook_item_submissions_max_fields';
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  submission_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by max() on columns of table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Max_Order_By = {
+  gradebook_item_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  submission_id?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Gradebook_Item_Submissions_Min_Fields = {
+  __typename?: 'gradebook_item_submissions_min_fields';
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  submission_id?: Maybe<Scalars['uuid']>;
+};
+
+/** order by min() on columns of table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Min_Order_By = {
+  gradebook_item_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  submission_id?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Mutation_Response = {
+  __typename?: 'gradebook_item_submissions_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Gradebook_Item_Submissions>;
+};
+
+/** on conflict condition type for table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_On_Conflict = {
+  constraint: Gradebook_Item_Submissions_Constraint;
+  update_columns?: Array<Gradebook_Item_Submissions_Update_Column>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "gradebook_item_submissions". */
+export type Gradebook_Item_Submissions_Order_By = {
+  assignment_submission?: Maybe<Assignment_Submissions_Order_By>;
+  gradebook_item?: Maybe<Gradebook_Items_Order_By>;
+  gradebook_item_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  submission_id?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: gradebook_item_submissions */
+export type Gradebook_Item_Submissions_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "gradebook_item_submissions" */
+export enum Gradebook_Item_Submissions_Select_Column {
+  /** column name */
+  GradebookItemId = 'gradebook_item_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  SubmissionId = 'submission_id'
+}
+
+/** input type for updating data in table "gradebook_item_submissions" */
+export type Gradebook_Item_Submissions_Set_Input = {
+  gradebook_item_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  submission_id?: Maybe<Scalars['uuid']>;
+};
+
+/** update columns of table "gradebook_item_submissions" */
+export enum Gradebook_Item_Submissions_Update_Column {
+  /** column name */
+  GradebookItemId = 'gradebook_item_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  SubmissionId = 'submission_id'
+}
+
+/** columns and relationships of "gradebook_items" */
+export type Gradebook_Items = {
+  __typename?: 'gradebook_items';
+  accommodations?: Maybe<Scalars['String']>;
+  assessment_id: Scalars['uuid'];
+  assessment_type: Scalars['String'];
+  /** An object relationship */
+  assignment?: Maybe<Assignments>;
+  attempts_allowed: Scalars['Int'];
+  attempts_grading: Scalars['String'];
+  available_from?: Maybe<Scalars['timestamp']>;
+  available_until?: Maybe<Scalars['timestamp']>;
+  /** An object relationship */
+  course?: Maybe<Courses>;
+  course_id: Scalars['uuid'];
+  /** An object relationship */
+  grading_rubric?: Maybe<Grading_Rubric>;
+  grading_rubric_id?: Maybe<Scalars['uuid']>;
+  id: Scalars['uuid'];
+  max_points?: Maybe<Scalars['Int']>;
+  scoring_type: Scalars['String'];
+  status: Scalars['String'];
+  submission_type: Scalars['String'];
+  /** An array relationship */
+  submissions: Array<Gradebook_Item_Submissions>;
+  /** An aggregate relationship */
+  submissions_aggregate: Gradebook_Item_Submissions_Aggregate;
+};
+
+
+/** columns and relationships of "gradebook_items" */
+export type Gradebook_ItemsSubmissionsArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Item_Submissions_Order_By>>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+
+/** columns and relationships of "gradebook_items" */
+export type Gradebook_ItemsSubmissions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Item_Submissions_Order_By>>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+/** aggregated selection of "gradebook_items" */
+export type Gradebook_Items_Aggregate = {
+  __typename?: 'gradebook_items_aggregate';
+  aggregate?: Maybe<Gradebook_Items_Aggregate_Fields>;
+  nodes: Array<Gradebook_Items>;
+};
+
+/** aggregate fields of "gradebook_items" */
+export type Gradebook_Items_Aggregate_Fields = {
+  __typename?: 'gradebook_items_aggregate_fields';
+  avg?: Maybe<Gradebook_Items_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Gradebook_Items_Max_Fields>;
+  min?: Maybe<Gradebook_Items_Min_Fields>;
+  stddev?: Maybe<Gradebook_Items_Stddev_Fields>;
+  stddev_pop?: Maybe<Gradebook_Items_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Gradebook_Items_Stddev_Samp_Fields>;
+  sum?: Maybe<Gradebook_Items_Sum_Fields>;
+  var_pop?: Maybe<Gradebook_Items_Var_Pop_Fields>;
+  var_samp?: Maybe<Gradebook_Items_Var_Samp_Fields>;
+  variance?: Maybe<Gradebook_Items_Variance_Fields>;
+};
+
+
+/** aggregate fields of "gradebook_items" */
+export type Gradebook_Items_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Gradebook_Items_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** aggregate avg on columns */
+export type Gradebook_Items_Avg_Fields = {
+  __typename?: 'gradebook_items_avg_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to filter rows from the table "gradebook_items". All fields are combined with a logical 'AND'. */
+export type Gradebook_Items_Bool_Exp = {
+  _and?: Maybe<Array<Gradebook_Items_Bool_Exp>>;
+  _not?: Maybe<Gradebook_Items_Bool_Exp>;
+  _or?: Maybe<Array<Gradebook_Items_Bool_Exp>>;
+  accommodations?: Maybe<String_Comparison_Exp>;
+  assessment_id?: Maybe<Uuid_Comparison_Exp>;
+  assessment_type?: Maybe<String_Comparison_Exp>;
+  assignment?: Maybe<Assignments_Bool_Exp>;
+  attempts_allowed?: Maybe<Int_Comparison_Exp>;
+  attempts_grading?: Maybe<String_Comparison_Exp>;
+  available_from?: Maybe<Timestamp_Comparison_Exp>;
+  available_until?: Maybe<Timestamp_Comparison_Exp>;
+  course?: Maybe<Courses_Bool_Exp>;
+  course_id?: Maybe<Uuid_Comparison_Exp>;
+  grading_rubric?: Maybe<Grading_Rubric_Bool_Exp>;
+  grading_rubric_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  max_points?: Maybe<Int_Comparison_Exp>;
+  scoring_type?: Maybe<String_Comparison_Exp>;
+  status?: Maybe<String_Comparison_Exp>;
+  submission_type?: Maybe<String_Comparison_Exp>;
+  submissions?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "gradebook_items" */
+export enum Gradebook_Items_Constraint {
+  /** unique or primary key constraint */
+  GradebookItemPkey = 'gradebook_item_pkey'
+}
+
+/** input type for incrementing numeric columns in table "gradebook_items" */
+export type Gradebook_Items_Inc_Input = {
+  attempts_allowed?: Maybe<Scalars['Int']>;
+  max_points?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "gradebook_items" */
+export type Gradebook_Items_Insert_Input = {
+  accommodations?: Maybe<Scalars['String']>;
+  assessment_id?: Maybe<Scalars['uuid']>;
+  assessment_type?: Maybe<Scalars['String']>;
+  assignment?: Maybe<Assignments_Obj_Rel_Insert_Input>;
+  attempts_allowed?: Maybe<Scalars['Int']>;
+  attempts_grading?: Maybe<Scalars['String']>;
+  available_from?: Maybe<Scalars['timestamp']>;
+  available_until?: Maybe<Scalars['timestamp']>;
+  course?: Maybe<Courses_Obj_Rel_Insert_Input>;
+  course_id?: Maybe<Scalars['uuid']>;
+  grading_rubric?: Maybe<Grading_Rubric_Obj_Rel_Insert_Input>;
+  grading_rubric_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  max_points?: Maybe<Scalars['Int']>;
+  scoring_type?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  submission_type?: Maybe<Scalars['String']>;
+  submissions?: Maybe<Gradebook_Item_Submissions_Arr_Rel_Insert_Input>;
+};
+
+/** aggregate max on columns */
+export type Gradebook_Items_Max_Fields = {
+  __typename?: 'gradebook_items_max_fields';
+  accommodations?: Maybe<Scalars['String']>;
+  assessment_id?: Maybe<Scalars['uuid']>;
+  assessment_type?: Maybe<Scalars['String']>;
+  attempts_allowed?: Maybe<Scalars['Int']>;
+  attempts_grading?: Maybe<Scalars['String']>;
+  available_from?: Maybe<Scalars['timestamp']>;
+  available_until?: Maybe<Scalars['timestamp']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  grading_rubric_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  max_points?: Maybe<Scalars['Int']>;
+  scoring_type?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  submission_type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Gradebook_Items_Min_Fields = {
+  __typename?: 'gradebook_items_min_fields';
+  accommodations?: Maybe<Scalars['String']>;
+  assessment_id?: Maybe<Scalars['uuid']>;
+  assessment_type?: Maybe<Scalars['String']>;
+  attempts_allowed?: Maybe<Scalars['Int']>;
+  attempts_grading?: Maybe<Scalars['String']>;
+  available_from?: Maybe<Scalars['timestamp']>;
+  available_until?: Maybe<Scalars['timestamp']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  grading_rubric_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  max_points?: Maybe<Scalars['Int']>;
+  scoring_type?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  submission_type?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "gradebook_items" */
+export type Gradebook_Items_Mutation_Response = {
+  __typename?: 'gradebook_items_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Gradebook_Items>;
+};
+
+/** input type for inserting object relation for remote table "gradebook_items" */
+export type Gradebook_Items_Obj_Rel_Insert_Input = {
+  data: Gradebook_Items_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Gradebook_Items_On_Conflict>;
+};
+
+/** on conflict condition type for table "gradebook_items" */
+export type Gradebook_Items_On_Conflict = {
+  constraint: Gradebook_Items_Constraint;
+  update_columns?: Array<Gradebook_Items_Update_Column>;
+  where?: Maybe<Gradebook_Items_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "gradebook_items". */
+export type Gradebook_Items_Order_By = {
+  accommodations?: Maybe<Order_By>;
+  assessment_id?: Maybe<Order_By>;
+  assessment_type?: Maybe<Order_By>;
+  assignment?: Maybe<Assignments_Order_By>;
+  attempts_allowed?: Maybe<Order_By>;
+  attempts_grading?: Maybe<Order_By>;
+  available_from?: Maybe<Order_By>;
+  available_until?: Maybe<Order_By>;
+  course?: Maybe<Courses_Order_By>;
+  course_id?: Maybe<Order_By>;
+  grading_rubric?: Maybe<Grading_Rubric_Order_By>;
+  grading_rubric_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  max_points?: Maybe<Order_By>;
+  scoring_type?: Maybe<Order_By>;
+  status?: Maybe<Order_By>;
+  submission_type?: Maybe<Order_By>;
+  submissions_aggregate?: Maybe<Gradebook_Item_Submissions_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: gradebook_items */
+export type Gradebook_Items_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "gradebook_items" */
+export enum Gradebook_Items_Select_Column {
+  /** column name */
+  Accommodations = 'accommodations',
+  /** column name */
+  AssessmentId = 'assessment_id',
+  /** column name */
+  AssessmentType = 'assessment_type',
+  /** column name */
+  AttemptsAllowed = 'attempts_allowed',
+  /** column name */
+  AttemptsGrading = 'attempts_grading',
+  /** column name */
+  AvailableFrom = 'available_from',
+  /** column name */
+  AvailableUntil = 'available_until',
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  GradingRubricId = 'grading_rubric_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MaxPoints = 'max_points',
+  /** column name */
+  ScoringType = 'scoring_type',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  SubmissionType = 'submission_type'
+}
+
+/** input type for updating data in table "gradebook_items" */
+export type Gradebook_Items_Set_Input = {
+  accommodations?: Maybe<Scalars['String']>;
+  assessment_id?: Maybe<Scalars['uuid']>;
+  assessment_type?: Maybe<Scalars['String']>;
+  attempts_allowed?: Maybe<Scalars['Int']>;
+  attempts_grading?: Maybe<Scalars['String']>;
+  available_from?: Maybe<Scalars['timestamp']>;
+  available_until?: Maybe<Scalars['timestamp']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  grading_rubric_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  max_points?: Maybe<Scalars['Int']>;
+  scoring_type?: Maybe<Scalars['String']>;
+  status?: Maybe<Scalars['String']>;
+  submission_type?: Maybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Gradebook_Items_Stddev_Fields = {
+  __typename?: 'gradebook_items_stddev_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Gradebook_Items_Stddev_Pop_Fields = {
+  __typename?: 'gradebook_items_stddev_pop_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Gradebook_Items_Stddev_Samp_Fields = {
+  __typename?: 'gradebook_items_stddev_samp_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate sum on columns */
+export type Gradebook_Items_Sum_Fields = {
+  __typename?: 'gradebook_items_sum_fields';
+  attempts_allowed?: Maybe<Scalars['Int']>;
+  max_points?: Maybe<Scalars['Int']>;
+};
+
+/** update columns of table "gradebook_items" */
+export enum Gradebook_Items_Update_Column {
+  /** column name */
+  Accommodations = 'accommodations',
+  /** column name */
+  AssessmentId = 'assessment_id',
+  /** column name */
+  AssessmentType = 'assessment_type',
+  /** column name */
+  AttemptsAllowed = 'attempts_allowed',
+  /** column name */
+  AttemptsGrading = 'attempts_grading',
+  /** column name */
+  AvailableFrom = 'available_from',
+  /** column name */
+  AvailableUntil = 'available_until',
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  GradingRubricId = 'grading_rubric_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MaxPoints = 'max_points',
+  /** column name */
+  ScoringType = 'scoring_type',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  SubmissionType = 'submission_type'
+}
+
+/** aggregate var_pop on columns */
+export type Gradebook_Items_Var_Pop_Fields = {
+  __typename?: 'gradebook_items_var_pop_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate var_samp on columns */
+export type Gradebook_Items_Var_Samp_Fields = {
+  __typename?: 'gradebook_items_var_samp_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** aggregate variance on columns */
+export type Gradebook_Items_Variance_Fields = {
+  __typename?: 'gradebook_items_variance_fields';
+  attempts_allowed?: Maybe<Scalars['Float']>;
+  max_points?: Maybe<Scalars['Float']>;
+};
+
+/** columns and relationships of "grading_rubric" */
+export type Grading_Rubric = {
+  __typename?: 'grading_rubric';
+  content: Scalars['String'];
+  /** An object relationship */
+  course?: Maybe<Courses>;
+  course_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  name: Scalars['String'];
+};
+
+/** aggregated selection of "grading_rubric" */
+export type Grading_Rubric_Aggregate = {
+  __typename?: 'grading_rubric_aggregate';
+  aggregate?: Maybe<Grading_Rubric_Aggregate_Fields>;
+  nodes: Array<Grading_Rubric>;
+};
+
+/** aggregate fields of "grading_rubric" */
+export type Grading_Rubric_Aggregate_Fields = {
+  __typename?: 'grading_rubric_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Grading_Rubric_Max_Fields>;
+  min?: Maybe<Grading_Rubric_Min_Fields>;
+};
+
+
+/** aggregate fields of "grading_rubric" */
+export type Grading_Rubric_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Grading_Rubric_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "grading_rubric". All fields are combined with a logical 'AND'. */
+export type Grading_Rubric_Bool_Exp = {
+  _and?: Maybe<Array<Grading_Rubric_Bool_Exp>>;
+  _not?: Maybe<Grading_Rubric_Bool_Exp>;
+  _or?: Maybe<Array<Grading_Rubric_Bool_Exp>>;
+  content?: Maybe<String_Comparison_Exp>;
+  course?: Maybe<Courses_Bool_Exp>;
+  course_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  name?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "grading_rubric" */
+export enum Grading_Rubric_Constraint {
+  /** unique or primary key constraint */
+  GradingRubricPkey = 'grading_rubric_pkey'
+}
+
+/** input type for inserting data into table "grading_rubric" */
+export type Grading_Rubric_Insert_Input = {
+  content?: Maybe<Scalars['String']>;
+  course?: Maybe<Courses_Obj_Rel_Insert_Input>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Grading_Rubric_Max_Fields = {
+  __typename?: 'grading_rubric_max_fields';
+  content?: Maybe<Scalars['String']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Grading_Rubric_Min_Fields = {
+  __typename?: 'grading_rubric_min_fields';
+  content?: Maybe<Scalars['String']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "grading_rubric" */
+export type Grading_Rubric_Mutation_Response = {
+  __typename?: 'grading_rubric_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Grading_Rubric>;
+};
+
+/** input type for inserting object relation for remote table "grading_rubric" */
+export type Grading_Rubric_Obj_Rel_Insert_Input = {
+  data: Grading_Rubric_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Grading_Rubric_On_Conflict>;
+};
+
+/** on conflict condition type for table "grading_rubric" */
+export type Grading_Rubric_On_Conflict = {
+  constraint: Grading_Rubric_Constraint;
+  update_columns?: Array<Grading_Rubric_Update_Column>;
+  where?: Maybe<Grading_Rubric_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "grading_rubric". */
+export type Grading_Rubric_Order_By = {
+  content?: Maybe<Order_By>;
+  course?: Maybe<Courses_Order_By>;
+  course_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  name?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: grading_rubric */
+export type Grading_Rubric_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "grading_rubric" */
+export enum Grading_Rubric_Select_Column {
+  /** column name */
+  Content = 'content',
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "grading_rubric" */
+export type Grading_Rubric_Set_Input = {
+  content?: Maybe<Scalars['String']>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "grading_rubric" */
+export enum Grading_Rubric_Update_Column {
+  /** column name */
+  Content = 'content',
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** columns and relationships of "group_membership" */
+export type Group_Membership = {
+  __typename?: 'group_membership';
+  /** An object relationship */
+  group?: Maybe<Groups>;
+  group_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  /** An object relationship */
+  student?: Maybe<Users>;
+  student_id: Scalars['Int'];
+};
+
+/** aggregated selection of "group_membership" */
+export type Group_Membership_Aggregate = {
+  __typename?: 'group_membership_aggregate';
+  aggregate?: Maybe<Group_Membership_Aggregate_Fields>;
+  nodes: Array<Group_Membership>;
+};
+
+/** aggregate fields of "group_membership" */
+export type Group_Membership_Aggregate_Fields = {
+  __typename?: 'group_membership_aggregate_fields';
+  avg?: Maybe<Group_Membership_Avg_Fields>;
+  count: Scalars['Int'];
+  max?: Maybe<Group_Membership_Max_Fields>;
+  min?: Maybe<Group_Membership_Min_Fields>;
+  stddev?: Maybe<Group_Membership_Stddev_Fields>;
+  stddev_pop?: Maybe<Group_Membership_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Group_Membership_Stddev_Samp_Fields>;
+  sum?: Maybe<Group_Membership_Sum_Fields>;
+  var_pop?: Maybe<Group_Membership_Var_Pop_Fields>;
+  var_samp?: Maybe<Group_Membership_Var_Samp_Fields>;
+  variance?: Maybe<Group_Membership_Variance_Fields>;
+};
+
+
+/** aggregate fields of "group_membership" */
+export type Group_Membership_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Group_Membership_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** order by aggregate values of table "group_membership" */
+export type Group_Membership_Aggregate_Order_By = {
+  avg?: Maybe<Group_Membership_Avg_Order_By>;
+  count?: Maybe<Order_By>;
+  max?: Maybe<Group_Membership_Max_Order_By>;
+  min?: Maybe<Group_Membership_Min_Order_By>;
+  stddev?: Maybe<Group_Membership_Stddev_Order_By>;
+  stddev_pop?: Maybe<Group_Membership_Stddev_Pop_Order_By>;
+  stddev_samp?: Maybe<Group_Membership_Stddev_Samp_Order_By>;
+  sum?: Maybe<Group_Membership_Sum_Order_By>;
+  var_pop?: Maybe<Group_Membership_Var_Pop_Order_By>;
+  var_samp?: Maybe<Group_Membership_Var_Samp_Order_By>;
+  variance?: Maybe<Group_Membership_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "group_membership" */
+export type Group_Membership_Arr_Rel_Insert_Input = {
+  data: Array<Group_Membership_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: Maybe<Group_Membership_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Group_Membership_Avg_Fields = {
+  __typename?: 'group_membership_avg_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "group_membership" */
+export type Group_Membership_Avg_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** Boolean expression to filter rows from the table "group_membership". All fields are combined with a logical 'AND'. */
+export type Group_Membership_Bool_Exp = {
+  _and?: Maybe<Array<Group_Membership_Bool_Exp>>;
+  _not?: Maybe<Group_Membership_Bool_Exp>;
+  _or?: Maybe<Array<Group_Membership_Bool_Exp>>;
+  group?: Maybe<Groups_Bool_Exp>;
+  group_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  student?: Maybe<Users_Bool_Exp>;
+  student_id?: Maybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "group_membership" */
+export enum Group_Membership_Constraint {
+  /** unique or primary key constraint */
+  GroupMembershipPkey = 'group_membership_pkey'
+}
+
+/** input type for incrementing numeric columns in table "group_membership" */
+export type Group_Membership_Inc_Input = {
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "group_membership" */
+export type Group_Membership_Insert_Input = {
+  group?: Maybe<Groups_Obj_Rel_Insert_Input>;
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student?: Maybe<Users_Obj_Rel_Insert_Input>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate max on columns */
+export type Group_Membership_Max_Fields = {
+  __typename?: 'group_membership_max_fields';
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** order by max() on columns of table "group_membership" */
+export type Group_Membership_Max_Order_By = {
+  group_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  student_id?: Maybe<Order_By>;
+};
+
+/** aggregate min on columns */
+export type Group_Membership_Min_Fields = {
+  __typename?: 'group_membership_min_fields';
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** order by min() on columns of table "group_membership" */
+export type Group_Membership_Min_Order_By = {
+  group_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  student_id?: Maybe<Order_By>;
+};
+
+/** response of any mutation on the table "group_membership" */
+export type Group_Membership_Mutation_Response = {
+  __typename?: 'group_membership_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Group_Membership>;
+};
+
+/** on conflict condition type for table "group_membership" */
+export type Group_Membership_On_Conflict = {
+  constraint: Group_Membership_Constraint;
+  update_columns?: Array<Group_Membership_Update_Column>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "group_membership". */
+export type Group_Membership_Order_By = {
+  group?: Maybe<Groups_Order_By>;
+  group_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  student?: Maybe<Users_Order_By>;
+  student_id?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: group_membership */
+export type Group_Membership_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "group_membership" */
+export enum Group_Membership_Select_Column {
+  /** column name */
+  GroupId = 'group_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StudentId = 'student_id'
+}
+
+/** input type for updating data in table "group_membership" */
+export type Group_Membership_Set_Input = {
+  group_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** aggregate stddev on columns */
+export type Group_Membership_Stddev_Fields = {
+  __typename?: 'group_membership_stddev_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "group_membership" */
+export type Group_Membership_Stddev_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Group_Membership_Stddev_Pop_Fields = {
+  __typename?: 'group_membership_stddev_pop_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "group_membership" */
+export type Group_Membership_Stddev_Pop_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Group_Membership_Stddev_Samp_Fields = {
+  __typename?: 'group_membership_stddev_samp_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "group_membership" */
+export type Group_Membership_Stddev_Samp_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Group_Membership_Sum_Fields = {
+  __typename?: 'group_membership_sum_fields';
+  student_id?: Maybe<Scalars['Int']>;
+};
+
+/** order by sum() on columns of table "group_membership" */
+export type Group_Membership_Sum_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** update columns of table "group_membership" */
+export enum Group_Membership_Update_Column {
+  /** column name */
+  GroupId = 'group_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  StudentId = 'student_id'
+}
+
+/** aggregate var_pop on columns */
+export type Group_Membership_Var_Pop_Fields = {
+  __typename?: 'group_membership_var_pop_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "group_membership" */
+export type Group_Membership_Var_Pop_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Group_Membership_Var_Samp_Fields = {
+  __typename?: 'group_membership_var_samp_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "group_membership" */
+export type Group_Membership_Var_Samp_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Group_Membership_Variance_Fields = {
+  __typename?: 'group_membership_variance_fields';
+  student_id?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "group_membership" */
+export type Group_Membership_Variance_Order_By = {
+  student_id?: Maybe<Order_By>;
+};
+
+/** columns and relationships of "groups" */
+export type Groups = {
+  __typename?: 'groups';
+  /** An object relationship */
+  course?: Maybe<Courses>;
+  course_id: Scalars['uuid'];
+  id: Scalars['uuid'];
+  /** An array relationship */
+  membership: Array<Group_Membership>;
+  /** An aggregate relationship */
+  membership_aggregate: Group_Membership_Aggregate;
+  name: Scalars['String'];
+};
+
+
+/** columns and relationships of "groups" */
+export type GroupsMembershipArgs = {
+  distinct_on?: Maybe<Array<Group_Membership_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Group_Membership_Order_By>>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+
+/** columns and relationships of "groups" */
+export type GroupsMembership_AggregateArgs = {
+  distinct_on?: Maybe<Array<Group_Membership_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Group_Membership_Order_By>>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+/** aggregated selection of "groups" */
+export type Groups_Aggregate = {
+  __typename?: 'groups_aggregate';
+  aggregate?: Maybe<Groups_Aggregate_Fields>;
+  nodes: Array<Groups>;
+};
+
+/** aggregate fields of "groups" */
+export type Groups_Aggregate_Fields = {
+  __typename?: 'groups_aggregate_fields';
+  count: Scalars['Int'];
+  max?: Maybe<Groups_Max_Fields>;
+  min?: Maybe<Groups_Min_Fields>;
+};
+
+
+/** aggregate fields of "groups" */
+export type Groups_Aggregate_FieldsCountArgs = {
+  columns?: Maybe<Array<Groups_Select_Column>>;
+  distinct?: Maybe<Scalars['Boolean']>;
+};
+
+/** Boolean expression to filter rows from the table "groups". All fields are combined with a logical 'AND'. */
+export type Groups_Bool_Exp = {
+  _and?: Maybe<Array<Groups_Bool_Exp>>;
+  _not?: Maybe<Groups_Bool_Exp>;
+  _or?: Maybe<Array<Groups_Bool_Exp>>;
+  course?: Maybe<Courses_Bool_Exp>;
+  course_id?: Maybe<Uuid_Comparison_Exp>;
+  id?: Maybe<Uuid_Comparison_Exp>;
+  membership?: Maybe<Group_Membership_Bool_Exp>;
+  name?: Maybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "groups" */
+export enum Groups_Constraint {
+  /** unique or primary key constraint */
+  GroupsPkey = 'groups_pkey'
+}
+
+/** input type for inserting data into table "groups" */
+export type Groups_Insert_Input = {
+  course?: Maybe<Courses_Obj_Rel_Insert_Input>;
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  membership?: Maybe<Group_Membership_Arr_Rel_Insert_Input>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate max on columns */
+export type Groups_Max_Fields = {
+  __typename?: 'groups_max_fields';
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** aggregate min on columns */
+export type Groups_Min_Fields = {
+  __typename?: 'groups_min_fields';
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "groups" */
+export type Groups_Mutation_Response = {
+  __typename?: 'groups_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Groups>;
+};
+
+/** input type for inserting object relation for remote table "groups" */
+export type Groups_Obj_Rel_Insert_Input = {
+  data: Groups_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: Maybe<Groups_On_Conflict>;
+};
+
+/** on conflict condition type for table "groups" */
+export type Groups_On_Conflict = {
+  constraint: Groups_Constraint;
+  update_columns?: Array<Groups_Update_Column>;
+  where?: Maybe<Groups_Bool_Exp>;
+};
+
+/** Ordering options when selecting data from "groups". */
+export type Groups_Order_By = {
+  course?: Maybe<Courses_Order_By>;
+  course_id?: Maybe<Order_By>;
+  id?: Maybe<Order_By>;
+  membership_aggregate?: Maybe<Group_Membership_Aggregate_Order_By>;
+  name?: Maybe<Order_By>;
+};
+
+/** primary key columns input for table: groups */
+export type Groups_Pk_Columns_Input = {
+  id: Scalars['uuid'];
+};
+
+/** select columns of table "groups" */
+export enum Groups_Select_Column {
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
+/** input type for updating data in table "groups" */
+export type Groups_Set_Input = {
+  course_id?: Maybe<Scalars['uuid']>;
+  id?: Maybe<Scalars['uuid']>;
+  name?: Maybe<Scalars['String']>;
+};
+
+/** update columns of table "groups" */
+export enum Groups_Update_Column {
+  /** column name */
+  CourseId = 'course_id',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Name = 'name'
+}
+
 /** columns and relationships of "modules" */
 export type Modules = {
   __typename?: 'modules';
@@ -2247,6 +3979,14 @@ export type Mutation_Root = {
   delete_announcements?: Maybe<Announcements_Mutation_Response>;
   /** delete single row from the table: "announcements" */
   delete_announcements_by_pk?: Maybe<Announcements>;
+  /** delete data from the table: "assignment_submissions" */
+  delete_assignment_submissions?: Maybe<Assignment_Submissions_Mutation_Response>;
+  /** delete single row from the table: "assignment_submissions" */
+  delete_assignment_submissions_by_pk?: Maybe<Assignment_Submissions>;
+  /** delete data from the table: "assignments" */
+  delete_assignments?: Maybe<Assignments_Mutation_Response>;
+  /** delete single row from the table: "assignments" */
+  delete_assignments_by_pk?: Maybe<Assignments>;
   /** delete data from the table: "contacts" */
   delete_contacts?: Maybe<Contacts_Mutation_Response>;
   /** delete single row from the table: "contacts" */
@@ -2263,6 +4003,30 @@ export type Mutation_Root = {
   delete_courses?: Maybe<Courses_Mutation_Response>;
   /** delete single row from the table: "courses" */
   delete_courses_by_pk?: Maybe<Courses>;
+  /** delete data from the table: "grade_items" */
+  delete_grade_items?: Maybe<Grade_Items_Mutation_Response>;
+  /** delete single row from the table: "grade_items" */
+  delete_grade_items_by_pk?: Maybe<Grade_Items>;
+  /** delete data from the table: "gradebook_item_submissions" */
+  delete_gradebook_item_submissions?: Maybe<Gradebook_Item_Submissions_Mutation_Response>;
+  /** delete single row from the table: "gradebook_item_submissions" */
+  delete_gradebook_item_submissions_by_pk?: Maybe<Gradebook_Item_Submissions>;
+  /** delete data from the table: "gradebook_items" */
+  delete_gradebook_items?: Maybe<Gradebook_Items_Mutation_Response>;
+  /** delete single row from the table: "gradebook_items" */
+  delete_gradebook_items_by_pk?: Maybe<Gradebook_Items>;
+  /** delete data from the table: "grading_rubric" */
+  delete_grading_rubric?: Maybe<Grading_Rubric_Mutation_Response>;
+  /** delete single row from the table: "grading_rubric" */
+  delete_grading_rubric_by_pk?: Maybe<Grading_Rubric>;
+  /** delete data from the table: "group_membership" */
+  delete_group_membership?: Maybe<Group_Membership_Mutation_Response>;
+  /** delete single row from the table: "group_membership" */
+  delete_group_membership_by_pk?: Maybe<Group_Membership>;
+  /** delete data from the table: "groups" */
+  delete_groups?: Maybe<Groups_Mutation_Response>;
+  /** delete single row from the table: "groups" */
+  delete_groups_by_pk?: Maybe<Groups>;
   /** delete data from the table: "modules" */
   delete_modules?: Maybe<Modules_Mutation_Response>;
   /** delete single row from the table: "modules" */
@@ -2299,6 +4063,14 @@ export type Mutation_Root = {
   insert_announcements?: Maybe<Announcements_Mutation_Response>;
   /** insert a single row into the table: "announcements" */
   insert_announcements_one?: Maybe<Announcements>;
+  /** insert data into the table: "assignment_submissions" */
+  insert_assignment_submissions?: Maybe<Assignment_Submissions_Mutation_Response>;
+  /** insert a single row into the table: "assignment_submissions" */
+  insert_assignment_submissions_one?: Maybe<Assignment_Submissions>;
+  /** insert data into the table: "assignments" */
+  insert_assignments?: Maybe<Assignments_Mutation_Response>;
+  /** insert a single row into the table: "assignments" */
+  insert_assignments_one?: Maybe<Assignments>;
   /** insert data into the table: "contacts" */
   insert_contacts?: Maybe<Contacts_Mutation_Response>;
   /** insert a single row into the table: "contacts" */
@@ -2315,6 +4087,30 @@ export type Mutation_Root = {
   insert_courses?: Maybe<Courses_Mutation_Response>;
   /** insert a single row into the table: "courses" */
   insert_courses_one?: Maybe<Courses>;
+  /** insert data into the table: "grade_items" */
+  insert_grade_items?: Maybe<Grade_Items_Mutation_Response>;
+  /** insert a single row into the table: "grade_items" */
+  insert_grade_items_one?: Maybe<Grade_Items>;
+  /** insert data into the table: "gradebook_item_submissions" */
+  insert_gradebook_item_submissions?: Maybe<Gradebook_Item_Submissions_Mutation_Response>;
+  /** insert a single row into the table: "gradebook_item_submissions" */
+  insert_gradebook_item_submissions_one?: Maybe<Gradebook_Item_Submissions>;
+  /** insert data into the table: "gradebook_items" */
+  insert_gradebook_items?: Maybe<Gradebook_Items_Mutation_Response>;
+  /** insert a single row into the table: "gradebook_items" */
+  insert_gradebook_items_one?: Maybe<Gradebook_Items>;
+  /** insert data into the table: "grading_rubric" */
+  insert_grading_rubric?: Maybe<Grading_Rubric_Mutation_Response>;
+  /** insert a single row into the table: "grading_rubric" */
+  insert_grading_rubric_one?: Maybe<Grading_Rubric>;
+  /** insert data into the table: "group_membership" */
+  insert_group_membership?: Maybe<Group_Membership_Mutation_Response>;
+  /** insert a single row into the table: "group_membership" */
+  insert_group_membership_one?: Maybe<Group_Membership>;
+  /** insert data into the table: "groups" */
+  insert_groups?: Maybe<Groups_Mutation_Response>;
+  /** insert a single row into the table: "groups" */
+  insert_groups_one?: Maybe<Groups>;
   /** insert data into the table: "modules" */
   insert_modules?: Maybe<Modules_Mutation_Response>;
   /** insert a single row into the table: "modules" */
@@ -2351,6 +4147,14 @@ export type Mutation_Root = {
   update_announcements?: Maybe<Announcements_Mutation_Response>;
   /** update single row of the table: "announcements" */
   update_announcements_by_pk?: Maybe<Announcements>;
+  /** update data of the table: "assignment_submissions" */
+  update_assignment_submissions?: Maybe<Assignment_Submissions_Mutation_Response>;
+  /** update single row of the table: "assignment_submissions" */
+  update_assignment_submissions_by_pk?: Maybe<Assignment_Submissions>;
+  /** update data of the table: "assignments" */
+  update_assignments?: Maybe<Assignments_Mutation_Response>;
+  /** update single row of the table: "assignments" */
+  update_assignments_by_pk?: Maybe<Assignments>;
   /** update data of the table: "contacts" */
   update_contacts?: Maybe<Contacts_Mutation_Response>;
   /** update single row of the table: "contacts" */
@@ -2367,6 +4171,30 @@ export type Mutation_Root = {
   update_courses?: Maybe<Courses_Mutation_Response>;
   /** update single row of the table: "courses" */
   update_courses_by_pk?: Maybe<Courses>;
+  /** update data of the table: "grade_items" */
+  update_grade_items?: Maybe<Grade_Items_Mutation_Response>;
+  /** update single row of the table: "grade_items" */
+  update_grade_items_by_pk?: Maybe<Grade_Items>;
+  /** update data of the table: "gradebook_item_submissions" */
+  update_gradebook_item_submissions?: Maybe<Gradebook_Item_Submissions_Mutation_Response>;
+  /** update single row of the table: "gradebook_item_submissions" */
+  update_gradebook_item_submissions_by_pk?: Maybe<Gradebook_Item_Submissions>;
+  /** update data of the table: "gradebook_items" */
+  update_gradebook_items?: Maybe<Gradebook_Items_Mutation_Response>;
+  /** update single row of the table: "gradebook_items" */
+  update_gradebook_items_by_pk?: Maybe<Gradebook_Items>;
+  /** update data of the table: "grading_rubric" */
+  update_grading_rubric?: Maybe<Grading_Rubric_Mutation_Response>;
+  /** update single row of the table: "grading_rubric" */
+  update_grading_rubric_by_pk?: Maybe<Grading_Rubric>;
+  /** update data of the table: "group_membership" */
+  update_group_membership?: Maybe<Group_Membership_Mutation_Response>;
+  /** update single row of the table: "group_membership" */
+  update_group_membership_by_pk?: Maybe<Group_Membership>;
+  /** update data of the table: "groups" */
+  update_groups?: Maybe<Groups_Mutation_Response>;
+  /** update single row of the table: "groups" */
+  update_groups_by_pk?: Maybe<Groups>;
   /** update data of the table: "modules" */
   update_modules?: Maybe<Modules_Mutation_Response>;
   /** update single row of the table: "modules" */
@@ -2423,6 +4251,30 @@ export type Mutation_RootDelete_Announcements_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootDelete_Assignment_SubmissionsArgs = {
+  where: Assignment_Submissions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Assignment_Submissions_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_AssignmentsArgs = {
+  where: Assignments_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Assignments_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
 export type Mutation_RootDelete_ContactsArgs = {
   where: Contacts_Bool_Exp;
 };
@@ -2466,6 +4318,78 @@ export type Mutation_RootDelete_CoursesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Courses_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Grade_ItemsArgs = {
+  where: Grade_Items_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Grade_Items_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Gradebook_Item_SubmissionsArgs = {
+  where: Gradebook_Item_Submissions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Gradebook_Item_Submissions_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Gradebook_ItemsArgs = {
+  where: Gradebook_Items_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Gradebook_Items_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Grading_RubricArgs = {
+  where: Grading_Rubric_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Grading_Rubric_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Group_MembershipArgs = {
+  where: Group_Membership_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Group_Membership_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_GroupsArgs = {
+  where: Groups_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Groups_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -2583,6 +4507,34 @@ export type Mutation_RootInsert_Announcements_OneArgs = {
 
 
 /** mutation root */
+export type Mutation_RootInsert_Assignment_SubmissionsArgs = {
+  objects: Array<Assignment_Submissions_Insert_Input>;
+  on_conflict?: Maybe<Assignment_Submissions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Assignment_Submissions_OneArgs = {
+  object: Assignment_Submissions_Insert_Input;
+  on_conflict?: Maybe<Assignment_Submissions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_AssignmentsArgs = {
+  objects: Array<Assignments_Insert_Input>;
+  on_conflict?: Maybe<Assignments_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Assignments_OneArgs = {
+  object: Assignments_Insert_Input;
+  on_conflict?: Maybe<Assignments_On_Conflict>;
+};
+
+
+/** mutation root */
 export type Mutation_RootInsert_ContactsArgs = {
   objects: Array<Contacts_Insert_Input>;
   on_conflict?: Maybe<Contacts_On_Conflict>;
@@ -2635,6 +4587,90 @@ export type Mutation_RootInsert_CoursesArgs = {
 export type Mutation_RootInsert_Courses_OneArgs = {
   object: Courses_Insert_Input;
   on_conflict?: Maybe<Courses_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Grade_ItemsArgs = {
+  objects: Array<Grade_Items_Insert_Input>;
+  on_conflict?: Maybe<Grade_Items_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Grade_Items_OneArgs = {
+  object: Grade_Items_Insert_Input;
+  on_conflict?: Maybe<Grade_Items_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Gradebook_Item_SubmissionsArgs = {
+  objects: Array<Gradebook_Item_Submissions_Insert_Input>;
+  on_conflict?: Maybe<Gradebook_Item_Submissions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Gradebook_Item_Submissions_OneArgs = {
+  object: Gradebook_Item_Submissions_Insert_Input;
+  on_conflict?: Maybe<Gradebook_Item_Submissions_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Gradebook_ItemsArgs = {
+  objects: Array<Gradebook_Items_Insert_Input>;
+  on_conflict?: Maybe<Gradebook_Items_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Gradebook_Items_OneArgs = {
+  object: Gradebook_Items_Insert_Input;
+  on_conflict?: Maybe<Gradebook_Items_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Grading_RubricArgs = {
+  objects: Array<Grading_Rubric_Insert_Input>;
+  on_conflict?: Maybe<Grading_Rubric_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Grading_Rubric_OneArgs = {
+  object: Grading_Rubric_Insert_Input;
+  on_conflict?: Maybe<Grading_Rubric_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Group_MembershipArgs = {
+  objects: Array<Group_Membership_Insert_Input>;
+  on_conflict?: Maybe<Group_Membership_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Group_Membership_OneArgs = {
+  object: Group_Membership_Insert_Input;
+  on_conflict?: Maybe<Group_Membership_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_GroupsArgs = {
+  objects: Array<Groups_Insert_Input>;
+  on_conflict?: Maybe<Groups_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Groups_OneArgs = {
+  object: Groups_Insert_Input;
+  on_conflict?: Maybe<Groups_On_Conflict>;
 };
 
 
@@ -2769,6 +4805,36 @@ export type Mutation_RootUpdate_Announcements_By_PkArgs = {
 
 
 /** mutation root */
+export type Mutation_RootUpdate_Assignment_SubmissionsArgs = {
+  _inc?: Maybe<Assignment_Submissions_Inc_Input>;
+  _set?: Maybe<Assignment_Submissions_Set_Input>;
+  where: Assignment_Submissions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Assignment_Submissions_By_PkArgs = {
+  _inc?: Maybe<Assignment_Submissions_Inc_Input>;
+  _set?: Maybe<Assignment_Submissions_Set_Input>;
+  pk_columns: Assignment_Submissions_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_AssignmentsArgs = {
+  _set?: Maybe<Assignments_Set_Input>;
+  where: Assignments_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Assignments_By_PkArgs = {
+  _set?: Maybe<Assignments_Set_Input>;
+  pk_columns: Assignments_Pk_Columns_Input;
+};
+
+
+/** mutation root */
 export type Mutation_RootUpdate_ContactsArgs = {
   _inc?: Maybe<Contacts_Inc_Input>;
   _set?: Maybe<Contacts_Set_Input>;
@@ -2829,6 +4895,96 @@ export type Mutation_RootUpdate_Courses_By_PkArgs = {
   _inc?: Maybe<Courses_Inc_Input>;
   _set?: Maybe<Courses_Set_Input>;
   pk_columns: Courses_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Grade_ItemsArgs = {
+  _inc?: Maybe<Grade_Items_Inc_Input>;
+  _set?: Maybe<Grade_Items_Set_Input>;
+  where: Grade_Items_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Grade_Items_By_PkArgs = {
+  _inc?: Maybe<Grade_Items_Inc_Input>;
+  _set?: Maybe<Grade_Items_Set_Input>;
+  pk_columns: Grade_Items_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Gradebook_Item_SubmissionsArgs = {
+  _set?: Maybe<Gradebook_Item_Submissions_Set_Input>;
+  where: Gradebook_Item_Submissions_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Gradebook_Item_Submissions_By_PkArgs = {
+  _set?: Maybe<Gradebook_Item_Submissions_Set_Input>;
+  pk_columns: Gradebook_Item_Submissions_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Gradebook_ItemsArgs = {
+  _inc?: Maybe<Gradebook_Items_Inc_Input>;
+  _set?: Maybe<Gradebook_Items_Set_Input>;
+  where: Gradebook_Items_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Gradebook_Items_By_PkArgs = {
+  _inc?: Maybe<Gradebook_Items_Inc_Input>;
+  _set?: Maybe<Gradebook_Items_Set_Input>;
+  pk_columns: Gradebook_Items_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Grading_RubricArgs = {
+  _set?: Maybe<Grading_Rubric_Set_Input>;
+  where: Grading_Rubric_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Grading_Rubric_By_PkArgs = {
+  _set?: Maybe<Grading_Rubric_Set_Input>;
+  pk_columns: Grading_Rubric_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Group_MembershipArgs = {
+  _inc?: Maybe<Group_Membership_Inc_Input>;
+  _set?: Maybe<Group_Membership_Set_Input>;
+  where: Group_Membership_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Group_Membership_By_PkArgs = {
+  _inc?: Maybe<Group_Membership_Inc_Input>;
+  _set?: Maybe<Group_Membership_Set_Input>;
+  pk_columns: Group_Membership_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_GroupsArgs = {
+  _set?: Maybe<Groups_Set_Input>;
+  where: Groups_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Groups_By_PkArgs = {
+  _set?: Maybe<Groups_Set_Input>;
+  pk_columns: Groups_Pk_Columns_Input;
 };
 
 
@@ -3295,6 +5451,18 @@ export type Query_Root = {
   announcements_aggregate: Announcements_Aggregate;
   /** fetch data from the table: "announcements" using primary key columns */
   announcements_by_pk?: Maybe<Announcements>;
+  /** fetch data from the table: "assignment_submissions" */
+  assignment_submissions: Array<Assignment_Submissions>;
+  /** fetch aggregated fields from the table: "assignment_submissions" */
+  assignment_submissions_aggregate: Assignment_Submissions_Aggregate;
+  /** fetch data from the table: "assignment_submissions" using primary key columns */
+  assignment_submissions_by_pk?: Maybe<Assignment_Submissions>;
+  /** fetch data from the table: "assignments" */
+  assignments: Array<Assignments>;
+  /** fetch aggregated fields from the table: "assignments" */
+  assignments_aggregate: Assignments_Aggregate;
+  /** fetch data from the table: "assignments" using primary key columns */
+  assignments_by_pk?: Maybe<Assignments>;
   /** fetch data from the table: "contacts" */
   contacts: Array<Contacts>;
   /** fetch aggregated fields from the table: "contacts" */
@@ -3319,6 +5487,42 @@ export type Query_Root = {
   courses_aggregate: Courses_Aggregate;
   /** fetch data from the table: "courses" using primary key columns */
   courses_by_pk?: Maybe<Courses>;
+  /** fetch data from the table: "grade_items" */
+  grade_items: Array<Grade_Items>;
+  /** fetch aggregated fields from the table: "grade_items" */
+  grade_items_aggregate: Grade_Items_Aggregate;
+  /** fetch data from the table: "grade_items" using primary key columns */
+  grade_items_by_pk?: Maybe<Grade_Items>;
+  /** fetch data from the table: "gradebook_item_submissions" */
+  gradebook_item_submissions: Array<Gradebook_Item_Submissions>;
+  /** fetch aggregated fields from the table: "gradebook_item_submissions" */
+  gradebook_item_submissions_aggregate: Gradebook_Item_Submissions_Aggregate;
+  /** fetch data from the table: "gradebook_item_submissions" using primary key columns */
+  gradebook_item_submissions_by_pk?: Maybe<Gradebook_Item_Submissions>;
+  /** fetch data from the table: "gradebook_items" */
+  gradebook_items: Array<Gradebook_Items>;
+  /** fetch aggregated fields from the table: "gradebook_items" */
+  gradebook_items_aggregate: Gradebook_Items_Aggregate;
+  /** fetch data from the table: "gradebook_items" using primary key columns */
+  gradebook_items_by_pk?: Maybe<Gradebook_Items>;
+  /** fetch data from the table: "grading_rubric" */
+  grading_rubric: Array<Grading_Rubric>;
+  /** fetch aggregated fields from the table: "grading_rubric" */
+  grading_rubric_aggregate: Grading_Rubric_Aggregate;
+  /** fetch data from the table: "grading_rubric" using primary key columns */
+  grading_rubric_by_pk?: Maybe<Grading_Rubric>;
+  /** fetch data from the table: "group_membership" */
+  group_membership: Array<Group_Membership>;
+  /** fetch aggregated fields from the table: "group_membership" */
+  group_membership_aggregate: Group_Membership_Aggregate;
+  /** fetch data from the table: "group_membership" using primary key columns */
+  group_membership_by_pk?: Maybe<Group_Membership>;
+  /** fetch data from the table: "groups" */
+  groups: Array<Groups>;
+  /** fetch aggregated fields from the table: "groups" */
+  groups_aggregate: Groups_Aggregate;
+  /** fetch data from the table: "groups" using primary key columns */
+  groups_by_pk?: Maybe<Groups>;
   /** fetch data from the table: "modules" */
   modules: Array<Modules>;
   /** fetch aggregated fields from the table: "modules" */
@@ -3406,6 +5610,52 @@ export type Query_RootAnnouncements_AggregateArgs = {
 
 
 export type Query_RootAnnouncements_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootAssignment_SubmissionsArgs = {
+  distinct_on?: Maybe<Array<Assignment_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignment_Submissions_Order_By>>;
+  where?: Maybe<Assignment_Submissions_Bool_Exp>;
+};
+
+
+export type Query_RootAssignment_Submissions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Assignment_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignment_Submissions_Order_By>>;
+  where?: Maybe<Assignment_Submissions_Bool_Exp>;
+};
+
+
+export type Query_RootAssignment_Submissions_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootAssignmentsArgs = {
+  distinct_on?: Maybe<Array<Assignments_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignments_Order_By>>;
+  where?: Maybe<Assignments_Bool_Exp>;
+};
+
+
+export type Query_RootAssignments_AggregateArgs = {
+  distinct_on?: Maybe<Array<Assignments_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignments_Order_By>>;
+  where?: Maybe<Assignments_Bool_Exp>;
+};
+
+
+export type Query_RootAssignments_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -3498,6 +5748,144 @@ export type Query_RootCourses_AggregateArgs = {
 
 
 export type Query_RootCourses_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootGrade_ItemsArgs = {
+  distinct_on?: Maybe<Array<Grade_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grade_Items_Order_By>>;
+  where?: Maybe<Grade_Items_Bool_Exp>;
+};
+
+
+export type Query_RootGrade_Items_AggregateArgs = {
+  distinct_on?: Maybe<Array<Grade_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grade_Items_Order_By>>;
+  where?: Maybe<Grade_Items_Bool_Exp>;
+};
+
+
+export type Query_RootGrade_Items_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootGradebook_Item_SubmissionsArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Item_Submissions_Order_By>>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+
+export type Query_RootGradebook_Item_Submissions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Item_Submissions_Order_By>>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+
+export type Query_RootGradebook_Item_Submissions_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootGradebook_ItemsArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Items_Order_By>>;
+  where?: Maybe<Gradebook_Items_Bool_Exp>;
+};
+
+
+export type Query_RootGradebook_Items_AggregateArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Items_Order_By>>;
+  where?: Maybe<Gradebook_Items_Bool_Exp>;
+};
+
+
+export type Query_RootGradebook_Items_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootGrading_RubricArgs = {
+  distinct_on?: Maybe<Array<Grading_Rubric_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grading_Rubric_Order_By>>;
+  where?: Maybe<Grading_Rubric_Bool_Exp>;
+};
+
+
+export type Query_RootGrading_Rubric_AggregateArgs = {
+  distinct_on?: Maybe<Array<Grading_Rubric_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grading_Rubric_Order_By>>;
+  where?: Maybe<Grading_Rubric_Bool_Exp>;
+};
+
+
+export type Query_RootGrading_Rubric_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootGroup_MembershipArgs = {
+  distinct_on?: Maybe<Array<Group_Membership_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Group_Membership_Order_By>>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+
+export type Query_RootGroup_Membership_AggregateArgs = {
+  distinct_on?: Maybe<Array<Group_Membership_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Group_Membership_Order_By>>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+
+export type Query_RootGroup_Membership_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Query_RootGroupsArgs = {
+  distinct_on?: Maybe<Array<Groups_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Groups_Order_By>>;
+  where?: Maybe<Groups_Bool_Exp>;
+};
+
+
+export type Query_RootGroups_AggregateArgs = {
+  distinct_on?: Maybe<Array<Groups_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Groups_Order_By>>;
+  where?: Maybe<Groups_Bool_Exp>;
+};
+
+
+export type Query_RootGroups_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -4117,6 +6505,18 @@ export type Subscription_Root = {
   announcements_aggregate: Announcements_Aggregate;
   /** fetch data from the table: "announcements" using primary key columns */
   announcements_by_pk?: Maybe<Announcements>;
+  /** fetch data from the table: "assignment_submissions" */
+  assignment_submissions: Array<Assignment_Submissions>;
+  /** fetch aggregated fields from the table: "assignment_submissions" */
+  assignment_submissions_aggregate: Assignment_Submissions_Aggregate;
+  /** fetch data from the table: "assignment_submissions" using primary key columns */
+  assignment_submissions_by_pk?: Maybe<Assignment_Submissions>;
+  /** fetch data from the table: "assignments" */
+  assignments: Array<Assignments>;
+  /** fetch aggregated fields from the table: "assignments" */
+  assignments_aggregate: Assignments_Aggregate;
+  /** fetch data from the table: "assignments" using primary key columns */
+  assignments_by_pk?: Maybe<Assignments>;
   /** fetch data from the table: "contacts" */
   contacts: Array<Contacts>;
   /** fetch aggregated fields from the table: "contacts" */
@@ -4141,6 +6541,42 @@ export type Subscription_Root = {
   courses_aggregate: Courses_Aggregate;
   /** fetch data from the table: "courses" using primary key columns */
   courses_by_pk?: Maybe<Courses>;
+  /** fetch data from the table: "grade_items" */
+  grade_items: Array<Grade_Items>;
+  /** fetch aggregated fields from the table: "grade_items" */
+  grade_items_aggregate: Grade_Items_Aggregate;
+  /** fetch data from the table: "grade_items" using primary key columns */
+  grade_items_by_pk?: Maybe<Grade_Items>;
+  /** fetch data from the table: "gradebook_item_submissions" */
+  gradebook_item_submissions: Array<Gradebook_Item_Submissions>;
+  /** fetch aggregated fields from the table: "gradebook_item_submissions" */
+  gradebook_item_submissions_aggregate: Gradebook_Item_Submissions_Aggregate;
+  /** fetch data from the table: "gradebook_item_submissions" using primary key columns */
+  gradebook_item_submissions_by_pk?: Maybe<Gradebook_Item_Submissions>;
+  /** fetch data from the table: "gradebook_items" */
+  gradebook_items: Array<Gradebook_Items>;
+  /** fetch aggregated fields from the table: "gradebook_items" */
+  gradebook_items_aggregate: Gradebook_Items_Aggregate;
+  /** fetch data from the table: "gradebook_items" using primary key columns */
+  gradebook_items_by_pk?: Maybe<Gradebook_Items>;
+  /** fetch data from the table: "grading_rubric" */
+  grading_rubric: Array<Grading_Rubric>;
+  /** fetch aggregated fields from the table: "grading_rubric" */
+  grading_rubric_aggregate: Grading_Rubric_Aggregate;
+  /** fetch data from the table: "grading_rubric" using primary key columns */
+  grading_rubric_by_pk?: Maybe<Grading_Rubric>;
+  /** fetch data from the table: "group_membership" */
+  group_membership: Array<Group_Membership>;
+  /** fetch aggregated fields from the table: "group_membership" */
+  group_membership_aggregate: Group_Membership_Aggregate;
+  /** fetch data from the table: "group_membership" using primary key columns */
+  group_membership_by_pk?: Maybe<Group_Membership>;
+  /** fetch data from the table: "groups" */
+  groups: Array<Groups>;
+  /** fetch aggregated fields from the table: "groups" */
+  groups_aggregate: Groups_Aggregate;
+  /** fetch data from the table: "groups" using primary key columns */
+  groups_by_pk?: Maybe<Groups>;
   /** fetch data from the table: "modules" */
   modules: Array<Modules>;
   /** fetch aggregated fields from the table: "modules" */
@@ -4228,6 +6664,52 @@ export type Subscription_RootAnnouncements_AggregateArgs = {
 
 
 export type Subscription_RootAnnouncements_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootAssignment_SubmissionsArgs = {
+  distinct_on?: Maybe<Array<Assignment_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignment_Submissions_Order_By>>;
+  where?: Maybe<Assignment_Submissions_Bool_Exp>;
+};
+
+
+export type Subscription_RootAssignment_Submissions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Assignment_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignment_Submissions_Order_By>>;
+  where?: Maybe<Assignment_Submissions_Bool_Exp>;
+};
+
+
+export type Subscription_RootAssignment_Submissions_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootAssignmentsArgs = {
+  distinct_on?: Maybe<Array<Assignments_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignments_Order_By>>;
+  where?: Maybe<Assignments_Bool_Exp>;
+};
+
+
+export type Subscription_RootAssignments_AggregateArgs = {
+  distinct_on?: Maybe<Array<Assignments_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Assignments_Order_By>>;
+  where?: Maybe<Assignments_Bool_Exp>;
+};
+
+
+export type Subscription_RootAssignments_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -4320,6 +6802,144 @@ export type Subscription_RootCourses_AggregateArgs = {
 
 
 export type Subscription_RootCourses_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootGrade_ItemsArgs = {
+  distinct_on?: Maybe<Array<Grade_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grade_Items_Order_By>>;
+  where?: Maybe<Grade_Items_Bool_Exp>;
+};
+
+
+export type Subscription_RootGrade_Items_AggregateArgs = {
+  distinct_on?: Maybe<Array<Grade_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grade_Items_Order_By>>;
+  where?: Maybe<Grade_Items_Bool_Exp>;
+};
+
+
+export type Subscription_RootGrade_Items_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootGradebook_Item_SubmissionsArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Item_Submissions_Order_By>>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+
+export type Subscription_RootGradebook_Item_Submissions_AggregateArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Item_Submissions_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Item_Submissions_Order_By>>;
+  where?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
+};
+
+
+export type Subscription_RootGradebook_Item_Submissions_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootGradebook_ItemsArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Items_Order_By>>;
+  where?: Maybe<Gradebook_Items_Bool_Exp>;
+};
+
+
+export type Subscription_RootGradebook_Items_AggregateArgs = {
+  distinct_on?: Maybe<Array<Gradebook_Items_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Gradebook_Items_Order_By>>;
+  where?: Maybe<Gradebook_Items_Bool_Exp>;
+};
+
+
+export type Subscription_RootGradebook_Items_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootGrading_RubricArgs = {
+  distinct_on?: Maybe<Array<Grading_Rubric_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grading_Rubric_Order_By>>;
+  where?: Maybe<Grading_Rubric_Bool_Exp>;
+};
+
+
+export type Subscription_RootGrading_Rubric_AggregateArgs = {
+  distinct_on?: Maybe<Array<Grading_Rubric_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Grading_Rubric_Order_By>>;
+  where?: Maybe<Grading_Rubric_Bool_Exp>;
+};
+
+
+export type Subscription_RootGrading_Rubric_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootGroup_MembershipArgs = {
+  distinct_on?: Maybe<Array<Group_Membership_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Group_Membership_Order_By>>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+
+export type Subscription_RootGroup_Membership_AggregateArgs = {
+  distinct_on?: Maybe<Array<Group_Membership_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Group_Membership_Order_By>>;
+  where?: Maybe<Group_Membership_Bool_Exp>;
+};
+
+
+export type Subscription_RootGroup_Membership_By_PkArgs = {
+  id: Scalars['uuid'];
+};
+
+
+export type Subscription_RootGroupsArgs = {
+  distinct_on?: Maybe<Array<Groups_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Groups_Order_By>>;
+  where?: Maybe<Groups_Bool_Exp>;
+};
+
+
+export type Subscription_RootGroups_AggregateArgs = {
+  distinct_on?: Maybe<Array<Groups_Select_Column>>;
+  limit?: Maybe<Scalars['Int']>;
+  offset?: Maybe<Scalars['Int']>;
+  order_by?: Maybe<Array<Groups_Order_By>>;
+  where?: Maybe<Groups_Bool_Exp>;
+};
+
+
+export type Subscription_RootGroups_By_PkArgs = {
   id: Scalars['uuid'];
 };
 
@@ -5817,6 +8437,38 @@ export type GetOwnCoursesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type GetOwnCoursesQuery = { __typename?: 'query_root', courses: Array<{ __typename?: 'courses', access_code?: string | null | undefined, available: boolean, background_color?: string | null | undefined, banner_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, id: any, level?: string | null | undefined, instructor_id: number, name: string, enrollments: Array<{ __typename?: 'course_enrollment', id: any, student?: { __typename?: 'users', first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, image?: string | null | undefined } | null | undefined }> }> };
 
+export type CreateAssignmentMutationVariables = Exact<{
+  gradebook_item_id: Scalars['uuid'];
+  assessment_id: Scalars['uuid'];
+  assessment_type: Scalars['String'];
+  attempts_allowed: Scalars['Int'];
+  attempts_grading: Scalars['String'];
+  available_from?: Maybe<Scalars['timestamp']>;
+  available_until?: Maybe<Scalars['timestamp']>;
+  course_id: Scalars['uuid'];
+  max_points: Scalars['Int'];
+  scoring_type: Scalars['String'];
+  status: Scalars['String'];
+  submission_type: Scalars['String'];
+  accommodations?: Maybe<Scalars['String']>;
+  assignment_id: Scalars['uuid'];
+  name: Scalars['String'];
+  type: Scalars['String'];
+  files?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+}>;
+
+
+export type CreateAssignmentMutation = { __typename?: 'mutation_root', insert_gradebook_items_one?: { __typename?: 'gradebook_items', id: any } | null | undefined, insert_assignments_one?: { __typename?: 'assignments', id: any } | null | undefined };
+
+export type GetGradebookItemsQueryVariables = Exact<{
+  course_id: Scalars['uuid'];
+  with_enrollment: Scalars['Boolean'];
+}>;
+
+
+export type GetGradebookItemsQuery = { __typename?: 'query_root', gradebook_items: Array<{ __typename?: 'gradebook_items', accommodations?: string | null | undefined, assessment_id: any, assessment_type: string, attempts_allowed: number, attempts_grading: string, available_from?: any | null | undefined, available_until?: any | null | undefined, course_id: any, grading_rubric_id?: any | null | undefined, id: any, max_points?: number | null | undefined, scoring_type: string, status: string, submission_type: string, assignment?: { __typename?: 'assignments', description: string, files?: string | null | undefined, gradebook_item_id: any, id: any, name: string, type: string } | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined }, course?: { __typename?: 'courses', enrollments_aggregate?: { __typename?: 'course_enrollment_aggregate', aggregate?: { __typename?: 'course_enrollment_aggregate_fields', count: number } | null | undefined } } | null | undefined }> };
+
 export type CreateModuleMutationVariables = Exact<{
   content: Scalars['String'];
   order: Scalars['Int'];
@@ -6445,6 +9097,64 @@ export const GetOwnCoursesDocument = gql`
 }
     `;
 export type GetOwnCoursesQueryResult = Apollo.QueryResult<GetOwnCoursesQuery, GetOwnCoursesQueryVariables>;
+export const CreateAssignmentDocument = gql`
+    mutation CreateAssignment($gradebook_item_id: uuid!, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $submission_type: String!, $accommodations: String, $assignment_id: uuid!, $name: String!, $type: String!, $files: String, $description: String) {
+  insert_gradebook_items_one(
+    object: {id: $gradebook_item_id, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, submission_type: $submission_type, accommodations: $accommodations}
+  ) {
+    id
+  }
+  insert_assignments_one(
+    object: {id: $assignment_id, name: $name, type: $type, gradebook_item_id: $gradebook_item_id, files: $files, description: $description}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateAssignmentMutationFn = Apollo.MutationFunction<CreateAssignmentMutation, CreateAssignmentMutationVariables>;
+export type CreateAssignmentMutationResult = Apollo.MutationResult<CreateAssignmentMutation>;
+export type CreateAssignmentMutationOptions = Apollo.BaseMutationOptions<CreateAssignmentMutation, CreateAssignmentMutationVariables>;
+export const GetGradebookItemsDocument = gql`
+    query GetGradebookItems($course_id: uuid!, $with_enrollment: Boolean!) {
+  gradebook_items(where: {course_id: {_eq: $course_id}}) {
+    accommodations
+    assessment_id
+    assessment_type
+    attempts_allowed
+    attempts_grading
+    available_from
+    available_until
+    course_id
+    grading_rubric_id
+    id
+    max_points
+    scoring_type
+    status
+    submission_type
+    assignment {
+      description
+      files
+      gradebook_item_id
+      id
+      name
+      type
+    }
+    submissions_aggregate {
+      aggregate {
+        count
+      }
+    }
+    course {
+      enrollments_aggregate(where: {authorized: {_eq: true}}) @include(if: $with_enrollment) {
+        aggregate {
+          count
+        }
+      }
+    }
+  }
+}
+    `;
+export type GetGradebookItemsQueryResult = Apollo.QueryResult<GetGradebookItemsQuery, GetGradebookItemsQueryVariables>;
 export const CreateModuleDocument = gql`
     mutation CreateModule($content: String!, $order: Int!, $unit_id: uuid!, $type: String!, $folder_id: uuid, $status: String!) {
   insert_modules(

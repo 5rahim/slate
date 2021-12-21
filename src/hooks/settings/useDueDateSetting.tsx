@@ -1,7 +1,4 @@
-import { BiCalendarAlt } from '@react-icons/all-files/bi/BiCalendarAlt'
-import { BiCalendarWeek } from '@react-icons/all-files/bi/BiCalendarWeek'
-import { BiCheckCircle } from '@react-icons/all-files/bi/BiCheckCircle'
-import { BiHide } from '@react-icons/all-files/bi/BiHide'
+import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { DateInput } from '@slate/components/DateInput'
 import { TimePicker } from '@slate/components/TimePicker'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
@@ -15,9 +12,7 @@ import { Parameter } from '@slate/types/Parameters'
 import { Utils } from '@slate/utils'
 import { Checkbox } from 'chalkui/dist/cjs/Components/Checkbox'
 import { FormControl } from 'chalkui/dist/cjs/Components/FormControl'
-import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
-import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import React, { useEffect, useState } from 'react'
 
@@ -87,7 +82,7 @@ export const useDueDateSetting = (defaultValue?: Parameter<string>) => {
             return (
                <>
                   <SettingSection
-                     icon={BiCalendarWeek}
+                     icon={BiCalendar}
                      title={t('course:Due date')}
                      summary={assign ? formatDate(availableUntil, 'short with hours') : ( t('form:No due date') )}
                      settingEdit={
@@ -144,28 +139,7 @@ export const useDueDateSetting = (defaultValue?: Parameter<string>) => {
       },
    
       dueDateHelpers: {
-         isAvailable: ({ status, availableUntil }: { status: any, availableUntil: Parameter<string> }) => {
-            return (status === 'available' || (status !== 'available' && status === 'scheduled' && Utils.Dates.dateHasPassed(availableUntil)))
-         },
-         icons: ({ status, availableUntil }: { status: any, availableUntil: Parameter<string> }) => {
-            return (
-               <>
-                  {( status === 'available' || ( status === 'scheduled' && Utils.Dates.dateHasPassed(availableUntil) ) )
-                  && <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />}
-               
-                  {( status === 'scheduled' && !Utils.Dates.dateHasPassed(availableUntil) )
-                  && (
-                     <Tooltip placement="auto-end" label={`${t('Accessible on')} ${formatDate(availableUntil, 'short with hours')}`}>
-                        <Box mr="2"><Icon as={BiCalendarAlt} fontSize="2xl" /></Box>
-                     </Tooltip>
-                  )}
-               
-                  {( status === 'not_available' || (status === 'scheduled' && !Utils.Dates.dateHasPassed(availableUntil)) ) && (
-                     <Icon as={BiHide} fontSize="2xl" />
-                  )}
-               </>
-            )
-         }
+      
       },
       
    }

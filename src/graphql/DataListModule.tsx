@@ -42,7 +42,7 @@ export function DataListModule(props: DataListModuleProps) {
       <Box
          {...rest}
       >
-         {( !dataIsLoading && !!data && data?.length > 0 )
+         {( !!data && data?.length > 0 )
          && displayData(
             {
                list: (El: any, ...rest) => {

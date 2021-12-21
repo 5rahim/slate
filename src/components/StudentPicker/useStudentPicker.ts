@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 /**
  * Default value from database
@@ -8,9 +8,9 @@ export const useStudentPicker = (defaultValue: string) => {
    
    const [selected, setSelected] = useState<number[]>(JSON.parse(defaultValue))
    
-   useEffect(() => {
-      console.log(selected)
-   }, [selected])
+   // useEffect(() => {
+   //    console.log(selected)
+   // }, [selected])
    
    return {
       studentPickerProps: {

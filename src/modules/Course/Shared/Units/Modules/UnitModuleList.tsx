@@ -12,7 +12,7 @@ import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 // import { UnitModuleItem } from '@slate/modules/Course/Shared/Units/Modules/UnitModuleItem'
 import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
-import { CelledList, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { DividedList, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Skeleton } from 'chalkui/dist/cjs/Components/Skeleton'
 import dynamic from 'next/dynamic'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -71,14 +71,14 @@ export function UnitModuleList() {
          dataIsLoading={isLoading}
          dataIsEmpty={isEmpty}
          displayData={({ list }) =>
-            <CelledList
+            <DividedList
                boxShadow="none"
-               borderWidth="2px"
-               borderColor={cmf("gray.200", 'gray.700')}
+               // borderWidth="2px"
+               // borderColor={cmf("gray.200", 'gray.700')}
                width="100%"
                transition="all .15s linear"
                _hover={{
-                  boxShadow: 'md',
+                  // boxShadow: 'md',
                }}
             >
                <DndContext
@@ -90,7 +90,7 @@ export function UnitModuleList() {
                      })}
                   </SortableContext>
                </DndContext>
-            </CelledList>
+            </DividedList>
          }
          fallback={
             <Stack gridGap="1rem">

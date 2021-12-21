@@ -19,6 +19,12 @@ export const useLinkHref = () => {
             query: { course_id: id, iid, unit_id },
          }
       },
+      linkToAssignment: (assignment_id: string) => {
+         return {
+            pathname: '/[iid]/u/course/[course_id]/assignment/[assignment_id]',
+            query: { course_id: id, iid, assignment_id },
+         }
+      },
    }
    
 }

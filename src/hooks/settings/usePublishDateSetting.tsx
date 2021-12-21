@@ -14,7 +14,6 @@ import { FormErrors } from '@slate/types/FormErrors'
 import { Parameter } from '@slate/types/Parameters'
 import { Utils } from '@slate/utils'
 import { Checkbox } from 'chalkui/dist/cjs/Components/Checkbox'
-import { FormControl } from 'chalkui/dist/cjs/Components/FormControl'
 import { Icon } from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
@@ -101,13 +100,13 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
                      icon={isVisible ? BiCheckCircle : ( scheduled ? BiLock : BiHide)}
                      title={t('course:Availability')}
                      summary={isVisible ?
-                        t('form:Visible to students')
+                        t('form:Available to students')
                         : ( scheduled ? t('form:Not available until') + ' ' + formatDate(availableFrom, 'short with hours')
                            : t('form:Not available')
                         )}
                      settingEdit={
                         <>
-                           <FormControl display="flex" alignItems="center" mb={2} id="available">
+                           <Box display="flex" alignItems="center" mb={2}>
                               <Checkbox
                                  size="lg"
                                  id="available"
@@ -116,19 +115,19 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
                               >
                                  {t('form:Available to students')}
                               </Checkbox>
-                           </FormControl>
+                           </Box>
    
    
                            <Box display={!available ? 'block' : 'none'}>
                               {/*Publish later*/}
-                              <FormControl display="flex" alignItems="center" mb={3} id="scheduled">
+                              <Box display="flex" alignItems="center" mb={3}>
                                  <Checkbox
                                     size="lg"
                                     id="puslish_later"
                                     defaultIsChecked={scheduled}
                                     onChange={(e) => setScheduled(e.target.checked)}
                                  >{t('form:Available at a later date')}</Checkbox>
-                              </FormControl>
+                              </Box>
       
                               <Box display={scheduled ? 'block' : 'none'}>
          
