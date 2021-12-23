@@ -40,6 +40,23 @@ export const UPDATE_UNIT_DETAILS = gql`
     }
 `
 
+export const ADD_ASSESSMENT_TO_UNIT = gql`
+    mutation AddAssessmentToUnit($assessment_id: uuid!, $type: String!, $unit_id: uuid!) {
+        insert_unit_assessments_one(object: {assessment_id: $assessment_id, type: $type, unit_id: $unit_id}, on_conflict: {constraint: unit_assessments_pkey, where: {_and: {unit_id: {_eq: $unit_id}, assessment_id: {_eq: $assessment_id}}}}) {
+            id
+        }
+    }
+`
+
+export const REMOVE_ASSESSMENT_FROM_UNIT = gql`
+    mutation RemoveAssessmentFromUnit($id: uuid!) {
+        delete_unit_assessments_by_pk(id: $id) {
+            id
+        }
+    }
+
+`
+
 export const CHANGE_UNIT_ORDER = gql`
     mutation ChangeUnitOrder($id: uuid!, $order: Int!) {
         update_units_by_pk(pk_columns: {id: $id}, _set: {order: $order}) {

@@ -26,7 +26,7 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
       const router = useRouter()
       const { unit_id } = router.query
       const dispatch = useDispatch()
-      const { isReallyStudent, isAssistantOrInstructor } = useUserRole()
+      const { isReallyStudent, isAssistantOrInstructor, isReallyAssistantOrInstructor } = useUserRole()
       
       const { publishDateHelpers } = usePublishDateSetting()
       
@@ -34,7 +34,7 @@ export const withUnit = (props?: WithUnitProps) => (Component: NextPage) => {
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
       const storedUnit = useSelector(UnitSelectors.getAll)
-      const [unit, unitIsLoading] = getUnitById(unit_id as string)
+      const [unit, unitIsLoading] = getUnitById(unit_id as string, isReallyAssistantOrInstructor)
       
       const [displayPage, setDisplayPage] = useState<boolean>(storedUnit.unit?.id === unit_id)
       

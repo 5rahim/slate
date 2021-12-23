@@ -6,7 +6,7 @@ import { gql } from '@apollo/client'
  */
 
 export const GET_UNIT_BY_ID = gql`
-    query GetUnitById($id: uuid!) {
+    query GetUnitById($id: uuid!, $with_gradebook_items: Boolean!) {
         units(limit: 1, where: {id: {_eq: $id}}, order_by: {available_from: desc}) {
             archived
             status
@@ -17,6 +17,53 @@ export const GET_UNIT_BY_ID = gql`
             available_from
             title
             type
+            assessments {
+                id
+                assignment {
+                    name
+                    id
+                    gradebook_item {
+                        id
+                        status
+                        available_from,
+                        submissions_aggregate {
+                            aggregate {
+                                count
+                            }
+                        }
+                    }
+                }
+                test {
+                    name
+                    id
+                    gradebook_item {
+                        id
+                        status
+                        available_from,
+                        submissions_aggregate {
+                            aggregate {
+                                count
+                            }
+                        }
+                    }
+                }
+            }
+            course {
+                gradebook_items @include(if: $with_gradebook_items) {
+                    id
+                    available_from
+                    status
+                    assessment_type
+                    assignment {
+                        name
+                        id
+                    }
+                    test {
+                        name
+                        id
+                    }
+                }
+            }
         }
     }
 

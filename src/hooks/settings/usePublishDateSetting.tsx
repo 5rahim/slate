@@ -35,7 +35,7 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
    const { defaultValue } = props ? props : { defaultValue: { status: 'not_available', availableFrom: null } }
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
-   const {formatDate} = useDateFormatter()
+   const { formatDate } = useDateFormatter()
    
    const {
       value: availableFrom,
@@ -53,28 +53,30 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
    
    const [selectedDate, setSelectedDate] = useState<string | null>(null)
    
-   const isVisible = available || (!available && scheduled && dateHasPassed)
+   const isVisible = available || ( !available && scheduled && dateHasPassed )
    
    useEffect(() => {
-       try {
-          setSelectedDate(s => {
-             try {
-                return !!availableFrom ? availableFrom.toISOString().replace('Z', '') : null
-             } catch {
-                return s
-             }
-          })
-       } catch (e) {
-       
-       }
+      try {
+         setSelectedDate(s => {
+            try {
+               return !!availableFrom ? availableFrom.toISOString().replace('Z', '') : null
+            }
+            catch {
+               return s
+            }
+         })
+      }
+      catch (e) {
+      
+      }
    }, [availableFrom])
    
    
    return {
       
       publishDateValues: {
-         status: available ? 'available' : (scheduled ? 'scheduled' : 'not_available'),
-         available_from: (!available && scheduled) ? availableFrom : null
+         status: available ? 'available' : ( scheduled ? 'scheduled' : 'not_available' ),
+         available_from: ( !available && scheduled ) ? availableFrom : null,
       },
       
       isTouched: ( !available && isDateTimeTouched ) || available,
@@ -82,7 +84,7 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
       publishDateFields: {
          
          reset: resetDateAndTimeFields,
-   
+         
          isValid: () => {
             if (( scheduled && isDateTimeTouched ) || ( available ) || ( !available && !scheduled )) {
                setError(false)
@@ -92,17 +94,17 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
                return false
             }
          },
-   
+         
          render: () => {
             return (
                <>
                   <SettingSection
-                     icon={isVisible ? BiCheckCircle : ( scheduled ? BiLock : BiHide)}
+                     icon={isVisible ? BiCheckCircle : ( scheduled ? BiLock : BiHide )}
                      title={t('course:Availability')}
                      summary={isVisible ?
                         t('form:Available to students')
                         : ( scheduled ? t('form:Not available until') + ' ' + formatDate(availableFrom, 'short with hours')
-                           : t('form:Not available')
+                              : t('form:Not available')
                         )}
                      settingEdit={
                         <>
@@ -116,8 +118,8 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
                                  {t('form:Available to students')}
                               </Checkbox>
                            </Box>
-   
-   
+                           
+                           
                            <Box display={!available ? 'block' : 'none'}>
                               {/*Publish later*/}
                               <Box display="flex" alignItems="center" mb={3}>
@@ -128,31 +130,31 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
                                     onChange={(e) => setScheduled(e.target.checked)}
                                  >{t('form:Available at a later date')}</Checkbox>
                               </Box>
-      
+                              
                               <Box display={scheduled ? 'block' : 'none'}>
-         
+                                 
                                  <Box border="1px solid" p="2" borderRadius="md" borderColor={cmf("#ddd", 'gray.500')}>
-            
+                                    
                                     <Text fontWeight="bold" mb="1">{t('form:Available when')}</Text>
-            
+                                    
                                     <Box>
                                        <AlignedFlex mb="2" width="100%">
                                           <DateInput {...dateFieldProps} defaultSelectedDate={Utils.Dates.parseDurationDateObject(selectedDate ?? defaultValue.availableFrom) ?? null} />
                                        </AlignedFlex>
-               
+                                       
                                        <AlignedFlex>
                                           <TimePicker {...timeFieldProps} defaultTime={Utils.Dates.getTimeInMinutesFromDate(selectedDate ?? defaultValue.availableFrom) ?? 1439} />
                                        </AlignedFlex>
                                     </Box>
                                  </Box>
-      
+                              
                               </Box>
                            </Box>
-
+                        
                         </>
                      }
                   >
-               
+                     
                      
                      {error && (
                         <Text
@@ -170,30 +172,36 @@ export const usePublishDateSetting = (props?: UseAssignDatesProps) => {
          },
          
       },
-   
+      
       publishDateHelpers: {
          isAvailable: ({ status, availableFrom }: { status: any, availableFrom: Parameter<string> }) => {
-            return (status === 'available' || (status !== 'available' && status === 'scheduled' && Utils.Dates.dateHasPassed(availableFrom)))
+            return ( status === 'available' || ( status !== 'available' && status === 'scheduled' && Utils.Dates.dateHasPassed(availableFrom) ) )
          },
          icons: ({ status, availableFrom }: { status: any, availableFrom: Parameter<string> }) => {
             return (
                <>
                   {( status === 'available' || ( status === 'scheduled' && Utils.Dates.dateHasPassed(availableFrom) ) )
-                  && <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />}
-               
+                  && (
+                     <Tooltip label={t('course:Available to students')}>
+                        <Box>
+                           <Icon as={BiCheckCircle} color="green.500" fontSize="2xl" />
+                        </Box>
+                     </Tooltip>
+                  )}
+                  
                   {( status === 'scheduled' && !Utils.Dates.dateHasPassed(availableFrom) )
                   && (
                      <Tooltip placement="auto-end" label={`${t('Accessible on')} ${formatDate(availableFrom, 'short with hours')}`}>
                         <Box mr="2"><Icon as={BiCalendarAlt} fontSize="2xl" /></Box>
                      </Tooltip>
                   )}
-               
-                  {( status === 'not_available' || (status === 'scheduled' && !Utils.Dates.dateHasPassed(availableFrom)) ) && (
+                  
+                  {( status === 'not_available' || ( status === 'scheduled' && !Utils.Dates.dateHasPassed(availableFrom) ) ) && (
                      <Icon as={BiHide} fontSize="2xl" />
                   )}
                </>
             )
-         }
+         },
       },
       
    }

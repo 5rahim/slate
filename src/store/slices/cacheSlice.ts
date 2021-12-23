@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { Announcements, GetCourseEnrollmentsQuery, Gradebook_Items, Modules, Units } from '@slate/generated/graphql'
+import { Announcements, Assignments, GetCourseEnrollmentsQuery, Gradebook_Items, Modules, Units } from '@slate/generated/graphql'
 import { GlobalState } from '@slate/store/index'
 
 export type ValidEnrollments = GetCourseEnrollmentsQuery['course_enrollment']
@@ -11,6 +11,7 @@ export interface CacheState {
    modules: Modules[] | null
    enrollments: ValidEnrollments | null
    gradebookItems: Gradebook_Items[] | null
+   assignment: Assignments | null
 }
 
 export const cacheState: CacheState = {
@@ -19,7 +20,8 @@ export const cacheState: CacheState = {
    courseId: null,
    modules: null,
    enrollments: null,
-   gradebookItems: null
+   gradebookItems: null,
+   assignment: null
 }
 
 export const cacheSlice = createSlice({
@@ -44,11 +46,15 @@ export const cacheSlice = createSlice({
       writeGradebookItems: (state, action: PayloadAction<Gradebook_Items[] | null>) => {
          state.gradebookItems = action.payload
       },
+      writeAssignment: (state, action: PayloadAction<Assignments | null>) => {
+         state.assignment = action.payload
+      },
       empty: (state) => {
          state.units = null
          state.announcements = null
          state.enrollments = null
          state.gradebookItems = null
+         state.assignment = null
       }
    },
 })
@@ -61,7 +67,8 @@ export const CacheSelectors = {
    readModules: (state: GlobalState) => state.cache.modules,
    readCourseId: (state: GlobalState) => state.cache.courseId,
    readEnrollments: (state: GlobalState) => state.cache.enrollments,
-   readGradebookItems: (state: GlobalState) => state.cache.gradebookItems
+   readGradebookItems: (state: GlobalState) => state.cache.gradebookItems,
+   readAssignment: (state: GlobalState): Assignments | null => state.cache.assignment,
 }
 
 

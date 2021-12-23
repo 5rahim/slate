@@ -12,7 +12,7 @@ export const GET_COURSE_BY_ID = gql`
         username
     }
 
-    query GetCourseById($id: uuid!) {
+    query GetCourseById($id: uuid!, $with_details: Boolean!) {
         courses(order_by: {name: asc}, limit: 1, where: {id: {_eq: $id}}) {
             access_code
             available
@@ -29,14 +29,19 @@ export const GET_COURSE_BY_ID = gql`
             instructor_id
             level
             name
-            #            management {
-            #                course_id
-            #                id
-            #                manager_id
-            #                manager {
-            #                    ...otherUser
-            #                }
-            #            }
+            enrollments_aggregate @include(if: $with_details) {
+                aggregate {
+                    count
+                }
+            }
+            management @include(if: $with_details) {
+                course_id
+                id
+                manager_id
+                manager {
+                    ...otherUser
+                }
+            }
         }
     }
 `

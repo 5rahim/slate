@@ -1,6 +1,7 @@
 import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { Dropzone } from '@slate/components/Dropzone'
 import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
+import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
 import { Assignments, EditAssignmentMutationVariables, Gradebook_Items } from '@slate/generated/graphql'
 import { useEditAssignment } from '@slate/graphql/schemas/gradebook_items/hooks'
@@ -17,9 +18,11 @@ import { useRichTextEditor } from '@slate/hooks/useRichTextEditor'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { FormErrors } from '@slate/types/FormErrors'
+import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
 import { Input } from 'chalkui/dist/cjs/Components/Input'
-import { Box, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Box, Flex, Link, Stack } from 'chalkui/dist/cjs/Components/Layout'
+import { Badge } from 'chalkui/dist/cjs/Components/Layout/Badge'
 import { Radio } from "chalkui/dist/cjs/Components/Radio/Radio"
 import { RadioGroup } from 'chalkui/dist/cjs/Components/Radio/RadioGroup'
 import React, { useState } from 'react'
@@ -32,6 +35,8 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
    const t = useTypeSafeTranslation()
    const cache = useStoreCache()
    const course = useCurrentCourse()
+   
+   const [hasAttachments, setHasAttachments] = useState(assignment.files !== null && assignment.files !== '[]')
    
    const [wait, setWait] = useState(false)
    const [submissionType, setSubmissionType] = useState(assignment.type)
@@ -58,6 +63,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
    
    const [editAssignment, isLoading] = useEditAssignment({
       onCompleted: () => {
+         setWait(false)
       },
    })
    
@@ -169,8 +175,8 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             <Box mb="5">
                {textEditor.render({ title: 'Description', height: 200 })}
             </Box>
-            
-            <Box>
+   
+            { !hasAttachments ? <Box>
                <FormLabel mb="2">{t('Attachments')}</FormLabel>
                <Dropzone
                   multiple={true}
@@ -179,7 +185,22 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
                   inputProps={{ ...fields.register('content') }}
                />
                {fields.errorMessage('content')}
-            </Box>
+            </Box> : (
+               <>
+                  <AlignedFlex mb="3">
+                     <FormLabel my="0">{t('Attachments')}</FormLabel>
+                  <Button size="sm" colorScheme="brand.100" onClick={() => setHasAttachments(false)}>{t('course:Upload new files')}</Button>
+                  </AlignedFlex>
+                  <Box>
+                     {assignment.files && (JSON.parse(assignment.files) as any[])?.map((file: any) => {
+                        return <Flex key={file.name} gridGap=".5rem" flexDirection={['column', 'column', 'row', 'row', 'row']}>
+                           <Link target="_blank" href={file.url}>{file.name ?? file.name ?? file.url.slice(-36)}</Link>
+                           <Badge alignSelf="flex-start" pill colorScheme="green.600">{file.ext}</Badge>
+                        </Flex>
+                     })}
+                  </Box>
+               </>
+            )}
          
          </EntityDrawer>
       

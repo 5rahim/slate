@@ -1,6 +1,5 @@
+import { AiOutlineSnippets } from '@react-icons/all-files/ai/AiOutlineSnippets'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
-import { BiEditAlt } from '@react-icons/all-files/bi/BiEditAlt'
-import { BiEraser } from '@react-icons/all-files/bi/BiEraser'
 import { BiFolderOpen } from '@react-icons/all-files/bi/BiFolderOpen'
 import { BiFolderPlus } from '@react-icons/all-files/bi/BiFolderPlus'
 import { BiHeading } from '@react-icons/all-files/bi/BiHeading'
@@ -9,14 +8,12 @@ import { BiMessageAlt } from '@react-icons/all-files/bi/BiMessageAlt'
 import { BiPlus } from '@react-icons/all-files/bi/BiPlus'
 import { RiFile3Line } from '@react-icons/all-files/ri/RiFile3Line'
 import { RiMistFill } from '@react-icons/all-files/ri/RiMistFill'
+import { VscChecklist } from '@react-icons/all-files/vsc/VscChecklist'
 import { ComponentVisibility } from '@slate/components/ComponentVisibility'
 import { ModuleBox } from '@slate/components/UI/Course/ModuleBox'
 import { withApollo } from '@slate/graphql/apollo/withApollo'
-import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useCurrentUnit, useCurrentUnitName } from '@slate/hooks/useCurrentUnit'
-import { useDateFormatter } from '@slate/hooks/useDateFormatter'
-import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useModuleFolder } from '@slate/hooks/useModuleFolder'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { withAuth } from '@slate/middlewares/auth/withAuth'
@@ -40,17 +37,18 @@ const UnitContent = dynamic(() => import('@slate/modules/Course/Shared/Units/Uni
 const CourseLayout = dynamic(() => import('@slate/components/Layout/CourseLayout'))
 const UnitEdit = dynamic(() => import('@slate/modules/Course/Instructor/Units/UnitEdit'))
 const UnitModuleCreation = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleCreation'))
+const UnitModuleAddAssignment = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleAddAssignment'))
+const UnitModuleAddTest = dynamic(() => import('@slate/modules/Course/Instructor/Units/Modules/UnitModuleAddTest'))
 
 const Page = memo(({ displayPage }: any) => {
    const { isOpen: editIsOpen, onOpen: editOnOpen, onClose: editOnClose } = useDisclosure()
    const { isOpen: createIsOpen, onOpen: createOnOpen, onClose: createOnClose } = useDisclosure()
+   const { isOpen: addAssignmentIsOpen, onOpen: addAssignmentOnOpen, onClose: addAssignmentOnClose } = useDisclosure()
+   const { isOpen: addTestIsOpen, onOpen: addTestOnOpen, onClose: addTestOnClose } = useDisclosure()
    const t = useTypeSafeTranslation()
-   const { getCourseHref } = useLinkHref()
    const unit = useCurrentUnit()
    const course = useCurrentCourse()
    const unitName = useCurrentUnitName()
-   const cmf = useCMF()
-   const { formatDate } = useDateFormatter()
    const { isFolderOpen, openedFolder } = useModuleFolder()
    
    
@@ -86,13 +84,23 @@ const Page = memo(({ displayPage }: any) => {
                 data={unit}
             />}
             
+            {addAssignmentIsOpen && <UnitModuleAddAssignment
+                isOpen={addAssignmentIsOpen}
+                onClose={addAssignmentOnClose}
+            />}
+            
+            {addTestIsOpen && <UnitModuleAddTest
+                isOpen={addTestIsOpen}
+                onClose={addTestOnClose}
+            />}
+            
             <Box>
                
                <ModuleBox
                   headerText={unitName}
                   headerIcon={<BiFolderOpen />}
                   headerAction={
-                     <ComponentVisibility.InstructorOnly>
+                     <ComponentVisibility.AssistantAndHigher>
                         <Flex gridGap=".5rem">
                            <Button
                               onClick={editOnOpen}
@@ -137,11 +145,11 @@ const Page = memo(({ displayPage }: any) => {
                                     </DropdownItem>
                                     {!isFolderOpen && (
                                        <>
-                                          <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.QuizLinks)} icon={<BiEditAlt />}>
-                                             {t('Quiz')}
-                                          </DropdownItem>
-                                          <DropdownItem onClick={() => handleOpenCreationModal(UnitModuleTypes.AssignmentLinks)} icon={<BiEraser />}>
+                                          <DropdownItem onClick={addAssignmentOnOpen} icon={<AiOutlineSnippets />}>
                                              {t('Assignment')}
+                                          </DropdownItem>
+                                          <DropdownItem onClick={addTestOnOpen} icon={<VscChecklist />}>
+                                             {t('Test')}
                                           </DropdownItem>
                                        </>
                                     )}
@@ -157,7 +165,7 @@ const Page = memo(({ displayPage }: any) => {
                            />}
                         
                         </Flex>
-                     </ComponentVisibility.InstructorOnly>
+                     </ComponentVisibility.AssistantAndHigher>
                   }
                >
                   

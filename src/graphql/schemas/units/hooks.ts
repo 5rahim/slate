@@ -1,17 +1,21 @@
 import {
-   ArchiveUnitMutationVariables, CreateUnitMutationVariables, UnarchiveUnitMutationVariables, Units, UpdateUnitDetailsMutationVariables,
+   AddAssessmentToUnitMutationVariables, ArchiveUnitMutationVariables, CreateUnitMutationVariables, RemoveAssessmentFromUnitMutationVariables,
+   UnarchiveUnitMutationVariables, Units, UpdateUnitDetailsMutationVariables,
 } from '@slate/generated/graphql'
 import { useLazyQueryHookCreator } from '@slate/graphql/hooks/useLazyQueryHookCreator'
 import { SlateMutationHook, useMutationHookCreator } from '@slate/graphql/hooks/useMutationHookCreator'
 import { useQueryHookCreator } from '@slate/graphql/hooks/useQueryHookCreator'
-import { ARCHIVE_UNIT, CREATE_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_DETAILS, UPDATE_UNIT_ORDER } from '@slate/graphql/schemas/units/mutations'
+import {
+   ADD_ASSESSMENT_TO_UNIT, ARCHIVE_UNIT, CREATE_UNIT, REMOVE_ASSESSMENT_FROM_UNIT, UNARCHIVE_UNIT, UPDATE_UNIT_DETAILS, UPDATE_UNIT_ORDER,
+} from '@slate/graphql/schemas/units/mutations'
 import { GET_ARCHIVED_UNITS, GET_UNIT_BY_ID, GET_UNITS } from '@slate/graphql/schemas/units/queries'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
+import { useUserRole } from '@slate/hooks/useUserRole'
 
-export const getUnitById = (id: string) => {
+export const getUnitById = (id: string, withGradebookItems: boolean) => {
    
    return useQueryHookCreator<Units>('units', GET_UNIT_BY_ID, "object", {
-      variables: { id }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
+      variables: { id, with_gradebook_items: withGradebookItems }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
    })
    
 }
@@ -53,6 +57,42 @@ export const useCreateUnit: SlateMutationHook<CreateUnitMutationVariables> = (op
          'GetUnits',
          'GetArchivedUnits',
       ],
+      ...options,
+   })
+   
+}
+
+export const useAddAssessmentToUnitMutation: SlateMutationHook<AddAssessmentToUnitMutationVariables> = (options) => {
+   
+   const unit = useCurrentUnit()
+   const { isReallyAssistantOrInstructor } = useUserRole()
+   
+   return useMutationHookCreator(ADD_ASSESSMENT_TO_UNIT, {
+      refetchQueries: [
+         { query: GET_UNITS },
+         { query: GET_UNIT_BY_ID, variables: { id: unit?.id, with_gradebook_items: isReallyAssistantOrInstructor } },
+         'GetUnits',
+         'GetUnitById',
+      ],
+      successAlert: { type: "toast", title: "Unit has been updated" },
+      ...options,
+   })
+   
+}
+
+export const useRemoveAssessmentFromUnitMutation: SlateMutationHook<RemoveAssessmentFromUnitMutationVariables> = (options) => {
+   
+   const unit = useCurrentUnit()
+   const { isReallyAssistantOrInstructor } = useUserRole()
+   
+   return useMutationHookCreator(REMOVE_ASSESSMENT_FROM_UNIT, {
+      refetchQueries: [
+         { query: GET_UNITS },
+         { query: GET_UNIT_BY_ID, variables: { id: unit?.id, with_gradebook_items: isReallyAssistantOrInstructor } },
+         'GetUnits',
+         'GetUnitById',
+      ],
+      successAlert: { type: "toast", title: "Unit has been updated" },
       ...options,
    })
    
@@ -108,7 +148,6 @@ export const useMutateArchiveUnit: SlateMutationHook<ArchiveUnitMutationVariable
       },
    )
 }
-
 
 
 export const useMutateUnarchiveUnit: SlateMutationHook<UnarchiveUnitMutationVariables> = (options) => {

@@ -1,6 +1,8 @@
 import { BiCaretDown } from '@react-icons/all-files/bi/BiCaretDown'
 import { BiCaretUp } from '@react-icons/all-files/bi/BiCaretUp'
+import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useMediaSizes } from '@slate/hooks/useMediaSizes'
+import { Utils } from '@slate/utils'
 import { useColorMode } from 'chalkui/dist/cjs/ColorMode'
 import { Icon } from 'chalkui/dist/cjs/Components/Icon'
 import { BoxProps, Flex } from 'chalkui/dist/cjs/Components/Layout'
@@ -13,19 +15,20 @@ type CourseModuleBoxProps = {
    headerIcon?: React.ReactNode
    headerText?: string,
    headerAction?: React.ReactNode
+   headerStyle?: boolean
+   headerColor?: string
    children?: React.ReactNode
    minimizeOnMobile?: boolean
    contentPadding?: number[] | number | string
 } & BoxProps
 
 export const ModuleBox = (props: CourseModuleBoxProps) => {
-   
-   const { headerIcon, headerText, children, headerAction, minimizeOnMobile = false, contentPadding = [3, 3, 3, 5], ...rest } = props
-   
+   const cmf = useCMF()
+   const {
+      headerStyle, headerColor, headerIcon, headerText, children, headerAction, minimizeOnMobile = false, contentPadding = [3, 3, 3, 5], ...rest
+   } = props
    const { colorMode } = useColorMode()
-   
    const { isOpen, onToggle, onOpen } = useDisclosure()
-   
    const { isDesktop, isTabletAndSmaller } = useMediaSizes()
    
    return (
@@ -35,6 +38,7 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
          boxShadow="sm"
          height="auto"
          width="100%"
+         overflow="hidden"
          sx={{
             transition: 'all .15s linear',
             _hover: {
@@ -45,30 +49,33 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
       >
          
          <Flex
+            backgroundImage={headerStyle ? Utils.Url.assetImageUrl('topography.png', 'patterns') : undefined}
+            backgroundBlendMode={"color-burn"}
+            bgColor={headerColor ?? cmf("transparent", "transparent")}
             justifyContent="space-between"
             p={[4, 4, 4, 5]}
             onClick={() => {
                onToggle()
             }}
          >
-   
+            
             {headerText && (
                <>
-                  <Flex alignItems="center" gridGap=".5rem">
-      
+                  <Flex color={headerColor ? 'white' : 'black'} alignItems="center" gridGap=".5rem">
+                     
                      <Flex fontSize="1.5rem" alignItems="center">
                         {headerIcon && headerIcon}
                      </Flex>
-      
+                     
                      <Text p={0} fontWeight="700" fontSize={["lg", "lg", "lg", "xl"]}>
                         {headerText}
                      </Text>
-   
+                  
                   </Flex>
-   
+                  
                   <Flex align="center">
                      {headerAction}
-      
+                     
                      {minimizeOnMobile && isTabletAndSmaller && (
                         isOpen ? <Icon as={BiCaretDown} fontSize="xl" /> : <Icon as={BiCaretUp} fontSize="xl" />
                      )}

@@ -1,3 +1,4 @@
+import { useCurrentAssignment } from '@slate/hooks/useCurrentAssignment'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { CacheActions, CacheSelectors } from '@slate/store/slices/cacheSlice'
@@ -13,10 +14,11 @@ import { useDispatch, useSelector } from 'react-redux'
 export const useStoreCacheConfig = () => {
    const dispatch = useDispatch()
    const router = useRouter()
-   const { course_id, unit_id } = router.query
+   const { course_id, unit_id, assignment_id } = router.query
    const cachedCourseId = useSelector(CacheSelectors.readCourseId)
    const cache = useStoreCache()
    const unit = useCurrentUnit()
+   const assignment = useCurrentAssignment()
    
    /**
     * This behavior happens when course changes
@@ -46,4 +48,13 @@ export const useStoreCacheConfig = () => {
          dispatch(UnitActions.setOpenedFolder(null))
       }
    }, [unit_id, unit])
+   
+   /**
+    * This behavior happens when assignment changes
+    */
+   useEffect(() => {
+      if(!assignment_id || assignment_id !== assignment?.id) {
+         dispatch(CacheActions.writeAssignment(null))
+      }
+   }, [assignment_id, assignment])
 }

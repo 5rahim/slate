@@ -59,7 +59,7 @@ export const useDueDateSetting = (defaultValue?: Parameter<string>) => {
    return {
       
       dueDateValues: {
-         available_until: availableUntil ?? null
+         available_until: assign ? availableUntil : null
       },
       
       isTouched: ( assign && isDateTimeTouched ) || !assign,

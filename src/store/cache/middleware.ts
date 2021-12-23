@@ -10,6 +10,10 @@ export const cacheMiddleware = ({ getState }: any) => {
       if (action.type?.startsWith('user/')) {
          const state = store.getState().user
          localStorage.setItem('redux/user', JSON.stringify(state))
+      }
+      if (action.type?.startsWith('app/')) {
+         const state = store.getState().user
+         localStorage.setItem('redux/app', JSON.stringify(state))
          
       } else if (action.type?.startsWith('cache/') && !action.type?.includes('empty')) {
          const state = store.getState().cache
@@ -38,6 +42,9 @@ export const cacheMiddleware = ({ getState }: any) => {
 export const loadCache = () => {
    try {
       let state: any = {}
+      if (localStorage.getItem('redux/app') !== null) {
+         state['app'] = JSON.parse(localStorage.getItem('redux/app') as string)
+      }
       if (localStorage.getItem('redux/user') !== null) {
          state['user'] = JSON.parse(localStorage.getItem('redux/user') as string)
       }

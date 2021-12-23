@@ -6,7 +6,7 @@ export function AlignedFlex({ ...rest }: { children?: React.ReactNode } & BoxPro
       <Box
          display="flex"
          alignItems="center"
-         gridGap=".5rem"
+         gridGap=".35rem"
          {...rest}
       />
    )

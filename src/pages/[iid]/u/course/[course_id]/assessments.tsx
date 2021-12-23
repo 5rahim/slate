@@ -24,6 +24,7 @@ import React from 'react'
 import { useTranslation } from 'react-i18next'
 
 const AssignmentCreation = dynamic(() => import('@slate/modules/Course/Instructor/Assessments/Assignments/AssignmentCreation'))
+const TestCreation = dynamic(() => import('@slate/modules/Course/Instructor/Assessments/Tests/TestCreation'))
 
 const Page = React.memo(() => {
    const { t } = useTranslation(['common'], { useSuspense: false })
@@ -34,7 +35,7 @@ const Page = React.memo(() => {
    
    return (
       <CourseLayout
-         headerMenuIndex={0}
+         headerMenuIndex={2}
          pageTitle={course.name}
          leftPanel={
             <>
@@ -75,6 +76,7 @@ const Page = React.memo(() => {
                         </Dropdown>
                         
                         {createAssignmentIsOpen && <AssignmentCreation isOpen={createAssignmentIsOpen} onClose={createAssignmentOnClose} />}
+                        {createTestIsOpen && <TestCreation isOpen={createTestIsOpen} onClose={createTestOnClose} />}
                      
                      </Box>
                   </ComponentVisibility.AssistantAndHigher>

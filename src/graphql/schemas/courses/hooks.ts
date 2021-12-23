@@ -7,6 +7,7 @@ import {
    UPDATE_COURSE_DURATION,
 } from '@slate/graphql/schemas/courses/mutations'
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
+import { useUserRole } from '@slate/hooks/useUserRole'
 import { SlateCourse } from '@slate/types/Course'
 import { useEffect, useState } from 'react'
 import {
@@ -111,8 +112,10 @@ export const getCourseById = (id: string) => {
 
 export const getLazyCourseById = (id: string) => {
    
-   return useLazyQueryHookCreator<SlateCourse>('courses', GET_COURSE_BY_ID, "object", {
-      variables: { id }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
+   const { isReallyAssistantOrInstructor } = useUserRole()
+   
+   return useLazyQueryHookCreator<Courses>('courses', GET_COURSE_BY_ID, "object", {
+      variables: { id, with_details: isReallyAssistantOrInstructor }, fetchPolicy: 'no-cache', nextFetchPolicy: "cache-and-network",
    })
    
 }

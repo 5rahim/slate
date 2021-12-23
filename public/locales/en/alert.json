@@ -13,6 +13,8 @@
   "Module moved": "Module has been moved",
   "Module deleted": "Module has been deleted",
   "Module updated": "Module has been updated",
+  "Assignment created": "Assignment created",
+  "Assignment updated": "Assignment has been updated",
   "delete": {
     "announcement": "Are you sure you want to delete this announcement?",
     "module": "Are you sure you want to delete this module?",

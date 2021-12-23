@@ -3,6 +3,7 @@ import { useUserSettings } from '@slate/hooks/useUserSettings'
 import { Parameter } from '@slate/types/Parameters'
 import { Utils } from '@slate/utils'
 import format from 'date-fns/format'
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
 import isValid from 'date-fns/isValid'
 import enUS from 'date-fns/locale/en-US'
 import fr from 'date-fns/locale/fr'
@@ -64,6 +65,18 @@ export const useDateFormatter = () => {
                if(selected_format === 'short with hours' || selected_format === 'long with hours') {
                   return format(d, (formats[hour_format][date_format] as string), { locale: getLocale(locale) })
                }
+            }
+            
+         } else {
+            return 'N/A'
+         }
+      },
+      formatDistanceToNow: (utcDate: Parameter<Date | string>, options?: any) => {
+         if(utcDate) {
+            const d = typeof utcDate === 'string' ? Utils.Dates.asUTC(utcDate) : utcDate
+            
+            if(isValid(d)) {
+               return formatDistanceToNow(d, { locale: getLocale(locale), ...options })
             }
             
          } else {

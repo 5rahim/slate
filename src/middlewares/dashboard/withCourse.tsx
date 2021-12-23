@@ -3,7 +3,6 @@ import { getLazyCourseById, getLazyStudentEnrollments } from '@slate/graphql/sch
 import { useUserSessionProfile } from '@slate/hooks/useCurrentUser'
 import { useUserRole } from '@slate/hooks/useUserRole'
 import { CourseActions, CourseSelectors } from '@slate/store/slices/courseSlice'
-import { SlateCourse } from '@slate/types/Course'
 import { Utils } from '@slate/utils'
 import { NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -66,7 +65,7 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
           */
          if (!courseIsLoading && !enrollmentIsLoading && !!course && ( ( !!enrollment && enrollment[0].authorized && course.available && isReallyStudent ) || !isReallyStudent )) {
             setDisplayPage(true)
-            dispatch(CourseActions.setCourse(course as SlateCourse))
+            dispatch(CourseActions.setCourse(course))
             dispatch(CourseActions.setIsEnrolled(true))
             /**
              * Refuse access when:

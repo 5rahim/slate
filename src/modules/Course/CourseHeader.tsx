@@ -1,6 +1,6 @@
+import { AiOutlineFileDone } from '@react-icons/all-files/ai/AiOutlineFileDone'
 import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { BiCctv } from '@react-icons/all-files/bi/BiCctv'
-import { BiChat } from '@react-icons/all-files/bi/BiChat'
 import { BiFile } from '@react-icons/all-files/bi/BiFile'
 import { BiFolder } from '@react-icons/all-files/bi/BiFolder'
 import { BiUserCheck } from '@react-icons/all-files/bi/BiUserCheck'
@@ -179,7 +179,7 @@ function CourseHeaderMenu({ index = 0 }: any) {
             >
                <CourseHeaderLink icon={<BiFolder />} linkTo={'/'}>Content</CourseHeaderLink>
                <CourseHeaderLink icon={<HiOutlineSpeakerphone />} linkTo={'/announcements'}>Announcements</CourseHeaderLink>
-               <CourseHeaderLink icon={<BiChat />} linkTo={'/discussions'}>Discussions</CourseHeaderLink>
+               <CourseHeaderLink icon={<AiOutlineFileDone />} linkTo={'/assessments'}>Assessments</CourseHeaderLink>
                <ComponentVisibility.StudentOnly>
                   <CourseHeaderLink icon={<BiCalendar />} linkTo="/calendar">Calendar</CourseHeaderLink>
                   <CourseHeaderLink icon={<BiFile />} linkTo="/grades">Grades</CourseHeaderLink>
