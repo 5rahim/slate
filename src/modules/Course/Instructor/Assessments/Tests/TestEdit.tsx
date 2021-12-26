@@ -80,7 +80,7 @@ export function TestEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any,
             time_limit: 60, // TODO
             test_id: test.id,
             name: formData.name,
-            description: textEditor.value,
+            description: textEditor.getValue(),
          }
          
          update = true
@@ -133,7 +133,7 @@ export function TestEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any,
             </FormControl>
             
             <Box mb="5">
-               {textEditor.render({ title: 'Description', height: 200 })}
+               {textEditor.render({ title: 'Instructions', height: 200 })}
             </Box>
          
          </EntityDrawer>

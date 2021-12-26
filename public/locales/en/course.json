@@ -55,6 +55,7 @@
   "attempts": "attempt(s)",
   "Unlimited attempts": "Unlimited attempts",
   "No accommodations": "No accommodations",
+  "accommodations": "accommodation(s)",
   "Specific students": "Specific students",
   "Accommodation help": "Students with accommodation are granted unlimited time to finish their work during timed assessments.",
   "Last attempt": "Last attempt",
@@ -67,6 +68,13 @@
   "Due": "Due",
   "Upload new files": "Upload new files",
   "Choose the number of attempts allowed": "Choose the number of attempts allowed",
+  "You cannot submit attempt": "You cannot submit an attempt since the due date has passed.",
+  "days remaining": "day(s) remaining",
+  "attempts completed": "attempt(s) completed",
+  "Final grade": "Final grade",
+  "assignments due this week": "assignment(s) due this week",
+  "tests due this week": "test(s) due this week",
+  "You can still submit": "Your instructor allowed you to submit more attempts even after the due date",
   "options": {
     "status": {
       "title": "Course is {{status}}",

@@ -78,7 +78,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
             /** assignment **/
             assignment_id: assignment_id,
             name: data.name,
-            description: textEditor.value,
+            description: textEditor.getValue(),
             type: submissionType,
             files: null,
          }
@@ -156,7 +156,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
             </FormControl>
             
             <Box mb="5">
-               {textEditor.render({ title: 'Description', height: 200 })}
+               {textEditor.render({ title: 'Instructions', height: 200 })}
             </Box>
             
             <Box>

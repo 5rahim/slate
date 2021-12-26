@@ -2,9 +2,10 @@ import { gql } from '@apollo/client'
 
 
 export const GET_GRADEBOOK_ITEMS = gql`
-    query GetGradebookItems($course_id: uuid!, $with_enrollment: Boolean!) {
-        gradebook_items(where: {course_id: {_eq: $course_id}}) {
+    query GetGradebookItems($course_id: uuid!) {
+        gradebook_items(where: {course_id: {_eq: $course_id}}, order_by: {created_at: desc}) {
             accommodations
+            created_at
             assessment_id
             assessment_type
             attempts_allowed
@@ -37,13 +38,6 @@ export const GET_GRADEBOOK_ITEMS = gql`
                     count
                 }
             }
-            course {
-                enrollments_aggregate(where: {authorized: {_eq: true}}) @include(if: $with_enrollment) {
-                    aggregate {
-                        count
-                    }
-                }
-            }
         }
     }
 `
@@ -59,6 +53,7 @@ export const GET_ASSIGNMENT = gql`
             type
             gradebook_item {
                 id
+                created_at
                 accommodations
                 assessment_id
                 assessment_type
@@ -72,20 +67,21 @@ export const GET_ASSIGNMENT = gql`
                 scoring_type
                 status
                 submission_type
-                submissions(where: {assignment_submission: {student_id: {_eq: $student_id}}}) {
-                    assignment_submission {
-                        files
-                        group_id
-                        id
-                        student_id
-                        text
-                        assignment_id
-                    }
+                submissions(where: {student_id: {_eq: $student_id}}) {
+                    content
+                    group_id
+                    id
+                    student_id
                 }
                 submissions_aggregate @include(if: $with_details) {
                     aggregate {
                         count
                     }
+                }
+                grade_items(where: {_and: {student_id: {_eq: $student_id}, status: {_eq: "available"}}}) {
+                    points
+                    status
+                    student_id
                 }
             }
         }

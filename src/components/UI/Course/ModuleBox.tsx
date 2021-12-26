@@ -38,7 +38,6 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
          boxShadow="sm"
          height="auto"
          width="100%"
-         overflow="hidden"
          sx={{
             transition: 'all .15s linear',
             _hover: {
@@ -53,6 +52,8 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
             backgroundBlendMode={"color-burn"}
             bgColor={headerColor ?? cmf("transparent", "transparent")}
             justifyContent="space-between"
+            borderTopLeftRadius="md"
+            borderTopRightRadius="md"
             p={[4, 4, 4, 5]}
             onClick={() => {
                onToggle()
@@ -61,7 +62,7 @@ export const ModuleBox = (props: CourseModuleBoxProps) => {
             
             {headerText && (
                <>
-                  <Flex color={headerColor ? 'white' : 'black'} alignItems="center" gridGap=".5rem">
+                  <Flex color={headerColor ? 'white' : cmf('black', 'white')} alignItems="center" gridGap=".5rem">
                      
                      <Flex fontSize="1.5rem" alignItems="center">
                         {headerIcon && headerIcon}

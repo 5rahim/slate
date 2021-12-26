@@ -13,7 +13,6 @@ export const useRichTextEditor = (defaultValue?: Parameter<string>, isRequired =
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    const editorRef = createRichTextEditorRef()
-   
    const [error, setError] = useState<boolean>(false)
    
    return {
@@ -21,7 +20,7 @@ export const useRichTextEditor = (defaultValue?: Parameter<string>, isRequired =
          
          setValue: (value: string) => editorRef.current?.setContent(value),
          
-         value: editorRef?.current?.getContent() ?? '',
+         getValue: () => editorRef?.current?.getContent() ?? '',
          
          isValid: () => {
             if (editorRef.current && (editorRef.current?.getContent().length > 0)) {

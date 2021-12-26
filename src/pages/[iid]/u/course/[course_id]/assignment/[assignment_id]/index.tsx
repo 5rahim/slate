@@ -18,6 +18,7 @@ import dynamic from 'next/dynamic'
 import React, { memo, useEffect } from 'react'
 
 const CourseLayout = dynamic(() => import('@slate/components/Layout/CourseLayout'))
+const AssignmentAttempts = dynamic(() => import('@slate/modules/Course/Student/Assessments/Assignments/AssignmentAttempts'))
 
 const Page = memo(({ displayPage }: any) => {
    const t = useTypeSafeTranslation()
@@ -60,6 +61,8 @@ const Page = memo(({ displayPage }: any) => {
                      </ComponentVisibility.AssistantAndHigher>
                   }
                >
+                  
+                  <AssignmentAttempts />
                
                </ModuleBox>
             </Box>

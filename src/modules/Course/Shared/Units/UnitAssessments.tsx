@@ -10,12 +10,14 @@ import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetti
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCurrentUnit } from '@slate/hooks/useCurrentUnit'
 import { useGradebookItemHelpers } from '@slate/hooks/useGradebookItemHelpers'
+import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { IconButton } from 'chalkui/dist/cjs/Components/Button/IconButton'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Badge, Flex } from 'chalkui/dist/cjs/Components/Layout'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -26,6 +28,7 @@ export function UnitAssessments() {
    const unit = useCurrentUnit()
    const { publishDateHelpers } = usePublishDateSetting()
    const router = useRouter()
+   const { linkToAssignment } = useLinkHref()
    const {
       gradebookItem_hasSubmittedAttempt,
    } = useGradebookItemHelpers()
@@ -33,16 +36,16 @@ export function UnitAssessments() {
    const [removeAssessment, mutationLoading] = useRemoveAssessmentFromUnitMutation({
       onCompleted: () => {
          // router.reload()
-      }
+      },
    })
    
    
    function handleRemoveAssessment(unit_assessment_id: string) {
       removeAssessment({
-         id: unit_assessment_id
+         id: unit_assessment_id,
       })
    }
-
+   
    
    return (
       <>
@@ -72,19 +75,21 @@ export function UnitAssessments() {
                   <Box width="100%">
                      <Text fontSize="2xl" fontWeight="bold">{t('Assignments')}</Text>
                      <Box width="100%">
-                        <Text>{unit.assessments.filter((assessment) => assessment.assignment).length} assignment(s) due this week</Text>
+                        <Text>{unit.assessments.filter((assessment) => assessment.assignment).length} {t('course:assignments due this week')}</Text>
                      </Box>
                   </Box>
                </Flex>
                <Box>
                   {unit.assessments.filter((assessment) => assessment.assignment).length > 0 && <MenuCelledList mt="2" width="100%">
-      
+                     
                      {unit.assessments.map((assessment) => {
                         const assignment = assessment.assignment
-                        if(!assignment) return
-                        return <MenuCelledListItem key={assignment.id}>
+                        if (!assignment) return
+                        return <MenuCelledListItem cursor="default" key={assignment.id}>
                            <Flex justifyContent="space-between">
-                              <Text>{assignment.name}</Text>
+                              <Link href={linkToAssignment(assignment.id)}>
+                                 <Text cursor="pointer">{assignment.name}</Text>
+                              </Link>
                               <AlignedFlex>
                                  <ComponentVisibility.StudentOnly>
                                     <Badge
@@ -113,8 +118,8 @@ export function UnitAssessments() {
                            </Flex>
                         </MenuCelledListItem>
                      })}
-   
-   
+
+
                   </MenuCelledList>}
                </Box>
             </Flex>
@@ -137,16 +142,16 @@ export function UnitAssessments() {
                   <Box width="100%">
                      <Text fontSize="2xl" fontWeight="bold">{t('Tests')}</Text>
                      <Box width="100%">
-                        <Text>{unit.assessments.filter((assessment) => assessment.test).length} test due this week</Text>
+                        <Text>{unit.assessments.filter((assessment) => assessment.test).length} {t('course:tests due this week')}</Text>
                      </Box>
                   </Box>
                </Flex>
                <Box>
                   {unit.assessments.filter((assessment) => assessment.test).length > 0 && <MenuCelledList mt="2" width="100%">
-      
+                     
                      {unit.assessments.map((assessment) => {
                         const test = assessment.test
-                        if(!test) return
+                        if (!test) return
                         return <MenuCelledListItem key={test.id}>
                            <Flex justifyContent="space-between">
                               <Text>{test.name}</Text>

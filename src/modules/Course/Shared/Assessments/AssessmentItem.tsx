@@ -1,8 +1,10 @@
 import { AiOutlineSnippets } from '@react-icons/all-files/ai/AiOutlineSnippets'
+import { BiCalendar } from '@react-icons/all-files/bi/BiCalendar'
 import { BiCalendarExclamation } from '@react-icons/all-files/bi/BiCalendarExclamation'
 import { BiDotsVerticalRounded } from '@react-icons/all-files/bi/BiDotsVerticalRounded'
 import { BiEdit } from '@react-icons/all-files/bi/BiEdit'
 import { BiTrash } from '@react-icons/all-files/bi/BiTrash'
+import { FcInfo } from '@react-icons/all-files/fc/FcInfo'
 import { FcInspection } from '@react-icons/all-files/fc/FcInspection'
 import { VscChecklist } from '@react-icons/all-files/vsc/VscChecklist'
 import { ComponentVisibility, HideItemInStudentView } from '@slate/components/ComponentVisibility'
@@ -20,6 +22,7 @@ import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
 import { Box, Flex, ListItem } from 'chalkui/dist/cjs/Components/Layout'
 import { Badge } from 'chalkui/dist/cjs/Components/Layout/Badge'
 import { Tag } from 'chalkui/dist/cjs/Components/Tag/Tag'
+import { Tooltip } from 'chalkui/dist/cjs/Components/Tooltip'
 import { Text } from 'chalkui/dist/cjs/Components/Typography/Text'
 import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 import dynamic from 'next/dynamic'
@@ -49,6 +52,7 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
       gradebookItem_submissionCount,
       gradebookItem_dueDate,
       gradebookItem_dueDateColor,
+      gradebookItem_isAccommodated,
    } = useGradebookItemHelpers()
    const { publishDateHelpers } = usePublishDateSetting()
    
@@ -114,10 +118,15 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                           </Flex>
                                        </Link>
                                     <AlignedFlex fontSize="lg">
-                                       <Icon fontSize="xl" as={BiCalendarExclamation} />
+                                       <Icon fontSize="xl" as={BiCalendar} />
                                        <Text color={gradebookItem_dueDateColor(gradebookItem, gradebookItem_hasSubmittedAttempt(gradebookItem))}>
                                           {gradebookItem_dueDate(gradebookItem)}
                                        </Text>
+                                       {gradebookItem_isAccommodated(gradebookItem) && <Tooltip label={t('course:You can still submit')}>
+                                           <Box>
+                                               <Icon fontSize="1.4rem" as={FcInfo} />
+                                           </Box>
+                                       </Tooltip>}
                                     </AlignedFlex>
                                  </Box>
                               </ComponentVisibility.StudentOnly>
@@ -146,9 +155,11 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                            </ComponentVisibility.StudentOnly>
                            
                            <ComponentVisibility.AssistantAndHigher>
-                              <Tag size="lg">
-                                 <strong>{gradebookItem_submissionCount(gradebookItem)}</strong>/{course_enrollmentCount} {t('submissions')}
-                              </Tag>
+                              <AlignedFlex>
+                                 <Tag size="lg">
+                                    <strong>{gradebookItem_submissionCount(gradebookItem)}</strong>/{course_enrollmentCount} {t('submissions')}
+                                 </Tag>
+                              </AlignedFlex>
                            </ComponentVisibility.AssistantAndHigher>
                         
                         </Flex>

@@ -1,6 +1,5 @@
 import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { Dropzone } from '@slate/components/Dropzone'
-import { createRichTextEditorRef } from '@slate/components/RichTextEditor/utils'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
 import { Assignments, EditAssignmentMutationVariables, Gradebook_Items } from '@slate/generated/graphql'
@@ -16,7 +15,6 @@ import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useFormFileUpload } from '@slate/hooks/useFormFileUpload'
 import { useRichTextEditor } from '@slate/hooks/useRichTextEditor'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { FormErrors } from '@slate/types/FormErrors'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
@@ -29,11 +27,9 @@ import React, { useState } from 'react'
 
 export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any, data: { gradebookItem: Gradebook_Items } }) {
    
-   const editorRef = createRichTextEditorRef()
    const gradebookItem = data.gradebookItem
    const assignment = data.gradebookItem.assignment as Assignments
    const t = useTypeSafeTranslation()
-   const cache = useStoreCache()
    const course = useCurrentCourse()
    
    const [hasAttachments, setHasAttachments] = useState(assignment.files !== null && assignment.files !== '[]')
@@ -44,13 +40,13 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
    const { publishDateValues, publishDateFields } = usePublishDateSetting({
       defaultValue: {
          availableFrom: gradebookItem.available_from,
-         status: gradebookItem.status
-      }
+         status: gradebookItem.status,
+      },
    })
    const { dueDateValues, dueDateFields } = useDueDateSetting(gradebookItem.available_until)
    const { gradingValues, gradingFields } = useGradingSetting({
       scoringType: gradebookItem.scoring_type,
-      maxPoints: gradebookItem.max_points as number
+      maxPoints: gradebookItem.max_points as number,
    })
    const { attemptValues, attemptFields } = useAttemptSetting({
       attemptsAllowed: gradebookItem.attempts_allowed as number,
@@ -69,7 +65,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
    
    const { onFormSubmit, fields, formState } = useFormCreator({
       defaultValues: {
-         name: assignment.name
+         name: assignment.name,
       },
       schema: ({ z }) => z.object({
          name: z.string().min(4, FormErrors.RequiredField),
@@ -94,13 +90,14 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             /** assignment **/
             assignment_id: assignment.id,
             name: formData.name,
-            description: textEditor.value,
+            description: textEditor.getValue(),
             type: submissionType,
             files: null, // todo: edit files
          }
          
          if (!hasFiles) {
             update = true
+            update_data['files'] = assignment.files
          } else {
             const uploadRes = await uploadFiles()
             
@@ -173,10 +170,10 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             </FormControl>
             
             <Box mb="5">
-               {textEditor.render({ title: 'Description', height: 200 })}
+               {textEditor.render({ title: 'Instructions', height: 200 })}
             </Box>
-   
-            { !hasAttachments ? <Box>
+            
+            {!hasAttachments ? <Box>
                <FormLabel mb="2">{t('Attachments')}</FormLabel>
                <Dropzone
                   multiple={true}
@@ -189,10 +186,10 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
                <>
                   <AlignedFlex mb="3">
                      <FormLabel my="0">{t('Attachments')}</FormLabel>
-                  <Button size="sm" colorScheme="brand.100" onClick={() => setHasAttachments(false)}>{t('course:Upload new files')}</Button>
+                     <Button size="sm" colorScheme="brand.100" onClick={() => setHasAttachments(false)}>{t('course:Upload new files')}</Button>
                   </AlignedFlex>
                   <Box>
-                     {assignment.files && (JSON.parse(assignment.files) as any[])?.map((file: any) => {
+                     {assignment.files && ( JSON.parse(assignment.files) as any[] )?.map((file: any) => {
                         return <Flex key={file.name} gridGap=".5rem" flexDirection={['column', 'column', 'row', 'row', 'row']}>
                            <Link target="_blank" href={file.url}>{file.name ?? file.name ?? file.url.slice(-36)}</Link>
                            <Badge alignSelf="flex-start" pill colorScheme="green.600">{file.ext}</Badge>

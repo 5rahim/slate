@@ -65,7 +65,7 @@ export const useEditTest: SlateMutationHook<EditTestMutationVariables> = (option
 
 export const getLazyGradebookItems = (course_id: string, withEnrollment: boolean) => {
    return useLazyQueryHookCreator<Gradebook_Items[] | null>("gradebook_items", GET_GRADEBOOK_ITEMS, "array", {
-      variables: { course_id, with_enrollment: withEnrollment },
+      variables: { course_id },
       fetchPolicy: 'no-cache',
       nextFetchPolicy: 'cache-and-network',
       debug: false,

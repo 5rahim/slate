@@ -63,7 +63,7 @@ export function TestCreation({ onClose, isOpen }: any) {
             test_id: test_id,
             time_limit: 60, // TODO
             name: data.name,
-            description: textEditor.value,
+            description: textEditor.getValue(),
          }
          
          insert = true
@@ -112,7 +112,7 @@ export function TestCreation({ onClose, isOpen }: any) {
             </FormControl>
             
             <Box mb="5">
-               {textEditor.render({ title: 'Description', height: 200 })}
+               {textEditor.render({ title: 'Instructions', height: 200 })}
             </Box>
          
          </EntityDrawer>
