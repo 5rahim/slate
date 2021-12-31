@@ -48,11 +48,13 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
    const { course_enrollmentCount } = useCourseHelpers()
    
    const {
-      gradebookItem_hasSubmittedAttempt,
-      gradebookItem_submissionCount,
-      gradebookItem_dueDate,
-      gradebookItem_dueDateColor,
-      gradebookItem_isAccommodated,
+      gbi_hasSubmittedAttempt,
+      gbi_totalSubmissionCount,
+      gbi_submissionCount,
+      gbi_dueDate,
+      gbi_dueDateColor,
+      gbi_isAccommodated,
+      gbi_maxSubmissions,
    } = useGradebookItemHelpers()
    const { publishDateHelpers } = usePublishDateSetting()
    
@@ -119,10 +121,10 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        </Link>
                                     <AlignedFlex fontSize="lg">
                                        <Icon fontSize="xl" as={BiCalendar} />
-                                       <Text color={gradebookItem_dueDateColor(gradebookItem, gradebookItem_hasSubmittedAttempt(gradebookItem))}>
-                                          {gradebookItem_dueDate(gradebookItem)}
+                                       <Text color={gbi_dueDateColor(gradebookItem, gbi_hasSubmittedAttempt(gradebookItem))}>
+                                          {gbi_dueDate(gradebookItem)}
                                        </Text>
-                                       {gradebookItem_isAccommodated(gradebookItem) && <Tooltip label={t('course:You can still submit')}>
+                                       {gbi_isAccommodated(gradebookItem) && <Tooltip label={t('course:You can still submit')}>
                                            <Box>
                                                <Icon fontSize="1.4rem" as={FcInfo} />
                                            </Box>
@@ -139,8 +141,8 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                     </Text>
                                     <AlignedFlex fontSize="lg">
                                        <Icon fontSize="xl" as={BiCalendarExclamation} />
-                                       <Text color={gradebookItem_dueDateColor(gradebookItem, true)}>
-                                          {gradebookItem_dueDate(gradebookItem)}
+                                       <Text color={gbi_dueDateColor(gradebookItem, true)}>
+                                          {gbi_dueDate(gradebookItem)}
                                        </Text>
                                     </AlignedFlex>
                                  </Box>
@@ -149,16 +151,17 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                            </Flex>
                            
                            <ComponentVisibility.StudentOnly>
-                                 <Badge fontSize=".85rem" pill colorScheme={gradebookItem_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
-                                    {t(gradebookItem_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
+                                 <Badge fontSize=".85rem" pill colorScheme={gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
+                                    {t(gbi_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
                                  </Badge>
                            </ComponentVisibility.StudentOnly>
                            
                            <ComponentVisibility.AssistantAndHigher>
                               <AlignedFlex>
-                                 <Tag size="lg">
-                                    <strong>{gradebookItem_submissionCount(gradebookItem)}</strong>/{course_enrollmentCount} {t('submissions')}
-                                 </Tag>
+                                 {!(gradebookItem.submission_type === 'group') && <Tag size="lg">
+                                    <strong>{gbi_totalSubmissionCount(gradebookItem)}</strong>/{gbi_maxSubmissions(gradebookItem)} {t('submissions')}
+                                 </Tag>}
+                                 {/*When it's a group submission, do not count course_enrollment count but group count*/}
                               </AlignedFlex>
                            </ComponentVisibility.AssistantAndHigher>
                         
@@ -194,8 +197,8 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        </Flex>
                                     <AlignedFlex fontSize="lg">
                                        <Icon fontSize="xl" as={BiCalendarExclamation} />
-                                       <Text color={gradebookItem_dueDateColor(gradebookItem, gradebookItem_hasSubmittedAttempt(gradebookItem))}>
-                                          {gradebookItem_dueDate(gradebookItem)}
+                                       <Text color={gbi_dueDateColor(gradebookItem, gbi_hasSubmittedAttempt(gradebookItem))}>
+                                          {gbi_dueDate(gradebookItem)}
                                        </Text>
                                     </AlignedFlex>
                                  </Box>
@@ -209,8 +212,8 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                     </Text>
                                     <AlignedFlex fontSize="lg">
                                        <Icon fontSize="xl" as={BiCalendarExclamation} />
-                                       <Text color={gradebookItem_dueDateColor(gradebookItem, true)}>
-                                          {gradebookItem_dueDate(gradebookItem)}
+                                       <Text color={gbi_dueDateColor(gradebookItem, true)}>
+                                          {gbi_dueDate(gradebookItem)}
                                        </Text>
                                     </AlignedFlex>
                                  </Box>
@@ -219,14 +222,14 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                            </Flex>
                            
                            <ComponentVisibility.StudentOnly>
-                                 <Badge fontSize=".85rem" pill colorScheme={gradebookItem_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
-                                    {t(gradebookItem_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
+                                 <Badge fontSize=".85rem" pill colorScheme={gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
+                                    {t(gbi_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
                                  </Badge>
                            </ComponentVisibility.StudentOnly>
                            
                            <ComponentVisibility.AssistantAndHigher>
                               <Tag size="lg">
-                                 <strong>{gradebookItem_submissionCount(gradebookItem)}</strong>/{course_enrollmentCount} {t('submissions')}
+                                 <strong>{gbi_submissionCount(gradebookItem)}</strong>/{course_enrollmentCount} {t('submissions')}
                               </Tag>
                            </ComponentVisibility.AssistantAndHigher>
                         

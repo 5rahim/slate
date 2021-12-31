@@ -30,7 +30,8 @@ export function UnitAssessments() {
    const router = useRouter()
    const { linkToAssignment } = useLinkHref()
    const {
-      gradebookItem_hasSubmittedAttempt,
+      gbi_isAssigned,
+      gbi_hasSubmittedAttempt,
    } = useGradebookItemHelpers()
    
    const [removeAssessment, mutationLoading] = useRemoveAssessmentFromUnitMutation({
@@ -45,6 +46,9 @@ export function UnitAssessments() {
          id: unit_assessment_id,
       })
    }
+   
+   const assignments = unit.assessments.filter((assessment) => assessment.assignment && gbi_isAssigned(assessment.assignment.gradebook_item))
+   const tests = unit.assessments.filter((assessment) => assessment.test && gbi_isAssigned(assessment.test.gradebook_item))
    
    
    return (
@@ -75,48 +79,57 @@ export function UnitAssessments() {
                   <Box width="100%">
                      <Text fontSize="2xl" fontWeight="bold">{t('Assignments')}</Text>
                      <Box width="100%">
-                        <Text>{unit.assessments.filter((assessment) => assessment.assignment).length} {t('course:assignments due this week')}</Text>
+                        <Text>{assignments.length} {t('course:assignments due this week')}</Text>
                      </Box>
                   </Box>
                </Flex>
                <Box>
-                  {unit.assessments.filter((assessment) => assessment.assignment).length > 0 && <MenuCelledList mt="2" width="100%">
+                  {assignments.length > 0 && <MenuCelledList mt="2" width="100%">
                      
-                     {unit.assessments.map((assessment) => {
+                     {assignments.map((assessment) => {
                         const assignment = assessment.assignment
                         if (!assignment) return
-                        return <MenuCelledListItem cursor="default" key={assignment.id}>
-                           <Flex justifyContent="space-between">
-                              <Link href={linkToAssignment(assignment.id)}>
-                                 <Text cursor="pointer">{assignment.name}</Text>
-                              </Link>
-                              <AlignedFlex>
-                                 <ComponentVisibility.StudentOnly>
-                                    <Badge
-                                       fontSize=".75rem"
-                                       pill
-                                       colorScheme={gradebookItem_hasSubmittedAttempt(assignment?.gradebook_item) ? 'green.500' : 'gray.500'}
-                                    >
-                                       {t(gradebookItem_hasSubmittedAttempt(assignment?.gradebook_item) ? 'Completed' : 'Not completed')}
-                                    </Badge>
-                                 </ComponentVisibility.StudentOnly>
-                                 <ComponentVisibility.AssistantAndHigher>
-                                    {publishDateHelpers.icons({
-                                       status: assignment?.gradebook_item?.status, availableFrom: assignment?.gradebook_item?.available_from,
-                                    })}
-                                    <IconButton
-                                       size="xs"
-                                       colorScheme="red.500"
-                                       variant="secondary"
-                                       p=".125rem"
-                                       aria-label="Delete"
-                                       as={BiTrash}
-                                       onClick={() => handleRemoveAssessment(assessment.id)}
-                                    />
-                                 </ComponentVisibility.AssistantAndHigher>
-                              </AlignedFlex>
-                           </Flex>
-                        </MenuCelledListItem>
+                        return (
+                           <>
+                              <MenuCelledListItem cursor="default" key={assignment.id}>
+                                 <Flex justifyContent="space-between">
+                                    <ComponentVisibility.StudentOnly>
+                                       <Link href={linkToAssignment(assignment.id)}>
+                                          <Text cursor="pointer">{assignment.name}</Text>
+                                       </Link>
+                                    </ComponentVisibility.StudentOnly>
+                                    <ComponentVisibility.AssistantAndHigher>
+                                       <Text>{assignment.name}</Text>
+                                    </ComponentVisibility.AssistantAndHigher>
+                                    <AlignedFlex>
+                                       <ComponentVisibility.RealStudentOnly>
+                                          <Badge
+                                             fontSize=".75rem"
+                                             pill
+                                             colorScheme={gbi_hasSubmittedAttempt(assignment?.gradebook_item) ? 'green.500' : 'gray.500'}
+                                          >
+                                             {t(gbi_hasSubmittedAttempt(assignment?.gradebook_item) ? 'Completed' : 'Not completed')}
+                                          </Badge>
+                                       </ComponentVisibility.RealStudentOnly>
+                                       <ComponentVisibility.AssistantAndHigher>
+                                          {publishDateHelpers.icons({
+                                             status: assignment?.gradebook_item?.status, availableFrom: assignment?.gradebook_item?.available_from,
+                                          })}
+                                          <IconButton
+                                             size="xs"
+                                             colorScheme="red.500"
+                                             variant="secondary"
+                                             p=".125rem"
+                                             aria-label="Delete"
+                                             as={BiTrash}
+                                             onClick={() => handleRemoveAssessment(assessment.id)}
+                                          />
+                                       </ComponentVisibility.AssistantAndHigher>
+                                    </AlignedFlex>
+                                 </Flex>
+                              </MenuCelledListItem>
+                           </>
+                        )
                      })}
 
 
@@ -142,29 +155,29 @@ export function UnitAssessments() {
                   <Box width="100%">
                      <Text fontSize="2xl" fontWeight="bold">{t('Tests')}</Text>
                      <Box width="100%">
-                        <Text>{unit.assessments.filter((assessment) => assessment.test).length} {t('course:tests due this week')}</Text>
+                        <Text>{tests.length} {t('course:tests due this week')}</Text>
                      </Box>
                   </Box>
                </Flex>
                <Box>
-                  {unit.assessments.filter((assessment) => assessment.test).length > 0 && <MenuCelledList mt="2" width="100%">
+                  {tests.length > 0 && <MenuCelledList mt="2" width="100%">
                      
-                     {unit.assessments.map((assessment) => {
+                     {tests.map((assessment) => {
                         const test = assessment.test
                         if (!test) return
                         return <MenuCelledListItem key={test.id}>
                            <Flex justifyContent="space-between">
                               <Text>{test.name}</Text>
                               <AlignedFlex>
-                                 <ComponentVisibility.StudentOnly>
+                                 <ComponentVisibility.RealStudentOnly>
                                     <Badge
                                        fontSize=".75rem"
                                        pill
-                                       colorScheme={gradebookItem_hasSubmittedAttempt(test?.gradebook_item) ? 'green.500' : 'gray.500'}
+                                       colorScheme={gbi_hasSubmittedAttempt(test?.gradebook_item) ? 'green.500' : 'gray.500'}
                                     >
-                                       {t(gradebookItem_hasSubmittedAttempt(test?.gradebook_item) ? 'Completed' : 'Not completed')}
+                                       {t(gbi_hasSubmittedAttempt(test?.gradebook_item) ? 'Completed' : 'Not completed')}
                                     </Badge>
-                                 </ComponentVisibility.StudentOnly>
+                                 </ComponentVisibility.RealStudentOnly>
                                  <ComponentVisibility.AssistantAndHigher>
                                     {publishDateHelpers.icons({
                                        status: test?.gradebook_item?.status, availableFrom: test?.gradebook_item?.available_from,

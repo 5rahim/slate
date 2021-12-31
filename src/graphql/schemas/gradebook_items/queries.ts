@@ -2,8 +2,17 @@ import { gql } from '@apollo/client'
 
 
 export const GET_GRADEBOOK_ITEMS = gql`
-    query GetGradebookItems($course_id: uuid!) {
-        gradebook_items(where: {course_id: {_eq: $course_id}}, order_by: {created_at: desc}) {
+    query GetGradebookItems($course_id: uuid!, $student_id: Int!, $is_assigned: jsonb!) {
+        gradebook_items(where: {
+            _and: {
+                course_id: {_eq: $course_id},
+                _or: [
+                    {assign_to: {_contains: $is_assigned}},
+                    {course: {instructor: {id: {_eq: $student_id}}}},
+                    {course: {management: { manager: {id: {_eq: $student_id}}}}},
+                ]
+            }
+        }, order_by: {created_at: desc}) {
             accommodations
             created_at
             assessment_id
@@ -12,6 +21,7 @@ export const GET_GRADEBOOK_ITEMS = gql`
             attempts_grading
             available_from
             available_until
+            assign_to
             course_id
             grading_rubric_id
             id
@@ -33,7 +43,14 @@ export const GET_GRADEBOOK_ITEMS = gql`
                 id
                 name
             }
-            submissions_aggregate {
+            # Get own submissions
+            submissions_aggregate(where: {student_id: {_eq: $student_id}}, distinct_on: student_id) {
+                aggregate {
+                    count
+                }
+            }
+            # Get total submissions for all students
+            total_submissions: submissions_aggregate(distinct_on: student_id) {
                 aggregate {
                     count
                 }
@@ -43,7 +60,7 @@ export const GET_GRADEBOOK_ITEMS = gql`
 `
 
 export const GET_ASSIGNMENT = gql`
-    query GetAssignment($student_id: Int!, $assignment_id: uuid!, $with_details: Boolean!) {
+    query GetAssignment($student_id: Int!, $assignment_id: uuid!) {
         assignments(where: {id: {_eq: $assignment_id}}) {
             description
             files
@@ -62,18 +79,20 @@ export const GET_ASSIGNMENT = gql`
                 available_from
                 available_until
                 course_id
+                assign_to
                 max_points
                 grading_rubric_id
                 scoring_type
                 status
                 submission_type
-                submissions(where: {student_id: {_eq: $student_id}}) {
+                submissions(where: {student_id: {_eq: $student_id}}, order_by: {created_at: desc}) {
+                    created_at
                     content
                     group_id
                     id
                     student_id
                 }
-                submissions_aggregate @include(if: $with_details) {
+                submissions_aggregate(where: {student_id: {_eq: $student_id}}) {
                     aggregate {
                         count
                     }

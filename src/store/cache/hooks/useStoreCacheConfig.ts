@@ -43,7 +43,7 @@ export const useStoreCacheConfig = () => {
     * This behavior happens when unit changes
     */
    useEffect(() => {
-      if(!unit_id || unit_id !== unit.id) {
+      if(!unit_id || unit_id !== unit?.id) {
          dispatch(CacheActions.writeModules(null))
          dispatch(UnitActions.setOpenedFolder(null))
       }

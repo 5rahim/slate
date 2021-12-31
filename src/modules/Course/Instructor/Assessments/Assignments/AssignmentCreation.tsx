@@ -5,6 +5,7 @@ import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
 import { CreateAssignmentMutationVariables } from '@slate/generated/graphql'
 import { useCreateAssignment } from '@slate/graphql/schemas/gradebook_items/hooks'
 import { useAccommodationSetting } from '@slate/hooks/settings/useAccommodationSetting'
+import { useAssignToSetting } from '@slate/hooks/settings/useAssignToSetting'
 import { useAttemptSetting } from '@slate/hooks/settings/useAttemptSetting'
 import { useDueDateSetting } from '@slate/hooks/settings/useDueDateSetting'
 import { useGradingSetting } from '@slate/hooks/settings/useGradingSetting'
@@ -41,6 +42,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
    const { gradingValues, gradingFields } = useGradingSetting()
    const { attemptValues, attemptFields } = useAttemptSetting()
    const { accommodationValues, accommodationFields } = useAccommodationSetting(null)
+   const { assignToValues, assignToFields } = useAssignToSetting(null)
    const { groupAssignmentValues, groupAssignmentFields } = useGroupAssignmentSetting()
    const { textEditor } = useRichTextEditor()
    
@@ -71,6 +73,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
             course_id: course.id,
             ...publishDateValues,
             ...dueDateValues,
+            ...assignToValues,
             ...gradingValues,
             ...attemptValues,
             ...accommodationValues,
@@ -101,6 +104,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
             && dueDateFields.isValid()
             && attemptFields.isValid()
             && accommodationFields.isValid()
+            && assignToFields.isValid()
          ) {
             console.log(insert_data)
             createAssignment(insert_data)
@@ -127,6 +131,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
                   {publishDateFields.render()}
                   {dueDateFields.render()}
                   {gradingFields.render()}
+                  {assignToFields.render()}
                   <>{submissionType === 'online' && (
                      <>
                         {attemptFields.render()}

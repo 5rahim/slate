@@ -4,10 +4,12 @@ import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
 import { EditTestMutationVariables, Gradebook_Items, Tests } from '@slate/generated/graphql'
 import { useEditTest } from '@slate/graphql/schemas/gradebook_items/hooks'
 import { useAccommodationSetting } from '@slate/hooks/settings/useAccommodationSetting'
+import { useAssignToSetting } from '@slate/hooks/settings/useAssignToSetting'
 import { useAttemptSetting } from '@slate/hooks/settings/useAttemptSetting'
 import { useDueDateSetting } from '@slate/hooks/settings/useDueDateSetting'
 import { useGradingSetting } from '@slate/hooks/settings/useGradingSetting'
 import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
+import { useTimeLimitSetting } from '@slate/hooks/settings/useTimeLimitSetting'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useRichTextEditor } from '@slate/hooks/useRichTextEditor'
@@ -46,7 +48,9 @@ export function TestEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any,
    })
    const { accommodationValues, accommodationFields } = useAccommodationSetting(gradebookItem.accommodations)
    const { textEditor } = useRichTextEditor(test.description, false)
+   const { assignToValues, assignToFields } = useAssignToSetting(gradebookItem.assign_to)
    
+   const { timeLimitValues, timeLimitFields } = useTimeLimitSetting()
    
    const [editAssignment, isLoading] = useEditTest({
       onCompleted: () => {
@@ -74,6 +78,7 @@ export function TestEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any,
             ...publishDateValues,
             ...dueDateValues,
             ...gradingValues,
+            ...assignToValues,
             ...attemptValues,
             ...accommodationValues,
             /** test **/
@@ -92,6 +97,7 @@ export function TestEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any,
             && dueDateFields.isValid()
             && attemptFields.isValid()
             && accommodationFields.isValid()
+            && assignToFields.isValid()
          ) {
             console.log(update_data)
             editAssignment(update_data)
@@ -119,6 +125,8 @@ export function TestEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any,
                   {publishDateFields.render()}
                   {dueDateFields.render()}
                   {gradingFields.render()}
+                  {assignToFields.render()}
+                  {timeLimitFields.render()}
                   {attemptFields.render()}
                   {accommodationFields.render()}
                </>

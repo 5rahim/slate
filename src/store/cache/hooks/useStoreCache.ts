@@ -59,6 +59,15 @@ export const useStoreCache = () => {
          }
       },
       /**
+       * Empty the entry (typically after a request)
+       * @param {string} entry
+       * @param fetched
+       * @param {boolean} loading
+       */
+      empty: (entry: string) => {
+         dispatch(objects[entry].write(null))
+      },
+      /**
        * Return Apollo's `empty` indicator when the cache is empty AND after the request has been made
        * @param {string} entry
        * @param {boolean} empty

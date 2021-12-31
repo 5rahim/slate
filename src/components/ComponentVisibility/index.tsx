@@ -8,6 +8,13 @@ export const ComponentVisibility = {
    All: ({ children }: ComponentVisibilityProps) => {
       return <>{children}</>
    },
+   RealStudentOnly: ({ children }: ComponentVisibilityProps) => {
+      
+      const { isReallyStudent } = useUserRole()
+      
+      return isReallyStudent ? <>{children}</> : <></>
+      
+   },
    StudentOnly: ({ children }: ComponentVisibilityProps) => {
       
       const { isStudent } = useUserRole()

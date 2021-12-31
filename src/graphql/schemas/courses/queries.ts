@@ -42,6 +42,17 @@ export const GET_COURSE_BY_ID = gql`
                     ...otherUser
                 }
             }
+            enrollments @include(if: $with_details) {
+                authorized
+                authorized_at
+                course_id
+                created_at
+                id
+                student_id
+                student {
+                    ...otherUser
+                }
+            }
         }
     }
 `

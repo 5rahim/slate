@@ -55,3 +55,10 @@ gradebook_grade_item:
 - grading_rubric
 
 {"_and":[{"course":{"enrollments":{"student":{"user_id":{"_eq":"X-Hasura-User-Id"}}}}},{"_and":[{"_or":[{"status":{"_eq":"available"}},{"_and":[{"status":{"_eq":"scheduled"}},{"available_from":{"_lte":"now()"}}]}]},{"available_until":{"_gt":""}}]}]}
+
+time limit,
+automatic grading,
+one question at a time
+shuffle questions
+show answers: never, wrong answers only, correct answers only, wrong and correct
+view responses: after submission, after grading, never

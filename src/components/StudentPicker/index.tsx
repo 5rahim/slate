@@ -1,9 +1,7 @@
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
-import { getLazyValidStudentEnrollments } from '@slate/graphql/schemas/courses/hooks'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useNameFormatter } from '@slate/hooks/useNameFormatter'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
-import { useCachedLazyQuery } from '@slate/store/cache/hooks/useCachedLazyQuery'
 import { useStoreCache } from '@slate/store/cache/hooks/useStoreCache'
 import { Avatar } from 'chalkui/dist/cjs/Components/Avatar/Avatar'
 import { Button } from 'chalkui/dist/cjs/Components/Button/Button'
@@ -24,11 +22,12 @@ type StudentPickerProps = {
    onSelected?: (value: number[]) => any
    onSelectedStudentNames?: (value: string) => any
    selected?: number[]
+   isAssignTo?: boolean
 } & BoxProps
 
 export const StudentPicker = (props: StudentPickerProps) => {
    
-   const { defaultValue = [], onSelected, onSelectedStudentNames, ...rest } = props
+   const { defaultValue = [], onSelected, onSelectedStudentNames, isAssignTo = false, ...rest } = props
    const { formatFullName } = useNameFormatter()
    const t = useTypeSafeTranslation()
    const course = useCurrentCourse()
@@ -36,12 +35,9 @@ export const StudentPicker = (props: StudentPickerProps) => {
    const [selected, setSelected] = useState<number[]>(defaultValue)
    const [selectedStudentNames, setSelectedStudentNames] = useState<string | null>(null)
    const [studentIds, setStudentIds] = useState<number[]>([])
-   const [fetchEnrollments, enrollments, isLoading, isEmpty] = useCachedLazyQuery('enrollments', getLazyValidStudentEnrollments(course?.id))
    const [option, setOption] = useState<"everyone" | "some">(selected.length === studentIds.length ? "everyone" : "some")
    
-   useEffect(() => {
-      fetchEnrollments()
-   }, [])
+   const enrollments = course.enrollments
    
    useEffect(() => {
       if(onSelectedStudentNames) {
@@ -54,9 +50,14 @@ export const StudentPicker = (props: StudentPickerProps) => {
    
    useEffect(() => {
       if (enrollments) {
-         setStudentIds(enrollments?.map((e) => e.student?.id ?? 0))
+         const ids = enrollments?.map((e) => e.student?.id ?? 0)
+         if(selected.length === 0 && isAssignTo) {
+            setSelected(ids)
+            onSelected && onSelected(ids)
+         }
+         setStudentIds(ids)
       }
-   }, [enrollments])
+   }, [])
    
    useEffect(() => {
       if (selected.length === studentIds.length) {

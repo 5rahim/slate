@@ -3,6 +3,7 @@ import { gql } from '@apollo/client'
 
 /**
  * I have to add "order_by: {available_from: desc}" because of a bug where Hasura returns available_from in non-UTC format
+ * This structure might not be ideal
  */
 
 export const GET_UNIT_BY_ID = gql`
@@ -25,7 +26,8 @@ export const GET_UNIT_BY_ID = gql`
                     gradebook_item {
                         id
                         status
-                        available_from,
+                        assign_to
+                        available_from
                         submissions_aggregate {
                             aggregate {
                                 count
@@ -39,7 +41,8 @@ export const GET_UNIT_BY_ID = gql`
                     gradebook_item {
                         id
                         status
-                        available_from,
+                        assign_to
+                        available_from
                         submissions_aggregate {
                             aggregate {
                                 count
@@ -53,6 +56,7 @@ export const GET_UNIT_BY_ID = gql`
                     id
                     available_from
                     status
+                    assign_to
                     assessment_type
                     assignment {
                         name
@@ -66,7 +70,6 @@ export const GET_UNIT_BY_ID = gql`
             }
         }
     }
-
 `
 
 export const GET_UNITS = gql`

@@ -7,12 +7,13 @@ import store from '@slate/store/index'
 export const cacheMiddleware = ({ getState }: any) => {
    return (next: any) => (action: any) => {
       const result = next(action)
+   
       if (action.type?.startsWith('user/')) {
          const state = store.getState().user
          localStorage.setItem('redux/user', JSON.stringify(state))
       }
       if (action.type?.startsWith('app/')) {
-         const state = store.getState().user
+         const state = store.getState().app
          localStorage.setItem('redux/app', JSON.stringify(state))
          
       } else if (action.type?.startsWith('cache/') && !action.type?.includes('empty')) {

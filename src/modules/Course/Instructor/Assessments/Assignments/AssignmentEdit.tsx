@@ -2,9 +2,11 @@ import { ComponentVisibility } from "@slate/components/ComponentVisibility"
 import { Dropzone } from '@slate/components/Dropzone'
 import { AlignedFlex } from '@slate/components/UI/AlignedFlex'
 import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
+import { FileLister } from "@slate/components/UI/FileLister"
 import { Assignments, EditAssignmentMutationVariables, Gradebook_Items } from '@slate/generated/graphql'
 import { useEditAssignment } from '@slate/graphql/schemas/gradebook_items/hooks'
 import { useAccommodationSetting } from '@slate/hooks/settings/useAccommodationSetting'
+import { useAssignToSetting } from '@slate/hooks/settings/useAssignToSetting'
 import { useAttemptSetting } from '@slate/hooks/settings/useAttemptSetting'
 import { useDueDateSetting } from '@slate/hooks/settings/useDueDateSetting'
 import { useGradingSetting } from '@slate/hooks/settings/useGradingSetting'
@@ -19,8 +21,7 @@ import { FormErrors } from '@slate/types/FormErrors'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
 import { Input } from 'chalkui/dist/cjs/Components/Input'
-import { Box, Flex, Link, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { Badge } from 'chalkui/dist/cjs/Components/Layout/Badge'
+import { Box, Stack } from 'chalkui/dist/cjs/Components/Layout'
 import { Radio } from "chalkui/dist/cjs/Components/Radio/Radio"
 import { RadioGroup } from 'chalkui/dist/cjs/Components/Radio/RadioGroup'
 import React, { useState } from 'react'
@@ -52,6 +53,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
       attemptsAllowed: gradebookItem.attempts_allowed as number,
       attemptsGrading: gradebookItem.attempts_grading as string,
    })
+   const { assignToValues, assignToFields } = useAssignToSetting(gradebookItem.assign_to)
    const { accommodationValues, accommodationFields } = useAccommodationSetting(gradebookItem.accommodations)
    const { groupAssignmentValues, groupAssignmentFields } = useGroupAssignmentSetting(gradebookItem.submission_type)
    const { textEditor } = useRichTextEditor(assignment.description)
@@ -84,6 +86,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             ...publishDateValues,
             ...dueDateValues,
             ...gradingValues,
+            ...assignToValues,
             ...attemptValues,
             ...accommodationValues,
             ...groupAssignmentValues,
@@ -114,6 +117,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             && dueDateFields.isValid()
             && attemptFields.isValid()
             && accommodationFields.isValid()
+            && assignToFields.isValid()
          ) {
             console.log(update_data)
             editAssignment(update_data)
@@ -141,6 +145,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
                   {publishDateFields.render()}
                   {dueDateFields.render()}
                   {gradingFields.render()}
+                  {assignToFields.render()}
                   <>{submissionType === 'online' && (
                      <>
                         {attemptFields.render()}
@@ -189,12 +194,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
                      <Button size="sm" colorScheme="brand.100" onClick={() => setHasAttachments(false)}>{t('course:Upload new files')}</Button>
                   </AlignedFlex>
                   <Box>
-                     {assignment.files && ( JSON.parse(assignment.files) as any[] )?.map((file: any) => {
-                        return <Flex key={file.name} gridGap=".5rem" flexDirection={['column', 'column', 'row', 'row', 'row']}>
-                           <Link target="_blank" href={file.url}>{file.name ?? file.name ?? file.url.slice(-36)}</Link>
-                           <Badge alignSelf="flex-start" pill colorScheme="green.600">{file.ext}</Badge>
-                        </Flex>
-                     })}
+                     <FileLister files={assignment.files} />
                   </Box>
                </>
             )}

@@ -65,7 +65,7 @@ interface ModuleItemProps {
  * @returns {JSX.Element}
  * @constructor
  */
-export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
+export const UnitModuleItem = React.memo(({ data: initialData, id }: ModuleItemProps) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    const { linkToUnit } = useLinkHref()
@@ -491,7 +491,7 @@ export const UnitModuleItem = ({ data: initialData, id }: ModuleItemProps) => {
       
       </HideItemInStudentView>
    )
-}
+})
 
 interface ModuleContentProps {
    icon?: any,

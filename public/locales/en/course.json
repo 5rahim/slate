@@ -75,6 +75,13 @@
   "assignments due this week": "assignment(s) due this week",
   "tests due this week": "test(s) due this week",
   "You can still submit": "Your instructor allowed you to submit more attempts even after the due date",
+  "Previous submissions": "Previous submissions",
+  "Submit a new attempt": "Submit a new attempt",
+  "Assign to": "Assign to",
+  "Opened on": "Opened on",
+  "Time limit": "Time limit",
+  "unlimited": "Unlimited",
+  "Unlimited": "Unlimited",
   "options": {
     "status": {
       "title": "Course is {{status}}",

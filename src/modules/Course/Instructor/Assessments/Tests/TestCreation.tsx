@@ -3,6 +3,7 @@ import { EntityDrawer } from '@slate/components/UI/Course/EntityDrawer'
 import { CreateTestMutationVariables } from '@slate/generated/graphql'
 import { useCreateTest } from '@slate/graphql/schemas/gradebook_items/hooks'
 import { useAccommodationSetting } from '@slate/hooks/settings/useAccommodationSetting'
+import { useAssignToSetting } from '@slate/hooks/settings/useAssignToSetting'
 import { useAttemptSetting } from '@slate/hooks/settings/useAttemptSetting'
 import { useDueDateSetting } from '@slate/hooks/settings/useDueDateSetting'
 import { useGradingSetting } from '@slate/hooks/settings/useGradingSetting'
@@ -26,6 +27,7 @@ export function TestCreation({ onClose, isOpen }: any) {
    const { dueDateValues, dueDateFields } = useDueDateSetting()
    const { gradingValues, gradingFields } = useGradingSetting()
    const { attemptValues, attemptFields } = useAttemptSetting()
+   const { assignToValues, assignToFields } = useAssignToSetting(null)
    const { accommodationValues, accommodationFields } = useAccommodationSetting(null)
    const { textEditor } = useRichTextEditor(null, false)
    
@@ -57,6 +59,7 @@ export function TestCreation({ onClose, isOpen }: any) {
             available_from: null,
             ...dueDateValues,
             ...gradingValues,
+            ...assignToValues,
             ...attemptValues,
             ...accommodationValues,
             /** test **/
@@ -98,6 +101,7 @@ export function TestCreation({ onClose, isOpen }: any) {
                <>
                   {dueDateFields.render()}
                   {gradingFields.render()}
+                  {assignToFields.render()}
                   {attemptFields.render()}
                   {accommodationFields.render()}
                </>

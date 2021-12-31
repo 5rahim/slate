@@ -49,6 +49,10 @@ export const useDateFormatter = () => {
    const settings = useUserSettings()
    
    return {
+      dateToUTC: (date: any) => {
+        if(!date) return 'N/A'
+        return new Date(date).toISOString().replace('Z', '')
+      },
       formatDate: (utcDate: Parameter<Date | string>, selected_format: DateFormat) => {
          if(utcDate) {
             const d = typeof utcDate === 'string' ? Utils.Dates.asUTC(utcDate) : utcDate

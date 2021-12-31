@@ -13,6 +13,7 @@ export type Scalars = {
   Int: number;
   Float: number;
   date: any;
+  jsonb: any;
   numeric: any;
   timestamp: any;
   timestamptz: any;
@@ -2671,16 +2672,24 @@ export type Grade_Items_Variance_Order_By = {
 /** columns and relationships of "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions = {
   __typename?: 'gradebook_item_submissions';
-  content?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['jsonb']>;
   created_at: Scalars['timestamptz'];
   /** An object relationship */
   gradebook_item?: Maybe<Gradebook_Items>;
   gradebook_item_id: Scalars['uuid'];
+  /** An object relationship */
+  group?: Maybe<Groups>;
   group_id?: Maybe<Scalars['uuid']>;
   id: Scalars['uuid'];
   /** An object relationship */
   student?: Maybe<Users>;
   student_id: Scalars['Int'];
+};
+
+
+/** columns and relationships of "gradebook_item_submissions" */
+export type Gradebook_Item_SubmissionsContentArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 /** aggregated selection of "gradebook_item_submissions" */
@@ -2728,6 +2737,11 @@ export type Gradebook_Item_Submissions_Aggregate_Order_By = {
   variance?: Maybe<Gradebook_Item_Submissions_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Gradebook_Item_Submissions_Append_Input = {
+  content?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions_Arr_Rel_Insert_Input = {
   data: Array<Gradebook_Item_Submissions_Insert_Input>;
@@ -2751,10 +2765,11 @@ export type Gradebook_Item_Submissions_Bool_Exp = {
   _and?: Maybe<Array<Gradebook_Item_Submissions_Bool_Exp>>;
   _not?: Maybe<Gradebook_Item_Submissions_Bool_Exp>;
   _or?: Maybe<Array<Gradebook_Item_Submissions_Bool_Exp>>;
-  content?: Maybe<String_Comparison_Exp>;
+  content?: Maybe<Jsonb_Comparison_Exp>;
   created_at?: Maybe<Timestamptz_Comparison_Exp>;
   gradebook_item?: Maybe<Gradebook_Items_Bool_Exp>;
   gradebook_item_id?: Maybe<Uuid_Comparison_Exp>;
+  group?: Maybe<Groups_Bool_Exp>;
   group_id?: Maybe<Uuid_Comparison_Exp>;
   id?: Maybe<Uuid_Comparison_Exp>;
   student?: Maybe<Users_Bool_Exp>;
@@ -2767,6 +2782,21 @@ export enum Gradebook_Item_Submissions_Constraint {
   GradebookItemSubmissionsPkey = 'gradebook_item_submissions_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Gradebook_Item_Submissions_Delete_At_Path_Input = {
+  content?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Gradebook_Item_Submissions_Delete_Elem_Input = {
+  content?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Gradebook_Item_Submissions_Delete_Key_Input = {
+  content?: Maybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions_Inc_Input = {
   student_id?: Maybe<Scalars['Int']>;
@@ -2774,10 +2804,11 @@ export type Gradebook_Item_Submissions_Inc_Input = {
 
 /** input type for inserting data into table "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions_Insert_Input = {
-  content?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['jsonb']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   gradebook_item?: Maybe<Gradebook_Items_Obj_Rel_Insert_Input>;
   gradebook_item_id?: Maybe<Scalars['uuid']>;
+  group?: Maybe<Groups_Obj_Rel_Insert_Input>;
   group_id?: Maybe<Scalars['uuid']>;
   id?: Maybe<Scalars['uuid']>;
   student?: Maybe<Users_Obj_Rel_Insert_Input>;
@@ -2787,7 +2818,6 @@ export type Gradebook_Item_Submissions_Insert_Input = {
 /** aggregate max on columns */
 export type Gradebook_Item_Submissions_Max_Fields = {
   __typename?: 'gradebook_item_submissions_max_fields';
-  content?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   gradebook_item_id?: Maybe<Scalars['uuid']>;
   group_id?: Maybe<Scalars['uuid']>;
@@ -2797,7 +2827,6 @@ export type Gradebook_Item_Submissions_Max_Fields = {
 
 /** order by max() on columns of table "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions_Max_Order_By = {
-  content?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   gradebook_item_id?: Maybe<Order_By>;
   group_id?: Maybe<Order_By>;
@@ -2808,7 +2837,6 @@ export type Gradebook_Item_Submissions_Max_Order_By = {
 /** aggregate min on columns */
 export type Gradebook_Item_Submissions_Min_Fields = {
   __typename?: 'gradebook_item_submissions_min_fields';
-  content?: Maybe<Scalars['String']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   gradebook_item_id?: Maybe<Scalars['uuid']>;
   group_id?: Maybe<Scalars['uuid']>;
@@ -2818,7 +2846,6 @@ export type Gradebook_Item_Submissions_Min_Fields = {
 
 /** order by min() on columns of table "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions_Min_Order_By = {
-  content?: Maybe<Order_By>;
   created_at?: Maybe<Order_By>;
   gradebook_item_id?: Maybe<Order_By>;
   group_id?: Maybe<Order_By>;
@@ -2848,6 +2875,7 @@ export type Gradebook_Item_Submissions_Order_By = {
   created_at?: Maybe<Order_By>;
   gradebook_item?: Maybe<Gradebook_Items_Order_By>;
   gradebook_item_id?: Maybe<Order_By>;
+  group?: Maybe<Groups_Order_By>;
   group_id?: Maybe<Order_By>;
   id?: Maybe<Order_By>;
   student?: Maybe<Users_Order_By>;
@@ -2857,6 +2885,11 @@ export type Gradebook_Item_Submissions_Order_By = {
 /** primary key columns input for table: gradebook_item_submissions */
 export type Gradebook_Item_Submissions_Pk_Columns_Input = {
   id: Scalars['uuid'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Gradebook_Item_Submissions_Prepend_Input = {
+  content?: Maybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "gradebook_item_submissions" */
@@ -2877,7 +2910,7 @@ export enum Gradebook_Item_Submissions_Select_Column {
 
 /** input type for updating data in table "gradebook_item_submissions" */
 export type Gradebook_Item_Submissions_Set_Input = {
-  content?: Maybe<Scalars['String']>;
+  content?: Maybe<Scalars['jsonb']>;
   created_at?: Maybe<Scalars['timestamptz']>;
   gradebook_item_id?: Maybe<Scalars['uuid']>;
   group_id?: Maybe<Scalars['uuid']>;
@@ -2984,6 +3017,7 @@ export type Gradebook_Items = {
   accommodations?: Maybe<Scalars['String']>;
   assessment_id: Scalars['uuid'];
   assessment_type: Scalars['String'];
+  assign_to: Scalars['jsonb'];
   /** An object relationship */
   assignment?: Maybe<Assignments>;
   attempts_allowed: Scalars['Int'];
@@ -3012,6 +3046,12 @@ export type Gradebook_Items = {
   submissions_aggregate: Gradebook_Item_Submissions_Aggregate;
   /** An object relationship */
   test?: Maybe<Tests>;
+};
+
+
+/** columns and relationships of "gradebook_items" */
+export type Gradebook_ItemsAssign_ToArgs = {
+  path?: Maybe<Scalars['String']>;
 };
 
 
@@ -3099,6 +3139,11 @@ export type Gradebook_Items_Aggregate_Order_By = {
   variance?: Maybe<Gradebook_Items_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Gradebook_Items_Append_Input = {
+  assign_to?: Maybe<Scalars['jsonb']>;
+};
+
 /** input type for inserting array relation for remote table "gradebook_items" */
 export type Gradebook_Items_Arr_Rel_Insert_Input = {
   data: Array<Gradebook_Items_Insert_Input>;
@@ -3127,6 +3172,7 @@ export type Gradebook_Items_Bool_Exp = {
   accommodations?: Maybe<String_Comparison_Exp>;
   assessment_id?: Maybe<Uuid_Comparison_Exp>;
   assessment_type?: Maybe<String_Comparison_Exp>;
+  assign_to?: Maybe<Jsonb_Comparison_Exp>;
   assignment?: Maybe<Assignments_Bool_Exp>;
   attempts_allowed?: Maybe<Int_Comparison_Exp>;
   attempts_grading?: Maybe<String_Comparison_Exp>;
@@ -3153,6 +3199,21 @@ export enum Gradebook_Items_Constraint {
   GradebookItemPkey = 'gradebook_item_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Gradebook_Items_Delete_At_Path_Input = {
+  assign_to?: Maybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Gradebook_Items_Delete_Elem_Input = {
+  assign_to?: Maybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Gradebook_Items_Delete_Key_Input = {
+  assign_to?: Maybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "gradebook_items" */
 export type Gradebook_Items_Inc_Input = {
   attempts_allowed?: Maybe<Scalars['Int']>;
@@ -3164,6 +3225,7 @@ export type Gradebook_Items_Insert_Input = {
   accommodations?: Maybe<Scalars['String']>;
   assessment_id?: Maybe<Scalars['uuid']>;
   assessment_type?: Maybe<Scalars['String']>;
+  assign_to?: Maybe<Scalars['jsonb']>;
   assignment?: Maybe<Assignments_Obj_Rel_Insert_Input>;
   attempts_allowed?: Maybe<Scalars['Int']>;
   attempts_grading?: Maybe<Scalars['String']>;
@@ -3290,6 +3352,7 @@ export type Gradebook_Items_Order_By = {
   accommodations?: Maybe<Order_By>;
   assessment_id?: Maybe<Order_By>;
   assessment_type?: Maybe<Order_By>;
+  assign_to?: Maybe<Order_By>;
   assignment?: Maybe<Assignments_Order_By>;
   attempts_allowed?: Maybe<Order_By>;
   attempts_grading?: Maybe<Order_By>;
@@ -3315,6 +3378,11 @@ export type Gradebook_Items_Pk_Columns_Input = {
   id: Scalars['uuid'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Gradebook_Items_Prepend_Input = {
+  assign_to?: Maybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "gradebook_items" */
 export enum Gradebook_Items_Select_Column {
   /** column name */
@@ -3323,6 +3391,8 @@ export enum Gradebook_Items_Select_Column {
   AssessmentId = 'assessment_id',
   /** column name */
   AssessmentType = 'assessment_type',
+  /** column name */
+  AssignTo = 'assign_to',
   /** column name */
   AttemptsAllowed = 'attempts_allowed',
   /** column name */
@@ -3354,6 +3424,7 @@ export type Gradebook_Items_Set_Input = {
   accommodations?: Maybe<Scalars['String']>;
   assessment_id?: Maybe<Scalars['uuid']>;
   assessment_type?: Maybe<Scalars['String']>;
+  assign_to?: Maybe<Scalars['jsonb']>;
   attempts_allowed?: Maybe<Scalars['Int']>;
   attempts_grading?: Maybe<Scalars['String']>;
   available_from?: Maybe<Scalars['timestamp']>;
@@ -3428,6 +3499,8 @@ export enum Gradebook_Items_Update_Column {
   AssessmentId = 'assessment_id',
   /** column name */
   AssessmentType = 'assessment_type',
+  /** column name */
+  AssignTo = 'assign_to',
   /** column name */
   AttemptsAllowed = 'attempts_allowed',
   /** column name */
@@ -4073,6 +4146,29 @@ export enum Groups_Update_Column {
   /** column name */
   Name = 'name'
 }
+
+/** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
+export type Jsonb_Comparison_Exp = {
+  /** is the column contained in the given json value */
+  _contained_in?: Maybe<Scalars['jsonb']>;
+  /** does the column contain the given json value at the top level */
+  _contains?: Maybe<Scalars['jsonb']>;
+  _eq?: Maybe<Scalars['jsonb']>;
+  _gt?: Maybe<Scalars['jsonb']>;
+  _gte?: Maybe<Scalars['jsonb']>;
+  /** does the string exist as a top-level key in the column */
+  _has_key?: Maybe<Scalars['String']>;
+  /** do all of these strings exist as top-level keys in the column */
+  _has_keys_all?: Maybe<Array<Scalars['String']>>;
+  /** do any of these strings exist as top-level keys in the column */
+  _has_keys_any?: Maybe<Array<Scalars['String']>>;
+  _in?: Maybe<Array<Scalars['jsonb']>>;
+  _is_null?: Maybe<Scalars['Boolean']>;
+  _lt?: Maybe<Scalars['jsonb']>;
+  _lte?: Maybe<Scalars['jsonb']>;
+  _neq?: Maybe<Scalars['jsonb']>;
+  _nin?: Maybe<Array<Scalars['jsonb']>>;
+};
 
 /** columns and relationships of "modules" */
 export type Modules = {
@@ -5379,7 +5475,12 @@ export type Mutation_RootUpdate_Grade_Items_By_PkArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Gradebook_Item_SubmissionsArgs = {
+  _append?: Maybe<Gradebook_Item_Submissions_Append_Input>;
+  _delete_at_path?: Maybe<Gradebook_Item_Submissions_Delete_At_Path_Input>;
+  _delete_elem?: Maybe<Gradebook_Item_Submissions_Delete_Elem_Input>;
+  _delete_key?: Maybe<Gradebook_Item_Submissions_Delete_Key_Input>;
   _inc?: Maybe<Gradebook_Item_Submissions_Inc_Input>;
+  _prepend?: Maybe<Gradebook_Item_Submissions_Prepend_Input>;
   _set?: Maybe<Gradebook_Item_Submissions_Set_Input>;
   where: Gradebook_Item_Submissions_Bool_Exp;
 };
@@ -5387,7 +5488,12 @@ export type Mutation_RootUpdate_Gradebook_Item_SubmissionsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Gradebook_Item_Submissions_By_PkArgs = {
+  _append?: Maybe<Gradebook_Item_Submissions_Append_Input>;
+  _delete_at_path?: Maybe<Gradebook_Item_Submissions_Delete_At_Path_Input>;
+  _delete_elem?: Maybe<Gradebook_Item_Submissions_Delete_Elem_Input>;
+  _delete_key?: Maybe<Gradebook_Item_Submissions_Delete_Key_Input>;
   _inc?: Maybe<Gradebook_Item_Submissions_Inc_Input>;
+  _prepend?: Maybe<Gradebook_Item_Submissions_Prepend_Input>;
   _set?: Maybe<Gradebook_Item_Submissions_Set_Input>;
   pk_columns: Gradebook_Item_Submissions_Pk_Columns_Input;
 };
@@ -5395,7 +5501,12 @@ export type Mutation_RootUpdate_Gradebook_Item_Submissions_By_PkArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Gradebook_ItemsArgs = {
+  _append?: Maybe<Gradebook_Items_Append_Input>;
+  _delete_at_path?: Maybe<Gradebook_Items_Delete_At_Path_Input>;
+  _delete_elem?: Maybe<Gradebook_Items_Delete_Elem_Input>;
+  _delete_key?: Maybe<Gradebook_Items_Delete_Key_Input>;
   _inc?: Maybe<Gradebook_Items_Inc_Input>;
+  _prepend?: Maybe<Gradebook_Items_Prepend_Input>;
   _set?: Maybe<Gradebook_Items_Set_Input>;
   where: Gradebook_Items_Bool_Exp;
 };
@@ -5403,7 +5514,12 @@ export type Mutation_RootUpdate_Gradebook_ItemsArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Gradebook_Items_By_PkArgs = {
+  _append?: Maybe<Gradebook_Items_Append_Input>;
+  _delete_at_path?: Maybe<Gradebook_Items_Delete_At_Path_Input>;
+  _delete_elem?: Maybe<Gradebook_Items_Delete_Elem_Input>;
+  _delete_key?: Maybe<Gradebook_Items_Delete_Key_Input>;
   _inc?: Maybe<Gradebook_Items_Inc_Input>;
+  _prepend?: Maybe<Gradebook_Items_Prepend_Input>;
   _set?: Maybe<Gradebook_Items_Set_Input>;
   pk_columns: Gradebook_Items_Pk_Columns_Input;
 };
@@ -9633,7 +9749,7 @@ export type GetCourseByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetCourseByIdQuery = { __typename?: 'query_root', courses: Array<{ __typename?: 'courses', access_code?: string | null | undefined, available: boolean, banner_color?: string | null | undefined, background_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, schedule?: string | null | undefined, id: any, instructor_id: number, level?: string | null | undefined, name: string, instructor?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined, enrollments_aggregate?: { __typename?: 'course_enrollment_aggregate', aggregate?: { __typename?: 'course_enrollment_aggregate_fields', count: number } | null | undefined }, management?: Array<{ __typename?: 'course_management', course_id: any, id: any, manager_id: any, manager?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined }> }> };
+export type GetCourseByIdQuery = { __typename?: 'query_root', courses: Array<{ __typename?: 'courses', access_code?: string | null | undefined, available: boolean, banner_color?: string | null | undefined, background_color?: string | null | undefined, banner_image?: string | null | undefined, description?: string | null | undefined, duration?: string | null | undefined, schedule?: string | null | undefined, id: any, instructor_id: number, level?: string | null | undefined, name: string, instructor?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined, enrollments_aggregate?: { __typename?: 'course_enrollment_aggregate', aggregate?: { __typename?: 'course_enrollment_aggregate_fields', count: number } | null | undefined }, management?: Array<{ __typename?: 'course_management', course_id: any, id: any, manager_id: any, manager?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined }>, enrollments?: Array<{ __typename?: 'course_enrollment', authorized: boolean, authorized_at?: any | null | undefined, course_id: any, created_at: any, id: any, student_id: number, student?: { __typename?: 'users', id: number, title?: number | null | undefined, image?: string | null | undefined, first_name?: string | null | undefined, last_name?: string | null | undefined, middle_name?: string | null | undefined, username?: string | null | undefined } | null | undefined }> }> };
 
 export type GetAllCourseEnrollmentsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -9673,6 +9789,7 @@ export type GetOwnCoursesQuery = { __typename?: 'query_root', courses: Array<{ _
 
 export type CreateAssignmentMutationVariables = Exact<{
   gradebook_item_id: Scalars['uuid'];
+  assign_to?: Maybe<Scalars['jsonb']>;
   assessment_id: Scalars['uuid'];
   assessment_type: Scalars['String'];
   attempts_allowed: Scalars['Int'];
@@ -9697,6 +9814,7 @@ export type CreateAssignmentMutation = { __typename?: 'mutation_root', insert_gr
 
 export type EditAssignmentMutationVariables = Exact<{
   gradebook_item_id: Scalars['uuid'];
+  assign_to?: Maybe<Scalars['jsonb']>;
   assessment_id: Scalars['uuid'];
   assessment_type: Scalars['String'];
   attempts_allowed: Scalars['Int'];
@@ -9722,6 +9840,7 @@ export type EditAssignmentMutation = { __typename?: 'mutation_root', update_grad
 export type CreateTestMutationVariables = Exact<{
   time_limit: Scalars['Int'];
   gradebook_item_id: Scalars['uuid'];
+  assign_to?: Maybe<Scalars['jsonb']>;
   assessment_id: Scalars['uuid'];
   assessment_type: Scalars['String'];
   attempts_allowed: Scalars['Int'];
@@ -9744,6 +9863,7 @@ export type CreateTestMutation = { __typename?: 'mutation_root', insert_gradeboo
 export type EditTestMutationVariables = Exact<{
   time_limit: Scalars['Int'];
   gradebook_item_id: Scalars['uuid'];
+  assign_to?: Maybe<Scalars['jsonb']>;
   assessment_id: Scalars['uuid'];
   assessment_type: Scalars['String'];
   attempts_allowed: Scalars['Int'];
@@ -9763,21 +9883,32 @@ export type EditTestMutationVariables = Exact<{
 
 export type EditTestMutation = { __typename?: 'mutation_root', update_gradebook_items_by_pk?: { __typename?: 'gradebook_items', id: any } | null | undefined, update_tests_by_pk?: { __typename?: 'tests', id: any } | null | undefined };
 
-export type GetGradebookItemsQueryVariables = Exact<{
-  course_id: Scalars['uuid'];
+export type CreateAssessmentSubmissionMutationVariables = Exact<{
+  content: Scalars['jsonb'];
+  group_id?: Maybe<Scalars['uuid']>;
+  student_id: Scalars['Int'];
+  gradebook_item_id: Scalars['uuid'];
 }>;
 
 
-export type GetGradebookItemsQuery = { __typename?: 'query_root', gradebook_items: Array<{ __typename?: 'gradebook_items', accommodations?: string | null | undefined, created_at: any, assessment_id: any, assessment_type: string, attempts_allowed: number, attempts_grading: string, available_from?: any | null | undefined, available_until?: any | null | undefined, course_id: any, grading_rubric_id?: any | null | undefined, id: any, max_points?: number | null | undefined, scoring_type: string, status: string, submission_type: string, assignment?: { __typename?: 'assignments', description: string, files?: string | null | undefined, gradebook_item_id: any, id: any, name: string, type: string } | null | undefined, test?: { __typename?: 'tests', description?: string | null | undefined, gradebook_item_id: any, id: any, name: string } | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined } }> };
+export type CreateAssessmentSubmissionMutation = { __typename?: 'mutation_root', insert_gradebook_item_submissions_one?: { __typename?: 'gradebook_item_submissions', id: any } | null | undefined };
+
+export type GetGradebookItemsQueryVariables = Exact<{
+  course_id: Scalars['uuid'];
+  student_id: Scalars['Int'];
+  is_assigned: Scalars['jsonb'];
+}>;
+
+
+export type GetGradebookItemsQuery = { __typename?: 'query_root', gradebook_items: Array<{ __typename?: 'gradebook_items', accommodations?: string | null | undefined, created_at: any, assessment_id: any, assessment_type: string, attempts_allowed: number, attempts_grading: string, available_from?: any | null | undefined, available_until?: any | null | undefined, assign_to: any, course_id: any, grading_rubric_id?: any | null | undefined, id: any, max_points?: number | null | undefined, scoring_type: string, status: string, submission_type: string, assignment?: { __typename?: 'assignments', description: string, files?: string | null | undefined, gradebook_item_id: any, id: any, name: string, type: string } | null | undefined, test?: { __typename?: 'tests', description?: string | null | undefined, gradebook_item_id: any, id: any, name: string } | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined }, total_submissions: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined } }> };
 
 export type GetAssignmentQueryVariables = Exact<{
   student_id: Scalars['Int'];
   assignment_id: Scalars['uuid'];
-  with_details: Scalars['Boolean'];
 }>;
 
 
-export type GetAssignmentQuery = { __typename?: 'query_root', assignments: Array<{ __typename?: 'assignments', description: string, files?: string | null | undefined, gradebook_item_id: any, id: any, name: string, type: string, gradebook_item?: { __typename?: 'gradebook_items', id: any, created_at: any, accommodations?: string | null | undefined, assessment_id: any, assessment_type: string, attempts_allowed: number, attempts_grading: string, available_from?: any | null | undefined, available_until?: any | null | undefined, course_id: any, max_points?: number | null | undefined, grading_rubric_id?: any | null | undefined, scoring_type: string, status: string, submission_type: string, submissions: Array<{ __typename?: 'gradebook_item_submissions', content?: string | null | undefined, group_id?: any | null | undefined, id: any, student_id: number }>, submissions_aggregate?: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined }, grade_items: Array<{ __typename?: 'grade_items', points: number, status: string, student_id: number }> } | null | undefined }> };
+export type GetAssignmentQuery = { __typename?: 'query_root', assignments: Array<{ __typename?: 'assignments', description: string, files?: string | null | undefined, gradebook_item_id: any, id: any, name: string, type: string, gradebook_item?: { __typename?: 'gradebook_items', id: any, created_at: any, accommodations?: string | null | undefined, assessment_id: any, assessment_type: string, attempts_allowed: number, attempts_grading: string, available_from?: any | null | undefined, available_until?: any | null | undefined, course_id: any, assign_to: any, max_points?: number | null | undefined, grading_rubric_id?: any | null | undefined, scoring_type: string, status: string, submission_type: string, submissions: Array<{ __typename?: 'gradebook_item_submissions', created_at: any, content?: any | null | undefined, group_id?: any | null | undefined, id: any, student_id: number }>, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined }, grade_items: Array<{ __typename?: 'grade_items', points: number, status: string, student_id: number }> } | null | undefined }> };
 
 export type CreateModuleMutationVariables = Exact<{
   content: Scalars['String'];
@@ -9963,7 +10094,7 @@ export type GetUnitByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetUnitByIdQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, status: string, course_id: any, id: any, number: string, order: number, available_from?: any | null | undefined, title?: string | null | undefined, type: string, assessments: Array<{ __typename?: 'unit_assessments', id: any, assignment?: { __typename?: 'assignments', name: string, id: any, gradebook_item?: { __typename?: 'gradebook_items', id: any, status: string, available_from?: any | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined } } | null | undefined } | null | undefined, test?: { __typename?: 'tests', name: string, id: any, gradebook_item?: { __typename?: 'gradebook_items', id: any, status: string, available_from?: any | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined } } | null | undefined } | null | undefined }>, course?: { __typename?: 'courses', gradebook_items?: Array<{ __typename?: 'gradebook_items', id: any, available_from?: any | null | undefined, status: string, assessment_type: string, assignment?: { __typename?: 'assignments', name: string, id: any } | null | undefined, test?: { __typename?: 'tests', name: string, id: any } | null | undefined }> } | null | undefined }> };
+export type GetUnitByIdQuery = { __typename?: 'query_root', units: Array<{ __typename?: 'units', archived: boolean, status: string, course_id: any, id: any, number: string, order: number, available_from?: any | null | undefined, title?: string | null | undefined, type: string, assessments: Array<{ __typename?: 'unit_assessments', id: any, assignment?: { __typename?: 'assignments', name: string, id: any, gradebook_item?: { __typename?: 'gradebook_items', id: any, status: string, assign_to: any, available_from?: any | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined } } | null | undefined } | null | undefined, test?: { __typename?: 'tests', name: string, id: any, gradebook_item?: { __typename?: 'gradebook_items', id: any, status: string, assign_to: any, available_from?: any | null | undefined, submissions_aggregate: { __typename?: 'gradebook_item_submissions_aggregate', aggregate?: { __typename?: 'gradebook_item_submissions_aggregate_fields', count: number } | null | undefined } } | null | undefined } | null | undefined }>, course?: { __typename?: 'courses', gradebook_items?: Array<{ __typename?: 'gradebook_items', id: any, available_from?: any | null | undefined, status: string, assign_to: any, assessment_type: string, assignment?: { __typename?: 'assignments', name: string, id: any } | null | undefined, test?: { __typename?: 'tests', name: string, id: any } | null | undefined }> } | null | undefined }> };
 
 export type GetUnitsQueryVariables = Exact<{
   course_id: Scalars['uuid'];
@@ -10237,6 +10368,17 @@ export const GetCourseByIdDocument = gql`
         ...otherUser
       }
     }
+    enrollments @include(if: $with_details) {
+      authorized
+      authorized_at
+      course_id
+      created_at
+      id
+      student_id
+      student {
+        ...otherUser
+      }
+    }
   }
 }
     ${OtherUserFragmentDoc}`;
@@ -10438,9 +10580,9 @@ export const GetOwnCoursesDocument = gql`
     `;
 export type GetOwnCoursesQueryResult = Apollo.QueryResult<GetOwnCoursesQuery, GetOwnCoursesQueryVariables>;
 export const CreateAssignmentDocument = gql`
-    mutation CreateAssignment($gradebook_item_id: uuid!, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $submission_type: String!, $accommodations: String, $assignment_id: uuid!, $name: String!, $type: String!, $files: String, $description: String) {
+    mutation CreateAssignment($gradebook_item_id: uuid!, $assign_to: jsonb, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $submission_type: String!, $accommodations: String, $assignment_id: uuid!, $name: String!, $type: String!, $files: String, $description: String) {
   insert_gradebook_items_one(
-    object: {id: $gradebook_item_id, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, submission_type: $submission_type, accommodations: $accommodations}
+    object: {id: $gradebook_item_id, assign_to: $assign_to, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, submission_type: $submission_type, accommodations: $accommodations}
   ) {
     id
   }
@@ -10455,9 +10597,9 @@ export type CreateAssignmentMutationFn = Apollo.MutationFunction<CreateAssignmen
 export type CreateAssignmentMutationResult = Apollo.MutationResult<CreateAssignmentMutation>;
 export type CreateAssignmentMutationOptions = Apollo.BaseMutationOptions<CreateAssignmentMutation, CreateAssignmentMutationVariables>;
 export const EditAssignmentDocument = gql`
-    mutation EditAssignment($gradebook_item_id: uuid!, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $submission_type: String!, $accommodations: String, $assignment_id: uuid!, $name: String!, $type: String!, $files: String, $description: String) {
+    mutation EditAssignment($gradebook_item_id: uuid!, $assign_to: jsonb, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $submission_type: String!, $accommodations: String, $assignment_id: uuid!, $name: String!, $type: String!, $files: String, $description: String) {
   update_gradebook_items_by_pk(
-    _set: {id: $gradebook_item_id, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, submission_type: $submission_type, accommodations: $accommodations}
+    _set: {id: $gradebook_item_id, assign_to: $assign_to, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, submission_type: $submission_type, accommodations: $accommodations}
     pk_columns: {id: $gradebook_item_id}
   ) {
     id
@@ -10474,9 +10616,9 @@ export type EditAssignmentMutationFn = Apollo.MutationFunction<EditAssignmentMut
 export type EditAssignmentMutationResult = Apollo.MutationResult<EditAssignmentMutation>;
 export type EditAssignmentMutationOptions = Apollo.BaseMutationOptions<EditAssignmentMutation, EditAssignmentMutationVariables>;
 export const CreateTestDocument = gql`
-    mutation CreateTest($time_limit: Int!, $gradebook_item_id: uuid!, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $accommodations: String, $test_id: uuid!, $name: String!, $description: String) {
+    mutation CreateTest($time_limit: Int!, $gradebook_item_id: uuid!, $assign_to: jsonb, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $accommodations: String, $test_id: uuid!, $name: String!, $description: String) {
   insert_gradebook_items_one(
-    object: {id: $gradebook_item_id, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, accommodations: $accommodations}
+    object: {id: $gradebook_item_id, assign_to: $assign_to, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, accommodations: $accommodations}
   ) {
     id
   }
@@ -10491,9 +10633,9 @@ export type CreateTestMutationFn = Apollo.MutationFunction<CreateTestMutation, C
 export type CreateTestMutationResult = Apollo.MutationResult<CreateTestMutation>;
 export type CreateTestMutationOptions = Apollo.BaseMutationOptions<CreateTestMutation, CreateTestMutationVariables>;
 export const EditTestDocument = gql`
-    mutation EditTest($time_limit: Int!, $gradebook_item_id: uuid!, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $accommodations: String, $test_id: uuid!, $name: String!, $description: String) {
+    mutation EditTest($time_limit: Int!, $gradebook_item_id: uuid!, $assign_to: jsonb, $assessment_id: uuid!, $assessment_type: String!, $attempts_allowed: Int!, $attempts_grading: String!, $available_from: timestamp, $available_until: timestamp, $course_id: uuid!, $max_points: Int!, $scoring_type: String!, $status: String!, $accommodations: String, $test_id: uuid!, $name: String!, $description: String) {
   update_gradebook_items_by_pk(
-    _set: {id: $gradebook_item_id, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, accommodations: $accommodations}
+    _set: {id: $gradebook_item_id, assign_to: $assign_to, assessment_id: $assessment_id, assessment_type: $assessment_type, attempts_allowed: $attempts_allowed, attempts_grading: $attempts_grading, available_from: $available_from, available_until: $available_until, course_id: $course_id, max_points: $max_points, status: $status, scoring_type: $scoring_type, accommodations: $accommodations}
     pk_columns: {id: $gradebook_item_id}
   ) {
     id
@@ -10509,10 +10651,22 @@ export const EditTestDocument = gql`
 export type EditTestMutationFn = Apollo.MutationFunction<EditTestMutation, EditTestMutationVariables>;
 export type EditTestMutationResult = Apollo.MutationResult<EditTestMutation>;
 export type EditTestMutationOptions = Apollo.BaseMutationOptions<EditTestMutation, EditTestMutationVariables>;
+export const CreateAssessmentSubmissionDocument = gql`
+    mutation CreateAssessmentSubmission($content: jsonb!, $group_id: uuid, $student_id: Int!, $gradebook_item_id: uuid!) {
+  insert_gradebook_item_submissions_one(
+    object: {content: $content, group_id: $group_id, student_id: $student_id, gradebook_item_id: $gradebook_item_id}
+  ) {
+    id
+  }
+}
+    `;
+export type CreateAssessmentSubmissionMutationFn = Apollo.MutationFunction<CreateAssessmentSubmissionMutation, CreateAssessmentSubmissionMutationVariables>;
+export type CreateAssessmentSubmissionMutationResult = Apollo.MutationResult<CreateAssessmentSubmissionMutation>;
+export type CreateAssessmentSubmissionMutationOptions = Apollo.BaseMutationOptions<CreateAssessmentSubmissionMutation, CreateAssessmentSubmissionMutationVariables>;
 export const GetGradebookItemsDocument = gql`
-    query GetGradebookItems($course_id: uuid!) {
+    query GetGradebookItems($course_id: uuid!, $student_id: Int!, $is_assigned: jsonb!) {
   gradebook_items(
-    where: {course_id: {_eq: $course_id}}
+    where: {_and: {course_id: {_eq: $course_id}, _or: [{assign_to: {_contains: $is_assigned}}, {course: {instructor: {id: {_eq: $student_id}}}}, {course: {management: {manager: {id: {_eq: $student_id}}}}}]}}
     order_by: {created_at: desc}
   ) {
     accommodations
@@ -10523,6 +10677,7 @@ export const GetGradebookItemsDocument = gql`
     attempts_grading
     available_from
     available_until
+    assign_to
     course_id
     grading_rubric_id
     id
@@ -10544,7 +10699,15 @@ export const GetGradebookItemsDocument = gql`
       id
       name
     }
-    submissions_aggregate {
+    submissions_aggregate(
+      where: {student_id: {_eq: $student_id}}
+      distinct_on: student_id
+    ) {
+      aggregate {
+        count
+      }
+    }
+    total_submissions: submissions_aggregate(distinct_on: student_id) {
       aggregate {
         count
       }
@@ -10554,7 +10717,7 @@ export const GetGradebookItemsDocument = gql`
     `;
 export type GetGradebookItemsQueryResult = Apollo.QueryResult<GetGradebookItemsQuery, GetGradebookItemsQueryVariables>;
 export const GetAssignmentDocument = gql`
-    query GetAssignment($student_id: Int!, $assignment_id: uuid!, $with_details: Boolean!) {
+    query GetAssignment($student_id: Int!, $assignment_id: uuid!) {
   assignments(where: {id: {_eq: $assignment_id}}) {
     description
     files
@@ -10573,18 +10736,23 @@ export const GetAssignmentDocument = gql`
       available_from
       available_until
       course_id
+      assign_to
       max_points
       grading_rubric_id
       scoring_type
       status
       submission_type
-      submissions(where: {student_id: {_eq: $student_id}}) {
+      submissions(
+        where: {student_id: {_eq: $student_id}}
+        order_by: {created_at: desc}
+      ) {
+        created_at
         content
         group_id
         id
         student_id
       }
-      submissions_aggregate @include(if: $with_details) {
+      submissions_aggregate(where: {student_id: {_eq: $student_id}}) {
         aggregate {
           count
         }
@@ -10899,6 +11067,7 @@ export const GetUnitByIdDocument = gql`
         gradebook_item {
           id
           status
+          assign_to
           available_from
           submissions_aggregate {
             aggregate {
@@ -10913,6 +11082,7 @@ export const GetUnitByIdDocument = gql`
         gradebook_item {
           id
           status
+          assign_to
           available_from
           submissions_aggregate {
             aggregate {
@@ -10927,6 +11097,7 @@ export const GetUnitByIdDocument = gql`
         id
         available_from
         status
+        assign_to
         assessment_type
         assignment {
           name
