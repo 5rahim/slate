@@ -1,4 +1,5 @@
 import { UserProfile, useUser } from '@auth0/nextjs-auth0'
+import { Users } from '@slate/generated/graphql'
 import { SlateRoles } from '@slate/types/User'
 import { Utils } from '@slate/utils'
 import { useRouter } from 'next/router'
@@ -7,7 +8,7 @@ import { useSelector } from 'react-redux'
 import { UserSelectors } from '../store/slices/userSlice'
 
 export const useCurrentUser = () => {
-   return useSelector(UserSelectors.getUser)
+   return useSelector(UserSelectors.getUser) as Users
 }
 
 export type UserSessionProfile = UserProfile & { iid: string, role: SlateRoles }

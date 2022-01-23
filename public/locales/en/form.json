@@ -48,6 +48,7 @@
   "Enter a name": "Enter a name",
   "No groups in this course": "No groups were created in this course",
   "Instructions": "Instructions (optional)",
+  "Instructions!": "Instructions",
   "Submission text": "Submission text (optional)",
   "title must be at least 4 characters": "The title must be at least 4 characters",
   "message is a required field": "The message must not be empty",

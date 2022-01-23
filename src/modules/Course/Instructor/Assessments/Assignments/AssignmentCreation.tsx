@@ -161,7 +161,7 @@ export function AssignmentCreation({ onClose, isOpen }: any) {
             </FormControl>
             
             <Box mb="5">
-               {textEditor.render({ title: 'Instructions', height: 200 })}
+               {textEditor.render({ title: 'Instructions!', height: 200 })}
             </Box>
             
             <Box>

@@ -31,15 +31,14 @@ export const useTimeLimitSetting = (defaultValue?: number) => {
    
    const [error, setError] = useState<boolean>(false)
    const [type, setType] = useState<string>(defaultValue === 999 ? ScoringTypes.Unlimited : ScoringTypes.Limited)
-   const [minutes, setMaxPoints] = useState<number>(defaultValue === 999 ? 60 : (defaultValue ?? 60))
+   const [minutes, setMinutes] = useState<number>(defaultValue === 999 ? 60 : (defaultValue ?? 60))
    
    const summary = type === ScoringTypes.Limited ? ( minutes + ' ' + t(`course:minutes`) ) : t(`course:${type}`)
    
    return {
       
       timeLimitValues: {
-         scoring_type: type,
-         max_points: type === ScoringTypes.Unlimited ? 100 : minutes,
+         time_limit: type === 'unlimited' ? 999 : minutes,
       },
       
       timeLimitFields: {
@@ -76,7 +75,7 @@ export const useTimeLimitSetting = (defaultValue?: number) => {
                               <Text mb="2">{t('course:Time limit (minutes)')}</Text>
                               
                               <NumberInput
-                                 onChange={(v) => setMaxPoints(Number(v))}
+                                 onChange={(v) => setMinutes(Number(v))}
                                  value={String(minutes)}
                                  size="md"
                                  step={1}

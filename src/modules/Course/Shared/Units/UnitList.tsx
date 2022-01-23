@@ -14,7 +14,6 @@ import React, { useCallback, useEffect, useState } from 'react'
 
 export function UnitList() {
    const { id } = useCurrentCourse()
-   
    const [listedUnits, setListedUnits] = useState<Units[] | null>()
    const [fetchUnits, units, loading, empty] = useCachedLazyQuery('units', getLazyUnits(id))
    const [updateUnitOrder] = useMutateUnitOrder()

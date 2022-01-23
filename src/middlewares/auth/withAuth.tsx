@@ -42,6 +42,9 @@ export const withAuth = (
    
       const [fetchUser, user, userLoading] = getLazyUserBySessionProfile(profile)
    
+      useEffect(() => {
+         fetchUser && fetchUser()
+      }, [])
       
       useEffect(() => {
          if(!storedUser && requireActiveAccount) {

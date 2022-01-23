@@ -5,10 +5,11 @@ import { useDisclosure } from 'chalkui/dist/cjs/Hooks/use-disclosure'
 
 interface RichTextContentProps {
    truncate?: number | boolean
-   content?: string
+   content?: string,
+   forceFontSize?: string
 }
 
-export function RichTextContent({ content, truncate }: RichTextContentProps) {
+export function RichTextContent({ content, truncate, forceFontSize }: RichTextContentProps) {
    const t = useTypeSafeTranslation()
    let truncatedContent: string | undefined = undefined
    const splitLength: number = typeof truncate !== 'boolean' ? truncate as number : 400
@@ -46,7 +47,12 @@ export function RichTextContent({ content, truncate }: RichTextContentProps) {
                   fontSize: 'md',
                },
                '& > p': {
+                  display: 'flex',
+                  placeItems: 'flex-end',
                   my: 2,
+               },
+               '& > p, & > * > *': {
+                  fontSize: forceFontSize ? '18px !important' : undefined,
                },
                '& > ul, & > ol': {
                   pl: 8,

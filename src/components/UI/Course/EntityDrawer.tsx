@@ -17,15 +17,18 @@ type EntityDrawerProps = {
    isOpen: boolean
    isLoading: boolean
    onClose: any
-   onFormSubmit: any
-   title: string
+   onFormSubmit?: any
+   title?: string
+   rawTitle?: string
    entityTitle?: string
    headerColor?: string
+   titleColor?: string
    children?: React.ReactNode
    settings?: React.ReactNode
+   sidenav?: React.ReactNode
 } & DrawerProps
 
-export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSubmit, children, settings, title, entityTitle, ...rest }: EntityDrawerProps) => {
+export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSubmit, children, settings, sidenav, titleColor, title, rawTitle, entityTitle, ...rest }: EntityDrawerProps) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    
@@ -49,14 +52,16 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                   backgroundImage={Utils.Url.assetImageUrl('topography.png', 'patterns')}
                   backgroundBlendMode={"color-burn"}
                   bgColor={headerColor ?? cmf("transparent", "gray.700")}
-                  color={headerColor ? "white" : 'black'}
+                  color={titleColor ?? (headerColor ? "white" : 'black')}
                   borderBottom="2px solid"
                   borderColor={cmf("gray.200", "gray.500")}
                >
-                  {t(`course:options.${title}`)}
+                  {title && t(`course:options.${title}`)}
+                  {rawTitle && rawTitle}
                </DrawerHeader>
                
                <DrawerBody
+                  position="relative"
                   sx={{
                      userSelect: isLoading ? 'none' : 'auto',
                      pointerEvents: isLoading ? 'none' : 'auto',
@@ -70,7 +75,11 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                      direction={["column", "column", "column", "row", "row"]}
                   >
                      
-                     <Box width="100%" minHeight={["100%", "100%", "100%", "calc(100vh - 220px)", "calc(100vh - 220px)"]}>
+                     <Box
+                        position="relative"
+                        width="100%"
+                        minHeight={["100%", "100%", "100%", "calc(100vh - 220px)", "calc(100vh - 220px)"]}
+                     >
                         
                         {entityTitle && <Box fontSize="1.5rem" borderBottom="1px solid" borderColor={cmf("gray.200", "gray.500")} mb="4" pb="2">
                            {entityTitle}
@@ -83,27 +92,29 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                      <Box
                         maxHeight="calc(100vh - 220px)"
                         overflowY="auto"
-                        width={["100%", "100%", "100%", "50%", "50%"]}
+                        width={["100%", "100%", "100%", "40%", "40%"]}
                      >
                         
-                        <SettingList>
+                        {sidenav && sidenav}
+   
+                        {settings && <SettingList>
                            <ListItem fontSize="1.5rem">
                               <AlignedFlex>
                                  <Icon as={RiPencilRuler2Line} />
                                  {t('Settings')}
                               </AlignedFlex>
                            </ListItem>
-                           
+      
                            {settings}
-                        </SettingList>
+                        </SettingList>}
                      
                      </Box>
                   
                   </Stack>
                
                </DrawerBody>
-               
-               <DrawerFooter gridGap={5}>
+   
+               {onFormSubmit && <DrawerFooter gridGap={5}>
                   <Button
                      colorScheme="primary"
                      width="100%"
@@ -112,11 +123,11 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                   >
                      {t('Save')}
                   </Button>
-                  
+      
                   <Button isDisabled={isLoading} colorScheme="brand.800" onClick={onClose} width="50%">
                      {t('Cancel')}
                   </Button>
-               </DrawerFooter>
+               </DrawerFooter>}
             </DrawerContent>
          </form>
       </Drawer>

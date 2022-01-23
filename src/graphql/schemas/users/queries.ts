@@ -26,6 +26,23 @@ export const GET_USER_BY_EMAIL = gql`
             short_name
             type
         }
+        group_membership {
+            group_id
+            id
+            group {
+                id
+                name
+                course_id
+                membership {
+                    student {
+                        first_name
+                        last_name
+                        id
+                        middle_name
+                    }
+                }
+            }
+        }
     }
 
     query GetUserByEmail($email: String!) {

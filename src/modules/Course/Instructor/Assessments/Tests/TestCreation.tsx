@@ -7,6 +7,8 @@ import { useAssignToSetting } from '@slate/hooks/settings/useAssignToSetting'
 import { useAttemptSetting } from '@slate/hooks/settings/useAttemptSetting'
 import { useDueDateSetting } from '@slate/hooks/settings/useDueDateSetting'
 import { useGradingSetting } from '@slate/hooks/settings/useGradingSetting'
+import { useQuestionSetting } from '@slate/hooks/settings/useQuestionSetting'
+import { useTimeLimitSetting } from '@slate/hooks/settings/useTimeLimitSetting'
 import { useCurrentCourse } from '@slate/hooks/useCurrentCourse'
 import { useFormCreator } from '@slate/hooks/useFormCreator'
 import { useRichTextEditor } from '@slate/hooks/useRichTextEditor'
@@ -29,6 +31,8 @@ export function TestCreation({ onClose, isOpen }: any) {
    const { attemptValues, attemptFields } = useAttemptSetting()
    const { assignToValues, assignToFields } = useAssignToSetting(null)
    const { accommodationValues, accommodationFields } = useAccommodationSetting(null)
+   const { questionSettingValues, questionSettingFields } = useQuestionSetting()
+   const { timeLimitValues, timeLimitFields } = useTimeLimitSetting()
    const { textEditor } = useRichTextEditor(null, false)
    
    const [createTest, isLoading] = useCreateTest({
@@ -62,9 +66,10 @@ export function TestCreation({ onClose, isOpen }: any) {
             ...assignToValues,
             ...attemptValues,
             ...accommodationValues,
+            ...questionSettingValues,
+            ...timeLimitValues,
             /** test **/
             test_id: test_id,
-            time_limit: 60, // TODO
             name: data.name,
             description: textEditor.getValue(),
          }
@@ -102,6 +107,8 @@ export function TestCreation({ onClose, isOpen }: any) {
                   {dueDateFields.render()}
                   {gradingFields.render()}
                   {assignToFields.render()}
+                  {timeLimitFields.render()}
+                  {questionSettingFields.render()}
                   {attemptFields.render()}
                   {accommodationFields.render()}
                </>

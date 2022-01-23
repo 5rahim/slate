@@ -23,3 +23,11 @@
 .tox-tinymce-aux {
     z-index: 9999 !important;
 }
+
+.tox-notification {
+    display: none !important;
+}
+
+.tox-tinymce {
+    border-radius: .5rem !important;
+}

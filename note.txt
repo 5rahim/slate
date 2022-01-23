@@ -62,3 +62,30 @@ one question at a time
 shuffle questions
 show answers: never, wrong answers only, correct answers only, wrong and correct
 view responses: after submission, after grading, never
+
+questions
+- id
+- course_id
+- type (multiple, boolean, matching, essay, fill)
+- content
+{
+    description: "<p>Which is the longest river?</p>",
+    allowMultipleAnswers: false,
+    choices: [
+        { id: 1, content: "<p>Nile</p>" },
+        { id: 2, content: "<p>Amazon</p>" },
+        { id: 2, content: "<p>Mississippi</p>" },
+    ]
+}
+- answer_keys
+[{ id: 1, points: 5 }, { id: 2, points: 2.5 }]
+
+
+test_questions
+- id
+- order
+- test_id
+- question
+
+-> submission content
+[{ question_id: 123456, answers: [{ id: 1 }] }, ...]

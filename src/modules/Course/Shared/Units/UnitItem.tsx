@@ -103,7 +103,7 @@ export const UnitItem = ({ data, id }: UnitItemProps) => {
                      width="2rem"
                      justify="center"
                      align="center"
-                     cursor="ns-resize"
+                     cursor="move"
                      {...attributes}
                      {...listeners}
                   >

@@ -39,19 +39,20 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
       const [fetchEnrollment, enrollment, enrollmentIsLoading] = getLazyStudentEnrollments(course_id as string)
       
       const [displayPage, setDisplayPage] = useState<boolean>(storedCourse.isEnrolled)
-   
+      
       /**
        * If the course isn't stored in Redux,
        * Send request for course data and enrollment.
        * Otherwise, use stored course data to display page.
        */
       useEffect(() => {
-         if(!!course_id && (!storedCourse.course || storedCourse.course.id !== course_id)) {
-            fetchCourse && fetchCourse()
+         fetchCourse && fetchCourse()
+         if (!!course_id && ( !storedCourse.course || storedCourse.course.id !== course_id )) {
+            // fetchCourse && fetchCourse()
             fetchEnrollment && fetchEnrollment()
          }
          
-         if(!!course_id && storedCourse && storedCourse.course && (storedCourse.course.id === course_id) && storedCourse.isEnrolled) {
+         if (!!course_id && storedCourse && storedCourse.course && ( storedCourse.course.id === course_id ) && storedCourse.isEnrolled) {
             setDisplayPage(true)
          }
       }, [storedCourse])

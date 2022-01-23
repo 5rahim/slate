@@ -51,13 +51,21 @@ const theme = extendedTheme({
    components: {
       Input: {
          defaultProps: {
-            focusBorderColor: '#84776a',
+            focusBorderColor: 'primary',
          },
          variants: {
             outline: (props) => ( {
                field: {
                   boxShadow: 'sm',
                   borderColor: mode('#e0d8d5', '#464646')(props),
+               },
+            } ),
+            flushed: (props) => ( {
+               field: {
+                  borderColor: mode('transparent', 'transparent')(props),
+                  _hover: {
+                     borderColor: mode('#e0d8d5', '#464646')(props),
+                  }
                },
             } ),
          },

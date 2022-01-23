@@ -53,6 +53,23 @@ export const GET_COURSE_BY_ID = gql`
                     ...otherUser
                 }
             }
+            groups {
+                id
+                name
+                membership_aggregate {
+                    aggregate {
+                        count
+                    }
+                }
+                membership {
+                    student {
+                        ...otherUser
+                    }
+                    id
+                    group_id
+                    student_id
+                }
+            }
         }
     }
 `

@@ -15,7 +15,7 @@ import { CourseContextMenu } from '@slate/modules/Course/Shared/CourseContextMen
 import { Compose } from '@slate/next/compose'
 import { Box } from 'chalkui/dist/cjs/Components/Layout/Box'
 import dynamic from 'next/dynamic'
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 
 const CourseLayout = dynamic(() => import('@slate/components/Layout/CourseLayout'))
 const AssignmentAttempts = dynamic(() => import('@slate/modules/Course/Student/Assessments/Assignments/AssignmentAttempts'))
@@ -25,10 +25,6 @@ const Page = memo(({ displayPage }: any) => {
    const course = useCurrentCourse()
    const cmf = useCMF()
    const assignment = useCurrentAssignment()
-   
-   useEffect(() => {
-      console.log(assignment)
-   }, [assignment])
    
    return (
       <CourseLayout

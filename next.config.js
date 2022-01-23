@@ -7,6 +7,11 @@
 require('dotenv').config();
 
 module.exports = {
+    images: {
+        domains: ['storage.googleapis.com'],
+        // formats: ['image/png', 'image/jpeg'],
+
+    },
     i18n: {
         locales: ['en', 'fr'],
         defaultLocale: 'en',

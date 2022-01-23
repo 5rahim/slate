@@ -1,7 +1,5 @@
 import { BiLogOut } from '@react-icons/all-files/bi/BiLogOut'
 import { BiMenu } from '@react-icons/all-files/bi/BiMenu'
-import { BiMoon } from '@react-icons/all-files/bi/BiMoon'
-import { BiSun } from '@react-icons/all-files/bi/BiSun'
 import { BiUser } from '@react-icons/all-files/bi/BiUser'
 import { useCurrentSchool } from '@slate/hooks/useCurrentSchool'
 import { useCurrentUser } from '@slate/hooks/useCurrentUser'
@@ -92,16 +90,16 @@ export const Header: React.FC<HeaderProps> = (props: HeaderProps) => {
                      </Dropdown>
                   </Box>
                   
-                  <IconButton
-                     aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}
-                     variant="secondary"
-                     colorScheme={colorMode === 'light' ? 'gray.800' : 'gray.200'}
-                     color="current"
-                     ml="2"
-                     fontSize="20px"
-                     onClick={toggleColorMode}
-                     icon={colorMode === 'light' ? <BiMoon /> : <BiSun />}
-                  />
+                  {/*<IconButton*/}
+                  {/*   aria-label={`Switch to ${colorMode === 'light' ? 'dark' : 'light'} mode`}*/}
+                  {/*   variant="secondary"*/}
+                  {/*   colorScheme={colorMode === 'light' ? 'gray.800' : 'gray.200'}*/}
+                  {/*   color="current"*/}
+                  {/*   ml="2"*/}
+                  {/*   fontSize="20px"*/}
+                  {/*   onClick={toggleColorMode}*/}
+                  {/*   icon={colorMode === 'light' ? <BiMoon /> : <BiSun />}*/}
+                  {/*/>*/}
                </Flex>
             </Flex>
          </Flex>

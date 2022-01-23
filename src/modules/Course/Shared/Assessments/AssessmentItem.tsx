@@ -13,6 +13,7 @@ import { Gradebook_Items } from '@slate/generated/graphql'
 import { usePublishDateSetting } from '@slate/hooks/settings/usePublishDateSetting'
 import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useCourseHelpers } from '@slate/hooks/useCourseHelpers'
+import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useGradebookItemHelpers } from '@slate/hooks/useGradebookItemHelpers'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
@@ -31,6 +32,7 @@ import React from 'react'
 
 const AssignmentEdit = dynamic(() => import('@slate/modules/Course/Instructor/Assessments/Assignments/AssignmentEdit'))
 const TestEdit = dynamic(() => import('@slate/modules/Course/Instructor/Assessments/Tests/TestEdit'))
+const TestQuestions = dynamic(() => import('@slate/modules/Course/Instructor/Assessments/Tests/TestQuestions'))
 
 interface AssessmentItemProps {
    gradebookItem: Gradebook_Items
@@ -42,9 +44,10 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
    const t = useTypeSafeTranslation()
    const { isOpen: assignmentEditIsOpen, onOpen: assignmentEditOnOpen, onClose: assignmentEditOnClose } = useDisclosure()
    const { isOpen: testEditIsOpen, onOpen: testEditOnOpen, onClose: testEditOnClose } = useDisclosure()
+   const { isOpen: questionsIsOpen, onOpen: questionsOnOpen, onClose: questionsOnClose } = useDisclosure()
    const { isOpen: deleteIsOpen, onOpen: deleteOnOpen, onClose: deleteOnClose } = useDisclosure()
    const { linkToAssignment } = useLinkHref()
-
+   const { formatDate } = useDateFormatter()
    const { course_enrollmentCount } = useCourseHelpers()
    
    const {
@@ -65,18 +68,24 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
       <HideItemInStudentView showIf={isVisible}>
          
          {/*<UnitAddArchive data={data} onClose={deleteOnClose} isOpen={deleteIsOpen} cancelRef={cancelRef} />*/}
-   
+         
          {assignmentEditIsOpen && <AssignmentEdit
-            isOpen={assignmentEditIsOpen}
-            onClose={assignmentEditOnClose}
-            data={{ gradebookItem }}
+             isOpen={assignmentEditIsOpen}
+             onClose={assignmentEditOnClose}
+             data={{ gradebookItem }}
          />}
          
          {testEditIsOpen && <TestEdit
-            isOpen={testEditIsOpen}
-            onClose={testEditOnClose}
-            data={{ gradebookItem }}
+             isOpen={testEditIsOpen}
+             onClose={testEditOnClose}
+             data={{ gradebookItem }}
          />}
+         
+         {/*{questionsIsOpen && <TestQuestions*/}
+         {/*    isOpen={questionsIsOpen}*/}
+         {/*    onClose={questionsOnClose}*/}
+         {/*    data={{ gradebookItem }}*/}
+         {/*/>}*/}
          
          <ListItem>
             
@@ -108,17 +117,17 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                               
                               <ComponentVisibility.StudentOnly>
                                  <Box>
-                                       <Link href={linkToAssignment(data?.id)}>
-                                          <Flex
-                                             cursor="pointer"
-                                             _hover={{ color: cmf('messenger.500', 'messenger.500') }}
-                                             textDecoration="underline"
-                                          >
-                                             <Text fontWeight="bold" fontSize="lg">
-                                                {data?.name}
-                                             </Text>
-                                          </Flex>
-                                       </Link>
+                                    <Link href={linkToAssignment(data?.id)}>
+                                       <Flex
+                                          cursor="pointer"
+                                          _hover={{ color: cmf('messenger.500', 'messenger.500') }}
+                                          textDecoration="underline"
+                                       >
+                                          <Text fontWeight="bold" fontSize="lg">
+                                             {data?.name}
+                                          </Text>
+                                       </Flex>
+                                    </Link>
                                     <AlignedFlex fontSize="lg">
                                        <Icon fontSize="xl" as={BiCalendar} />
                                        <Text color={gbi_dueDateColor(gradebookItem, gbi_hasSubmittedAttempt(gradebookItem))}>
@@ -140,7 +149,8 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        {data?.name}
                                     </Text>
                                     <AlignedFlex fontSize="lg">
-                                       <Icon fontSize="xl" as={BiCalendarExclamation} />
+                                       <Text>{formatDate(gradebookItem.created_at, 'short with hours')}</Text>
+                                       •
                                        <Text color={gbi_dueDateColor(gradebookItem, true)}>
                                           {gbi_dueDate(gradebookItem)}
                                        </Text>
@@ -151,15 +161,15 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                            </Flex>
                            
                            <ComponentVisibility.StudentOnly>
-                                 <Badge fontSize=".85rem" pill colorScheme={gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
-                                    {t(gbi_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
-                                 </Badge>
+                              <Badge fontSize=".85rem" pill colorScheme={gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
+                                 {t(gbi_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
+                              </Badge>
                            </ComponentVisibility.StudentOnly>
                            
                            <ComponentVisibility.AssistantAndHigher>
                               <AlignedFlex>
-                                 {!(gradebookItem.submission_type === 'group') && <Tag size="lg">
-                                    <strong>{gbi_totalSubmissionCount(gradebookItem)}</strong>/{gbi_maxSubmissions(gradebookItem)} {t('submissions')}
+                                 {!( gradebookItem.submission_type === 'group' ) && <Tag size="lg">
+                                     <strong>{gbi_totalSubmissionCount(gradebookItem)}&nbsp;</strong> {t('of')} {gbi_maxSubmissions(gradebookItem)} {t('submitted')}
                                  </Tag>}
                                  {/*When it's a group submission, do not count course_enrollment count but group count*/}
                               </AlignedFlex>
@@ -186,15 +196,15 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                               
                               <ComponentVisibility.StudentOnly>
                                  <Box>
-                                       <Flex
-                                          cursor="pointer"
-                                          _hover={{ color: cmf('messenger.500', 'messenger.500') }}
-                                          textDecoration="underline"
-                                       >
-                                          <Text fontWeight="bold" fontSize="lg">
-                                             {data?.name}
-                                          </Text>
-                                       </Flex>
+                                    <Flex
+                                       cursor="pointer"
+                                       _hover={{ color: cmf('messenger.500', 'messenger.500') }}
+                                       textDecoration="underline"
+                                    >
+                                       <Text fontWeight="bold" fontSize="lg">
+                                          {data?.name}
+                                       </Text>
+                                    </Flex>
                                     <AlignedFlex fontSize="lg">
                                        <Icon fontSize="xl" as={BiCalendarExclamation} />
                                        <Text color={gbi_dueDateColor(gradebookItem, gbi_hasSubmittedAttempt(gradebookItem))}>
@@ -211,7 +221,8 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        {data?.name}
                                     </Text>
                                     <AlignedFlex fontSize="lg">
-                                       <Icon fontSize="xl" as={BiCalendarExclamation} />
+                                       <Text>{formatDate(gradebookItem.created_at, 'short with hours')}</Text>
+                                       •
                                        <Text color={gbi_dueDateColor(gradebookItem, true)}>
                                           {gbi_dueDate(gradebookItem)}
                                        </Text>
@@ -222,14 +233,14 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                            </Flex>
                            
                            <ComponentVisibility.StudentOnly>
-                                 <Badge fontSize=".85rem" pill colorScheme={gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
-                                    {t(gbi_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
-                                 </Badge>
+                              <Badge fontSize=".85rem" pill colorScheme={gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500'}>
+                                 {t(gbi_hasSubmittedAttempt(gradebookItem) ? 'Completed' : 'Not completed')}
+                              </Badge>
                            </ComponentVisibility.StudentOnly>
                            
                            <ComponentVisibility.AssistantAndHigher>
                               <Tag size="lg">
-                                 <strong>{gbi_submissionCount(gradebookItem)}</strong>/{course_enrollmentCount} {t('submissions')}
+                                 <strong>{gbi_totalSubmissionCount(gradebookItem)}&nbsp;</strong> {t('of')} {gbi_maxSubmissions(gradebookItem)} {t('submitted')}
                               </Tag>
                            </ComponentVisibility.AssistantAndHigher>
                         
@@ -239,7 +250,7 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                   
                   <ComponentVisibility.AssistantAndHigher>
                      <Flex alignItems="center">
-   
+                        
                         {publishDateHelpers.icons({ status: gradebookItem.status, availableFrom: gradebookItem.available_from })}
                         
                         <ComponentVisibility.AssistantAndHigher>
@@ -269,6 +280,14 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                  >
                                     {t('course:View submissions')}
                                  </DropdownItem>
+                                 
+                                 {/*{gradebookItem.assessment_type === 'test' && <DropdownItem*/}
+                                 {/*   icon={<RiDragDropLine />}*/}
+                                 {/*   onClick={questionsOnOpen}*/}
+                                 {/*>*/}
+                                 {/*   {t('Questions')}*/}
+                                 {/*</DropdownItem>}*/}
+                                 
                                  <DropdownItem
                                     icon={<BiEdit />}
                                     onClick={gradebookItem.assessment_type === 'assignment' ? assignmentEditOnOpen : testEditOnOpen}

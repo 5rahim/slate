@@ -256,7 +256,7 @@ export const UnitModuleItem = React.memo(({ data: initialData, id }: ModuleItemP
                      color={cmf("#979797", 'gray.200')}
                      height="100%"
                      alignSelf="center"
-                     cursor="ns-resize"
+                     cursor="move"
                      {...attributes}
                      {...listeners}
                   >

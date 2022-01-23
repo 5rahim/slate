@@ -21,9 +21,7 @@ import { FormErrors } from '@slate/types/FormErrors'
 import { Button } from 'chalkui/dist/cjs/Components/Button'
 import { FormControl, FormLabel } from 'chalkui/dist/cjs/Components/FormControl'
 import { Input } from 'chalkui/dist/cjs/Components/Input'
-import { Box, Stack } from 'chalkui/dist/cjs/Components/Layout'
-import { Radio } from "chalkui/dist/cjs/Components/Radio/Radio"
-import { RadioGroup } from 'chalkui/dist/cjs/Components/Radio/RadioGroup'
+import { Box } from 'chalkui/dist/cjs/Components/Layout'
 import React, { useState } from 'react'
 
 export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen: any, data: { gradebookItem: Gradebook_Items } }) {
@@ -158,15 +156,15 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
          
          >
             
-            <Box mb="5">
-               <FormLabel mb="2">{t('course:Submission type')}</FormLabel>
-               <RadioGroup size="lg" onChange={setSubmissionType} value={submissionType}>
-                  <Stack direction="row">
-                     <Radio value="online">{t('Online')}</Radio>
-                     <Radio value="offline">{t('Offline')}</Radio>
-                  </Stack>
-               </RadioGroup>
-            </Box>
+            {/*<Box mb="5">*/}
+            {/*   <FormLabel mb="2">{t('course:Submission type')}</FormLabel>*/}
+            {/*   <RadioGroup size="lg" onChange={setSubmissionType} value={submissionType}>*/}
+            {/*      <Stack direction="row">*/}
+            {/*         <Radio value="online">{t('Online')}</Radio>*/}
+            {/*         <Radio value="offline">{t('Offline')}</Radio>*/}
+            {/*      </Stack>*/}
+            {/*   </RadioGroup>*/}
+            {/*</Box>*/}
             
             <FormControl mb={5} id="name" isRequired>
                <FormLabel>{t('form:Name')}</FormLabel>
@@ -175,7 +173,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             </FormControl>
             
             <Box mb="5">
-               {textEditor.render({ title: 'Instructions', height: 200 })}
+               {textEditor.render({ title: 'Instructions!', height: 200 })}
             </Box>
             
             {!hasAttachments ? <Box>
@@ -190,7 +188,7 @@ export function AssignmentEdit({ onClose, isOpen, data }: { onClose: any, isOpen
             </Box> : (
                <>
                   <AlignedFlex mb="3">
-                     <FormLabel my="0">{t('Attachments')}</FormLabel>
+                     <FormLabel m="0">{t('Attachments')}</FormLabel>
                      <Button size="sm" colorScheme="brand.100" onClick={() => setHasAttachments(false)}>{t('course:Upload new files')}</Button>
                   </AlignedFlex>
                   <Box>

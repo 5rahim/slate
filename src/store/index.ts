@@ -1,5 +1,6 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { cacheMiddleware, loadCache } from '@slate/store/cache/middleware'
+import testEditorSlice from '@slate/store/slices/testEditorSlice'
 import appReducer from './slices/appSlice'
 import cacheReducer from './slices/cacheSlice'
 import courseReducer from './slices/courseSlice'
@@ -16,6 +17,7 @@ const store = configureStore({
       app: appReducer,
       cache: cacheReducer,
       unit: unitReducer,
+      testEditor: testEditorSlice,
    },
    preloadedState: loadCache(),
    middleware: getDefaultMiddleware => {
