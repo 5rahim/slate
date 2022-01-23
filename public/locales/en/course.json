@@ -96,6 +96,7 @@
   "false": "False",
   "Point(s) left to assign": "Point(s) left to assign",
   "Question(s)": "Question(s)",
+  "minute(s) per question": "minute(s) per question",
   "options": {
     "status": {
       "title": "Course is {{status}}",

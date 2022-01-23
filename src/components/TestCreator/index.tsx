@@ -1,5 +1,6 @@
 import { DndContext, DragEndEvent } from '@dnd-kit/core'
 import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { CgTimer } from '@react-icons/all-files/cg/CgTimer'
 import { RiDashboardLine } from '@react-icons/all-files/ri/RiDashboardLine'
 import { RiDonutChartLine } from '@react-icons/all-files/ri/RiDonutChartLine'
 import { QuestionCreation } from '@slate/components/TestCreator/Components/QuestionCreation'
@@ -12,7 +13,8 @@ import { useCMF } from '@slate/hooks/useColorModeFunction'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
 import { TestEditorActions, TestEditorSelectors } from '@slate/store/slices/testEditorSlice'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox'
-import { Box, Stack, StackDivider } from 'chalkui/dist/cjs/Components/Layout'
+import { Box, Flex, Stack, StackDivider } from 'chalkui/dist/cjs/Components/Layout'
+import { Spinner } from 'chalkui/dist/cjs/Components/Spinner'
 import { Stat, StatHelpText, StatNumber } from 'chalkui/dist/cjs/Components/Stat'
 import { useToast } from 'chalkui/dist/cjs/Components/Toast/UseToast'
 import React, { useCallback, useEffect, useState } from 'react'
@@ -34,6 +36,7 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
    
    const currentTotalPoints = useSelector(TestEditorSelectors.getTestQuestionTotalPoints)
    const maxPoints = useSelector(TestEditorSelectors.getGradebookItem)?.max_points ?? 0
+   const timeLimit = test.time_limit ?? 0
    const toast = useToast()
    
    useEffect(() => {
@@ -68,6 +71,10 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
       }
    }, [])
    
+   if(!testQuestions) return <Flex pt="4" justifyContent="center">
+      <Spinner size="xl" />
+   </Flex>
+   
    return (
       <Box>
          
@@ -91,6 +98,15 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
                      <Box>
                         <StatNumber>{testQuestions?.length ?? 0}</StatNumber>
                         <StatHelpText>{t('course:Question(s)')}</StatHelpText>
+                     </Box>
+                  </AlignedFlex>
+               </Stat>
+               <Stat>
+                  <AlignedFlex gridGap=".7rem">
+                     <IconBox colorScheme="primary" p="2" fontSize="3xl" as={CgTimer} />
+                     <Box>
+                        <StatNumber>{(Math.round((timeLimit / testQuestions?.length)*100)/100)}</StatNumber>
+                        <StatHelpText>{t('course:minute(s) per question')}</StatHelpText>
                      </Box>
                   </AlignedFlex>
                </Stat>

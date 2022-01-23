@@ -28,7 +28,10 @@ type EntityDrawerProps = {
    sidenav?: React.ReactNode
 } & DrawerProps
 
-export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSubmit, children, settings, sidenav, titleColor, title, rawTitle, entityTitle, ...rest }: EntityDrawerProps) => {
+export const EntityDrawer = ({
+                                isOpen, isLoading, onClose, headerColor, onFormSubmit, children,
+                                settings, sidenav, titleColor, title, rawTitle, entityTitle, ...rest
+                             }: EntityDrawerProps) => {
    const cmf = useCMF()
    const t = useTypeSafeTranslation()
    
@@ -52,7 +55,7 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                   backgroundImage={Utils.Url.assetImageUrl('topography.png', 'patterns')}
                   backgroundBlendMode={"color-burn"}
                   bgColor={headerColor ?? cmf("transparent", "gray.700")}
-                  color={titleColor ?? (headerColor ? "white" : 'black')}
+                  color={titleColor ?? ( headerColor ? "white" : 'black' )}
                   borderBottom="2px solid"
                   borderColor={cmf("gray.200", "gray.500")}
                >
@@ -96,15 +99,15 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                      >
                         
                         {sidenav && sidenav}
-   
+                        
                         {settings && <SettingList>
-                           <ListItem fontSize="1.5rem">
-                              <AlignedFlex>
-                                 <Icon as={RiPencilRuler2Line} />
-                                 {t('Settings')}
-                              </AlignedFlex>
-                           </ListItem>
-      
+                            <ListItem fontSize="1.5rem">
+                                <AlignedFlex>
+                                    <Icon as={RiPencilRuler2Line} />
+                                   {t('Settings')}
+                                </AlignedFlex>
+                            </ListItem>
+                           
                            {settings}
                         </SettingList>}
                      
@@ -113,20 +116,20 @@ export const EntityDrawer = ({ isOpen, isLoading, onClose, headerColor, onFormSu
                   </Stack>
                
                </DrawerBody>
-   
+               
                {onFormSubmit && <DrawerFooter gridGap={5}>
-                  <Button
-                     colorScheme="primary"
-                     width="100%"
-                     type="submit"
-                     isLoading={isLoading}
-                  >
-                     {t('Save')}
-                  </Button>
-      
-                  <Button isDisabled={isLoading} colorScheme="brand.800" onClick={onClose} width="50%">
-                     {t('Cancel')}
-                  </Button>
+                   <Button
+                       colorScheme="primary"
+                       width="100%"
+                       type="submit"
+                       isLoading={isLoading}
+                   >
+                      {t('Save')}
+                   </Button>
+
+                   <Button isDisabled={isLoading} colorScheme="brand.800" onClick={onClose} width="50%">
+                      {t('Cancel')}
+                   </Button>
                </DrawerFooter>}
             </DrawerContent>
          </form>

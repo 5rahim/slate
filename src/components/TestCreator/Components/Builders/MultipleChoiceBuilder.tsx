@@ -267,7 +267,7 @@ function ChoiceItem({ choice, isAnswer, handleEditChoice, handleDeleteChoice }: 
          ref={setNodeRef}
          style={style}
          pr="2"
-         bgColor={isAnswer ? '#ebf7ef' : 'transparent'}
+         bgColor={isAnswer ? '#ebf7ef' : '#fff'}
          _hover={ !isAnswer ? {
             bgColor: '#e8e8e8',
          } : {}}
