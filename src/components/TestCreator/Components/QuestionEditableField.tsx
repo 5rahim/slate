@@ -71,10 +71,11 @@ const QuestionEditableField: React.FC<QuestionEditableFieldProps> = memo((props)
             width="100%"
          >
             
-            <AlignedFlex width="100%">
+            <Flex width="100%">
                
                <Input
                   onBlur={handleOnBlur}
+                  boxShadow="none"
                   variant="flushed"
                   value={text}
                   onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)}
@@ -91,7 +92,8 @@ const QuestionEditableField: React.FC<QuestionEditableFieldProps> = memo((props)
                   {!uploading && <label htmlFor={id}>
                       <Center
                           p="0"
-                          w="9" h="9" cursor="pointer" _hover={{ bgColor: cmf('#e9e9e9', 'gray.500') }}
+                          w="9" h="9" cursor="pointer"
+                          // _hover={{ bgColor: cmf('gray.300', 'gray.500') }}
                           position="relative"
                       >
                           <Input
@@ -117,7 +119,7 @@ const QuestionEditableField: React.FC<QuestionEditableFieldProps> = memo((props)
                   </Center>}
                </Flex>
             
-            </AlignedFlex>
+            </Flex>
             
             {image && <AlignedFlex position="relative">
                 <Box
@@ -134,7 +136,13 @@ const QuestionEditableField: React.FC<QuestionEditableFieldProps> = memo((props)
                     height="130px"
                 />
                 <IconButton
-                    position="absolute" top=".2rem" left="-.5rem" colorScheme="red.500" aria-label="" as={BiX} size="xs"
+                    position="absolute"
+                    top=".2rem"
+                    left="-.5rem"
+                    colorScheme="red.500"
+                    aria-label=""
+                    as={BiX}
+                    size="xs"
                     onClick={() => setImage(null)}
                 />
                {/*<Image src={image} width="200px" height="auto" />*/}

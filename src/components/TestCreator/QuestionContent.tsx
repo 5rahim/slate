@@ -17,6 +17,7 @@ import { useSelector } from 'react-redux'
 const MultipleChoiceBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/MultipleChoiceBuilder'))
 const CheckboxBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/CheckboxBuilder'))
 const TrueFalseBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/TrueFalseBuilder'))
+const MatchingBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/MatchingBuilder'))
 
 interface QuestionContentProps {
    index: number
@@ -26,7 +27,7 @@ interface QuestionContentProps {
 const QuestionContent: React.FC<QuestionContentProps> = (props) => {
    const t = useTypeSafeTranslation()
    const { children, index, isEditing, ...rest } = props
-   const { testQuestion, currentContent, isTouched, status } = useTestCreatorQuestion()
+   const { testQuestion, currentContent, savedContent, isTouched, status } = useTestCreatorQuestion()
    const question = testQuestion?.question
    const mutationLoading = useSelector(AppSelectors.mutationIsLoading)
    
@@ -36,6 +37,7 @@ const QuestionContent: React.FC<QuestionContentProps> = (props) => {
    })
    
    function handleSaveChanges() {
+      console.log(currentContent, savedContent)
       updateQuestionContent({ id: question?.id, content: currentContent, answer_keys: [] })
    }
    
@@ -50,6 +52,9 @@ const QuestionContent: React.FC<QuestionContentProps> = (props) => {
          break
       case Questions.Checkboxes:
          Builder = CheckboxBuilder
+         break
+      case Questions.Matching:
+         Builder = MatchingBuilder
          break
    }
    

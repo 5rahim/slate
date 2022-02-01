@@ -57,6 +57,14 @@ export const QuestionCreation = (props: { test: Tests }) => {
                status: 'invalid'
             }
             break
+         case Questions.Matching:
+            content = {
+               ...content,
+               choices: [],
+               additional_choices: [],
+               status: 'invalid'
+            }
+            break
          default:
             break
       }

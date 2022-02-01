@@ -21,7 +21,6 @@ export function AssessmentList() {
    // const [assignments, setAssignments] = useState<{ gradebookItem: Gradebook_Items, data: Gradebook_Items['assignment'] }[]>([])
    
    useEffect(() => {
-      console.log('RENDER')
       fetchGradebookItems()
    }, [])
    

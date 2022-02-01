@@ -30,6 +30,7 @@ type ContextType = {
    updateSavedContent: (content: any) => void
    updateDescription: (content: string) => void
    updateChoices: (content: any) => void
+   updateAdditionalChoices: (content: any) => void
    updatePoints: (content: number) => void
    updateAnswerKeys: (content: any) => void
    updateStatus: (content: string) => void
@@ -56,6 +57,9 @@ function textCreatorReducer(state: any, action: Action) {
       }
       case 'UPDATE_CHOICES': {
          return { ...state, currentContent: { ...state.currentContent, choices: action.payload } }
+      }
+      case 'UPDATE_ADDITIONAL_CHOICES': {
+         return { ...state, currentContent: { ...state.currentContent, additional_choices: action.payload } }
       }
       case 'UPDATE_POINTS': {
          return { ...state, currentContent: { ...state.currentContent, points: action.payload } }
@@ -95,6 +99,9 @@ export function TestCreatorQuestionProvider({ children }: any) {
       },
       updateChoices: (content: any) => {
          questionDispatch({ type: 'UPDATE_CHOICES', payload: content })
+      },
+      updateAdditionalChoices: (content: any) => {
+         questionDispatch({ type: 'UPDATE_ADDITIONAL_CHOICES', payload: content })
       },
       updatePoints: (content: any) => {
          questionDispatch({ type: 'UPDATE_POINTS', payload: content })

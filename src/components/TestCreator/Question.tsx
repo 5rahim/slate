@@ -74,7 +74,7 @@ const Question: React.FC<QuestionProps & BoxProps> = memo((props) => {
             ref={setNodeRef}
             style={style}
             mb="3"
-            zIn5ex="2"
+            zIndex="2"
             {...rest}
          >
             <Flex

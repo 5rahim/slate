@@ -92,11 +92,18 @@
   "You need to add at least two choices": "You need to add at least two choices",
   "You need to choose an answer": "You need to choose an answer",
   "Choice": "Choice",
+  "Answer": "Answer",
   "true": "True",
   "false": "False",
   "Point(s) left to assign": "Point(s) left to assign",
   "Question(s)": "Question(s)",
   "minute(s) per question": "minute(s) per question",
+  "Add a pair": "Add a pair",
+  "Add an answer": "Add an answer",
+  "All the answers will be shuffled": "All answers will be shuffled",
+  "Prompts": "Prompts",
+  "Answers": "Answers",
+  "Reused": "Reused",
   "options": {
     "status": {
       "title": "Course is {{status}}",

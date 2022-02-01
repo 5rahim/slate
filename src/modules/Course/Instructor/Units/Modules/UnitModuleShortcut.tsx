@@ -32,7 +32,6 @@ export const UnitModuleShortcut = ({ isOpen, onClose, data }: UnitModuleShortcut
    const currentUnit = useCurrentUnit()
    const selectRef: any = useRef()
    const units = cache.read<Units[]>('units')
-   const unit = useCurrentUnit()
    
    const [createShortcut, mutationLoading] = useCreateModule({
       onCompleted: () => {
@@ -41,7 +40,7 @@ export const UnitModuleShortcut = ({ isOpen, onClose, data }: UnitModuleShortcut
    })
    
    
-   function handleMoveModule() {
+   function handleCreateShortcut() {
       if(!selectRef.current.value || !(selectRef.current.value.length > 0)) return
    
       let insert_data: CreateModuleMutationVariables = {
@@ -87,7 +86,7 @@ export const UnitModuleShortcut = ({ isOpen, onClose, data }: UnitModuleShortcut
                         
                         <Flex justifyContent="flex-end">
                            <Button
-                              onClick={() => handleMoveModule()}
+                              onClick={() => handleCreateShortcut()}
                               colorScheme="brand.100"
                               isDisabled={mutationLoading}
                            >

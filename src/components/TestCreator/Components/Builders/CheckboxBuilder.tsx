@@ -290,7 +290,7 @@ function ChoiceItem({ choice, isAnswer, handleEditChoice, handleDeleteChoice }: 
          pr="2"
          bgColor={isAnswer ? '#ebf7ef' : '#fff'}
          _hover={ !isAnswer ? {
-            bgColor: '#e8e8e8',
+            bgColor: 'gray.200',
          } : {}}
       >
          <Flex
@@ -313,6 +313,7 @@ function ChoiceItem({ choice, isAnswer, handleEditChoice, handleDeleteChoice }: 
             onChange={(v: any) => handleEditChoice(choice.id, v)}
          />
          <IconButton
+            variant="ghost"
             aria-label=""
             size="sm"
             p="1"
