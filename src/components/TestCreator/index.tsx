@@ -32,8 +32,8 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
    const [testQuestions, testQuestionsLoading, testQuestionsEmpty] = getTestQuestionSubscription(test?.id)
    // const [fetchTestQuestions, testQuestionsLoading, testQuestionsEmpty] = getLazyTestQuestions(test?.id)
    const [listedTestQuestions, setListedTestQuestions] = useState<Test_Questions[]>([])
+   const [validQuestions, setValidQuestions] = useState<Test_Questions[]>([])
    const [updateTestQuestionOrder] = useChangeTestQuestionOrder()
-   
    const currentTotalPoints = useSelector(TestEditorSelectors.getTestQuestionTotalPoints)
    const maxPoints = useSelector(TestEditorSelectors.getGradebookItem)?.max_points ?? 0
    const timeLimit = test.time_limit ?? 0
@@ -42,6 +42,7 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
    useEffect(() => {
       setListedTestQuestions(testQuestions ?? [])
       dispatch(TestEditorActions.setTestQuestions(testQuestions ?? []))
+      setValidQuestions(testQuestions?.filter((tq) => tq.question?.content?.status === 'valid') ?? [])
    }, [testQuestions])
    
    const handleSorting = useCallback(({ active, over }: DragEndEvent) => {
@@ -105,7 +106,7 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
                   <AlignedFlex gridGap=".7rem">
                      <IconBox colorScheme="primary" p="2" fontSize="3xl" as={CgTimer} />
                      <Box>
-                        <StatNumber>{(Math.round((timeLimit / testQuestions?.length)*100)/100)}</StatNumber>
+                        <StatNumber>{(Math.round((timeLimit / validQuestions?.length)*100)/100)}</StatNumber>
                         <StatHelpText>{t('course:minute(s) per question')}</StatHelpText>
                      </Box>
                   </AlignedFlex>
