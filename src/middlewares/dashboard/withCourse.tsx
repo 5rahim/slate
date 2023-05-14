@@ -34,8 +34,8 @@ export const withCourse = (props?: WithCourseProps) => (Component: NextPage) => 
          return router.push(Utils.Url.accessDeniedLink(props.iid))
       
       const storedCourse = useSelector(CourseSelectors.getAll)
-      const [fetchCourse, course, courseIsLoading] = getLazyCourseById(course_id as string) // TODO: Change to normal fetch
       
+      const [fetchCourse, course, courseIsLoading] = getLazyCourseById(course_id as string) // TODO: Change to normal fetch
       const [fetchEnrollment, enrollment, enrollmentIsLoading] = getLazyStudentEnrollments(course_id as string)
       
       const [displayPage, setDisplayPage] = useState<boolean>(storedCourse.isEnrolled)

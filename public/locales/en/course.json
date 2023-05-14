@@ -66,6 +66,7 @@
   "Due in": "Due in",
   "No due date": "No due date",
   "Due": "Due",
+  "Due on": "Due on",
   "Upload new files": "Upload new files",
   "Choose the number of attempts allowed": "Choose the number of attempts allowed",
   "You cannot submit attempt": "You cannot submit an attempt since the due date has passed.",

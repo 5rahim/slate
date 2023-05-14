@@ -97,7 +97,7 @@ export const TestCreator: React.FC<TestCreatorProps> = (props) => {
                   <AlignedFlex gridGap=".7rem">
                      <IconBox colorScheme="primary" p="2" fontSize="3xl" as={RiDashboardLine} />
                      <Box>
-                        <StatNumber>{testQuestions?.length ?? 0}</StatNumber>
+                        <StatNumber>{validQuestions?.length ?? 0}</StatNumber>
                         <StatHelpText>{t('course:Question(s)')}</StatHelpText>
                      </Box>
                   </AlignedFlex>

@@ -234,7 +234,8 @@ export const AssignmentAttempts = () => {
                      <Menu defaultIndex={gbi_hasSubmittedAttempt(gradebookItem) ? 0 : 1} colorScheme={cmf('messenger.500', 'white')} variant="pill">
                         
                         {
-                           ( gbi_hasSubmittedAttempt(gradebookItem) ) && (
+                           ( gbi_isAccommodated(gradebookItem) || (gbi_hasSubmittedAttempt(gradebookItem) && gbi_canSubmit(gradebookItem) &&
+                              !Utils.Dates.dateHasPassed(gradebookItem?.available_until)) ) && (
                               <MenuList>
                                  <MenuItem><Icon as={RiHistoryLine} mr="1" />{t('course:Previous submissions')}</MenuItem>
                                  {( gbi_canSubmit(gradebookItem) || gbi_isAccommodated(gradebookItem) ) &&

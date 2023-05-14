@@ -40,10 +40,15 @@ export const StudentPicker = (props: StudentPickerProps) => {
    const enrollments = course.enrollments
    
    useEffect(() => {
+      console.log(enrollments)
       if(onSelectedStudentNames) {
          onSelectedStudentNames(option === 'everyone' ? t('Everyone') : selected.length > 0 ? selected?.map((id) => {
-            const e = enrollments?.filter((e) => e.student?.id === id)
-            return formatFullName(e[0].student)
+            try {
+               const e = enrollments?.filter((e) => e.student?.id === id)
+               return formatFullName(e[0]?.student)
+            } catch (e) {
+            
+            }
          }).join(', ') : '')
       }
    }, [selected, option])

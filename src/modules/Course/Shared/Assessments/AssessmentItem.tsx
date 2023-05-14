@@ -17,6 +17,7 @@ import { useDateFormatter } from '@slate/hooks/useDateFormatter'
 import { useGradebookItemHelpers } from '@slate/hooks/useGradebookItemHelpers'
 import { useLinkHref } from '@slate/hooks/useLinkHref'
 import { useTypeSafeTranslation } from '@slate/hooks/useTypeSafeTranslation'
+import { useUserRole } from '@slate/hooks/useUserRole'
 import { Dropdown, DropdownButton, DropdownItem, DropdownList } from 'chalkui/dist/cjs/Components/Dropdown/Dropdown'
 import Icon from 'chalkui/dist/cjs/Components/Icon/Icon'
 import { IconBox } from 'chalkui/dist/cjs/Components/IconBox/IconBox'
@@ -49,6 +50,7 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
    const { linkToAssignment } = useLinkHref()
    const { formatDate } = useDateFormatter()
    const { course_enrollmentCount } = useCourseHelpers()
+   const {isReallyAssistantOrInstructor, isAssistantOrInstructor} = useUserRole()
    
    const {
       gbi_hasSubmittedAttempt,
@@ -63,6 +65,9 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
    
    
    const isVisible = publishDateHelpers.isAvailable({ status: gradebookItem.status, availableFrom: gradebookItem.available_from })
+   
+   const assignmentIconColor = isAssistantOrInstructor ? 'purple.500' : (gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500')
+   const testIconColor = isAssistantOrInstructor ? 'blue.500' : (gbi_hasSubmittedAttempt(gradebookItem) ? 'green.500' : 'gray.500')
    
    return (
       <HideItemInStudentView showIf={isVisible}>
@@ -109,7 +114,7 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                  p=".5rem"
                                  size="md"
                                  fontSize="xs"
-                                 colorScheme="purple.500"
+                                 colorScheme={assignmentIconColor}
                                  variant="secondary"
                                  as={AiOutlineSnippets}
                                  opacity={isVisible ? "1" : ".5"}
@@ -129,7 +134,6 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        </Flex>
                                     </Link>
                                     <AlignedFlex fontSize="lg">
-                                       <Icon fontSize="xl" as={BiCalendar} />
                                        <Text color={gbi_dueDateColor(gradebookItem, gbi_hasSubmittedAttempt(gradebookItem))}>
                                           {gbi_dueDate(gradebookItem)}
                                        </Text>
@@ -149,8 +153,6 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        {data?.name}
                                     </Text>
                                     <AlignedFlex fontSize="lg">
-                                       <Text>{formatDate(gradebookItem.created_at, 'short with hours')}</Text>
-                                       •
                                        <Text color={gbi_dueDateColor(gradebookItem, true)}>
                                           {gbi_dueDate(gradebookItem)}
                                        </Text>
@@ -188,7 +190,7 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                  p=".5rem"
                                  size="md"
                                  fontSize="xs"
-                                 colorScheme="blue.500"
+                                 colorScheme={testIconColor}
                                  variant="secondary"
                                  as={VscChecklist}
                                  opacity={isVisible ? "1" : ".5"}
@@ -206,7 +208,6 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        </Text>
                                     </Flex>
                                     <AlignedFlex fontSize="lg">
-                                       <Icon fontSize="xl" as={BiCalendarExclamation} />
                                        <Text color={gbi_dueDateColor(gradebookItem, gbi_hasSubmittedAttempt(gradebookItem))}>
                                           {gbi_dueDate(gradebookItem)}
                                        </Text>
@@ -221,8 +222,6 @@ export const AssessmentItem = ({ gradebookItem, data }: AssessmentItemProps) => 
                                        {data?.name}
                                     </Text>
                                     <AlignedFlex fontSize="lg">
-                                       <Text>{formatDate(gradebookItem.created_at, 'short with hours')}</Text>
-                                       •
                                        <Text color={gbi_dueDateColor(gradebookItem, true)}>
                                           {gbi_dueDate(gradebookItem)}
                                        </Text>

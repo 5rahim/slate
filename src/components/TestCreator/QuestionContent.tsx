@@ -18,6 +18,7 @@ const MultipleChoiceBuilder = dynamic(() => import('@slate/components/TestCreato
 const CheckboxBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/CheckboxBuilder'))
 const TrueFalseBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/TrueFalseBuilder'))
 const MatchingBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/MatchingBuilder'))
+const FillBuilder = dynamic(() => import('@slate/components/TestCreator/Components/Builders/FillBuilder'))
 
 interface QuestionContentProps {
    index: number
@@ -55,6 +56,9 @@ const QuestionContent: React.FC<QuestionContentProps> = (props) => {
          break
       case Questions.Matching:
          Builder = MatchingBuilder
+         break
+      case Questions.Fill:
+         Builder = FillBuilder
          break
    }
    

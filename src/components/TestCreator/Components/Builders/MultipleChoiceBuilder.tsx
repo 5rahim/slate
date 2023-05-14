@@ -169,14 +169,13 @@ const MultipleChoiceBuilder: React.FC<MultipleChoiceBuilderProps> = (props) => {
             </Stack>
          </RadioGroup>
          
-         <Divider my="2" />
-         
          <Button
+            mt="3"
             aria-label=""
-            leftIcon={<BiAddToQueue />}
-            colorScheme="brand.100"
+            variant="link"
+            // leftIcon={<BiAddToQueue />}
+            colorScheme="primary"
             p="2"
-            size="sm"
             onClick={handleCreateChoice}
          >
             {t('course:Add a choice')}

@@ -90,7 +90,6 @@ export function UnitAssessments() {
                         const assignment = assessment.assignment
                         if (!assignment) return
                         return (
-                           <>
                               <MenuCelledListItem cursor="default" key={assignment.id}>
                                  <Flex justifyContent="space-between">
                                     <ComponentVisibility.StudentOnly>
@@ -128,7 +127,6 @@ export function UnitAssessments() {
                                     </AlignedFlex>
                                  </Flex>
                               </MenuCelledListItem>
-                           </>
                         )
                      })}
 

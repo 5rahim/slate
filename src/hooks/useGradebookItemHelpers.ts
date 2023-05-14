@@ -15,7 +15,7 @@ export const useGradebookItemHelpers = () => {
    const {isReallyAssistantOrInstructor, isAssistantOrInstructor} = useUserRole()
    const course = useCurrentCourse()
    const t = useTypeSafeTranslation()
-   const {formatDistanceToNow} = useDateFormatter()
+   const {formatDistanceToNow, formatDate} = useDateFormatter()
    
    return {
    
@@ -99,18 +99,17 @@ export const useGradebookItemHelpers = () => {
       gbi_dueDate: (gradebookItem: Parameter<Gradebook_Items>) => {
          const dateHasPassed = Utils.Dates.dateHasPassed(gradebookItem?.available_until)
          if(!dateHasPassed) {
-            return gradebookItem?.available_until ? t('course:Due in') + ' ' + formatDistanceToNow(gradebookItem.available_until) : t('course:No due date')
+            return gradebookItem?.available_until ? t('course:Due in') + ' ' + formatDate(gradebookItem.available_until, 'long with hours') : t('course:No due date')
          } else {
-            return t('course:Due') + ' ' + formatDistanceToNow(gradebookItem?.available_until, { addSuffix: true })
+            return t('course:Due on') + ' ' + formatDate(gradebookItem?.available_until, 'long with hours')
          }
       },
    
       gbi_dueDateColor: (gradebookItem: Parameter<Gradebook_Items>, hasSubmittedAnAttempt: boolean) => {
          const dateHasPassed = Utils.Dates.dateHasPassed(gradebookItem?.available_until)
          
-         if(isAssistantOrInstructor) return cmf('gray.700', 'gray.300')
-         
-         if(!gradebookItem?.available_until || hasSubmittedAnAttempt) return cmf('gray.300', 'gray.300')
+         if(!gradebookItem?.available_until ||isAssistantOrInstructor) return 'gray.700'
+         if(hasSubmittedAnAttempt) return 'gray.700'
          
          if(!dateHasPassed) {
             if(differenceInDays(new Date(gradebookItem.available_until), new Date()) < 2) {
